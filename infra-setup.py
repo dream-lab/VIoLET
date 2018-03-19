@@ -9,40 +9,47 @@ from threading import Thread
 startTime = datetime.now()
 
 #Init Variables
-hosts = []
-
+hosts = [
+"ec2-18-218-52-187.us-east-2.compute.amazonaws.com",
+"ec2-18-222-57-93.us-east-2.compute.amazonaws.com"
+]
 device_vm = {}
 device_ip = {}
-edge_device = [None]*1000
-
-#Init Variables
-devices = json.load(open('dump/topo-devices'))
-num_devices = len(devices)
-private_networks_dict = json.load(open('dump/topo-pvt'))
-public_networks_dict = json.load(open('dump/topo-pub'))
-fog_device = json.load(open('dump/topo-fog-devices'))
-edge_device = json.load(open('dump/topo-edge-devices'))
-#partitions = json.load(open('dump/algo-partitions'))
-partitions = {}
+infra_config = json.load(open("infra-config.json"))
+edge_devices = infra_config["devices"]["Edge"].keys()
+fog_devices = infra_config["devices"]["Fog"].keys()
+devices = fog_devices + edge_devices
+private_networks_dict = infra_config["private_networks"]
+public_networks_dict = infra_config["public_networks"]
+partitions = json.load(open('dump/algo-partitions'))
+data_path_copy_vm = ["/home/centos/VIoLET/datagen.tar.gz"]
 
 
-#Create AWS connection
-key_path = ""
-user=""
+#CREATE AWS CONNECTION
+key_path = "/home/centos/CIBO-CentOS.pem"
+user="centos"
 k = paramiko.RSAKey.from_private_key_file(key_path)
 c = paramiko.SSHClient()
 c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-
 print
 print
 print ("**************************************************************************")
-print ("                            DEPLOYING CIBO                                ")
+print ("                            DEPLOYING VIoLET                              ")
 print ("**************************************************************************")
 print
 print
 
-#Create Network Bridges
+print
+print "+++++++++++++++++++++++++++++++++++++++++++++++"
+print "             Copy data to other VMs            "
+print "+++++++++++++++++++++++++++++++++++++++++++++++"
+print
+
+for i in range(1,len(hosts)):
+    for data in data_path_copy_vm:
+        os.system("scp -i {0} {1} {2}@{3}:/home/{2}".format(key_path, data, user, hosts[i]))
+
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print "          Creating overlay networks            "
@@ -56,39 +63,59 @@ command = "sudo docker network create -d overlay {0}".format(str(public_networks
 print "Creating {0} network".format(str(public_networks[0]))
 stdin , stdout, stderr = c.exec_command(command)
 print stdout.read()
+print stderr.read()
 
 private_networks = private_networks_dict.keys()
 for i in private_networks:
         command = "sudo docker network create -d overlay {0}".format(str(i))
         print "Creating {0} network".format(str(i))
         stdin , stdout, stderr = c.exec_command(command)
+        print stderr.read()
         print stdout.read()
 c.close()
 
-#Create Containers
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print "      Creating containers (IoT devices)        "
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print
 
-for i in range(num_devices):
-    cpus = ""
-    commands = ["sudo docker run --ulimit nofile=50000:50000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro --cpus={1}  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {0} --name {0} centos_systemd > /dev/null &".format(devices[i],cpus)]
-    metis = partitions[devices[i]]
-    j = int(metis)+1 # 0 is Admin VM
-    print hosts[j]
-    print "Creating {0} in {1} \n {2}".format(devices[i],j,hosts[j])
-    device_vm[devices[i]] = hosts[j]
-    c.connect( hostname = hosts[j], username = user, pkey = k )
+#CREATE FOG DEVICES
+for f in fog_devices:
+    print "CHANGE THE CPUS in INFRA later!!"
+    device_type = infra_config["devices"]["Fog"][f]["device_type"]
+    cpus = infra_config["fog_device_types"][device_type]["cpus"]
+    commands = ["sudo docker run --ulimit nofile=50000:50000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro --cpus={1}  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {0} --name {0} centos_systemd > /dev/null &".format(f,cpus)]
+    metis = partitions[f]
+    index = int(metis)+1 #0 is Admin VM
+    index = 1 #test
+    device_vm[f] = hosts[index]
+    c.connect( hostname = hosts[index], username = user, pkey = k )
     for command in commands:
         print command
         stdin, stdout, stderr = c.exec_command(command)
         print stdout.read()
         print stderr.read()
-    device=devices[i]
+    c.close()
 
-#Establish Network Connectivity
+#CREATE EDGE DEVICES
+for e in edge_devices:
+    device_type = infra_config["devices"]["Edge"][e]["device_type"]
+    cpus = infra_config["edge_device_types"][device_type]["cpus"]
+    commands = ["sudo docker run --ulimit nofile=50000:50000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro --cpus={1}  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {0} --name {0} centos_systemd > /dev/null &".format(e,cpus)]
+    metis = partitions[e]
+    index = int(metis)+1 # 0 is Admin VM
+    index = 1 #test
+    print "Creating {0} in {1} \n {2}".format(e,index,hosts[index])
+    device_vm[e] = hosts[index]
+    c.connect( hostname = hosts[index], username = user, pkey = k )
+    for command in commands:
+        print command
+        stdin, stdout, stderr = c.exec_command(command)
+        print stdout.read()
+        print stderr.read()
+    c.close()
+
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print "      Establishing network connectivity        "
@@ -122,7 +149,6 @@ for i in range(len(private_networks_dict)):
 
     for j in range(len(private_networks_dict[private_network[i]]["conn_dev"])):
         device = private_networks_dict[private_network[i]]["conn_dev"][j]
-        edge_device.append(device)
         vm = device_vm[device]
         command = "sudo docker network connect {0} {1}".format(private_network[i],device)
         c.connect( hostname = vm, username = user, pkey = k )
@@ -139,7 +165,7 @@ for i in range(len(private_networks_dict)):
             print command
             print stdout.read()
             print stderr.read()
-            time.sleep(0.4)
+            time.sleep(0.2)
         command = "sudo docker exec -i {0} ip route | grep default | awk '{{print $3}}'".format(device)
         stdin , stdout, stderr = c.exec_command(command)
         print command
@@ -148,7 +174,7 @@ for i in range(len(private_networks_dict)):
 
         def_gw = stdout.read()
         def_gw = def_gw.replace(' ','')[:-1].upper()
-        print "{0} to -> {1}".format(def_gw,gw_ip)
+        print "(Default GW) Changing to -> {1}".format(def_gw,gw_ip)
         command = "sudo docker exec -i {0} route del default gw {1}".format(device,def_gw)
         stdin, stdout, stderr = c.exec_command(command)
         command = "sudo docker exec -i {0} route add default gw {1}".format(device,gw_ip)
@@ -158,6 +184,14 @@ for i in range(len(private_networks_dict)):
         ip = stdout.read()
         ip = ip.replace(' ','')[:-4]
         device_ip[device]=ip
+        command = "sudo docker exec -i {0} ip a".format(device)
+        stdin, stdout, stderr = c.exec_command(command)
+        print  "@@@@@@@@@@@@@@@@+++++++++++++++++++++@@@@@@@@@@@@@@@@@@@"
+        print stdout.read()
+        command = "sudo docker exec -i {0} ip route".format(device)
+        stdin, stdout, stderr = c.exec_command(command)
+        print stdout.read()
+        print  "@@@@@@@@@@@@@@@@+++++++++++++++++++++@@@@@@@@@@@@@@@@@@"
         c.close()
 
 print "------------------------"
@@ -175,6 +209,40 @@ for i in range(len(public_networks_dict)):
         stdin , stdout, stderr = c.exec_command(command)
         c.close()
 
+print
+print "+++++++++++++++++++++++++++++++++++++++++++++++"
+print "           Create sensors                      "
+print "+++++++++++++++++++++++++++++++++++++++++++++++"
+print
+
+edge_count = len(edge_devices)
+bundle = "datagen.tar.gz"
+
+devices_with_sensors = {}
+
+for e in edge_devices:
+    s = []
+    sensor_index = 1
+    e_sensors = infra_config["devices"]["Edge"][e]["sensors"].keys()
+    vm = device_vm[e]
+    c.connect( hostname = vm, username = user, pkey = k )
+    command = "sudo docker exec -i {0} mkdir sensors".format(e)
+    stdin , stdout, stderr = c.exec_command(command)
+    print stdout.read()
+    print stderr.read()
+    for e_sensor in e_sensors:
+        num_sensors = infra_config["devices"]["Edge"][e]["sensors"][e_sensor]
+        for i in range(1,int(num_sensors)+1):
+            sensor_file_name = e+"_"+e_sensor+"_"+str(sensor_index)
+            s.append(sensor_file_name)
+            command = "sudo docker exec -i {0} touch sensors/{1}".format(e,sensor_file_name)
+            stdin , stdout, stderr = c.exec_command(command)
+            print stdout.read()
+            print stderr.read()
+            sensor_index += 1
+    devices_with_sensors[e]=s
+
+print "\n{0}\n".format(devices_with_sensors)
 
 with open('dump/infra-hosts', 'w') as file:
      file.write(json.dumps(hosts))
@@ -189,10 +257,12 @@ with open('dump/infra-pvt', 'w') as file:
 with open('dump/infra-pub', 'w') as file:
      file.write(json.dumps(public_networks_dict))
 with open('dump/infra-fog-devices','w') as file:
-    file.write(json.dumps(fog_device))
-edge_device = list(set(edge_device))
+    file.write(json.dumps(fog_devices))
 with open('dump/infra-edge-devices','w') as file:
-    file.write(json.dumps(edge_device))
+    file.write(json.dumps(edge_devices))
+with open('dump/infra-devices-with-sensors','w') as file:
+    file.write(json.dumps(devices_with_sensors))
+
 
 print device_ip
 print device_vm

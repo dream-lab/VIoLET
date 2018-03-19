@@ -1,12 +1,12 @@
 FROM centos
 ENV container docker
 
-COPY coremark_benchmark/c_coremark.py /
+#COPY coremark_benchmark/c_coremark.py /
 
-COPY coremark_benchmark/coremark_1.exe /
-COPY coremark_benchmark/coremark_2.exe /
-COPY coremark_benchmark/coremark_4.exe /
-COPY coremark_benchmark/coremark_16.exe /
+#COPY coremark_benchmark/coremark_1.exe /
+#COPY coremark_benchmark/coremark_2.exe /
+#COPY coremark_benchmark/coremark_4.exe /
+#COPY coremark_benchmark/coremark_16.exe /
 
 RUN mkdir -p /etc/selinux/targeted/contexts/
 RUN echo '<busconfig><selinux></selinux></busconfig>' > /etc/selinux/targeted/contexts/dbus_contexts
@@ -32,8 +32,8 @@ RUN yum install -y fping
 RUN yum install htop -y
 
 RUN yum install -y openssh-clients
-COPY Raspberry_Pi_Benchmarks.tar.tgz /
-RUN tar -zxvf Raspberry_Pi_Benchmarks.tar.tgz
+#COPY Raspberry_Pi_Benchmarks.tar.tgz /
+#RUN tar -zxvf Raspberry_Pi_Benchmarks.tar.tgz
 
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
 systemd-tmpfiles-setup.service ] || rm -f $i; done); \
