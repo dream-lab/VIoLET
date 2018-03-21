@@ -1,5 +1,0 @@
-cd /Raspberry_Pi_Benchmarks/java/source\ code/whetstone-off-line
-while true
-do
-    java whetstc > output
-done &
