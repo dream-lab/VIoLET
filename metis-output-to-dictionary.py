@@ -16,7 +16,6 @@ partitions = {}
 fog = {}
 edge = {}
 
-
 #Get Partition for Fog
 for i in range(0,num_fog):
     partitions["Fog-{0}".format(i+1)] = content[i]

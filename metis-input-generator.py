@@ -5,7 +5,6 @@ from pprint import pprint
 n = 408
 m = 8
 
-
 fog=[]
 edgelist=[]
 c=6
