@@ -17,7 +17,6 @@ for i in range(1,m+1):
 
 edges = 10381
 flag = "011"
-
 metis = {}
 
 for i in range(1,n+1):

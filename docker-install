@@ -16,7 +16,6 @@ curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compos
 chmod +x /usr/local/bin/docker-compose
 
 export PATH=$PATH:/usr/local/bin/
-
 docker-compose --version
 
 

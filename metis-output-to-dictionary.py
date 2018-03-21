@@ -21,7 +21,6 @@ for i in range(0,num_fog):
     partitions["Fog-{0}".format(i+1)] = content[i]
 
 #partitions["Fog"] = fog
-
 k = num_fog
 for i in range(1, num_fog+1):
     for j in range(1, num_edge_per_network+1):
