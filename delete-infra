@@ -1,12 +1,1 @@
-#!/bin/bash
-#read -p "Enter the subnet number to be removed: " S
-
-#a=(3 4 9 10 11 15 17)
-
-
-#ssh -T node$1 <<'SSH'
-	docker rm $(docker ps -a -q) --force
-	docker network rm d1
-#SSH
-
-exit 0
+docker rm $(docker ps -a -q) --force
