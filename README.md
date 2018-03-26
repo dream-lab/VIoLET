@@ -12,7 +12,7 @@ D105 (100 Edge devices, 5 Fog devices)
 Amongst 100 Edge devices, let us assume there are 50 Raspberry Pi2B and 50 Raspberry Pi3B. Similarly let there be 4 Nvidia Jetson Tx1, Fog devices and 1 SoftIron overdrive 3000, Fog device. And let the VM be m5.12xlarge (48 cores)
 
 Going by the D105 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
-![Alt text](VIoLET/coremark.png?raw=true "Title")
+![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/coremark.png)
 
 ### Generate infra-config
 **infra-config** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. **infra-config-d105.json** is for D105 and **infra-config-d408** is for D408. User can write their own json with the exact syntax. Alternatively, for larger deployments user can use **json-gen.py** and provide the inputs as requested by the script.
