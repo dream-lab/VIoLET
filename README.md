@@ -9,7 +9,7 @@ Note: Apart from consul (a key store database) No other devices are deployed on 
 This step is needed to determine the number of VMs we will need to deploy the desired config. We can mention the number of devices, their types and network connectivity in the **infra-config.json** file. Create an Amazon VM instance. Download and Install coremark (link - ) on the VM. Follow the instructions to compile and run coremark. Once you get the coremark numbers. Calculate the number of VMs and cpus ratio for each device. The following example for D105 will explain it better.
 
 D105 (100 Edge devices, 5 Fog devices)
-Amongst 100 Edge devices, let us assume there are 50 Raspberry Pi2B and 50 Raspberry Pi3B. Similarly let there be 4 Nvidia Jetson Tx1, Fog devices and 1 SoftIron overdrive 3000, Fog device. And let the VM be m5.12xlarge (48 cores)
+Amongst 100 Edge devices, let us assume there are 50 Raspberry Pi2B devices and 50 Raspberry Pi3B devices. Similarly let there be 4 Nvidia Jetson Tx1, Fog devices and 1 SoftIron overdrive 3000, Fog device. And let the VM be m5.12xlarge (48 cores)
 
 Going by the D105 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
 ![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/coremark.png)
@@ -78,7 +78,7 @@ Run the infra-setup.py file to deploy the containers network bridges and the con
 ```sh
 python infra-setup.py
 ```
-##### Step 4 - [Sanity check]
+##### Step 3 - [Sanity check]
 Login to any of the VM (except admin VM) to view the network bridges that are created.
 ```sh
 docker network ls
@@ -88,3 +88,21 @@ Sanity check script needs the network name as an input.
 python sanity.py <network_name>
 ```
 All the numbers are gathered and are made available in **dump** directory.
+
+###Publisher-Subscriber Application
+
+The pub-sub model is used as means of data send/receive mechanism by many of the IoT applications. The pub-sub model uses MQTT protocol which comprise of a broker, publisher and subscriber. The subscriber subscribes to a topic hosted by broker. The publisher publishes data to the same topic subscribed by subscriber for the successful data transfer. 
+ 
+In order to perform sanity check of the working of our virtual environment, we designed ping-pong-ping test.
+ 
+The ping-pong-ping test comprise of 2 clients in which both act as publisher and subscriber. The first client will be publishing the data to a topic1 ("pub_" + sensor_id) as well as making an entry in file (same as topic1) and the second client will be subscribing to that topic and will be sending the received messages back to client 1 through a different topic2 ("sub_" + sensor_id) and will be saved to the file (same as topic 2) to perform correctness with the sent data from client 1. The latency is calculated by appending the timestamp with the data sent and subtracting it from the current timestamp on reception at client 1. This is saved to file ("latency_" + sensor_id). The latency data is used to calculate the relative latency percentage to see the latency variation using violin plots.
+
+####Steps to run the pub-sub application
+#####Step 1
+After successful run of infra-setup.py and sanity.py, we can start ping-pong-ping test.
+#####Step 2
+To deploy equal number of publisher and subscriber on edge devices (containers) automatically, run the following command
+```sh
+python data-gen.py
+```
+The script will run for around 20 minutes and will collect latency and send/receive of data for 180 entries (data send/receive every second for 180 seconds) on each container under above mentioned files.
