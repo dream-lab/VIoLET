@@ -6,13 +6,14 @@ For present version of VIoLET you would need Amazon EC2 instances. One of the VM
 Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance will suffice)
 
 ### Coremark calculations
-This step is needed to determine the number of VMs we will need to deploy the desired config. We can mention the number of devices, their types and network connectivity in the **infra-config.json** file. Create an Amazon VM instance. Download and Install coremark (link - ) on the VM. Follow the instructions to compile and run coremark. Once you get the coremark numbers. Calculate the number of VMs and cpus ratio for each device.<br />
-The following example for D105 will explain it better.
-<br />
+This step is needed to determine the number of VMs we will need to deploy the desired config and to compute the --cpus for every container. --cpus is an option given by the docker daemon which specifies the host machine's cpu utilization for a container. <br/>
+We can mention the number of devices, their types and network connectivity in the **infra-config.json** file. Create an Amazon VM instance. Download and Install coremark (link - ) on the VM. Follow the instructions to compile and run coremark. Once you get the coremark numbers. Calculate the number of VMs and cpus ratio for each device.<br />
+<br /> <br />
+The following example for D105 will explain it better.<br />
 D105 (100 Edge devices, 5 Fog devices)
 Amongst 100 Edge devices, let us assume there are 50 Raspberry Pi2B devices and 50 Raspberry Pi3B devices. Similarly let there be 4 Nvidia Jetson Tx1, Fog devices and 1 SoftIron overdrive 3000, Fog device. And let the VM be m5.12xlarge (48 cores)
 
-Going by the D105 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
+For D105 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
 ![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/coremark.png)
 
 ### Generate infra-config
