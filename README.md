@@ -81,10 +81,19 @@ Run the infra-setup.py file to deploy the containers network bridges and the con
 python infra-setup.py
 ```
 ##### Step 3 - [Sanity check]
+Enter the following values in **sanity.py**
+```sh
+#give the path for the private key to ssh into VM
+key_path = "" 
+
+#user name to ssh into VMs
+user = ""
+```
 Login to any of the VM (except admin VM) to view the network bridges that are created.
 ```sh
 docker network ls
 ```
+
 Sanity check script needs the network name as an input.
 ```sh
 python sanity.py <network_name>
