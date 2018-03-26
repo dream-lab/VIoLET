@@ -35,6 +35,14 @@ Start docker on other VMs using following command. Make sure you put the right I
 ```sh
 nohup /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise <host VM ip_address>:2375 --cluster-store consul://<address of the machine running consul>:8500 &
 ```
+
+<br />NOTE: ec2 instances do not come with a hard disk storage by default. User must attach and mount the EBS volume to the VMs and move /var/lib/docker to the disk and do a softlink to /var/lib/docker. For example, let us assume the disk path to be /disk. Follow these commands after stopping the docker.
+```sh
+mv /var/lib/docker /disk/docker
+ln -s /disk/docker /var/lib/docker
+#start the docker daemon as mentioned in the above command.
+```
+
 ### Run VIoLET
 
 ##### Step 1 - [Run Metis and generate partitions]
