@@ -1,0 +1,3773 @@
+{
+    "private_networks": {
+        "violet-private-8": {
+            "gw": "Fog-8",
+            "latency": "40",
+            "bw": "25",
+            "conn_dev": [
+                "Edge-8.1",
+                "Edge-8.2",
+                "Edge-8.3",
+                "Edge-8.4",
+                "Edge-8.5",
+                "Edge-8.6",
+                "Edge-8.7",
+                "Edge-8.8",
+                "Edge-8.9",
+                "Edge-8.10",
+                "Edge-8.11",
+                "Edge-8.12",
+                "Edge-8.13",
+                "Edge-8.14",
+                "Edge-8.15",
+                "Edge-8.16",
+                "Edge-8.17",
+                "Edge-8.18",
+                "Edge-8.19",
+                "Edge-8.20",
+                "Edge-8.21",
+                "Edge-8.22",
+                "Edge-8.23",
+                "Edge-8.24",
+                "Edge-8.25",
+                "Edge-8.26",
+                "Edge-8.27",
+                "Edge-8.28",
+                "Edge-8.29",
+                "Edge-8.30",
+                "Edge-8.31",
+                "Edge-8.32",
+                "Edge-8.33",
+                "Edge-8.34",
+                "Edge-8.35",
+                "Edge-8.36",
+                "Edge-8.37",
+                "Edge-8.38",
+                "Edge-8.39",
+                "Edge-8.40",
+                "Edge-8.41",
+                "Edge-8.42",
+                "Edge-8.43",
+                "Edge-8.44",
+                "Edge-8.45",
+                "Edge-8.46",
+                "Edge-8.47",
+                "Edge-8.48",
+                "Edge-8.49",
+                "Edge-8.50"
+            ]
+        },
+        "violet-private-4": {
+            "gw": "Fog-4",
+            "latency": "200",
+            "bw": "50",
+            "conn_dev": [
+                "Edge-4.1",
+                "Edge-4.2",
+                "Edge-4.3",
+                "Edge-4.4",
+                "Edge-4.5",
+                "Edge-4.6",
+                "Edge-4.7",
+                "Edge-4.8",
+                "Edge-4.9",
+                "Edge-4.10",
+                "Edge-4.11",
+                "Edge-4.12",
+                "Edge-4.13",
+                "Edge-4.14",
+                "Edge-4.15",
+                "Edge-4.16",
+                "Edge-4.17",
+                "Edge-4.18",
+                "Edge-4.19",
+                "Edge-4.20",
+                "Edge-4.21",
+                "Edge-4.22",
+                "Edge-4.23",
+                "Edge-4.24",
+                "Edge-4.25",
+                "Edge-4.26",
+                "Edge-4.27",
+                "Edge-4.28",
+                "Edge-4.29",
+                "Edge-4.30",
+                "Edge-4.31",
+                "Edge-4.32",
+                "Edge-4.33",
+                "Edge-4.34",
+                "Edge-4.35",
+                "Edge-4.36",
+                "Edge-4.37",
+                "Edge-4.38",
+                "Edge-4.39",
+                "Edge-4.40",
+                "Edge-4.41",
+                "Edge-4.42",
+                "Edge-4.43",
+                "Edge-4.44",
+                "Edge-4.45",
+                "Edge-4.46",
+                "Edge-4.47",
+                "Edge-4.48",
+                "Edge-4.49",
+                "Edge-4.50"
+            ]
+        },
+        "violet-private-5": {
+            "gw": "Fog-5",
+            "latency": "20",
+            "bw": "10",
+            "conn_dev": [
+                "Edge-5.1",
+                "Edge-5.2",
+                "Edge-5.3",
+                "Edge-5.4",
+                "Edge-5.5",
+                "Edge-5.6",
+                "Edge-5.7",
+                "Edge-5.8",
+                "Edge-5.9",
+                "Edge-5.10",
+                "Edge-5.11",
+                "Edge-5.12",
+                "Edge-5.13",
+                "Edge-5.14",
+                "Edge-5.15",
+                "Edge-5.16",
+                "Edge-5.17",
+                "Edge-5.18",
+                "Edge-5.19",
+                "Edge-5.20",
+                "Edge-5.21",
+                "Edge-5.22",
+                "Edge-5.23",
+                "Edge-5.24",
+                "Edge-5.25",
+                "Edge-5.26",
+                "Edge-5.27",
+                "Edge-5.28",
+                "Edge-5.29",
+                "Edge-5.30",
+                "Edge-5.31",
+                "Edge-5.32",
+                "Edge-5.33",
+                "Edge-5.34",
+                "Edge-5.35",
+                "Edge-5.36",
+                "Edge-5.37",
+                "Edge-5.38",
+                "Edge-5.39",
+                "Edge-5.40",
+                "Edge-5.41",
+                "Edge-5.42",
+                "Edge-5.43",
+                "Edge-5.44",
+                "Edge-5.45",
+                "Edge-5.46",
+                "Edge-5.47",
+                "Edge-5.48",
+                "Edge-5.49",
+                "Edge-5.50"
+            ]
+        },
+        "violet-private-6": {
+            "gw": "Fog-6",
+            "latency": "200",
+            "bw": "10",
+            "conn_dev": [
+                "Edge-6.1",
+                "Edge-6.2",
+                "Edge-6.3",
+                "Edge-6.4",
+                "Edge-6.5",
+                "Edge-6.6",
+                "Edge-6.7",
+                "Edge-6.8",
+                "Edge-6.9",
+                "Edge-6.10",
+                "Edge-6.11",
+                "Edge-6.12",
+                "Edge-6.13",
+                "Edge-6.14",
+                "Edge-6.15",
+                "Edge-6.16",
+                "Edge-6.17",
+                "Edge-6.18",
+                "Edge-6.19",
+                "Edge-6.20",
+                "Edge-6.21",
+                "Edge-6.22",
+                "Edge-6.23",
+                "Edge-6.24",
+                "Edge-6.25",
+                "Edge-6.26",
+                "Edge-6.27",
+                "Edge-6.28",
+                "Edge-6.29",
+                "Edge-6.30",
+                "Edge-6.31",
+                "Edge-6.32",
+                "Edge-6.33",
+                "Edge-6.34",
+                "Edge-6.35",
+                "Edge-6.36",
+                "Edge-6.37",
+                "Edge-6.38",
+                "Edge-6.39",
+                "Edge-6.40",
+                "Edge-6.41",
+                "Edge-6.42",
+                "Edge-6.43",
+                "Edge-6.44",
+                "Edge-6.45",
+                "Edge-6.46",
+                "Edge-6.47",
+                "Edge-6.48",
+                "Edge-6.49",
+                "Edge-6.50"
+            ]
+        },
+        "violet-private-7": {
+            "gw": "Fog-7",
+            "latency": "20",
+            "bw": "5",
+            "conn_dev": [
+                "Edge-7.1",
+                "Edge-7.2",
+                "Edge-7.3",
+                "Edge-7.4",
+                "Edge-7.5",
+                "Edge-7.6",
+                "Edge-7.7",
+                "Edge-7.8",
+                "Edge-7.9",
+                "Edge-7.10",
+                "Edge-7.11",
+                "Edge-7.12",
+                "Edge-7.13",
+                "Edge-7.14",
+                "Edge-7.15",
+                "Edge-7.16",
+                "Edge-7.17",
+                "Edge-7.18",
+                "Edge-7.19",
+                "Edge-7.20",
+                "Edge-7.21",
+                "Edge-7.22",
+                "Edge-7.23",
+                "Edge-7.24",
+                "Edge-7.25",
+                "Edge-7.26",
+                "Edge-7.27",
+                "Edge-7.28",
+                "Edge-7.29",
+                "Edge-7.30",
+                "Edge-7.31",
+                "Edge-7.32",
+                "Edge-7.33",
+                "Edge-7.34",
+                "Edge-7.35",
+                "Edge-7.36",
+                "Edge-7.37",
+                "Edge-7.38",
+                "Edge-7.39",
+                "Edge-7.40",
+                "Edge-7.41",
+                "Edge-7.42",
+                "Edge-7.43",
+                "Edge-7.44",
+                "Edge-7.45",
+                "Edge-7.46",
+                "Edge-7.47",
+                "Edge-7.48",
+                "Edge-7.49",
+                "Edge-7.50"
+            ]
+        },
+        "violet-private-1": {
+            "gw": "Fog-1",
+            "latency": "40",
+            "bw": "10",
+            "conn_dev": [
+                "Edge-1.1",
+                "Edge-1.2",
+                "Edge-1.3",
+                "Edge-1.4",
+                "Edge-1.5",
+                "Edge-1.6",
+                "Edge-1.7",
+                "Edge-1.8",
+                "Edge-1.9",
+                "Edge-1.10",
+                "Edge-1.11",
+                "Edge-1.12",
+                "Edge-1.13",
+                "Edge-1.14",
+                "Edge-1.15",
+                "Edge-1.16",
+                "Edge-1.17",
+                "Edge-1.18",
+                "Edge-1.19",
+                "Edge-1.20",
+                "Edge-1.21",
+                "Edge-1.22",
+                "Edge-1.23",
+                "Edge-1.24",
+                "Edge-1.25",
+                "Edge-1.26",
+                "Edge-1.27",
+                "Edge-1.28",
+                "Edge-1.29",
+                "Edge-1.30",
+                "Edge-1.31",
+                "Edge-1.32",
+                "Edge-1.33",
+                "Edge-1.34",
+                "Edge-1.35",
+                "Edge-1.36",
+                "Edge-1.37",
+                "Edge-1.38",
+                "Edge-1.39",
+                "Edge-1.40",
+                "Edge-1.41",
+                "Edge-1.42",
+                "Edge-1.43",
+                "Edge-1.44",
+                "Edge-1.45",
+                "Edge-1.46",
+                "Edge-1.47",
+                "Edge-1.48",
+                "Edge-1.49",
+                "Edge-1.50"
+            ]
+        },
+        "violet-private-2": {
+            "gw": "Fog-2",
+            "latency": "20",
+            "bw": "10",
+            "conn_dev": [
+                "Edge-2.1",
+                "Edge-2.2",
+                "Edge-2.3",
+                "Edge-2.4",
+                "Edge-2.5",
+                "Edge-2.6",
+                "Edge-2.7",
+                "Edge-2.8",
+                "Edge-2.9",
+                "Edge-2.10",
+                "Edge-2.11",
+                "Edge-2.12",
+                "Edge-2.13",
+                "Edge-2.14",
+                "Edge-2.15",
+                "Edge-2.16",
+                "Edge-2.17",
+                "Edge-2.18",
+                "Edge-2.19",
+                "Edge-2.20",
+                "Edge-2.21",
+                "Edge-2.22",
+                "Edge-2.23",
+                "Edge-2.24",
+                "Edge-2.25",
+                "Edge-2.26",
+                "Edge-2.27",
+                "Edge-2.28",
+                "Edge-2.29",
+                "Edge-2.30",
+                "Edge-2.31",
+                "Edge-2.32",
+                "Edge-2.33",
+                "Edge-2.34",
+                "Edge-2.35",
+                "Edge-2.36",
+                "Edge-2.37",
+                "Edge-2.38",
+                "Edge-2.39",
+                "Edge-2.40",
+                "Edge-2.41",
+                "Edge-2.42",
+                "Edge-2.43",
+                "Edge-2.44",
+                "Edge-2.45",
+                "Edge-2.46",
+                "Edge-2.47",
+                "Edge-2.48",
+                "Edge-2.49",
+                "Edge-2.50"
+            ]
+        },
+        "violet-private-3": {
+            "gw": "Fog-3",
+            "latency": "40",
+            "bw": "50",
+            "conn_dev": [
+                "Edge-3.1",
+                "Edge-3.2",
+                "Edge-3.3",
+                "Edge-3.4",
+                "Edge-3.5",
+                "Edge-3.6",
+                "Edge-3.7",
+                "Edge-3.8",
+                "Edge-3.9",
+                "Edge-3.10",
+                "Edge-3.11",
+                "Edge-3.12",
+                "Edge-3.13",
+                "Edge-3.14",
+                "Edge-3.15",
+                "Edge-3.16",
+                "Edge-3.17",
+                "Edge-3.18",
+                "Edge-3.19",
+                "Edge-3.20",
+                "Edge-3.21",
+                "Edge-3.22",
+                "Edge-3.23",
+                "Edge-3.24",
+                "Edge-3.25",
+                "Edge-3.26",
+                "Edge-3.27",
+                "Edge-3.28",
+                "Edge-3.29",
+                "Edge-3.30",
+                "Edge-3.31",
+                "Edge-3.32",
+                "Edge-3.33",
+                "Edge-3.34",
+                "Edge-3.35",
+                "Edge-3.36",
+                "Edge-3.37",
+                "Edge-3.38",
+                "Edge-3.39",
+                "Edge-3.40",
+                "Edge-3.41",
+                "Edge-3.42",
+                "Edge-3.43",
+                "Edge-3.44",
+                "Edge-3.45",
+                "Edge-3.46",
+                "Edge-3.47",
+                "Edge-3.48",
+                "Edge-3.49",
+                "Edge-3.50"
+            ]
+        }
+    },
+    "fog_device_types": {
+        "SI": {
+            "cpus": "6.57"
+        },
+        "TX1": {
+            "cpus": "2.27"
+        }
+    },
+    "devices": {
+        "Edge": {
+            "Edge-3.24": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.25": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.26": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.27": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.20": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.21": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.22": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.23": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.28": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.29": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.29": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.28": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.25": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.24": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.27": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.26": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.21": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.20": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.23": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.22": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.41": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.50": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-6.23": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.22": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.21": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.20": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.27": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.26": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.25": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.24": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.29": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.28": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.11": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.10": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.13": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.12": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.15": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.14": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.17": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.16": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.19": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.18": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-2.10": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.11": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.16": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.17": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.14": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.15": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-5.17": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.16": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.15": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.14": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.13": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.12": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.11": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.10": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.19": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.18": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-2.30": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.31": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.32": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.33": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.34": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-7.32": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-2.36": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.37": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.19": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.18": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.15": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.14": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.17": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.16": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.11": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.10": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.13": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.12": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.28": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.29": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.26": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.27": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.24": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.25": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.22": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.23": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.20": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.21": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-7.50": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-2.50": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-8.43": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.42": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.41": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.40": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.47": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.46": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.45": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.44": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.49": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.48": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.50": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-1.50": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.38": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.39": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.36": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.37": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.34": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.35": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.32": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.33": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.30": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.31": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.42": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.43": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.40": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.41": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.46": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.47": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.44": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.45": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.48": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.49": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-6.34": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.35": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.36": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.37": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.30": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.31": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.32": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.33": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.38": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.39": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-2.29": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.28": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.27": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.26": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.25": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.24": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.23": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.22": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.21": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.20": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-6.41": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-3.4": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-6.43": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.42": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.45": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.44": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.47": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.46": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.49": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.48": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-3.9": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.8": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-5.3": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.2": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.1": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.7": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.6": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.5": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.4": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.9": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.8": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.1": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.3": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.2": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.5": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.4": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.7": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.6": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.9": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.8": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-4.47": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.46": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.45": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.44": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.43": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.42": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.41": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.40": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-8.10": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.11": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.12": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.13": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.14": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.15": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-4.49": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.48": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.7": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.6": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.5": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.4": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.3": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.2": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.1": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.9": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.8": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.13": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.12": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.11": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.10": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.17": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.16": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.15": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.14": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.19": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.18": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-7.48": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.49": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.46": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.47": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.44": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.45": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.42": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.43": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.40": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.41": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.50": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.31": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.30": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.33": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.32": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.35": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.34": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.37": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.36": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.39": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.38": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.44": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.45": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.46": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.47": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.40": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.41": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.42": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.43": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.48": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.49": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.21": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.20": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.23": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.22": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.25": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.24": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.27": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.26": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.29": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.28": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-3.5": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-6.40": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-3.7": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.48": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.49": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.6": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.40": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.1": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.42": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.43": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.44": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.45": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.46": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.47": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.3": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.2": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-7.37": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.36": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.35": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.34": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.33": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-2.35": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-7.31": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.30": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-2.38": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.39": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-7.39": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.38": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.50": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.6": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.7": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.9": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.8": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-3.33": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.32": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.31": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.30": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.37": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.36": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.35": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.34": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.39": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-3.38": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.18": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.19": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.50": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-8.18": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.19": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-2.12": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.13": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-6.18": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.19": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.16": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.17": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.14": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.15": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.12": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.13": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.10": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.11": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.16": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.17": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.22": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.23": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.20": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.21": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.26": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.27": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.24": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.25": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.28": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-5.29": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-4.6": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.7": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.4": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.5": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.2": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.3": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.1": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.8": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.9": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-6.4": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.5": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.6": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.7": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.1": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.2": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.3": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.8": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-6.9": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.32": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.33": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.30": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.31": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.36": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.37": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.34": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.35": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.38": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.39": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-4.14": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.15": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.16": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.17": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.10": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.11": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.12": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.13": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.18": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-4.19": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.8": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.9": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.1": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.2": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.3": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.4": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.5": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.6": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.7": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-8.2": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.3": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.1": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-1.39": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.38": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-8.4": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-8.5": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-1.35": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.34": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.37": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.36": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.31": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.30": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.33": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-1.32": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-7.28": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.29": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.20": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.21": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.22": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.23": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.24": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.25": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.26": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-7.27": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi2B"
+            },
+            "Edge-2.45": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.44": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.47": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.46": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.41": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.40": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.43": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.42": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.49": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            },
+            "Edge-2.48": {
+                "sensors": {
+                    "gyroscope": "2",
+                    "accelerometer": "2",
+                    "custom": "2"
+                },
+                "device_type": "Pi3B"
+            }
+        },
+        "Fog": {
+            "Fog-2": {
+                "device_type": "SI"
+            },
+            "Fog-3": {
+                "device_type": "TX1"
+            },
+            "Fog-1": {
+                "device_type": "SI"
+            },
+            "Fog-6": {
+                "device_type": "TX1"
+            },
+            "Fog-7": {
+                "device_type": "TX1"
+            },
+            "Fog-4": {
+                "device_type": "TX1"
+            },
+            "Fog-5": {
+                "device_type": "TX1"
+            },
+            "Fog-8": {
+                "device_type": "TX1"
+            }
+        }
+    },
+    "public_networks": {
+        "violet-public-1": {
+            "latency": "20",
+            "bw": "125",
+            "conn_dev": [
+                "Fog-2",
+                "Fog-3",
+                "Fog-1",
+                "Fog-6",
+                "Fog-7",
+                "Fog-4",
+                "Fog-5",
+                "Fog-8"
+            ]
+        }
+    },
+    "edge_device_types": {
+        "Pi2B": {
+            "cpus": "0.77"
+        },
+        "Pi3B": {
+            "cpus": "1.18"
+        }
+    },
+    "sensor_types": {
+        "sensor_types": {
+            "sensor": [
+                {
+                    "dist_value": "normal",
+                    "value_params": {
+                        "variance": "1",
+                        "mean": "0"
+                    },
+                    "timestamp": "true",
+                    "rate_params": {
+                        "upper_limit": "1",
+                        "lower_limit": "0"
+                    },
+                    "sample_size": "10000",
+                    "type": "accelerometer",
+                    "dist_rate": "uniform",
+                    "id": "true"
+                },
+                {
+                    "dist_value": "poisson",
+                    "value_params": {
+                        "lambda": "5"
+                    },
+                    "timestamp": "true",
+                    "rate_params": {
+                        "variance": "1",
+                        "mean": "0"
+                    },
+                    "sample_size": "10000",
+                    "type": "gyroscope",
+                    "dist_rate": "normal",
+                    "id": "true"
+                },
+                {
+                    "dist_value": "user_defined",
+                    "value_params": {
+                        "path": "datagen/data.csv"
+                    },
+                    "timestamp": "true",
+                    "rate_params": {
+                        "path": "datagen/time.csv"
+                    },
+                    "sample_size": "10000",
+                    "type": "custom",
+                    "dist_rate": "user_defined",
+                    "id": "true"
+                }
+            ]
+        }
+    }
+}

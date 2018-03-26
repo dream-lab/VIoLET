@@ -22,8 +22,8 @@ device_ip = json.load(open('dump/infra-device-ip'))
 ip_device = {v: k for k, v in device_ip.iteritems()}
 
 #Create AWS connection
-key_path = "/home/centos/CIBO-CentOS.pem"
-user = "centos"
+key_path = ""
+user = ""
 k = paramiko.RSAKey.from_private_key_file(key_path)
 c = paramiko.SSHClient()
 c.set_missing_host_key_policy(paramiko.AutoAddPolicy())

@@ -1,8 +1,11 @@
 import json
 import random
+import sys
 
-num_devices = input("number of device?\n")
-num_pvt_networks = input("number of gateway devices?\n")
+
+
+num_devices = input("Total number of devices?\n")
+num_pvt_networks = input("Number of Gateway/Fog devices?\n")
 num_edge_devices = num_devices - num_pvt_networks
 num_edge_per_network = (num_edge_devices/num_pvt_networks)
 remanant = num_edge_devices % num_pvt_networks
@@ -48,6 +51,9 @@ for i in f_type:
 devices_meta["Edge"] = Edge
 devices_meta["Fog"] = Fog
 
+num_sensors_per_device = input("number of sensors for each edge device?\n")
+edge_denisty = input("edge_density for public networks\n")
+
 print devices_meta
 
 with open('dump/topo-devices-meta', 'w') as fd:
@@ -59,7 +65,6 @@ print
 print
 print "Creating a network topology"
 
-#Prepare device array
 devices = {}
 fog_types = []
 edge_types = []
@@ -67,6 +72,7 @@ fog_devices = {}
 edge_devices = {}
 
 
+#CREATE FOG DEVICES
 fog_types = devices_meta["Fog"].keys()
 device_index = 1
 for i in range(1,len(fog_types)):
@@ -80,9 +86,26 @@ for i in range(1,len(fog_types)):
         fog_devices[fog_name] = device_type
 devices["Fog"] = fog_devices
 
+#CREATE EDGE DEVICES
 edge_types = devices_meta["Edge"].keys()
 subnet_index = 1
 device_index = 1
+
+#CREATE SENSORS
+sensors = json.load(open("dump/sensors.json"))
+sensor_types = []
+for i in range(len(sensors["sensor_types"]["sensor"])):
+    sensor_types.append(sensors["sensor_types"]["sensor"][i]["type"])
+
+num_sensors = int(num_sensors_per_device / len(sensor_types))
+rem = num_sensors + (num_sensors_per_device % len(sensor_types))
+device_sensors = {}
+for i in range(len(sensor_types)):
+    if i == (len(sensor_types) - 1):
+        device_sensors[sensor_types[i]] = str(rem)
+    else:
+        device_sensors[sensor_types[i]] = str(num_sensors)
+
 for i in range(1,len(edge_types)):
     edge_type = edge_types[i]
     edge_type_count = devices_meta["Edge"][edge_type]["count"]
@@ -96,19 +119,9 @@ for i in range(1,len(edge_types)):
             device_index += 1
         device_type["device_type"] = edge_type
         edge_devices[edge_name] = device_type
+        edge_devices[edge_name]["sensors"] = device_sensors
 devices["Edge"] = edge_devices
 infra_config["devices"] = devices
-
-"""
-with open('dump/topo-devices', 'w') as fd:
-     fd.write(json.dumps(devices))
-with open('dump/topo-edge-devices', 'w') as fd:
-     fd.write(json.dumps(edge_device))
-with open('dump/topo-fog-devices', 'w') as fd:
-     fd.write(json.dumps(fog_devices))
-"""
-
-
 
 num_edge_per_network = (num_edge_devices/num_pvt_networks)
 
@@ -137,17 +150,6 @@ for i in range(1, num_pvt_networks+1):
     private_networks_dict[pvt]=p
 infra_config["private_networks"] = private_networks_dict
 
-#print "\nPrivate network\n"
-#print private_networks_dict
-
-"""
-with open('dump/topo-pvt', 'w') as fd:
-     fd.write(json.dumps(private_networks_dict))
-
-
-num_edge_per_network = (num_edge_devices/num_pvt_networks)
-"""
-
 #Create public networks
 public_networks_dict = {}
 BW = ["25","50","125","250"]
@@ -164,11 +166,5 @@ p["conn_dev"] = conn_dev
 public_networks_dict[pub] = p
 infra_config["public_networks"] = public_networks_dict
 
-#print "\nPublic network\n"
-#print public_networks_dict
-"""
-with open('dump/topo-pub', 'w') as fd:
-     fd.write(json.dumps(public_networks_dict))
-"""
-with open('dump/infra-config.json', 'w') as fd:
+with open('infra-config.json', 'w') as fd:
     fd.write(json.dumps(infra_config))

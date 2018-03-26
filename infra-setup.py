@@ -9,10 +9,7 @@ from threading import Thread
 startTime = datetime.now()
 
 #Init Variables
-hosts = [
-"ec2-18-218-52-187.us-east-2.compute.amazonaws.com",
-"ec2-18-222-57-93.us-east-2.compute.amazonaws.com"
-]
+hosts = []
 device_vm = {}
 device_ip = {}
 infra_config = json.load(open("infra-config.json"))
@@ -22,12 +19,14 @@ devices = fog_devices + edge_devices
 private_networks_dict = infra_config["private_networks"]
 public_networks_dict = infra_config["public_networks"]
 partitions = json.load(open('dump/algo-partitions'))
-data_path_copy_vm = ["/home/centos/VIoLET/datagen.tar.gz"]
+
+#modify this path according to the placement of the datagen.tar.gz
+data_path_copy_vm = ["datagen.tar.gz"]
 
 
 #CREATE AWS CONNECTION
-key_path = "/home/centos/CIBO-CentOS.pem"
-user="centos"
+key_path = ""
+user=""
 k = paramiko.RSAKey.from_private_key_file(key_path)
 c = paramiko.SSHClient()
 c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -82,10 +81,9 @@ print
 
 #CREATE FOG DEVICES
 for f in fog_devices:
-    print "CHANGE THE CPUS in INFRA later!!"
     device_type = infra_config["devices"]["Fog"][f]["device_type"]
     cpus = infra_config["fog_device_types"][device_type]["cpus"]
-    commands = ["sudo docker run --ulimit nofile=50000:50000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro --cpus={1}  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {0} --name {0} centos_systemd > /dev/null &".format(f,cpus)]
+    commands = ["sudo docker run --ulimit nofile=50000:50000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro --cpus={1}  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {0} --name {0} shrey67/centos_systemd > /dev/null &".format(f,cpus)]
     metis = partitions[f]
     index = int(metis)+1 #0 is Admin VM
     index = 1 #test
@@ -102,7 +100,7 @@ for f in fog_devices:
 for e in edge_devices:
     device_type = infra_config["devices"]["Edge"][e]["device_type"]
     cpus = infra_config["edge_device_types"][device_type]["cpus"]
-    commands = ["sudo docker run --ulimit nofile=50000:50000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro --cpus={1}  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {0} --name {0} centos_systemd > /dev/null &".format(e,cpus)]
+    commands = ["sudo docker run --ulimit nofile=50000:50000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro --cpus={1}  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {0} --name {0} shrey67/centos_systemd > /dev/null &".format(e,cpus)]
     metis = partitions[e]
     index = int(metis)+1 # 0 is Admin VM
     index = 1 #test
