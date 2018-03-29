@@ -2,12 +2,23 @@
 ABSTRACT: IoT deployments have been growing manifold, encompassing sensors, networks, edge, fog and cloud resources. Despite the intense interest from researchers and practitioners, most do not have access to large scale IoT testbeds for validation. Simulation environments that allow analytical modeling are a poor substitute for evaluating software platforms or application workloads in realistic computing environments. Here, we propose VIoLET, a virtual environment for defining and launching large scale IoT deployments within cloud VMs. It offers a declarative model to specify container-based compute resources that match the performance of the native edge, fog and cloud devices. They can be inter-connected by complex topologies on which private/public, bandwidth and latency rules are enforced. Users can launch their custom platforms and applications as well. We validate VIoLET for deployments with > 400 devices and > 1500 cores, and show that the virtual IoT environment closely matches the expected compute and network performance at modest costs.
 
 ### Clone the Repo
-For present version of VIoLET you would need Amazon EC2 instances. One of the VM will act as a admin VM which will deploy VIoLET infrastructure on other VMs (For the current version of VIoLET, VMs must be of same type). Clone the repository and place it on the Admin VM.<br />
+For present version of VIoLET you would need Amazon EC2 instances. One of the VM will act as a admin VM while the other VMs act as the container VMs that host the containers. (For the current version of VIoLET, container VMs must be of same type). Clone the repository and place it on the Admin VM. <br />
 Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance will suffice)
 
-### Coremark calculations
-This step is needed to determine the number of VMs we will need to deploy the desired config and to compute the --cpus for every container. --cpus is an option given by the docker daemon which specifies the host machine's cpu utilization for a container. <br/>
-We can mention the number of devices, their types and network connectivity in the **infra-config.json** file. Create an Amazon VM instance. Download and Install coremark (link - ) on the VM. Follow the instructions to compile and run coremark. Once you get the coremark numbers. Calculate the number of VMs and cpus ratio for each device.<br />
+### Calculating the number of VMs required
+This step is needed to determine the number of container VMs we will need to deploy the desired config and to compute the --cpus for every container. --cpus is an option given by the docker daemon which specifies the host machine's cpu utilization for a container. <br/>
+We can mention the number of devices, their types and network connectivity in the **infra-config.json** file. Create an Amazon VM instance. Download and Install coremark (link - https://www.eembc.org/coremark/download.php) on the VM. 
+###### Step - 1
+After registering and downloading the zipped folder of coremark, cd to the coremark directory and run the following command.
+```sh
+make XCFLAGS="-DMULTITHREAD=<number_of_VM_cores> -DUSE_FORK=1" REBUILD=1
+```
+###### Step - 2
+Run the coremark executable.
+```sh
+./coremark
+```
+Once you get the coremark numbers (Iterations/Sec). Calculate the number of VMs and cpus ratio for each device.<br />
 <br /> <br />
 The following example for D105 will explain it better.<br />
 D105 (100 Edge devices, 5 Fog devices)
