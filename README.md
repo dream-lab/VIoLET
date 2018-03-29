@@ -110,9 +110,12 @@ All the numbers are gathered and are made available in **dump** directory.
 
 ### Publisher-Subscriber Application
 
-The pub-sub model is used as means of data send/receive mechanism by many of the IoT applications. The pub-sub model uses MQTT protocol which comprise of a broker, publisher and subscriber. The subscriber subscribes to a topic hosted by broker. The publisher publishes data to the same topic subscribed by subscriber for the successful data transfer. 
- 
-In order to perform sanity check of the working of our virtual environment, we designed ping-pong-ping test.
+VIoLET allows the definition of the virtual sensors that generate data with various distributions within the edge devices (containers). It runs on top of cloud VMs or commodity clusters, allowing it to scale to hundreds or thousands of devices, provided cumulative compute capacity is available. The publisher - subscriber application is used as a means of data trnasfer mechanism by many of the IoT applications. We have developed a basic PUB-SUB applications available under apps folder.
+
+VIoLET provides the ability to simulate the generation odf sensor event streams with various sampling rates and distributions at edge devices for consumption by hosted applications. We have provided the way to initialize the sensors and their various sampling rates and distribution in JSON deployment document. You can also specify the number of sensors of the particular on a edge device to be instantiated. The edge devices are configured based on the deployment document. The virtual sensors, if scpecified, are then started on each device and their streams available on a local port in the device. This is implemented using the python-flask microframework. At this time, the virtual sensors are up and running. After this, the user is provided with the mapping of sensors on each edge devices.
+
+
+In order to perform sanity check of the working of our virtual environment, we designed a ping-pong-ping test.
  
 The ping-pong-ping test comprise of 2 clients in which both act as publisher and subscriber. The first client will be publishing the data to a topic1 (pub_sensor_id) as well as making an entry in file (data/pub/sensor_id) and the second client will be subscribing to that topic and will be sending the received messages back to client 1 through a different topic2 (sub_sensor_id) and will be saved to the file (data/sub/sensor_id) to perform correctness with the sent data from client 1. The latency is calculated by appending the timestamp with the data sent and subtracting it from the current timestamp on reception at client 1. This is saved to file (data/latency/sensor_id). The latency data is used to calculate the relative latency percentage to see the latency variation using violin plots.
 
@@ -124,4 +127,4 @@ To deploy equal number of publisher and subscriber on edge devices (containers) 
 ```sh
 python data-gen.py
 ```
-The script will run for around 20 minutes and will collect latency and send/receive of data for 180 entries (data send/receive every second for 180 seconds) on each container under above mentioned files.
+The script will run for around 20 minutes and will collect latency and send/receive of data for 3 minutes at a span of 1 second om each device under above mentioned files.
