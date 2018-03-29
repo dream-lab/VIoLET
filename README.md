@@ -2,13 +2,30 @@
 ABSTRACT: IoT deployments have been growing manifold, encompassing sensors, networks, edge, fog and cloud resources. Despite the intense interest from researchers and practitioners, most do not have access to large scale IoT testbeds for validation. Simulation environments that allow analytical modeling are a poor substitute for evaluating software platforms or application workloads in realistic computing environments. Here, we propose VIoLET, a virtual environment for defining and launching large scale IoT deployments within cloud VMs. It offers a declarative model to specify container-based compute resources that match the performance of the native edge, fog and cloud devices. They can be inter-connected by complex topologies on which private/public, bandwidth and latency rules are enforced. Users can launch their custom platforms and applications as well. We validate VIoLET for deployments with > 400 devices and > 1500 cores, and show that the virtual IoT environment closely matches the expected compute and network performance at modest costs.
 
 ## Introduction
-VIoLET deploys docker containers as devices. Each of the container's system parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are captured in **infra-config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.
+One of the VM will act as an admin VM while the other VMs act as the container-host VMs. (For the current version of VIoLET, container VMs must be of same type). The architecture diagram below best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra-config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
+
+### Highlights of deploying VIoLET
+1. Clone the repository and place it on the admin VM.
+2. Enter the desired infrastructure details in **infra-config.json**. A sample for infra-config is available in VIoLET/config.
+3. Decide on the Amazon VM instance type and calculate the number of VMs needed to host the desired infra.
+4. Run metis and generate partitions. This will ensure the containers are optimally distributed across the VMs keeping bandwidth and cpu resources as a constraint.
+5. Enter the details pertaining to VM (hostname,key paths, username etc) in vm.json file
+6. Deploy VIoLET
+7. Run sanity check to verify whether bandwidth and latency requirements have met.
+8. Run pub-sub application to verify the latency of an application that runs on VIoLET infrastructure.
 
 ![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/resources/VIoLET-architecture.png)
 
 ### Clone the Repo
-For present version of VIoLET you would need Amazon EC2 instances. One of the VM will act as a admin VM while the other VMs act as the container VMs that host the containers. (For the current version of VIoLET, container VMs must be of same type). Clone the repository and place it on the Admin VM. <br />
+For present version of VIoLET you would need Amazon EC2 instances.  Clone the repository and place it on the Admin VM. <br />
 Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance will suffice)
+
+
+### Generate infra-config
+**infra-config** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. **infra-config-d105.json** is for D105 and **infra-config-d408** is for D408. To use these sample json, rename the file to just **infra-config.json**. User can write their own json with the exact syntax as mentioned in the sample file. Alternatively, for larger deployments user can use **json-gen.py** and provide the inputs as requested by the script.
+```sh
+python json-gen.py 
+```
 
 ### Calculating the number of VMs required
 This step is needed to determine the number of container VMs we will need to deploy the desired config and to compute the --cpus for every container. --cpus is an option given by the docker daemon which specifies the host machine's cpu utilization for a container. <br/>
@@ -32,11 +49,6 @@ Amongst 100 Edge devices, let us assume there are 50 Raspberry Pi2B devices and 
 For D105 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
 ![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/resources/coremark.png)
 
-### Generate infra-config
-**infra-config** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. **infra-config-d105.json** is for D105 and **infra-config-d408** is for D408. To use these sample json, rename the file to just **infra-config.json**. User can write their own json with the exact syntax as mentioned in the sample file. Alternatively, for larger deployments user can use **json-gen.py** and provide the inputs as requested by the script.
-```sh
-python json-gen.py 
-```
 
 ### Docker Installation
 Install Docker on all the VMs (including the admin VM) using **docker-install** script.
