@@ -109,8 +109,8 @@ python sanity.py <network_name>
 All the numbers are gathered and are made available in **dump** directory.
 
 ### Publisher-Subscriber Application
-
-The pub-sub model is used as means of data send/receive mechanism by many of the IoT applications. The pub-sub model uses MQTT protocol which comprise of a broker, publisher and subscriber. The subscriber subscribes to a topic hosted by broker. The publisher publishes data to the same topic subscribed by subscriber for the successful data transfer. 
+VIoLET allows the definition of the virtual sensors that generate data with various distributions within the edge devices (containers). It runs on top of cloud VMs or commodity clusters, allowing it to scale to hundreds or thousands of devices, provided cumulative compute capacity is available. The publisher - subscriber application is used as a means of data trnasfer mechanism by many of the IoT applications. We have developed a basic PUB-SUB applications available under apps folder.
+VIoLET provides the ability to simulate the generation odf sensor event streams with various sampling rates and distributions at edge devices for consumption by hosted applications. We have provided the way to initialize the sensors and their various sampling rates and distribution in JSON deployment document. You can also specify the number of sensors of the particular on a edge device to be instantiated. The edge devices are configured based on the deployment document. The virtual sensors, if scpecified, are then started on each device and their streams available on a local port in the device. This is implemented using the python-flask microframework. At this time, the virtual sensors are up and running. After this, the user is provided with the mapping of sensors on each edge devices.
  
 In order to perform sanity check of the working of our virtual environment, we designed ping-pong-ping test.
  
