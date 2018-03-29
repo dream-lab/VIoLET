@@ -2,10 +2,23 @@ import json
 import random
 import sys
 
+num_devices = int(sys.argv[1])
+num_pvt_networks = int(sys.argv[2])
+edge_device_types_count = sys.argv[3]
+fog_device_types_count = sys.argv[4]
+num_sensors_per_device = int(sys.argv[5])
+edge_denisty =int(sys.argv[6])
 
+edge_device_types_count = edge_device_types_count.split(",")
+fog_device_types_count = fog_device_types_count.split(",")
 
-num_devices = input("Total number of devices?\n")
-num_pvt_networks = input("Number of Gateway/Fog devices?\n")
+print edge_device_types_count
+print fog_device_types_count
+
+#num_sensors_per_device = input("number of sensors for each edge device?\n")
+#edge_denisty = input("edge_density for public networks\n")
+#num_devices = input("Total number of devices?\n")
+#num_pvt_networks = input("Number of Gateway/Fog devices?\n")
 num_edge_devices = num_devices - num_pvt_networks
 num_edge_per_network = (num_edge_devices/num_pvt_networks)
 remanant = num_edge_devices % num_pvt_networks
@@ -13,17 +26,11 @@ remanant = num_edge_devices % num_pvt_networks
 devices_meta = {}
 
 infra_config = {}
-edge_device_types = {
-    "Pi2B":{"cpus":"0.77"},
-    "Pi3B":{"cpus":"1.18"}
-}
 
-fog_device_types = {
-    "TX1":{"cpus":"2.27"},
-    "SI":{"cpus":"6.57"}
-}
-
-sensor_types = json.load(open("dump/sensors.json"))
+device_types = json.load(open("config/device_types.json"))
+edge_device_types = device_types["edge_device_types"]
+fog_device_types = device_types["fog_device_types"]
+sensor_types = json.load(open("config/sensor_types.json"))
 
 infra_config["edge_device_types"] = edge_device_types
 infra_config["fog_device_types"] = fog_device_types
@@ -34,25 +41,28 @@ devices_meta["device_count"] = num_devices
 Edge = {}
 Edge["edge_device_count"] = num_edge_devices
 e_type = edge_device_types.keys()
+j = 0
 for  i in e_type:
     e = {}
     e["cpus"] = edge_device_types[i]["cpus"]
-    e["count"] = input("Number of {0} devices?\n".format(i))
+    e["count"] = int(edge_device_types_count[j])
+    j += 1
+    #e["count"] = input("Number of {0} devices?\n".format(i))
     Edge[i] = e
 
 Fog = {}
 Fog["fog_device_count"] = num_pvt_networks
 f_type = fog_device_types.keys()
+j = 0
 for i in f_type:
     f = {}
     f["cpus"] = fog_device_types[i]["cpus"]
-    f["count"] = input("Number of {0} devices?\n".format(i))
+    f["count"] = int(fog_device_types_count[j])
+    j += 1
+    #f["count"] = input("Number of {0} devices?\n".format(i))
     Fog[i] = f
 devices_meta["Edge"] = Edge
 devices_meta["Fog"] = Fog
-
-num_sensors_per_device = input("number of sensors for each edge device?\n")
-edge_denisty = input("edge_density for public networks\n")
 
 print devices_meta
 
@@ -63,7 +73,8 @@ with open('dump/topo-devices-meta', 'w') as fd:
 
 print
 print
-print "Creating a network topology"
+print "Creating infra-config . Path =  VIoLET/config/infra-config.json"
+print "Done"
 
 devices = {}
 fog_types = []
@@ -92,7 +103,7 @@ subnet_index = 1
 device_index = 1
 
 #CREATE SENSORS
-sensors = json.load(open("dump/sensors.json"))
+sensors = json.load(open("config/sensor_types.json"))
 sensor_types = []
 for i in range(len(sensors["sensor_types"]["sensor"])):
     sensor_types.append(sensors["sensor_types"]["sensor"][i]["type"])
@@ -166,5 +177,5 @@ p["conn_dev"] = conn_dev
 public_networks_dict[pub] = p
 infra_config["public_networks"] = public_networks_dict
 
-with open('infra-config.json', 'w') as fd:
+with open('config/infra-config.json', 'w') as fd:
     fd.write(json.dumps(infra_config))

@@ -1,9 +1,32 @@
-#import numpy as np
 import random
+import os
+import sys
+import json
 from pprint import pprint
 
-n = 408
-m = 8
+infra_config = json.load(open("config/infra-config.json"))
+
+n = len(infra_config["devices"]["Edge"].keys())
+m = len(infra_config["devices"]["Fog"].keys())
+
+public_networks_bw = []
+public_networks = infra_config["public_networks"].keys()
+public_networks.sort()
+for i in range(len(public_networks)):
+    public_networks_bw.append(infra_config["public_networks"][public_networks[i]]["bw"])
+
+private_networks_bw = []
+private_networks = infra_config["private_networks"].keys()
+private_networks.sort()
+for i in range(len(private_networks)):
+    private_networks_bw.append(infra_config["private_networks"][private_networks[i]]["bw"])
+
+
+print public_networks_bw
+print private_networks_bw
+
+#n = 408
+#m = 8
 
 
 fog=[]

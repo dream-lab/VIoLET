@@ -19,9 +19,7 @@ devices = fog_devices + edge_devices
 private_networks_dict = infra_config["private_networks"]
 public_networks_dict = infra_config["public_networks"]
 partitions = json.load(open('dump/algo-partitions'))
-
-#modify this path according to the placement of the datagen.tar.gz
-data_path_copy_vm = ["datagen.tar.gz"]
+data_path_copy_vm = ["/home/centos/VIoLET/apps/PUB-SUB/datagen.tar.gz"]
 
 
 #CREATE AWS CONNECTION
@@ -81,6 +79,7 @@ print
 
 #CREATE FOG DEVICES
 for f in fog_devices:
+    print "CHANGE THE CPUS in INFRA later!!"
     device_type = infra_config["devices"]["Fog"][f]["device_type"]
     cpus = infra_config["fog_device_types"][device_type]["cpus"]
     commands = ["sudo docker run --ulimit nofile=50000:50000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro --cpus={1}  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {0} --name {0} shrey67/centos_systemd > /dev/null &".format(f,cpus)]

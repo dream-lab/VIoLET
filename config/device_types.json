@@ -1,0 +1,10 @@
+{
+   "edge_device_types" : {
+        "Pi2B":{"cpus":"0.77"},
+        "Pi3B":{"cpus":"1.18"}
+    },
+    "fog_device_types" : {
+        "TX1":{"cpus":"2.27"},
+        "SI":{"cpus":"6.57"}
+    }
+}
