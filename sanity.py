@@ -13,17 +13,17 @@ startTime = datetime.now()
 private_network = sys.argv[1]
 
 #Init Variables
-hosts = json.load(open('dump/infra-hosts'))
-devices = json.load(open('dump/infra-devices'))
-private_networks_dict = json.load(open('dump/infra-pvt'))
-public_networks_dict = json.load(open('dump/infra-pub'))
-device_vm = json.load(open('dump/infra-device-vm'))
-device_ip = json.load(open('dump/infra-device-ip'))
+hosts = json.load(open('dump/infra/infra_hosts.json'))
+devices = json.load(open('dump/infra/infra_devices.json'))
+private_networks_dict = json.load(open('dump/infra/infra_pvt.json'))
+public_networks_dict = json.load(open('dump/infra/infra_pub.json'))
+device_vm = json.load(open('dump/infra/infra_device_vm.json'))
+device_ip = json.load(open('dump/infra/infra_device_ip.json'))
 ip_device = {v: k for k, v in device_ip.iteritems()}
 
 #Create AWS connection
-key_path = ""
-user = ""
+key_path = "/home/centos/CIBO-CentOS.pem"
+user = "centos"
 k = paramiko.RSAKey.from_private_key_file(key_path)
 c = paramiko.SSHClient()
 c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -127,7 +127,7 @@ for i in range(1,num_ping+1):
 iperf["latency_numbers"] = latency_numbers
 
 for device in private_networks_dict[private_network]["conn_dev"]:
-    with open("dump/sanity-{0}".format(private_network), 'w') as file:
+    with open("dump/sanity/sanity_{0}".format(private_network), 'w') as file:
      file.write(json.dumps(iperf))
 
 print "{0} - {1}".format(private_network,datetime.now() - startTime)

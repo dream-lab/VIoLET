@@ -1,10 +1,10 @@
 {
    "edge_device_types" : {
-        "Pi2B":{"cpus":"0.77"},
-        "Pi3B":{"cpus":"1.18"}
+        "Pi2B":{"cpus":"0.77","coremark":"8910"},
+        "Pi3B":{"cpus":"1.18","coremark":"13717"}
     },
     "fog_device_types" : {
-        "TX1":{"cpus":"2.27"},
-        "SI":{"cpus":"6.57"}
+        "TX1":{"cpus":"2.27","coremark":"26371"},
+        "SI":{"cpus":"6.57","coremark":"76223"}
     }
 }

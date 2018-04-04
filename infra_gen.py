@@ -8,6 +8,8 @@ edge_device_types_count = sys.argv[3]
 fog_device_types_count = sys.argv[4]
 num_sensors_per_device = int(sys.argv[5])
 edge_denisty =int(sys.argv[6])
+container_OS = sys.argv[7]
+
 
 edge_device_types_count = edge_device_types_count.split(",")
 fog_device_types_count = fog_device_types_count.split(",")
@@ -15,10 +17,6 @@ fog_device_types_count = fog_device_types_count.split(",")
 print edge_device_types_count
 print fog_device_types_count
 
-#num_sensors_per_device = input("number of sensors for each edge device?\n")
-#edge_denisty = input("edge_density for public networks\n")
-#num_devices = input("Total number of devices?\n")
-#num_pvt_networks = input("Number of Gateway/Fog devices?\n")
 num_edge_devices = num_devices - num_pvt_networks
 num_edge_per_network = (num_edge_devices/num_pvt_networks)
 remanant = num_edge_devices % num_pvt_networks
@@ -27,6 +25,7 @@ devices_meta = {}
 
 infra_config = {}
 
+infra_config["container_OS"] = container_OS
 device_types = json.load(open("config/device_types.json"))
 edge_device_types = device_types["edge_device_types"]
 fog_device_types = device_types["fog_device_types"]
@@ -47,7 +46,6 @@ for  i in e_type:
     e["cpus"] = edge_device_types[i]["cpus"]
     e["count"] = int(edge_device_types_count[j])
     j += 1
-    #e["count"] = input("Number of {0} devices?\n".format(i))
     Edge[i] = e
 
 Fog = {}
@@ -66,14 +64,14 @@ devices_meta["Fog"] = Fog
 
 print devices_meta
 
-with open('dump/topo-devices-meta', 'w') as fd:
-     fd.write(json.dumps(devices_meta))
+#with open('dump/topo_devices_meta', 'w') as fd:
+#     fd.write(json.dumps(devices_meta))
 
 
 
 print
 print
-print "Creating infra-config . Path =  VIoLET/config/infra-config.json"
+print "Creating infra-config . Path =  VIoLET/config/infra_config.json"
 print "Done"
 
 devices = {}
@@ -81,7 +79,7 @@ fog_types = []
 edge_types = []
 fog_devices = {}
 edge_devices = {}
-
+all_devices_list = []
 
 #CREATE FOG DEVICES
 fog_types = devices_meta["Fog"].keys()
@@ -92,6 +90,7 @@ for i in range(1,len(fog_types)):
     for j in range(fog_type_count):
         device_type = {}
         fog_name = "Fog-{0}".format(device_index)
+        all_devices_list.append(fog_name)
         device_index += 1
         device_type["device_type"] = fog_type
         fog_devices[fog_name] = device_type
@@ -123,6 +122,7 @@ for i in range(1,len(edge_types)):
     for j in range(edge_type_count):
         device_type = {}
         edge_name = "Edge-{0}.{1}".format(subnet_index,device_index)
+        all_devices_list.append(edge_name)
         if (device_index == num_edge_per_network):
             device_index = 1
             subnet_index += 1
@@ -145,7 +145,7 @@ p = {}
 for i in range(1, num_pvt_networks+1):
     p = {}
     conn_dev = []
-    pvt = "violet-private-{0}".format(i)
+    pvt = "violet_private_{0}".format(i)
     gw = "Fog-{0}".format(i)
     bw = BW[random.randint(0,3)]
     latency = LATENCY[random.randint(0,3)]
@@ -167,7 +167,7 @@ BW = ["25","50","125","250"]
 LATENCY = ["5","20","50","100"]
 p = {}
 conn_dev = []
-pub = "violet-public-{0}".format(1)
+pub = "violet_public_{0}".format(1)
 bw = BW[random.randint(0,3)]
 latency = LATENCY[random.randint(0,3)]
 conn_dev = fog_devices.keys()
@@ -177,5 +177,7 @@ p["conn_dev"] = conn_dev
 public_networks_dict[pub] = p
 infra_config["public_networks"] = public_networks_dict
 
-with open('config/infra-config.json', 'w') as fd:
+with open('config/infra_config.json', 'w') as fd:
     fd.write(json.dumps(infra_config))
+with open('dump/infra/all_devices_list.json','w') as fd:
+    fd.write(json.dumps(all_devices_list))

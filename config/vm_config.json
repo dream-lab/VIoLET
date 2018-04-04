@@ -1,0 +1,26 @@
+{
+    "admin_VM" : {
+        "VIoLET_admin" : {
+            "public_DNS"    : "",
+            "key_path"      : "",
+            "user"          : ""
+        }
+    },
+    "container_host_VM" : {
+        "container_host_VM_1" : {
+            "public_DNS"    : "",
+            "key_path"      : "",
+            "user"          : ""
+        },
+        "container_host_VM_2" : {
+            "public_DNS"    : "",
+            "key_path"      : "",
+            "user"          : ""
+        },
+        "container_host_VM_3" : {
+            "public_DNS"    : "",
+            "key_path"      : "",
+            "user"          : ""
+        }
+    }
+}
