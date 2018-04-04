@@ -23,9 +23,13 @@ Note: Apart from consul (a key store database) No other devices are deployed on 
 
 ### Generate infra_config.json
 **infra_config.json** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. **infra_config_d105.json** is for D105 and **infra_config_d408.json** is for D408. To use these sample json, rename the file to just **infra_config.json**. User can write their own json with the exact syntax as mentioned in the sample file. Alternatively, for larger deployments user can use **infra_gen.py** with the following syntax.<br />
-python infra_gen.py number_of_devices number_of_fog_devices number_of_edge_device1_type,number_of_edge_device2_type number_of_fog_device1_type,number_of_fog_device2_type number_of_sensors_per_device public_network_edge_density container_image
+
 <br /> For D105 (100 Edge - {50 Pi2Bs, 50 Pi3Bs}, 5 Fog - {4 TX1, 1 SI}) the command would be as such.
 ```sh
+"""
+python infra_gen.py <number_of_devices> <number_of_fog_devices> <number_of_edge_type1,number_of_edge_type2> <number_of_fog_type_1,number_of_fog_type2> <number_of_sensors_per_device> <public_network_edge_density> <container_image>
+"""
+
 python infra_ gen.py 105 5 50,50 1,4 5 50 centos_systemd
 ```
 
