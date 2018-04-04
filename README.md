@@ -1,28 +1,28 @@
 # VIoLET: A *L*arge-scale *V*irtual *E*nvironment for *I*nternet *o*f *T*hings
 ABSTRACT: IoT deployments have been growing manifold, encompassing sensors, networks, edge, fog and cloud resources. Despite the intense interest from researchers and practitioners, most do not have access to large scale IoT testbeds for validation. Simulation environments that allow analytical modeling are a poor substitute for evaluating software platforms or application workloads in realistic computing environments. Here, we propose VIoLET, a virtual environment for defining and launching large scale IoT deployments within cloud VMs. It offers a declarative model to specify container-based compute resources that match the performance of the native edge, fog and cloud devices. They can be inter-connected by complex topologies on which private/public, bandwidth and latency rules are enforced. Users can launch their custom platforms and applications as well. We validate VIoLET for deployments with > 400 devices and > 1500 cores, and show that the virtual IoT environment closely matches the expected compute and network performance at modest costs.
 
-## Introduction
-One of the VM will act as an admin VM while the other VMs act as the container-host VMs. (For the current version of VIoLET, container VMs must be of same type). The architecture diagram below best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra_config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
+## VIoLET setup
+In VIoLET, one of the VM will act as an admin VM while the other VMs act as the container-host VMs. (For the current version of VIoLET, container VMs must be of same type). The architecture diagram below, best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra_config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
 
 ### Highlights of deploying VIoLET
 1. Clone the repository and place it on the admin VM.
-2. Enter the desired infrastructure details in **infra_config.json**. A sample for infra-config is available in VIoLET/config.
+2. Enter the desired infrastructure details in **infra_config.json**. Samples for infra_config is available in VIoLET/config.
 3. Decide on the Amazon VM instance type and calculate the number of VMs needed to host the desired infra.
 4. Run metis and generate partitions. This will ensure the containers are optimally distributed across the VMs keeping bandwidth and cpu resources as a constraint.
-5. Enter the details pertaining to VM (hostname,key paths, username etc) in config/vm_config.json file
+5. Enter the details pertaining to VM (hostname,key path, username etc) in config/vm_config.json file
 6. Deploy VIoLET
 7. Run sanity check to verify whether bandwidth and latency requirements have met.
-8. Run pub-sub application to verify the latency of an application that runs on VIoLET infrastructure.
+8. Run pub_sub application to verify the latency of an application on VIoLET infrastructure.
 
 ![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/resources/VIoLET-architecture.png)
 
 ### Clone the Repo
-For present version of VIoLET you would need Amazon EC2 instances.  Clone the repository and place it on the Admin VM. <br />
+For present version of VIoLET you would need Amazon EC2 instances. Clone the repository and place it on the Admin VM. <br />
 Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance will suffice)
 
 
 ### Generate infra_config.json
-**infra_config.json** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. **infra_config_d105.json** is for D105 and **infra_config_d408.json** is for D408. To use these sample json, rename the file to just **infra_config.json**. User can write their own json with the exact syntax as mentioned in the sample file. Alternatively, for larger deployments user can use **infra_gen.py** with the following syntax.<br />
+**infra_config.json** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. **infra_config_d105.json** is for D105 and **infra_config_d408.json** is for D408. To use these sample json, rename the file to **infra_config.json**. User can write their own json with the exact syntax as mentioned in the sample file. Alternatively, for larger deployments user can use **infra_gen.py** with the following syntax.<br />
 
 <br /> For D105 (100 Edge - {50 Pi2Bs, 50 Pi3Bs}, 5 Fog - {4 TX1, 1 SI}) the command would be as such.
 ```sh
@@ -34,15 +34,15 @@ python infra_ gen.py 105 5 50,50 1,4 5 50 centos_systemd
 ```
 
 ### Calculating the number of VMs required
-This step is needed to determine the number of container VMs we will need to deploy the desired config and to compute the --cpus for every container. --cpus is an option given by the docker daemon which specifies the host machine's cpu utilization for a container. <br/>
-We can mention the number of devices, their types and network connectivity in the **infra-config.json** file. Create an Amazon VM instance. Download and Install coremark (link - https://www.eembc.org/coremark/download.php) on the VM. 
+This step is needed to determine the number of container VMs we will need to deploy the infra_config and to compute the --cpus for every container. --cpus is an option given by the docker daemon which specifies the host machine's cpu utilization for a container. <br/>
+We mention the number of devices, their types and network connectivity in the **infra_config.json** file. Create the Amazon VM instance. Download and Install coremark (link - https://www.eembc.org/coremark/download.php) on the VM. 
 ###### Step - 1
 After registering and downloading the zipped folder of coremark, cd to the coremark directory and run the following command. 
 ```sh
 make XCFLAGS="-DMULTITHREAD=<number_of_VM_cores> -DUSE_FORK=1" REBUILD=1
 ```
 ###### Step - 2
-Step 1 generates the a excutabble file **coremark.exe**. Run the coremark executable.
+Step 1 generates the an excutabble file **coremark.exe**. Run the coremark executable.
 ```sh
 ./coremark.exe
 ```
@@ -57,7 +57,7 @@ For D105 configuration, to determine the number of VMs and --cpus, the calculati
 
 
 ### Docker Installation
-Install Docker on all the VMs (including the admin VM) using **docker-install** script.
+Install Docker on all the VMs (including the admin VM) using **docker_install.sh** script.
 ```sh
 ./docker-install
 ```
@@ -65,7 +65,7 @@ Start consul on the admin VM with the following command. Consul is a key-store d
 ```sh
 docker run -d -p 8500:8500 -h consul --name consul progrium/consul -server -bootstrap
 ```
-Start docker on other VMs using following command. Make sure you put the right IP addresses as mentioned in the command.
+Start docker on container-host VMs using following command. Make sure you put the right IP addresses as mentioned in the command.
 ```sh
 nohup /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise <host VM ip_address>:2375 --cluster-store consul://<address of the machine running consul>:8500 &
 ```
@@ -81,20 +81,20 @@ ln -s /disk/docker /var/lib/docker
 
 ##### Step 1 - [Run Metis and generate partitions]
 ###### Step 1.1
-In the **metis-input-generator.py** file, modify the number of devices and Fog devices. (Note: these values should be the same as mentioned in previous step) Then run the following command which will generate **metis-input** file
+Run **metis_input_generator.py** that will generate **VIoLET/dump/metis/metis_input** file
 ```sh
-python metis-input-generator.py
+python metis_input_generator.py
 ```
 ###### Step 1.2
 You must install Metis in your machine (http://glaros.dtc.umn.edu/gkhome/metis/metis/download)
 run the following command.
 ```sh
-gpmetis metis-input <number_of_VMs>
+gpmetis VIoLET/dump/metis/metis_input <number_of_VMs>
 ```
 ###### Step 1.3
-Run **metis-output-to-dictionary.py** file to convert the metis output file to a python dictionary. This will generate **algo-partitions.json** file in **dump** directory which will be used by **infra-setup.py** script to distribute the containers across the VMs.
+Run **metis_output_to_dictionary.py** file to convert the metis output file to a python dictionary. This will generate **metis_partitions.json** file in VIoLET/dump/metis directory which will be used by **infra_setup.py** script to distribute the containers across the VMs.
 ```sh
-python metis-output-to-dictionary.py
+python metis_output_to_dictionary.py dump/metis/metis_input.part.<number_of_VMs>
 ```
 ##### Step 2 - [Deploy VIoLET]
 ###### Step 2.1
