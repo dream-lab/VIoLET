@@ -33,14 +33,14 @@ python infra_ gen.py 105 5 50,50 1,4 5 50 centos_systemd
 This step is needed to determine the number of container VMs we will need to deploy the desired config and to compute the --cpus for every container. --cpus is an option given by the docker daemon which specifies the host machine's cpu utilization for a container. <br/>
 We can mention the number of devices, their types and network connectivity in the **infra-config.json** file. Create an Amazon VM instance. Download and Install coremark (link - https://www.eembc.org/coremark/download.php) on the VM. 
 ###### Step - 1
-After registering and downloading the zipped folder of coremark, cd to the coremark directory and run the following command.
+After registering and downloading the zipped folder of coremark, cd to the coremark directory and run the following command. 
 ```sh
 make XCFLAGS="-DMULTITHREAD=<number_of_VM_cores> -DUSE_FORK=1" REBUILD=1
 ```
 ###### Step - 2
-Run the coremark executable.
+Step 1 generates the a excutabble file **coremark.exe**. Run the coremark executable.
 ```sh
-./coremark
+./coremark.exe
 ```
 Once you get the coremark numbers (Iterations/Sec). Calculate the number of VMs and cpus ratio for each device.<br />
 <br /> <br />
