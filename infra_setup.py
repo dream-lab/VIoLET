@@ -31,8 +31,6 @@ container_vm = vm_config["container_host_VM"]
 container_vm_names = container_vm.keys()
 
 #CREATE AWS CONNECTION
-#key_path = "/home/centos/CIBO-CentOS.pem"
-#user="centos"
 k = paramiko.RSAKey.from_private_key_file(key_path)
 c = paramiko.SSHClient()
 c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -44,18 +42,6 @@ print ("                            DEPLOYING VIoLET                            
 print ("**************************************************************************")
 print
 print
-
-"""
-print
-print "+++++++++++++++++++++++++++++++++++++++++++++++"
-print "             Copy data to other VMs            "
-print "+++++++++++++++++++++++++++++++++++++++++++++++"
-print
-
-for i in range(1,len(hosts)):
-    for data in data_path_copy_vm:
-        os.system("scp -i {0} {1} {2}@{3}:/home/{2}".format(key_path, data, user, hosts[i]))
-"""
 
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
@@ -103,11 +89,6 @@ for f in fog_devices:
     device_vm[f] = vm_name
     c.connect(hostname, username, pkey)
 
-    #metis = partitions[f]
-    #index = int(metis)+1 #0 is Admin VM
-    #index = 1 #test
-    #device_vm[f] = hosts[index]
-    #c.connect( hostname = hosts[index], username = user, pkey = k )
     print "Creating {0} in {1}".format(e,vm_name)
 
     for command in commands:
@@ -129,12 +110,6 @@ for e in edge_devices:
     pkey = container_vm[vm_name]["key_path"]
     device_vm[e] = vm_name
     c.connect(hostname, username, pkey)
-
-    #metis = partitions[e]
-    #index = int(metis)+1 # 0 is Admin VM
-    #index = 1 #test
-    #device_vm[e] = hosts[index]
-    #c.connect( hostname = hosts[index], username = user, pkey = k )
 
     print "Creating {0} in {1}".format(e,vm_name)
 
