@@ -55,11 +55,12 @@ Amongst 100 Edge devices, let us assume there are 50 Raspberry Pi2B devices and 
 For D105 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
 ![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/resources/coremark.png)
 
+Update the coremark number and --cpus in **config/device_types.json** file. Also update the VM details in **config/vm_config.json** file.
 
 ### Docker Installation
 Install Docker on all the VMs (including the admin VM) using **docker_install.sh** script.
 ```sh
-./docker-install
+./docker_install.sh
 ```
 Start consul on the admin VM with the following command. Consul is a key-store database to creat docker overlay networks.
 ```sh
@@ -70,7 +71,7 @@ Start docker on container-host VMs using following command. Make sure you put th
 nohup /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise <host VM ip_address>:2375 --cluster-store consul://<address of the machine running consul>:8500 &
 ```
 
-<br />NOTE: ec2 instances do not come with a hard disk storage by default. User must attach and mount the EBS volume to the VMs and move /var/lib/docker to the disk and do a softlink to /var/lib/docker. For example, let us assume the disk path to be /disk. Follow these commands after stopping the docker.
+<br />NOTE: ec2 instances do not come with a hard disk storage by default. User must attach and mount the EBS volume to the VMs and move **/var/lib/docker** to the disk and do a softlink to **/var/lib/docker**. For example, let us assume the disk path to be /disk. Follow these commands after stopping the docker.
 ```sh
 mv /var/lib/docker /disk/docker
 ln -s /disk/docker /var/lib/docker
@@ -81,7 +82,7 @@ ln -s /disk/docker /var/lib/docker
 
 ##### Step 1 - [Run Metis and generate partitions]
 ###### Step 1.1
-Run **metis_input_generator.py** that will generate **VIoLET/dump/metis/metis_input** file
+Run **metis_input_generator.py** that will generate **dump/metis/metis_input** file
 ```sh
 python metis_input_generator.py
 ```
@@ -89,58 +90,39 @@ python metis_input_generator.py
 You must install Metis in your machine (http://glaros.dtc.umn.edu/gkhome/metis/metis/download)
 run the following command.
 ```sh
-gpmetis VIoLET/dump/metis/metis_input <number_of_VMs>
+gpmetis dump/metis/metis_input <number_of_VMs>
 ```
 ###### Step 1.3
-Run **metis_output_to_dictionary.py** file to convert the metis output file to a python dictionary. This will generate **metis_partitions.json** file in VIoLET/dump/metis directory which will be used by **infra_setup.py** script to distribute the containers across the VMs.
+Run **metis_output_to_dictionary.py** file to convert the metis output file to a python dictionary. This will generate **metis_partitions.json** file in **dump/metis** directory which will be used by **infra_setup.py** script to distribute the containers across the VMs.
 ```sh
 python metis_output_to_dictionary.py dump/metis/metis_input.part.<number_of_VMs>
 ```
 ##### Step 2 - [Deploy VIoLET]
 ###### Step 2.1
-In infra-setup.py file enter the values for following variables.
+To deploy VIoLET, make sure the following files are present and updated.
 ```sh
-#list out the hostnames of VMs
-hosts = [] 
-
-#give the path for the private key to ssh into VM
-key_path = "" 
-
-#user name to ssh into VMs
-user = ""
-
-#copy paste the metis dictionary output here
-partitions = {}
-
-#Based on coremark benchmark calculations enter the cpu ratio of the container wrt to host VMs.
-cpus = ""
+config/infra_config.json
+config/device_types.json
+config/sensor_types.json
+config/vm_config.json
+dump/metis/metis_partitions.json
 ```
-After entering the values. Make sure the topology dictionary(s) is available in **dump** directory.
 
 ###### Step 2.2
-Run the infra-setup.py file to deploy the containers network bridges and the connectivity.
+Run the **infra_setup.py** to deploy the containers, network bridges and the connectivity.
 ```sh
-python infra-setup.py
+python infra_setup.py
 ```
 ##### Step 3 - [Sanity check]
-Enter the following values in **sanity.py**
-```sh
-#give the path for the private key to ssh into VM
-key_path = "" 
-
-#user name to ssh into VMs
-user = ""
-```
-Login to any of the VM (except admin VM) to view the network bridges that are created.
+To run the sanity check use **sanity.py** which takes network name as the command line arguement.
 ```sh
 docker network ls
 ```
-
-Sanity check script needs the network name as an input.
+Login to any of the VM (except admin VM) to view the network bridges that are created. Run the sanity script as mentioned below.
 ```sh
 python sanity.py <network_name>
 ```
-All the numbers are gathered and are made available in **dump** directory.
+All the numbers are gathered and are made available in **dump/sanity** directory.
 
 ### Publisher-Subscriber Application
 VIoLET allows the definition of the virtual sensors that generate data with various distributions within the edge devices (containers). It runs on top of cloud VMs or commodity clusters, allowing it to scale to hundreds or thousands of devices, provided cumulative compute capacity is available. The publisher - subscriber application is used as a means of data trnasfer mechanism by many of the IoT applications. We have developed a basic PUB-SUB applications available under apps folder.
