@@ -13,20 +13,25 @@ startTime = datetime.now()
 private_network = sys.argv[1]
 
 #Init Variables
-hosts = json.load(open('dump/infra/infra_hosts.json'))
-devices = json.load(open('dump/infra/infra_devices.json'))
 private_networks_dict = json.load(open('dump/infra/infra_pvt.json'))
 public_networks_dict = json.load(open('dump/infra/infra_pub.json'))
 device_vm = json.load(open('dump/infra/infra_device_vm.json'))
 device_ip = json.load(open('dump/infra/infra_device_ip.json'))
+vm_config = json.load(open("config/vm_config.json"))
 ip_device = {v: k for k, v in device_ip.iteritems()}
 
+container_vm = vm_config["container_host_VM"]
+container_vm_names = container_vm.keys()
+
+print container_vm
+print
+print container_vm_names
 #Create AWS connection
-key_path = "/home/centos/CIBO-CentOS.pem"
-user = "centos"
-k = paramiko.RSAKey.from_private_key_file(key_path)
-c = paramiko.SSHClient()
-c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+#key_path = "/home/centos/CIBO-CentOS.pem"
+#user = "centos"
+#k = paramiko.RSAKey.from_private_key_file(key_path)
+#c = paramiko.SSHClient()
+#c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 
 print
@@ -59,14 +64,34 @@ for i in range(1,num_iperf+1):
     device2 = private_networks_dict[private_network]["conn_dev"][index2]
     iperf_i["device-1"] = device1
     iperf_i["device-2"] = device2
-    vm = device_vm[device1]
-    c.connect(hostname = vm, username = user, pkey = k)
+
+    vm_name = device_vm[device1]
+    host = container_vm[vm_name]["public_DNS"]
+    user = container_vm[vm_name]["user"]
+    key = container_vm[vm_name]["key_path"]
+    k = paramiko.RSAKey.from_private_key_file(key)
+    c = paramiko.SSHClient()
+    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    c.connect(hostname = host, username = user, pkey = k)
+    #vm = device_vm[device1]
+    #c.connect(hostname = vm, username = user, pkey = k)
     command = "sudo docker exec -i {0} iperf3 -s -p 4343".format(device1)
     stdin , stdout, stderr = c.exec_command(command)
     ip = device_ip[device1]
     c.close()
-    vm = device_vm[device2]
-    c.connect(hostname = vm, username = user, pkey = k)
+
+    #vm = device_vm[device2]
+    #c.connect(hostname = vm, username = user, pkey = k)
+    vm_name = device_vm[device2]
+    host = container_vm[vm_name]["public_DNS"]
+    user = container_vm[vm_name]["user"]
+    key = container_vm[vm_name]["key_path"]
+    k = paramiko.RSAKey.from_private_key_file(key)
+    c = paramiko.SSHClient()
+    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    c.connect(hostname = host, username = user, pkey = k)
     command = "sudo docker exec -i {0} iperf3 -c {1} -p 4343 | grep sender | awk '{{print $7}}' &".format(device2,ip)
     stdin , stdout, stderr = c.exec_command(command)
     bw = stdout.read()
@@ -94,8 +119,17 @@ for i in range(1,num_ping+1):
 
     latency_i["device 1"] = device1
     latency_i["device 2"] = device2
-    vm = device_vm[device1]
-    c.connect(hostname = vm, username = user, pkey = k)
+    #vm = device_vm[device1]
+    #c.connect(hostname = vm, username = user, pkey = k)
+    vm_name = device_vm[device1]
+    host = container_vm[vm_name]["public_DNS"]
+    user = container_vm[vm_name]["user"]
+    key = container_vm[vm_name]["key_path"]
+    k = paramiko.RSAKey.from_private_key_file(key)
+    c = paramiko.SSHClient()
+    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    c.connect(hostname = host, username = user, pkey = k)
     command = "sudo docker exec -i {0} ip route | grep default | awk '{{print $3}}'".format(device1)
     stdin , stdout, stderr = c.exec_command(command)
     ip = stdout.read()
