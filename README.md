@@ -5,7 +5,7 @@ ABSTRACT: IoT deployments have been growing manifold, encompassing sensors, netw
 In VIoLET, one of the VM will act as an admin VM while the other VMs act as the container-host VMs. (For the current version of VIoLET, container VMs must be of same type). The architecture diagram below, best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra_config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
 Deploying VIoLET involves 3 parts.
 
-### Part 1 : Generate Infra and Calculate the number of container-host-VMs
+### Part 1 : Generate infra_config.json and calculate the number of container-host-VMs
 ### Part 2 : Run Metis and get the container distribution across container-host-VMs.
 ### Part 3 : Deploy VIoLET
 
