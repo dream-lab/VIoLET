@@ -1,18 +1,13 @@
 # VIoLET: A *L*arge-scale *V*irtual *E*nvironment for *I*nternet *o*f *T*hings
 ABSTRACT: IoT deployments have been growing manifold, encompassing sensors, networks, edge, fog and cloud resources. Despite the intense interest from researchers and practitioners, most do not have access to large scale IoT testbeds for validation. Simulation environments that allow analytical modeling are a poor substitute for evaluating software platforms or application workloads in realistic computing environments. Here, we propose VIoLET, a virtual environment for defining and launching large scale IoT deployments within cloud VMs. It offers a declarative model to specify container-based compute resources that match the performance of the native edge, fog and cloud devices. They can be inter-connected by complex topologies on which private/public, bandwidth and latency rules are enforced. Users can launch their custom platforms and applications as well. We validate VIoLET for deployments with > 400 devices and > 1500 cores, and show that the virtual IoT environment closely matches the expected compute and network performance at modest costs.
 
-## Overview
-Deploying VIoLET involves 3 parts.
-
-### Part 1 : 
-Generate Infra and Calculate number of container-host-VMs
-### Part 2 : 
-Run Metis and get container distribution across container-host-VMs.
-### Part 3 :
-Deploy VIoLET
-
 ## VIoLET setup
 In VIoLET, one of the VM will act as an admin VM while the other VMs act as the container-host VMs. (For the current version of VIoLET, container VMs must be of same type). The architecture diagram below, best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra_config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
+Deploying VIoLET involves 3 parts.
+
+### Part 1 : Generate Infra and Calculate the number of container-host-VMs
+### Part 2 : Run Metis and get the container distribution across container-host-VMs.
+### Part 3 : Deploy VIoLET
 
 ### Highlights of steps to deploy VIoLET
 1. Clone the repository and place it on the admin VM.
@@ -40,7 +35,7 @@ Note: Apart from consul (a key store database) No other devices are deployed on 
 python infra_gen.py <number_of_devices> <number_of_fog_devices> <number_of_edge_type1,number_of_edge_type2> <number_of_fog_type_1,number_of_fog_type2> <number_of_sensors_per_device> <public_network_edge_density> <container_image>
 """
 
-python infra_ gen.py 105 5 50,50 1,4 5 50 centos_systemd
+python infra_gen.py 105 5 50,50 1,4 5 50 centos_systemd
 ```
 
 ### Calculating the number of VMs required
