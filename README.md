@@ -156,11 +156,11 @@ The ping-pong-ping test comprise of 2 clients in which both act as publisher and
 
 ##### Steps to run the pub-sub application
 ##### Step 1
-After successful run of infra-setup.py and sanity.py, we can start ping-pong-ping test.
+After successful run of infra-setup.py and sanity.py, we can start ping-pong-ping test. First change directory to "apps/pub_sub".
 ##### Step 2
 To deploy equal number of publisher and subscriber on edge devices (containers) automatically, run the following command
 ```sh
-python data-gen.py
+python pub_sub.py
 ```
-The script will run for around 20 minutes and will collect latency and send/receive of data for 180 entries (data send/receive every second for 180 seconds) on each container under above mentioned files.
+The script will run for around 10 minutes and will collect latency and send/receive of data for 180 entries (data send/receive every second for 180 seconds) on each container under above mentioned files.
 
