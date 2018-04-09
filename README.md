@@ -5,7 +5,7 @@
 In VIoLET, one of the VM will act as an admin VM while the other VMs act as the container-host VMs. (For the current version of VIoLET, container VMs must be of same type). The architecture diagram below, best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra_config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
 Deploying VIoLET involves 4 parts.
 
-### Part 1 : Generate infra_config.json and calculate the number of container-host-VMs
+### [Part 1 : Generate infra_config.json and calculate the number of container-host-VMs] (#part---1-violet-infrastructure--vms)
 1. Clone the repository and place it on the admin VM.
 2. Enter the desired infrastructure details in **infra_config.json**. Samples for infra_config is available in VIoLET/config.
 3. Decide on the Amazon VM instance type and calculate the number of VMs needed to host the desired infra.
