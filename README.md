@@ -3,19 +3,21 @@ ABSTRACT: IoT deployments have been growing manifold, encompassing sensors, netw
 
 ## VIoLET setup
 In VIoLET, one of the VM will act as an admin VM while the other VMs act as the container-host VMs. (For the current version of VIoLET, container VMs must be of same type). The architecture diagram below, best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra_config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
-Deploying VIoLET involves 3 parts.
+Deploying VIoLET involves 4 parts.
 
 ### Part 1 : Generate infra_config.json and calculate the number of container-host-VMs
-### Part 2 : Run Metis and get the container distribution across container-host-VMs.
-### Part 3 : Deploy VIoLET
-
-### Highlights of steps to deploy VIoLET
 1. Clone the repository and place it on the admin VM.
 2. Enter the desired infrastructure details in **infra_config.json**. Samples for infra_config is available in VIoLET/config.
 3. Decide on the Amazon VM instance type and calculate the number of VMs needed to host the desired infra.
+
+### Part 2 : Run Metis and get the container distribution across container-host-VMs.
 4. Run metis and generate partitions. This will ensure the containers are optimally distributed across the VMs keeping bandwidth and cpu resources as a constraint.
 5. Enter the details pertaining to VM (hostname,key path, username etc) in config/vm_config.json file
+
+### Part 3 : Deploy VIoLET
 6. Deploy VIoLET
+
+### Part 4 : Run Apps
 7. Run sanity check to verify whether bandwidth and latency requirements have met.
 8. Run pub_sub application to verify the latency of an application on VIoLET infrastructure.
 
@@ -102,7 +104,7 @@ Run **metis_output_to_dictionary.py** file to convert the metis output file to a
 ```sh
 python metis_check.py dump/metis/metis_input.part.<number_of_VMs> <number_of_VMs>
 ```
-If the **metis_check.py** returns an error asking to re-run the gpmetis, repeat step 1.2
+Metis might over allocate the containers to a VM since it is making the partitions strictly based on Bandwidth. If the **metis_check.py** returns an error asking to re-run the gpmetis, repeat step 1.2.
 
 ##### Step 2 - [Deploy VIoLET]
 ###### Step 2.1
