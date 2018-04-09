@@ -15,7 +15,7 @@ Deploying VIoLET involves 4 parts.
 5. Enter the details pertaining to VM (hostname,key path, username etc) in config/vm_config.json file
 
 ### Part 3 : Deploy VIoLET
-6. Deploy VIoLET
+6. Deploy VIoLET using **infra_setup.py** script.
 
 ### Part 4 : Run Apps
 7. Run sanity check to verify whether bandwidth and latency requirements have met.
@@ -23,7 +23,7 @@ Deploying VIoLET involves 4 parts.
 
 ![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/resources/VIoLET-architecture.png)
 
-## Part - 1
+## Part - 1 [VIoLET Infrastructure & VMs]
 ### Clone the Repo
 For present version of VIoLET you would need Amazon EC2 instances. Clone the repository and place it on the Admin VM. <br />
 Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance will suffice)
@@ -85,7 +85,7 @@ mv /var/lib/docker /disk/docker
 ln -s /disk/docker /var/lib/docker
 #start the docker daemon as mentioned in the above command.
 ```
-## Part - 2
+## Part - 2 [Metis Partitions]
 ### Generate partitions
 
 ###### Step 1
@@ -106,7 +106,7 @@ python metis_check.py dump/metis/metis_input.part.<number_of_VMs> <number_of_VMs
 ```
 Metis might over allocate the containers to a VM since it is making the partitions strictly based on Bandwidth. If the **metis_check.py** returns an error asking to re-run the gpmetis, repeat step 2.
 
-## Part - 3
+## Part - 3 [Deploy]
 ##### Deploy VIoLET
 ###### Step 1
 To deploy VIoLET, make sure the following files are present and updated.
@@ -124,7 +124,7 @@ Run the **infra_setup.py** to deploy the containers, network bridges and the con
 python infra_setup.py
 ```
 
-## Part - 4
+## Part - 4 [Apps]
 #### Sanity check
 Sanity check script verfies the following three parameters:
 1. Bandwidth - bandwidth is measured by performing **iperf** between two devices in the given network.
