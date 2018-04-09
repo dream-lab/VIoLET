@@ -1,4 +1,4 @@
-## Directory - VIoLET/config
+ ## Directory - VIoLET/config
 
 This directory has the config files which are primary input to VIoLET.
 
@@ -20,7 +20,19 @@ This json file consists the types of devices a network can have. The following p
 Guidelines to calculate (2) and (3) for each device are given in **VIoLET/README.md** file.
 
 ### sensor_types.json
-This json file the types of sensors a device can support.
+This json file consists the types of sensors a device can support. The parameters required in this file are:
+1. Name of device type. (For example - Accelerometer, Gyroscope etc)
+2. Set id and timestamp to true to append sensor id and timestamp with the values generated based on distribution.
+3. Sample size is the number of records to be generated for the sensor data file.
+4. Distribution rate and value is used to identify the distribution for timestamp.
+5. rate and value params are required for the required paramaters for the distribution rate and value resp.
+6. Currently we support 4 types of distribution: Uniform, Gaussian (Normal), Poisson and Custom.
+7. For Uniform, set lower_limit and upper_limit.
+8. For Normal, set mean and variance.
+9. For poisson, set lambda.
+10. For custom, provide data files for timestamp and observation values to be used (complete path) for sensor generation.
+
+Note: The file contains the sample configuration of 3 types of sensors. You can add more sensors by appending new json blocks with the required fields (similar to the availabel configuration). 
 
 ### infra_config_d105.json
 This is a sample for infra_config.json file with the following:
