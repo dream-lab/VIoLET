@@ -40,6 +40,8 @@ python infra_gen.py <number_of_devices> <number_of_fog_devices> <number_of_edge_
 
 python infra_gen.py 105 5 50,50 1,4 5 50 centos_systemd
 ```
+At present, the OS image for the containers must either be shrey67/centos_systemd or it can be any docker image which has extended the shrey67/centos_systemd image. Since the image is fetched from the docker hub, the first deployment is expected to take significant amount of time. Alternatively, user can pull the image manually on all the container-host VMs as mentioned in the next few steps.
+
 
 ### Calculating the number of VMs required
 This step is needed to determine the number of container VMs we will need to deploy the infra_config and to compute the --cpus for every container. --cpus is an option given by the docker daemon which specifies the host machine's cpu utilization for a container. <br/>
@@ -65,7 +67,7 @@ For D105 configuration, to determine the number of VMs and --cpus, the calculati
 
 Update the coremark number and --cpus in **config/device_types.json** file. Also update the VM details in **config/vm_config.json** file.
 
-### Docker Installation
+### Docker Installation and Image pull
 Install Docker on all the VMs (including the admin VM) using **docker_install.sh** script.
 ```sh
 ./docker_install.sh
@@ -77,6 +79,10 @@ docker run -d -p 8500:8500 -h consul --name consul progrium/consul -server -boot
 Start docker on container-host VMs using following command. Make sure you put the right IP addresses as mentioned in the command.
 ```sh
 nohup /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise <host VM ip_address>:2375 --cluster-store consul://<address of the machine running consul>:8500 &
+```
+Pull the required docker image for VIoLET on all the container-host VMs.
+```sh
+docker pull shrey67/centos_systemd
 ```
 
 <br />NOTE: ec2 instances do not come with a hard disk storage by default. User must attach and mount the EBS volume to the VMs and move **/var/lib/docker** to the disk and do a softlink to **/var/lib/docker**. For example, let us assume the disk path to be /disk. Follow these commands after stopping the docker.
