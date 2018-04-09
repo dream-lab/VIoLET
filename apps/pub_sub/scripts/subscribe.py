@@ -24,7 +24,7 @@ def on_message(client, userdata, message):
     msg = message.payload.decode('utf-8')
     print(msg)
     print(topic2)
-    client.publish(topic2, msg)   
+    client.publish(topic2, msg)
 
 
 

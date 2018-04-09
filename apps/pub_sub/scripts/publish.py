@@ -12,10 +12,10 @@ topic1="pub_"
 topic2="sub_"
 sensor_id = "sensor"
 
-path = "apps/PUB-SUB/data/"
-sub_path = path + "sub/"
-pub_path = path + "pub/"
-lat_path = path + "latency/"
+path = ""
+sub_path = path + "sub_"
+pub_path = path + "pub_"
+lat_path = path + "latency_"
 
 
 def on_message(client, userdata, message):
@@ -74,7 +74,7 @@ def main(argv):
         client.subscribe(topic2,1)
         client.loop_stop()
         #t2 = time()
-        #print(t2-t1)        
+        #print(t2-t1)
         sleep(INTERVAL)
     client.loop_forever()
 
