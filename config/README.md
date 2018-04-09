@@ -1,4 +1,3 @@
-# README
 ## Directory - VIoLET/config
 
 This directory has the config files which are primary input to VIoLET.
