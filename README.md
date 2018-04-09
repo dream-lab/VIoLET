@@ -1,5 +1,5 @@
 # VIoLET: A *L*arge-scale *V*irtual *E*nvironment for *I*nternet *o*f *T*hings
-ABSTRACT: IoT deployments have been growing manifold, encompassing sensors, networks, edge, fog and cloud resources. Despite the intense interest from researchers and practitioners, most do not have access to large scale IoT testbeds for validation. Simulation environments that allow analytical modeling are a poor substitute for evaluating software platforms or application workloads in realistic computing environments. Here, we propose VIoLET, a virtual environment for defining and launching large scale IoT deployments within cloud VMs. It offers a declarative model to specify container-based compute resources that match the performance of the native edge, fog and cloud devices. They can be inter-connected by complex topologies on which private/public, bandwidth and latency rules are enforced. Users can launch their custom platforms and applications as well. We validate VIoLET for deployments with > 400 devices and > 1500 cores, and show that the virtual IoT environment closely matches the expected compute and network performance at modest costs.
+**ABSTRACT:** IoT deployments have been growing manifold, encompassing sensors, networks, edge, fog and cloud resources. Despite the intense interest from researchers and practitioners, most do not have access to large scale IoT testbeds for validation. Simulation environments that allow analytical modeling are a poor substitute for evaluating software platforms or application workloads in realistic computing environments. Here, we propose VIoLET, a virtual environment for defining and launching large scale IoT deployments within cloud VMs. It offers a declarative model to specify container-based compute resources that match the performance of the native edge, fog and cloud devices. They can be inter-connected by complex topologies on which private/public, bandwidth and latency rules are enforced. Users can launch their custom platforms and applications as well. We validate VIoLET for deployments with > 400 devices and > 1500 cores, and show that the virtual IoT environment closely matches the expected compute and network performance at modest costs.
 
 ## VIoLET setup
 In VIoLET, one of the VM will act as an admin VM while the other VMs act as the container-host VMs. (For the current version of VIoLET, container VMs must be of same type). The architecture diagram below, best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra_config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
@@ -23,6 +23,7 @@ Deploying VIoLET involves 4 parts.
 
 ![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/resources/VIoLET-architecture.png)
 
+## Part - 1
 ### Clone the Repo
 For present version of VIoLET you would need Amazon EC2 instances. Clone the repository and place it on the Admin VM. <br />
 Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance will suffice)
@@ -84,30 +85,30 @@ mv /var/lib/docker /disk/docker
 ln -s /disk/docker /var/lib/docker
 #start the docker daemon as mentioned in the above command.
 ```
+## Part - 2
+### Generate partitions
 
-### Run VIoLET
-
-##### Step 1 - [Run Metis and generate partitions]
-###### Step 1.1
+###### Step 1
 Run **metis_input_generator.py** that will generate **dump/metis/metis_input** file
 ```sh
 python metis_input_generator.py
 ```
-###### Step 1.2
+###### Step 2
 You must install Metis in your machine (http://glaros.dtc.umn.edu/gkhome/metis/metis/download)
 run the following command.
 ```sh
 gpmetis dump/metis/metis_input <number_of_VMs>
 ```
-###### Step 1.3
+###### Step 3
 Run **metis_output_to_dictionary.py** file to convert the metis output file to a python dictionary. This will generate **metis_partitions.json** file in **dump/metis** directory which will be used by **infra_setup.py** script to distribute the containers across the VMs.
 ```sh
 python metis_check.py dump/metis/metis_input.part.<number_of_VMs> <number_of_VMs>
 ```
-Metis might over allocate the containers to a VM since it is making the partitions strictly based on Bandwidth. If the **metis_check.py** returns an error asking to re-run the gpmetis, repeat step 1.2.
+Metis might over allocate the containers to a VM since it is making the partitions strictly based on Bandwidth. If the **metis_check.py** returns an error asking to re-run the gpmetis, repeat step 2.
 
-##### Step 2 - [Deploy VIoLET]
-###### Step 2.1
+## Part - 3
+##### Deploy VIoLET
+###### Step 1
 To deploy VIoLET, make sure the following files are present and updated.
 ```sh
 config/infra_config.json
@@ -117,12 +118,14 @@ config/vm_config.json
 dump/metis/metis_partitions.json
 ```
 
-###### Step 2.2
+###### Step 2
 Run the **infra_setup.py** to deploy the containers, network bridges and the connectivity.
 ```sh
 python infra_setup.py
 ```
-##### Step 3 - [Sanity check]
+
+## Part - 4
+#### Sanity check
 To run the sanity check use **sanity.py** which takes network name as the command line arguement.
 ```sh
 docker network ls
@@ -133,7 +136,7 @@ python sanity.py <network_name>
 ```
 All the numbers are gathered and are made available in **dump/sanity** directory.
 
-### Publisher-Subscriber Application
+#### Publisher-Subscriber Application
 VIoLET allows the definition of the virtual sensors that generate data with various distributions within the edge devices (containers). It runs on top of cloud VMs or commodity clusters, allowing it to scale to hundreds or thousands of devices, provided cumulative compute capacity is available. The publisher - subscriber application is used as a means of data trnasfer mechanism by many of the IoT applications. We have developed a basic PUB-SUB applications available under apps folder.
 VIoLET provides the ability to simulate the generation odf sensor event streams with various sampling rates and distributions at edge devices for consumption by hosted applications. We have provided the way to initialize the sensors and their various sampling rates and distribution in JSON deployment document. You can also specify the number of sensors of the particular on a edge device to be instantiated. The edge devices are configured based on the deployment document. The virtual sensors, if scpecified, are then started on each device and their streams available on a local port in the device. This is implemented using the python-flask microframework. At this time, the virtual sensors are up and running. After this, the user is provided with the mapping of sensors on each edge devices.
  
@@ -141,7 +144,7 @@ In order to perform sanity check of the working of our virtual environment, we d
  
 The ping-pong-ping test comprise of 2 clients in which both act as publisher and subscriber. The first client will be publishing the data to a topic1 ("pub_" + sensor_id) as well as making an entry in file (same as topic1) and the second client will be subscribing to that topic and will be sending the received messages back to client 1 through a different topic2 ("sub_" + sensor_id) and will be saved to the file (same as topic 2) to perform correctness with the sent data from client 1. The latency is calculated by appending the timestamp with the data sent and subtracting it from the current timestamp on reception at client 1. This is saved to file ("latency_" + sensor_id). The latency data is used to calculate the relative latency percentage to see the latency variation using violin plots.
 
-#### Steps to run the pub-sub application
+##### Steps to run the pub-sub application
 ##### Step 1
 After successful run of infra-setup.py and sanity.py, we can start ping-pong-ping test.
 ##### Step 2
