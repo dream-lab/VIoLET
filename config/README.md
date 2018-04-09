@@ -33,7 +33,7 @@ This is a sample for infra_config.json file with the following:
 1. 400 Edge devices (200 - Raspberry Pi2b, 200 - Raspberry Pi3B)
 2. 8 Fog devices (6 - Nvidia TX1, 2 - SoftIron Overdrive 3000)
 
-### File -  infra_config_small.json
+### infra_config_small.json
 This is a sample for infra_config.json file with the following:
 1. 4 Edge devices (2 - Raspberry Pi2b, 2 - Raspberry Pi3B)
 2. 2 Fog devices (1 - Nvidia TX1, 1 - SoftIron Overdrive 3000)
