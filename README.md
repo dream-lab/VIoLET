@@ -100,8 +100,10 @@ gpmetis dump/metis/metis_input <number_of_VMs>
 ###### Step 1.3
 Run **metis_output_to_dictionary.py** file to convert the metis output file to a python dictionary. This will generate **metis_partitions.json** file in **dump/metis** directory which will be used by **infra_setup.py** script to distribute the containers across the VMs.
 ```sh
-python metis_output_to_dictionary.py dump/metis/metis_input.part.<number_of_VMs>
+python metis_check.py dump/metis/metis_input.part.<number_of_VMs> <number_of_VMs>
 ```
+If the **metis_check.py** returns an error asking to re-run the gpmetis, repeat step 1.2
+
 ##### Step 2 - [Deploy VIoLET]
 ###### Step 2.1
 To deploy VIoLET, make sure the following files are present and updated.
