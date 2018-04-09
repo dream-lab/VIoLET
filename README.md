@@ -130,7 +130,7 @@ Sanity check script verfies the following three parameters:
 1. Bandwidth - bandwidth is measured by performing **iperf** between two devices in the given network.
 2. Latency - latency is measured using **fping** command.
 3. Gateway routing - Internet traffic of private network devices are routed through the respective gateway device. This is verified using **traceroute** command.
-To run the sanity check use **sanity.py** which takes network name as the command line arguement.
+<br/> To run the sanity check use **sanity.py** which takes network name as the command line arguement.
 ```sh
 docker network ls
 ```
