@@ -1,6 +1,6 @@
 ## Directory - VIoLET/dump
 
-While setting up VIoLET, the scripts generate the json files that are essential for further steps in this directory. 
+While setting up VIoLET, the scripts generate the json files that are essential to proceed with further steps. All those files are stored in this directory. 
 
 ### VIoLET/dump/metis
 This directory will have all the files related to creation of metis_partitions.
