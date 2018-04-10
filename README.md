@@ -52,7 +52,7 @@ After registering and downloading the zipped folder of coremark, cd to the corem
 make XCFLAGS="-DMULTITHREAD=<number_of_VM_cores> -DUSE_FORK=1" REBUILD=1
 ```
 ###### Step - 2
-Step 1 generates the an excutabble file **coremark.exe**. Run the coremark executable.
+Step 1 generates **coremark.exe**, an executable file. Run the coremark executable.
 ```sh
 ./coremark.exe
 ```
