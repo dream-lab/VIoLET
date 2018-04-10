@@ -10,17 +10,20 @@
         "container_host_VM_1" : {
             "public_DNS"    : "",
             "key_path"      : "",
-            "user"          : ""
+            "user"          : "",
+            "coremark"      : ""
         },
         "container_host_VM_2" : {
             "public_DNS"    : "",
             "key_path"      : "",
-            "user"          : ""
+            "user"          : "",
+            "coremark"      : ""
         },
         "container_host_VM_3" : {
             "public_DNS"    : "",
             "key_path"      : "",
-            "user"          : ""
+            "user"          : "",
+            "coremark"      : ""
         }
     }
 }
