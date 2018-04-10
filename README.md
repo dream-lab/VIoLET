@@ -126,6 +126,7 @@ config/sensor_types.json
 config/vm_config.json
 dump/metis/metis_partitions.json
 ```
+Also ensure docker daemon is started in all the container-host VMs as mentioned earlier.
 
 ###### Step 2
 Run the **infra_setup.py** to deploy the containers, network bridges and the connectivity.
