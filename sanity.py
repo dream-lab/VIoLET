@@ -23,9 +23,6 @@ ip_device = {v: k for k, v in device_ip.iteritems()}
 container_vm = vm_config["container_host_VM"]
 container_vm_names = container_vm.keys()
 
-print container_vm
-print
-print container_vm_names
 #Create AWS connection
 #key_path = "/home/centos/CIBO-CentOS.pem"
 #user = "centos"
@@ -74,15 +71,12 @@ for i in range(1,num_iperf+1):
     c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     c.connect(hostname = host, username = user, pkey = k)
-    #vm = device_vm[device1]
-    #c.connect(hostname = vm, username = user, pkey = k)
+
     command = "sudo docker exec -i {0} iperf3 -s -p 4343".format(device1)
     stdin , stdout, stderr = c.exec_command(command)
     ip = device_ip[device1]
     c.close()
 
-    #vm = device_vm[device2]
-    #c.connect(hostname = vm, username = user, pkey = k)
     vm_name = device_vm[device2]
     host = container_vm[vm_name]["public_DNS"]
     user = container_vm[vm_name]["user"]
@@ -119,8 +113,6 @@ for i in range(1,num_ping+1):
 
     latency_i["device 1"] = device1
     latency_i["device 2"] = device2
-    #vm = device_vm[device1]
-    #c.connect(hostname = vm, username = user, pkey = k)
     vm_name = device_vm[device1]
     host = container_vm[vm_name]["public_DNS"]
     user = container_vm[vm_name]["user"]
@@ -142,20 +134,16 @@ for i in range(1,num_ping+1):
     command = "sudo docker exec -i {0} fping -e -c2 -t500 {1} | grep bytes".format(device1,device_ip[device2])
     stdin , stdout, stderr = c.exec_command(command)
     output = stdout.read()
-    print output
-    print "after"
     output = output.split("\n")
-    print output
     if(len(output)>1):
         output = output[1].split(" ")
-        print output[5]
         if(output[5]):
             reachable[device2]=device_ip[device2]
             print "  {0} -> {1}  latency={2}ms (rtt)".format(device1, device2, output[5])
             latency_i["latency"]= output[5]
         latency_numbers[i] = latency_i
     else:
-        print "PROBLEM! {0} <-> {1}".format(device1,device2)
+        print "ERROR! {0} <-> {1} are either not connected or not in same network".format(device1,device2)
     c.close()
 
 iperf["latency_numbers"] = latency_numbers

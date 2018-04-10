@@ -322,7 +322,7 @@ for e in edge_devices:
             stdin , stdout, stderr = c.exec_command(command)
             sensor_index += 1
     devices_with_sensors[e]=s
-
+"""
 print "\n{0}\n".format(devices_with_sensors)
 
 print "DEVICE_VM"
@@ -352,7 +352,7 @@ print
 print "device_networks"
 print device_networks
 print
-
+"""
 
 with open('dump/infra/infra_device_vm.json', 'w') as file:
      file.write(json.dumps(device_vm))
