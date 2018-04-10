@@ -110,11 +110,10 @@ run the following command.
 gpmetis dump/metis/metis_input <number_of_VMs>
 ```
 ###### Step 3
-Run **metis_output_to_dictionary.py** file to convert the metis output file to a python dictionary. This will generate **metis_partitions.json** file in **dump/metis** directory which will be used by **infra_setup.py** script to distribute the containers across the VMs.
+While partitioning, Metis might over allocate the containers to a container-host VM, since it is making the partitions based on bandwidth. If the **metis_check.py** returns an error asking to re-run the gpmetis, repeat step 2. Otherwise, if the partitioning is correct, this script will generate **metis_partitions.json** file in **dump/metis** directory, which will be used by **infra_setup.py** script to distribute the containers across the VMs. This script takes 2 parameters. metis partition file and the number of VMs.
 ```sh
 python metis_check.py dump/metis/metis_input.part.<number_of_VMs> <number_of_VMs>
 ```
-Metis might over allocate the containers to a VM since it is making the partitions strictly based on Bandwidth. If the **metis_check.py** returns an error asking to re-run the gpmetis, repeat step 2.
 
 ## Part - 3 [Deploy]
 ##### Deploy VIoLET
@@ -167,4 +166,3 @@ To deploy equal number of publisher and subscriber on edge devices (containers) 
 python pub_sub.py
 ```
 The script will run for around 10 minutes and will collect latency and send/receive of data for 180 entries (data send/receive every second for 180 seconds) on each container under above mentioned files.
-
