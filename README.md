@@ -89,7 +89,7 @@ Pull the required docker image for VIoLET on all the container-host VMs.
 docker pull shrey67/centos_systemd
 ```
 
-<br />NOTE: ec2 instances do not come with a hard disk storage by default. User must attach and mount the EBS volume to the VMs and move **/var/lib/docker** to the disk and do a softlink to **/var/lib/docker**. For example, let us assume the disk path to be /disk. Follow these commands after stopping the docker.
+<br />NOTE: ec2 instances do not come with a disk storage by default. Usually, the ephermal storage drivers aren't sufficent to support the container deployment. User must attach and mount the EBS volume to the container-host VMs and move **/var/lib/docker** to the disk and do a softlink to **/var/lib/docker**. For example, let us assume the disk path to be /disk. Follow these commands after stopping the docker.
 ```sh
 mv /var/lib/docker /disk/docker
 ln -s /disk/docker /var/lib/docker
