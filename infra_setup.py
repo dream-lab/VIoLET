@@ -297,7 +297,7 @@ bundle = "datagen.tar.gz"
 devices_with_sensors = {}
 
 for e in edge_devices:
-    print "reating sensors for device - {0}".format(e)
+    print "Creating sensors for device - {0}".format(e)
     s = []
     sensor_index = 1
     e_sensors = infra_config["devices"]["Edge"][e]["sensors"].keys()
