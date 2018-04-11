@@ -1,0 +1,10 @@
+{
+   "edge_device_types" : {
+        "Pi2B":{"cpus":"0.77","coremark":"8910", "mttf_sec": "60", "probability_to_fail": "0.5"},
+        "Pi3B":{"cpus":"1.18","coremark":"13717", "mttf_sec": "120", "probability_to_fail": "0.5"}
+    },
+    "fog_device_types" : {
+        "TX1":{"cpus":"2.27","coremark":"26371","mttf_sec": "180", "probability_to_fail": "0.5"},
+        "SI":{"cpus":"6.57","coremark":"76223","mttf_sec": "240", "probability_to_fail": "0.5"}
+    }
+}
