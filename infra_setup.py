@@ -377,7 +377,7 @@ for e in edge_devices:
     c.connect(hostname = host, username = user, pkey = k)
 
     command = [
-        "sudo docker cp {0} {1}:/".format("script.py",e),
+        "sudo docker cp {0} {1}:/".format("data_gen.py",e),
         "sudo docker cp {0} {1}:/".format("sensor_data_host.py",e),
         "sudo docker cp {0} {1}:/".format("data.csv",e),
         "sudo docker cp {0} {1}:/".format("time.csv",e),
@@ -396,7 +396,7 @@ for e in edge_devices:
             sensor_file_name = e+"_"+e_sensor+"_"+str(sensor_index)
             s.append(sensor_file_name)
             params = sensor_types_dict[e_sensor]
-            command = "sudo docker exec -i {8} python script.py {0} {1} {2} {3} {4} {5} {6} {7}".format(sensor_file_name,params[0],params[1],params[2],params[3],params[4],params[5],params[6],e)
+            command = "sudo docker exec -i {8} python data_gen.py {0} {1} {2} {3} {4} {5} {6} {7}".format(sensor_file_name,params[0],params[1],params[2],params[3],params[4],params[5],params[6],e)
             #command = "sudo docker exec -i {0} touch sensors/{1}".format(e,sensor_file_name)
             stdin , stdout, stderr = c.exec_command(command)
             sensor_index += 1
