@@ -23,7 +23,7 @@ private_networks_dict = infra_config["private_networks"]
 public_networks_dict = infra_config["public_networks"]
 partitions = json.load(open('dump/metis/metis_partitions'))
 all_devices_list = json.load(open('dump/infra/all_devices_list.json'))
-
+sensor_types = json.load(open("config/sensor_types.json"))
 
 print partitions
 container_OS = infra_config["container_OS"]
@@ -46,17 +46,27 @@ print ("************************************************************************
 print
 print
 
-"""
+
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print "             Copy data to other VMs            "
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print
 
-for i in range(1,len(hosts)):
+data_path_copy_vm = [
+    "script.py",
+    "sensor_data_host.py",
+    "data/data.csv",
+    "data/time.csv"
+]
+
+for i in range(len(container_vm_names)):
     for data in data_path_copy_vm:
-        os.system("scp -i {0} {1} {2}@{3}:/home/{2}".format(key_path, data, user, hosts[i]))
-"""
+        key_path = container_vm[container_vm_names[i]]["key_path"]
+        user = container_vm[container_vm_names[i]]["user"]
+        host = container_vm[container_vm_names[i]]["public_DNS"]
+        os.system("scp -i {0} {1} {2}@{3}:/home/{2}".format(key_path, data, user, host))
+
 
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
@@ -291,8 +301,63 @@ print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print "           Create sensors                      "
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print
+
+
+sensor_types_list = sensor_types["sensor_types"]
+
+sensor_types_dict = {}
+
+for sensor in sensor_types_list:
+    sensor_id = str(sensor["id"])
+    timestamp = str(sensor["timestamp"])
+    sample_size = str(sensor["sample_size"])
+    dist_rate = str(sensor["dist_rate"])
+    dist_value = str(sensor["dist_value"])
+
+    if str(sensor["dist_rate"]) == "normal" :
+        mean = sensor["rate_params"]["mean"]
+        variance = sensor["rate_params"]["variance"]
+        rate_params = mean + "," +variance
+
+    if str(sensor["dist_rate"]) == "uniform" :
+        lower_limit = sensor["rate_params"]["lower_limit"]
+        upper_limit = sensor["rate_params"]["upper_limit"]
+        rate_params = lower_limit + "," + upper_limit
+
+    if str(sensor["dist_rate"]) == "poisson" :
+        lmbda = sensor["rate_params"]["lambda"]
+        rate_params = lmbda
+
+    if str(sensor["dist_rate"]) == "user_defined" :
+        path = sensor["rate_params"]["path"]
+        rate_params = path
+
+    if str(sensor["dist_value"]) == "normal" :
+        mean = sensor["value_params"]["mean"]
+        variance = sensor["value_params"]["variance"]
+        value_params = mean + "," + variance
+
+    if str(sensor["dist_value"]) == "uniform" :
+        lower_limit = sensor["value_params"]["lower_limit"]
+        upper_limit = sensor["value_params"]["upper_limit"]
+        value_params = lower_limit + "," + upper_limit
+
+    if str(sensor["dist_value"]) == "poisson" :
+        lmbda = sensor["value_params"]["lambda"]
+        value_params = lmbda
+
+    if str(sensor["dist_value"]) == "user_defined" :
+        path = sensor["value_params"]["path"]
+        value_params = path
+
+    params = [sensor_id, timestamp, sample_size, dist_rate, rate_params, dist_value, value_params]
+    sensor_type = str(sensor["type"])
+    sensor_types_dict[sensor_type] = params
+
+
+
 edge_count = len(edge_devices)
-bundle = "datagen.tar.gz"
+#bundle = "datagen.tar.gz"
 
 devices_with_sensors = {}
 
@@ -311,6 +376,18 @@ for e in edge_devices:
 
     c.connect(hostname = host, username = user, pkey = k)
 
+    command = [
+        "sudo docker cp {0} {1}:/".format("script.py",e),
+        "sudo docker cp {0} {1}:/".format("sensor_data_host.py",e),
+        "sudo docker cp {0} {1}:/".format("data.csv",e),
+        "sudo docker cp {0} {1}:/".format("time.csv",e),
+        "sudo docker exec -id {0} python sensor_data_host.py {1}".format(e,device_ip[e])
+    ]
+
+    for cmd in command:
+        stdin , stdout, stderr = c.exec_command(cmd)
+
+
     command = "sudo docker exec -i {0} mkdir sensors".format(e)
     stdin , stdout, stderr = c.exec_command(command)
     for e_sensor in e_sensors:
@@ -318,7 +395,9 @@ for e in edge_devices:
         for i in range(1,int(num_sensors)+1):
             sensor_file_name = e+"_"+e_sensor+"_"+str(sensor_index)
             s.append(sensor_file_name)
-            command = "sudo docker exec -i {0} touch sensors/{1}".format(e,sensor_file_name)
+            params = sensor_types_dict[e_sensor]
+            command = "sudo docker exec -i {8} python script.py {0} {1} {2} {3} {4} {5} {6} {7}".format(sensor_file_name,params[0],params[1],params[2],params[3],params[4],params[5],params[6],e)
+            #command = "sudo docker exec -i {0} touch sensors/{1}".format(e,sensor_file_name)
             stdin , stdout, stderr = c.exec_command(command)
             sensor_index += 1
     devices_with_sensors[e]=s

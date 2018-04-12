@@ -104,8 +104,8 @@ device_index = 1
 #CREATE SENSORS
 sensors = json.load(open("config/sensor_types.json"))
 sensor_types = []
-for i in range(len(sensors["sensor_types"]["sensor"])):
-    sensor_types.append(sensors["sensor_types"]["sensor"][i]["type"])
+for i in range(len(sensors["sensor_types"])):
+    sensor_types.append(sensors["sensor_types"][i]["type"])
 
 num_sensors = int(num_sensors_per_device / len(sensor_types))
 rem = num_sensors + (num_sensors_per_device % len(sensor_types))
