@@ -46,7 +46,7 @@ def main(argv):
     #rtt_array = []
     topic1 = topic1+sensor_id
     topic2 = topic2+sensor_id
-    data_path = "http://127.0.0.1:5000/sensors/" + sensor_id
+    data_path = argv[3]
 
     commands = [
 		"rm -f {0}/{1}".format(lat_path,sensor_id),
