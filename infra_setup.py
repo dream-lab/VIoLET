@@ -54,7 +54,7 @@ print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print
 
 data_path_copy_vm = [
-    "script.py",
+    "data_gen.py",
     "sensor_data_host.py",
     "data/data.csv",
     "data/time.csv"
@@ -357,81 +357,70 @@ for sensor in sensor_types_list:
 
 
 edge_count = len(edge_devices)
-#bundle = "datagen.tar.gz"
+
 
 devices_with_sensors = {}
+sensor_link = {}
 
-for e in edge_devices:
-    print "Creating sensors for device - {0}".format(e)
-    s = []
-    sensor_index = 1
-    e_sensors = infra_config["devices"]["Edge"][e]["sensors"].keys()
-    vm_name = device_vm[e]
-    host = container_vm[vm_name]["public_DNS"]
-    user = container_vm[vm_name]["user"]
-    key = container_vm[vm_name]["key_path"]
-    k = paramiko.RSAKey.from_private_key_file(key)
-    c = paramiko.SSHClient()
-    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+for n in private_networks_dict:
+    fog=private_networks_dict[n]["gw"]
+    fog_ip = device_ip[fog]
+    print fog_ip
+    linklist=[]
 
-    c.connect(hostname = host, username = user, pkey = k)
+    for e in edge_devices:
+        print "Creating sensors for device - {0}".format(e)
+        s = []
+        sensor_index = 1
+        e_sensors = infra_config["devices"]["Edge"][e]["sensors"].keys()
+        vm_name = device_vm[e]
+        host = container_vm[vm_name]["public_DNS"]
+        user = container_vm[vm_name]["user"]
+        key = container_vm[vm_name]["key_path"]
+        k = paramiko.RSAKey.from_private_key_file(key)
+        c = paramiko.SSHClient()
+        c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        c.connect(hostname = host, username = user, pkey = k)
 
-    command = [
-        "sudo docker cp {0} {1}:/".format("data_gen.py",e),
-        "sudo docker cp {0} {1}:/".format("sensor_data_host.py",e),
-        "sudo docker cp {0} {1}:/".format("data.csv",e),
-        "sudo docker cp {0} {1}:/".format("time.csv",e),
-        "sudo docker exec -id {0} python sensor_data_host.py {1}".format(e,device_ip[e])
-    ]
+        command = [
+            "sudo docker cp {0} {1}:/".format("data_gen.py",e),
+            "sudo docker cp {0} {1}:/".format("sensor_data_host.py",e),
+            "sudo docker cp {0} {1}:/".format("data.csv",e),
+            "sudo docker cp {0} {1}:/".format("time.csv",e),
+            "sudo docker exec -id {0} python sensor_data_host.py {1}".format(e,device_ip[e])
+        ]
 
-    for cmd in command:
-        stdin , stdout, stderr = c.exec_command(cmd)
+        for cmd in command:
+            stdin , stdout, stderr = c.exec_command(cmd)
+
+        c.close()
 
 
-    command = "sudo docker exec -i {0} mkdir sensors".format(e)
-    stdin , stdout, stderr = c.exec_command(command)
-    for e_sensor in e_sensors:
-        num_sensors = infra_config["devices"]["Edge"][e]["sensors"][e_sensor]
-        for i in range(1,int(num_sensors)+1):
-            sensor_file_name = e+"_"+e_sensor+"_"+str(sensor_index)
-            s.append(sensor_file_name)
-            params = sensor_types_dict[e_sensor]
-            command = "sudo docker exec -i {8} python data_gen.py {0} {1} {2} {3} {4} {5} {6} {7}".format(sensor_file_name,params[0],params[1],params[2],params[3],params[4],params[5],params[6],e)
-            #command = "sudo docker exec -i {0} touch sensors/{1}".format(e,sensor_file_name)
-            stdin , stdout, stderr = c.exec_command(command)
-            sensor_index += 1
-    devices_with_sensors[e]=s
-"""
-print "\n{0}\n".format(devices_with_sensors)
+        vm_name = device_vm[e]
+        host = container_vm[vm_name]["public_DNS"]
+        user = container_vm[vm_name]["user"]
+        key = container_vm[vm_name]["key_path"]
+        k = paramiko.RSAKey.from_private_key_file(key)
+        c = paramiko.SSHClient()
+        c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        c.connect(hostname = host, username = user, pkey = k)
 
-print "DEVICE_VM"
-print device_vm
-print
-print "DEVICE_IP"
-print device_ip
-print
-print "DEVICES"
-print devices
-print
-print "private_networks_dict"
-print private_networks_dict
-print
-print "public_networks_dict"
-print public_networks_dict
-print
-print "fog_devices"
-print fog_devices
-print
-print "edge_devices"
-print edge_devices
-print
-print "devices_with_sensors"
-print devices_with_sensors
-print
-print "device_networks"
-print device_networks
-print
-"""
+        for e_sensor in e_sensors:
+            num_sensors = infra_config["devices"]["Edge"][e]["sensors"][e_sensor]
+            for i in range(1,int(num_sensors)+1):
+                sensor_file_name = e+"_"+e_sensor+"_"+str(sensor_index)
+                s.append(sensor_file_name)
+                link = "http://"+device_ip[e]+":5000/sensors/"+sensor_file_name
+                linklist.append(link)
+                params = sensor_types_dict[e_sensor]
+                command = "sudo docker exec -i {8} python data_gen.py {0} {1} {2} {3} {4} {5} {6} {7}".format(sensor_file_name,params[0],params[1],params[2],params[3],params[4],params[5],params[6],e)
+                stdin , stdout, stderr = c.exec_command(command)
+                sensor_index += 1
+        c.close()
+
+        devices_with_sensors[e]=s
+    sensor_link[fog_ip] = linklist
+
 
 with open('dump/infra/infra_device_vm.json', 'w') as file:
      file.write(json.dumps(device_vm))
@@ -449,10 +438,9 @@ with open('dump/infra/infra_edge_devices.json','w') as file:
     file.write(json.dumps(edge_devices))
 with open('dump/infra/infra_devices_with_sensors.json','w') as file:
     file.write(json.dumps(devices_with_sensors))
-print device_networks
 with open('dump/infra/infra_device_networks.json','w') as file:
     file.write(json.dumps(device_networks))
+with open('dump/infra/infra_fog_sensor_link.json','w') as file:
+    file.write(json.dumps(sensor_link))
 
-print device_ip
-print device_vm
 print datetime.now() - startTime
