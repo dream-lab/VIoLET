@@ -172,3 +172,5 @@ To deploy equal number of publisher and subscriber on edge devices (containers) 
 python pub_sub.py
 ```
 The script will run for around 10 minutes and will collect latency and send/receive of data for 180 entries (data send/receive every second for 180 seconds) on each container under above mentioned files.
+
+### *ACKNOWLEDGEMENT: This work is supported by grants from VMWARE, Cargill and IMPRINT*
