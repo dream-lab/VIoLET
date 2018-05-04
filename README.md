@@ -32,7 +32,7 @@ Deploying VIoLET involves 4 parts.
 
 ## Part - 1 [VIoLET Infrastructure & VMs]
 ### Clone the Repo
-For present version of VIoLET you would need Amazon EC2 instances. Clone the repository and place it on the Admin VM. <br />
+To validate VIoLET we have used Amazon EC2 instances. But there is no dependency on AWS instances, you can use any VMs or machines with ssh+key access instead of ssh+password access. Clone the repository and place it on the Admin VM. <br />
 Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance will suffice)
 
 
