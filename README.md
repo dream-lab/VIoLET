@@ -9,17 +9,17 @@
 **ABSTRACT:** IoT deployments have been growing manifold, encompassing sensors, networks, edge, fog and cloud resources. Despite the intense interest from researchers and practitioners, most do not have access to large scale IoT testbeds for validation. Simulation environments that allow analytical modeling are a poor substitute for evaluating software platforms or application workloads in realistic computing environments. Here, we propose VIoLET, a virtual environment for defining and launching large scale IoT deployments within cloud VMs. It offers a declarative model to specify container-based compute resources that match the performance of the native edge, fog and cloud devices. They can be inter-connected by complex topologies on which private/public, bandwidth and latency rules are enforced. Users can launch their custom platforms and applications as well. We validate VIoLET for deployments with > 400 devices and > 1500 cores, and show that the virtual IoT environment closely matches the expected compute and network performance at modest costs.
 
 ## VIoLET setup
-All the VMs must have same centOS version as their operating system (version 7 and above). In VIoLET, one of the VM will act as an admin VM while the other VMs act as the container-host VMs. (For the current version of VIoLET, all the container VMs must be of same type).  The architecture diagram below, best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra_config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
+All the VMs must have same centOS version as their operating system (version 7 and above). In VIoLET, one of the VM will act as an admin_VM while the other VMs act as the container_host_VMs. (For the current version of VIoLET, all the container VMs must be of same type).  The architecture diagram below, best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra_config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
 Deploying VIoLET involves 4 parts.
 
 ### Part 1 : Generate infra_config.json and calculate the number of container-host-VMs
-1. Clone the repository and place it on the admin VM.
+1. Clone the repository and place it on the admin_VM.
 2. Enter the desired infrastructure details in **infra_config.json**. Samples for infra_config is available in VIoLET/config.
-3. Decide on the Amazon VM instance type and calculate the number of VMs needed to host the desired infra.
+3. Decide on the configuration of container_host_VM / Amazon VM instance type and calculate the number of VMs needed to host the desired infra.
 
-### Part 2 : Run Metis and get the container distribution across container-host-VMs.
+### Part 2 : Run Metis and get the container distribution across container_host_VMs.
 4. Run metis and generate partitions. This will ensure the containers are optimally distributed across the VMs keeping bandwidth and cpu resources as a constraint.
-5. Enter the details pertaining to VM (hostname,key path, username etc) in config/vm_config.json file
+5. Enter the details pertaining to admin_VM and container_host_VMs (hostname,key path, username etc) in config/vm_config.json file
 
 ### Part 3 : Deploy VIoLET
 6. Deploy VIoLET using **infra_setup.py** script.
@@ -32,12 +32,13 @@ Deploying VIoLET involves 4 parts.
 
 ## Part - 1 [VIoLET Infrastructure & VMs]
 ### Clone the Repo
-To validate VIoLET we have used Amazon EC2 instances. But there is no dependency on AWS instances, you can use any VMs or machines with ssh+key access instead of ssh+password access. Clone the repository and place it on the Admin VM. <br />
+To validate VIoLET we have used Amazon EC2 instances. But, there is no dependency on AWS instances as such. One can use any VMs/machines with ssh+key access instead of ssh+password access. <br />
+Clone the repository and place it on the Admin VM. <br />
 Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance will suffice)
 
 
 ### Generate infra_config.json
-**infra_config.json** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. **infra_config_d105.json** is for D105 and **infra_config_d408.json** is for D408. To use these sample json, rename the file to **infra_config.json**. User can write their own json with the exact syntax as mentioned in the sample file. Alternatively, for larger deployments user can use **infra_gen.py** with the following syntax.<br />
+**infra_config.json** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. There are few sample config files - **infra_config_d105.json** is for D105 and **infra_config_d408.json** is for D408. To use these sample json, rename the file to **infra_config.json**. Though it is preferred to use **infra_gen.py** to generate the **infra_config.json** file, user can write their own json with the exact syntax as mentioned in the sample file. Use **infra_gen.py** with the following syntax.<br />
 
 <br /> For D105 (100 Edge - {50 Pi2Bs, 50 Pi3Bs}, 5 Fog - {4 TX1, 1 SI}) the command would be as such.
 ```sh
@@ -50,7 +51,7 @@ python infra_gen.py 105 5 50,50 1,4 5 50 centos_systemd
 At present, the OS image for the containers must either be shrey67/centos_systemd or it can be any docker image which has extended the shrey67/centos_systemd image. Since the image is fetched from the docker hub, the first deployment is expected to take significant amount of time. Alternatively, user can pull the image manually on all the container-host VMs as mentioned in the next few steps.
 
 
-### Calculating the number of VMs required
+### Calculating the number of container_host_VMs required
 This step is needed to determine the number of container VMs we will need to deploy the infra_config and to compute the --cpus for every container. --cpus is an option given by the docker daemon which specifies the host machine's cpu utilization for a container. <br/>
 We mention the number of devices, their types and network connectivity in the **infra_config.json** file. Create the Amazon VM instance. Download and Install coremark (link - https://www.eembc.org/coremark/download.php) on the VM. 
 ###### Step - 1
