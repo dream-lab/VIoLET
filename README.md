@@ -4,6 +4,8 @@
 
 *To appear in the 24th International European Conference on Parallel and Distributed Computing (EuroPar), 2018 https://europar2018.org/*
 
+*Selected as a **Distinguished Paper** for presentation at the Plenary Session of EuroPar 2018*
+
 **ABSTRACT:** IoT deployments have been growing manifold, encompassing sensors, networks, edge, fog and cloud resources. Despite the intense interest from researchers and practitioners, most do not have access to large scale IoT testbeds for validation. Simulation environments that allow analytical modeling are a poor substitute for evaluating software platforms or application workloads in realistic computing environments. Here, we propose VIoLET, a virtual environment for defining and launching large scale IoT deployments within cloud VMs. It offers a declarative model to specify container-based compute resources that match the performance of the native edge, fog and cloud devices. They can be inter-connected by complex topologies on which private/public, bandwidth and latency rules are enforced. Users can launch their custom platforms and applications as well. We validate VIoLET for deployments with > 400 devices and > 1500 cores, and show that the virtual IoT environment closely matches the expected compute and network performance at modest costs.
 
 ## VIoLET setup
