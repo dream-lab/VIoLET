@@ -70,17 +70,6 @@ c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 c.connect( hostname = host, username = user, pkey = k)
 
-
-"""
-print "Creating control network interface"
-log_file.write("Creating violet_control_interface\n")
-command = "sudo docker network create -d overlay violet_control_interface"
-stdin , stdout, stderr = c.exec_command(command)
-log_file.write(stderr.read()+"\n")
-log_file.write(stdout.read()+"\n")
-"""
-
-
 public_networks = public_networks_dict.keys()
 for i in public_networks:
         command = "sudo docker network create -d overlay {0}".format(str(i))
@@ -113,11 +102,6 @@ eth_port_map = {}
 #CREATE FOG DEVICES
 for f in fog_devices:
     device_type = infra_config["devices"]["Fog"][f]["device_type"]
-    if device_type == "TX1":
-        container_OS = "shrey67/centos_systemd_cm_4"
-    elif device_type == "SI":
-        container_OS = "shrey67/centos_systemd_cm_8"
-
     cpus = infra_config["fog_device_types"][device_type]["cpus"]
     commands = ["sudo docker run --ulimit nofile=50000:50000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/work:/work --cpus={1}  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {0} --name {0} {2} > /dev/null &".format(f,cpus,container_OS)]
     vm_index = int(partitions[f])
@@ -153,7 +137,6 @@ for f in fog_devices:
 
 #CREATE EDGE DEVICES
 for e in edge_devices:
-    container_OS = "shrey67/centos_systemd_cm_2"
     device_type = infra_config["devices"]["Edge"][e]["device_type"]
     cpus = infra_config["edge_device_types"][device_type]["cpus"]
     commands = ["sudo docker run --ulimit nofile=50000:50000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/work:/work --cpus={1}  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {0} --name {0} {2} > /dev/null &".format(e,cpus,container_OS)]
@@ -265,11 +248,8 @@ for i in range(len(private_networks_dict)):
         for command in commands:
             stdin, stdout, stderr = c.exec_command(command,timeout=5)
             log_file.write(command+"\n")
-            try:
-                log_file.write(stdout.read()+"\n")
-                log_file.write(stderr.read()+"\n")
-            except:
-                continue
+            log_file.write(stdout.read()+"\n")
+            log_file.write(stderr.read()+"\n")
             time.sleep(0.2)
         command = "sudo docker exec -i {0} ip route | grep default | awk '{{print $3}}'".format(device)
         stdin , stdout, stderr = c.exec_command(command,timeout=5)
@@ -287,10 +267,7 @@ for i in range(len(private_networks_dict)):
         command = "sudo docker exec -i {0} ip a | grep eth1 | awk 'FNR == 2 {{print $2}}'".format(device)
         stdin, stdout, stderr = c.exec_command(command,timeout=5)
         time.sleep(.5)
-        try:
-            ip = stdout.read()
-        except:
-            ip = ""
+        ip = stdout.read()
         ip = ip.replace(' ','')[:-4]
         #print "Device({0}) IP - {1}".format(device,ip)
         device_ip[device]=ip
@@ -359,39 +336,6 @@ for i in range(len(public_networks_dict)):
 
 
         c.close()
-print
-print
-print "*****PORT MAP*****"
-print eth_port_map
-print
-print
-print
-
-"""
-print "-------------------------"
-print "Creating control network"
-print "-------------------------"
-
-log_file.write("\n\n++++++++++ CREATING CONTROL NETWORKS  ++++++++++\n")
-
-for d in all_devices_list:
-    vm_name = device_vm[d]
-    host = container_vm[vm_name]["public_DNS"]
-    user = container_vm[vm_name]["user"]
-    key = container_vm[vm_name]["key_path"]
-    k = paramiko.RSAKey.from_private_key_file(key)
-    c = paramiko.SSHClient()
-    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-
-    c.connect(hostname = host, username = user, pkey = k)
-
-    command = "sudo docker network connect violet_control_interface {0}".format(d)
-    device_networks[d].append("violet_control_interface")
-    print "Connecting {0} to violet_control_interface".format(d)
-    log_file.write("Connecting {0} to violet_control_interface \n".format(d))
-    stdin, stdout, stderr = c.exec_command(command)
-
-"""
 
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
@@ -440,29 +384,18 @@ with open('dump/infra/infra_fog_devices.json','w') as file:
     file.write(json.dumps(fog_devices))
 with open('dump/infra/infra_edge_devices.json','w') as file:
     file.write(json.dumps(edge_devices))
-
 with open('dump/infra/infra_devices_with_sensors.json','w') as file:
     file.write(json.dumps(devices_with_sensors))
-
 with open('dump/infra/eth_port_map.json','w') as file:
     file.write(json.dumps(eth_port_map))
-
-print device_networks
 with open('dump/infra/infra_device_networks.json','w') as file:
     file.write(json.dumps(device_networks))
-
 with open('dump/infra/infra_device_ip.json', 'w') as file:
      file.write(json.dumps(device_ip))
-
 with open('dump/infra/infra_devices.json', 'w') as file:
      file.write(json.dumps(devices))
 with open('dump/infra/infra_pvt.json', 'w') as file:
      file.write(json.dumps(private_networks_dict))
 with open('dump/infra/infra_pub.json', 'w') as file:
      file.write(json.dumps(public_networks_dict))
-
-"""
-print device_ip
-print device_vm
-"""
 print datetime.now() - startTime
