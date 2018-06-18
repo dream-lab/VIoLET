@@ -11,11 +11,15 @@ edge_denisty =int(sys.argv[6])
 container_OS = sys.argv[7]
 
 
+print
+print
+print "Creating infra-config. Path =  VIoLET/config/infra_config.json"
+print
+print
+
+
 edge_device_types_count = edge_device_types_count.split(",")
 fog_device_types_count = fog_device_types_count.split(",")
-
-print edge_device_types_count
-print fog_device_types_count
 
 num_edge_devices = num_devices - num_pvt_networks
 num_edge_per_network = (num_edge_devices/num_pvt_networks)
@@ -63,15 +67,8 @@ devices_meta["Edge"] = Edge
 devices_meta["Fog"] = Fog
 
 print devices_meta
-
-#with open('dump/topo_devices_meta', 'w') as fd:
-#     fd.write(json.dumps(devices_meta))
-
-
-
 print
 print
-print "Creating infra-config . Path =  VIoLET/config/infra_config.json"
 print "Done"
 
 devices = {}
@@ -104,8 +101,8 @@ device_index = 1
 #CREATE SENSORS
 sensors = json.load(open("config/sensor_types.json"))
 sensor_types = []
-for i in range(len(sensors["sensor_types"])):
-    sensor_types.append(sensors["sensor_types"][i]["type"])
+for i in range(len(sensors["sensor_types"]["sensor"])):
+    sensor_types.append(sensors["sensor_types"]["sensor"][i]["type"])
 
 num_sensors = int(num_sensors_per_device / len(sensor_types))
 rem = num_sensors + (num_sensors_per_device % len(sensor_types))
@@ -138,8 +135,10 @@ num_edge_per_network = (num_edge_devices/num_pvt_networks)
 
 #Create private networks
 private_networks_dict = {}
-BW = ["5","10","25","50"]
-LATENCY = ["20","40","100","200"]
+#BW = ["5","10","25","50"]
+BW = ["50"]
+#LATENCY = ["20","40","100","200"]
+LATENCY = ["25"]
 conn_dev = []
 p = {}
 for i in range(1, num_pvt_networks+1):
@@ -147,8 +146,8 @@ for i in range(1, num_pvt_networks+1):
     conn_dev = []
     pvt = "violet_private_{0}".format(i)
     gw = "Fog-{0}".format(i)
-    bw = BW[random.randint(0,3)]
-    latency = LATENCY[random.randint(0,3)]
+    bw = BW[random.randint(0,len(BW)-1)]
+    latency = LATENCY[random.randint(0,len(LATENCY)-1)]
     if(i == num_pvt_networks and remanant != 0):
         num_edge_per_network += remanant
     for j in range(1, num_edge_per_network+1):
@@ -163,13 +162,16 @@ infra_config["private_networks"] = private_networks_dict
 
 #Create public networks
 public_networks_dict = {}
-BW = ["25","50","125","250"]
-LATENCY = ["5","20","50","100"]
+#BW = ["25","50","125","250"]
+#BW = ["50"]
+#LATENCY = ["5","20","50","100"]
+#LATENCY = ["1"]
+
 p = {}
 conn_dev = []
 pub = "violet_public_{0}".format(1)
-bw = BW[random.randint(0,3)]
-latency = LATENCY[random.randint(0,3)]
+bw = BW[random.randint(0,(len(BW)-1))]
+latency = LATENCY[random.randint(0,(len(LATENCY)-1))]
 conn_dev = fog_devices.keys()
 p["bw"] = bw
 p["latency"] = latency
