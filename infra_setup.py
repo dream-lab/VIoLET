@@ -23,6 +23,7 @@ private_networks_dict = infra_config["private_networks"]
 public_networks_dict = infra_config["public_networks"]
 partitions = json.load(open('dump/metis/metis_partitions.json'))
 all_devices_list = json.load(open('dump/infra/all_devices_list.json'))
+sensor_types = json.load(open("config/sensor_types.json"))
 
 container_OS = infra_config["container_OS"]
 
@@ -40,6 +41,9 @@ print
 print
 
 log_file.write("\n\n\n****************************************     DEPLOYING VIOLET       ****************************************\n")
+
+
+
 """
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
@@ -51,6 +55,29 @@ for i in range(1,len(hosts)):
     for data in data_path_copy_vm:
         os.system("scp -i {0} {1} {2}@{3}:/home/{2}".format(key_path, data, user, hosts[i]))
 """
+
+
+print
+print "+++++++++++++++++++++++++++++++++++++++++++++++"
+print "             Copy data to other VMs            "
+print "+++++++++++++++++++++++++++++++++++++++++++++++"
+print
+
+data_path_copy_vm = [
+    "sensors_data_gen/data_gen.py",
+    "sensors_data_gen/sensor_data_host.py",
+    "sensors_data_gen/data.csv",
+    "sensors_data_gen/time.csv"
+]
+
+for i in range(len(container_vm_names)):
+    for data in data_path_copy_vm:
+        key_path = container_vm[container_vm_names[i]]["key_path"]
+        user = container_vm[container_vm_names[i]]["user"]
+        host = container_vm[container_vm_names[i]]["public_DNS"]
+        os.system("scp -i {0} {1} {2}@{3}:/home/{2}".format(key_path, data, user, host))
+
+
 
 
 print
@@ -344,38 +371,125 @@ print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print
 log_file.write("\n\n\n****************************************      CREATING SENSORS      ****************************************\n")
 
+sensor_types_list = sensor_types["sensor_types"]
+
+sensor_types_dict = {}
+
+for sensor in sensor_types_list:
+    sensor_id = str(sensor["id"])
+    timestamp = str(sensor["timestamp"])
+    sample_size = str(sensor["sample_size"])
+    dist_rate = str(sensor["dist_rate"])
+    dist_value = str(sensor["dist_value"])
+
+    if str(sensor["dist_rate"]) == "normal" :
+        mean = sensor["rate_params"]["mean"]
+        variance = sensor["rate_params"]["variance"]
+        rate_params = mean + "," +variance
+
+    if str(sensor["dist_rate"]) == "uniform" :
+        lower_limit = sensor["rate_params"]["lower_limit"]
+        upper_limit = sensor["rate_params"]["upper_limit"]
+        rate_params = lower_limit + "," + upper_limit
+
+    if str(sensor["dist_rate"]) == "poisson" :
+        lmbda = sensor["rate_params"]["lambda"]
+        rate_params = lmbda
+
+    if str(sensor["dist_rate"]) == "user_defined" :
+        path = sensor["rate_params"]["path"]
+        rate_params = path
+
+    if str(sensor["dist_value"]) == "normal" :
+        mean = sensor["value_params"]["mean"]
+        variance = sensor["value_params"]["variance"]
+        value_params = mean + "," + variance
+
+    if str(sensor["dist_value"]) == "uniform" :
+        lower_limit = sensor["value_params"]["lower_limit"]
+        upper_limit = sensor["value_params"]["upper_limit"]
+        value_params = lower_limit + "," + upper_limit
+
+    if str(sensor["dist_value"]) == "poisson" :
+        lmbda = sensor["value_params"]["lambda"]
+        value_params = lmbda
+
+    if str(sensor["dist_value"]) == "user_defined" :
+        path = sensor["value_params"]["path"]
+        value_params = path
+
+    params = [sensor_id, timestamp, sample_size, dist_rate, rate_params, dist_value, value_params]
+    sensor_type = str(sensor["type"])
+    sensor_types_dict[sensor_type] = params
+
+
+
 edge_count = len(edge_devices)
-bundle = "datagen.tar.gz"
+
 
 devices_with_sensors = {}
+sensor_link = {}
 
-for e in edge_devices:
-    print "Creating sensors for device - {0}".format(e)
-    log_file.write("Creating sensors for device - {0} \n".format(e))
-    s = []
-    sensor_index = 1
-    e_sensors = infra_config["devices"]["Edge"][e]["sensors"].keys()
-    vm_name = device_vm[e]
-    host = container_vm[vm_name]["public_DNS"]
-    user = container_vm[vm_name]["user"]
-    key = container_vm[vm_name]["key_path"]
-    k = paramiko.RSAKey.from_private_key_file(key)
-    c = paramiko.SSHClient()
-    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+for n in private_networks_dict:
+    fog=private_networks_dict[n]["gw"]
+    fog_ip = device_ip[fog]
+    #print fog_ip
+    linklist=[]
 
-    c.connect(hostname = host, username = user, pkey = k)
+    for e in edge_devices:
+        print "Creating sensors for device - {0}".format(e)
+        log_file.write("Creating sensors for device - {0} \n".format(e))
+        s = []
+        sensor_index = 1
+        e_sensors = infra_config["devices"]["Edge"][e]["sensors"].keys()
+        vm_name = device_vm[e]
+        host = container_vm[vm_name]["public_DNS"]
+        user = container_vm[vm_name]["user"]
+        key = container_vm[vm_name]["key_path"]
+        k = paramiko.RSAKey.from_private_key_file(key)
+        c = paramiko.SSHClient()
+        c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        c.connect(hostname = host, username = user, pkey = k)
 
-    command = "sudo docker exec -i {0} mkdir sensors".format(e)
-    stdin , stdout, stderr = c.exec_command(command)
-    for e_sensor in e_sensors:
-        num_sensors = infra_config["devices"]["Edge"][e]["sensors"][e_sensor]
-        for i in range(1,int(num_sensors)+1):
-            sensor_file_name = e+"_"+e_sensor+"_"+str(sensor_index)
-            s.append(sensor_file_name)
-            command = "sudo docker exec -i {0} touch sensors/{1}".format(e,sensor_file_name)
-            stdin , stdout, stderr = c.exec_command(command)
-            sensor_index += 1
-    devices_with_sensors[e]=s
+        command = [
+            "sudo docker cp {0} {1}:/".format("data_gen.py",e),
+            "sudo docker cp {0} {1}:/".format("sensor_data_host.py",e),
+            "sudo docker cp {0} {1}:/".format("data.csv",e),
+            "sudo docker cp {0} {1}:/".format("time.csv",e),
+            "sudo docker exec -id {0} python sensor_data_host.py {1}".format(e,device_ip[e])
+        ]
+
+        for cmd in command:
+            stdin , stdout, stderr = c.exec_command(cmd)
+
+        c.close()
+
+
+        vm_name = device_vm[e]
+        host = container_vm[vm_name]["public_DNS"]
+        user = container_vm[vm_name]["user"]
+        key = container_vm[vm_name]["key_path"]
+        k = paramiko.RSAKey.from_private_key_file(key)
+        c = paramiko.SSHClient()
+        c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        c.connect(hostname = host, username = user, pkey = k)
+
+        for e_sensor in e_sensors:
+            num_sensors = infra_config["devices"]["Edge"][e]["sensors"][e_sensor]
+            for i in range(1,int(num_sensors)+1):
+                sensor_file_name = e+"_"+e_sensor+"_"+str(sensor_index)
+                s.append(sensor_file_name)
+                link = "http://"+device_ip[e]+":5000/sensors/"+sensor_file_name
+                linklist.append(link)
+                params = sensor_types_dict[e_sensor]
+                command = "sudo docker exec -i {8} python data_gen.py {0} {1} {2} {3} {4} {5} {6} {7}".format(sensor_file_name,params[0],params[1],params[2],params[3],params[4],params[5],params[6],e)
+                stdin , stdout, stderr = c.exec_command(command)
+                sensor_index += 1
+        c.close()
+
+        devices_with_sensors[e]=s
+    sensor_link[fog_ip] = linklist
+
 
 log_file.close()
 with open('dump/infra/infra_device_vm.json', 'w') as file:
@@ -398,4 +512,7 @@ with open('dump/infra/infra_pvt.json', 'w') as file:
      file.write(json.dumps(private_networks_dict))
 with open('dump/infra/infra_pub.json', 'w') as file:
      file.write(json.dumps(public_networks_dict))
+with open('dump/infra/infra_fog_sensor_link.json','w') as file:
+    file.write(json.dumps(sensor_link))
+
 print datetime.now() - startTime
