@@ -113,12 +113,16 @@ for n in private_networks_dict:
 
     device_list=private_networks_dict[n]["conn_dev"]
 
+    pf = open("publisher_list.txt", "w");
+
     while len(device_list) >= 2:
         devices = random.sample(device_list,2)
         #print devices
         topic = ''.join(random.choice(string.ascii_lowercase) for _ in range(10))
         #print topic
-        sensor_link = random.sample(sensor_link_list,1)[0]
+        sensor_link = random.choice(sensor_link_list)
+        print sensor_link
+
         cmd = [
             "python {0}/subscribe.py {1} {2}".format(pub_sub,topic,ip),
             "python {0}/publish.py {1} {2} {3}".format(pub_sub,topic,ip,sensor_link)
@@ -141,16 +145,21 @@ for n in private_networks_dict:
             stdin,stdout,stderr = c.exec_command(command)
             time.sleep(1)
             command = "sudo docker exec -id {0} {1}".format(device,cmd[i])
+            if i == 1:
+                pf.write(device + " " + topic + "\n")
+
             #print command
             stdin,stdout,stderr = c.exec_command(command)
             c.close()
 
-            i+=1
+            i=1
+            #time.sleep(2)
 
         for device in devices:
             device_list.remove(device)
 
         sensor_link_list.remove(sensor_link)
 
+    pf.close()
 
 print datetime.now() - startTime

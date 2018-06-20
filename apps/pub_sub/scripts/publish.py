@@ -5,8 +5,8 @@ import requests
 import sys
 import os
 
-INTERVAL = 1
-QOS = 0
+INTERVAL = 2
+QOS = 1
 
 topic1="pub_"
 topic2="sub_"
@@ -59,6 +59,8 @@ def main(argv):
     #client.on_connect = on_connect
     client.on_message = on_message
     client.connect(host,port)
+    #client.loop_start()
+    client.subscribe(topic2, qos=QOS)
     for i in range(180):
         r=requests.get(data_path)
         data = str(time()) + "!" +r.text
@@ -68,14 +70,20 @@ def main(argv):
         fd1.write(data+"\n")
         fd1.close()
         client.loop_start()
+        #client.subscribe(topic2)
+        #sleep(Interval)
         client.publish(topic1, data,qos=QOS)
+        client.loop_stop()
         #print(topic2)
         sleep(INTERVAL)
-        client.subscribe(topic2,1)
-        client.loop_stop()
+        #client.loop_start()
+        #client.subscribe(topic2, qos=QOS)
+        #client.loop_stop()
         #t2 = time()
         #print(t2-t1)
-        sleep(INTERVAL)
+        #sleep(INTERVAL)
+    #sleep(10)
+    #client.loop_stop()
     client.loop_forever()
 
 if __name__=="__main__":

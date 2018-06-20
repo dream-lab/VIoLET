@@ -5,7 +5,7 @@ import sys
 
 
 INTERVAL = 1
-QOS = 0
+QOS = 1
 msg="ON"
 topic1="pub_"
 topic2="sub_"
@@ -22,9 +22,9 @@ def on_message(client, userdata, message):
     global topic2
     global msg
     msg = message.payload.decode('utf-8')
-    print(msg)
-    print(topic2)
-    client.publish(topic2, msg)
+    #print(msg)
+    #print(topic2)
+    client.publish(topic2, msg, qos=QOS)
 
 
 
@@ -42,7 +42,7 @@ def main(argv):
     #client.on_connect = on_connect
     client.on_message = on_message
     client.connect(host,port)
-    client.subscribe(topic1)
+    client.subscribe(topic1, qos=QOS)
     client.loop_forever()
 
 
