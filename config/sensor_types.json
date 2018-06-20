@@ -7,13 +7,13 @@
             "sample_size": "10000",
             "dist_rate": "uniform",
             "rate_params": {
-                "lower_limit": "10",
-                "upper_limit": "100"
+                "lower_limit": "0",
+                "upper_limit": "1"
             },
             "dist_value": "normal",
             "value_params": {
-                "mean": "500",
-                "variance": "100"
+                "mean": "0",
+                "variance": "1"
             }
         },
         {
@@ -23,12 +23,12 @@
             "sample_size": "10000",
             "dist_rate": "normal",
             "rate_params": {
-                "mean": "20",
-                "variance": "5"
+                "mean": "0",
+                "variance": "1"
             },
             "dist_value": "poisson",
             "value_params": {
-                "lambda": "10"
+                "lambda": "5"
             }
         },
         {

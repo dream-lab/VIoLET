@@ -1,10 +1,42 @@
 {
-   "edge_device_types" : {
-        "Pi2B":{"cpus":"0.77","coremark":"8910"},
-        "Pi3B":{"cpus":"1.18","coremark":"13717"}
+    "edge_device_types": {
+        "Pi2B": {
+            "cpus": "0.95",
+            "coremark": "8910",
+            "constant": "100",
+            "control_interval": "10",
+            "mttf_sec": "300",
+            "probability_to_fail": "0.5",
+            "mttr_sec": "5"
+        },
+        "Pi3B": {
+            "cpus": "1.47",
+            "coremark": "13717",
+            "constant": "100",
+            "control_interval": "10",
+            "mttf_sec": "30",
+            "probability_to_fail": "0.5",
+            "mttr_sec": "5"
+        }
     },
-    "fog_device_types" : {
-        "TX1":{"cpus":"2.27","coremark":"26371"},
-        "SI":{"cpus":"6.57","coremark":"76223"}
+    "fog_device_types": {
+        "TX1": {
+            "cpus": "2.83",
+            "coremark": "26371",
+            "constant": "100",
+            "control_interval": "10",
+            "mttf_sec": "60",
+            "probability_to_fail": "0.5",
+            "mttr_sec": "10"
+        },
+        "SI": {
+            "cpus": "8.17",
+            "coremark": "76223",
+            "constant": "100",
+            "control_interval": "10",
+            "mttf_sec": "60",
+            "probability_to_fail": "0.5",
+            "mttr_sec": "10"
+        }
     }
 }

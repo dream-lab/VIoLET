@@ -1,29 +1,35 @@
 {
     "admin_VM" : {
         "VIoLET_admin" : {
-            "public_DNS"    : "",
-            "key_path"      : "",
-            "user"          : ""
+            "public_DNS"    : "ec2-18-188-234-0.us-east-2.compute.amazonaws.com",
+            "key_path"      : "/home/centos/CIBO-CentOS.pem",
+            "user"          : "centos"
         }
     },
     "container_host_VM" : {
-        "container_host_VM_1" : {
-            "public_DNS"    : "",
-            "key_path"      : "",
-            "user"          : "",
-            "coremark"      : ""
+        "M1" : {
+            "public_DNS"    : "172.31.44.161",
+            "key_path"      : "/home/centos/CIBO-CentOS.pem",
+            "user"          : "centos",
+            "coremark"      : "371384"
         },
-        "container_host_VM_2" : {
-            "public_DNS"    : "",
-            "key_path"      : "",
-            "user"          : "",
-            "coremark"      : ""
+        "M2" : {
+            "public_DNS"    : "172.31.41.228",
+            "key_path"      : "/home/centos/CIBO-CentOS.pem",
+            "user"          : "centos",
+            "coremark"      : "371384"
         },
-        "container_host_VM_3" : {
-            "public_DNS"    : "",
-            "key_path"      : "",
-            "user"          : "",
-            "coremark"      : ""
+        "M3" : {
+            "public_DNS"    : "172.31.45.128", 
+            "key_path"      : "/home/centos/CIBO-CentOS.pem",
+            "user"          : "centos",
+            "coremark"      : "371384"
+        },
+        "M4" : {
+            "public_DNS"    : "172.31.43.53",
+            "key_path"      : "/home/centos/CIBO-CentOS.pem",
+            "user"          : "centos",
+            "coremark"      : "371384"
         }
     }
 }
