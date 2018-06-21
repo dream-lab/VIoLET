@@ -35,7 +35,7 @@ lat_file_list = []
 
 tmp_dir = "tmp"
 
-os.system("mkdir tmp")
+#os.system("mkdir tmp")
 
 for pl in pub_list:
     device, file_key = pl.split()
@@ -43,7 +43,8 @@ for pl in pub_list:
     fog = private_networks_dict[network_name]["gw"]
     print fog
     vm_name = device_vm[device]
-    tmp_fog_device_dir = tmp_dir + "/" + fog + "/" + device
+    tmp_fog_dir = tmp_dir + "/" + fog
+    tmp_fog_device_dir = tmp_fog_dir + "/" + device
     host = container_vm[vm_name]["public_DNS"]
     user = container_vm[vm_name]["user"]
     key = container_vm[vm_name]["key_path"]
@@ -80,10 +81,18 @@ for pl in pub_list:
             "scp -i {0} {1}@{2}:{3} {4}".format(key, user, host, sub_file, tmp_fog_device_dir),
             "scp -i {0} {1}@{2}:{3} {4}".format(key, user, host, lat_file, tmp_fog_device_dir),
             "diff {0}/{1} {0}/{2}".format(tmp_fog_device_dir, pub_file, sub_file),
-            "wc -l {0}".format(tmp_fog_device_dir + "/" + lat_file)
+            "wc -l {0}".format(tmp_fog_device_dir + "/" + lat_file),
+            "cat {0}/{1} >> {2}/{3}".format(tmp_fog_device_dir, lat_file, tmp_dir, fog+"_latency.txt")
             ]
 
     for command in commands:
         os.system(command)
+
+#for lat_file in lat_file_list:
+#    commands = [
+#            "cat {0}/{1} >> latency.txt".format(tmp_fog_device_dir, lat_file)
+#            ]
+#    for command in commands:
+#        os.system(command)
 
 

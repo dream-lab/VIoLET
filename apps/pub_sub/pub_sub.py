@@ -122,7 +122,7 @@ for n in private_networks_dict:
         topic = ''.join(random.choice(string.ascii_lowercase) for _ in range(32))
         #print topic
         sensor_link = random.choice(sensor_link_list)
-        print sensor_link
+        print "sensor_link --> " + sensor_link
 
         cmd = [
             "python {0}/subscribe.py {1} {2}".format(pub_sub,topic,ip),
@@ -132,7 +132,10 @@ for n in private_networks_dict:
         #print command
         i=0
         for device in devices:
-            print device
+            if i == 0:
+                print "subscriber - publisher --> " + device
+            else:
+                print "publisher - subscriber --> " + device
             vm_name = device_vm[device]
             host = container_vm[vm_name]["public_DNS"]
             user = container_vm[vm_name]["user"]
