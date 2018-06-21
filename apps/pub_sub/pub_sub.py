@@ -100,6 +100,7 @@ for fog in fog_device:
 
 
 
+pf = open("publisher_list.txt", "w")
 
 for n in private_networks_dict:
     #total = len(private_networks_dict[n]["conn_dev"])
@@ -108,17 +109,17 @@ for n in private_networks_dict:
     #cnt = 0
     fog = private_networks_dict[n]["gw"]
     ip = device_ip[fog]
-    sensor_link_list = fog_sensor_link[ip]
+    sensor_link_list = fog_sensor_link[fog]
     print ip
 
     device_list=private_networks_dict[n]["conn_dev"]
 
-    pf = open("publisher_list.txt", "w");
+    #pf = open("publisher_list.txt", "w");
 
     while len(device_list) >= 2:
         devices = random.sample(device_list,2)
         #print devices
-        topic = ''.join(random.choice(string.ascii_lowercase) for _ in range(10))
+        topic = ''.join(random.choice(string.ascii_lowercase) for _ in range(32))
         #print topic
         sensor_link = random.choice(sensor_link_list)
         print sensor_link
@@ -160,6 +161,6 @@ for n in private_networks_dict:
 
         sensor_link_list.remove(sensor_link)
 
-    pf.close()
+pf.close()
 
 print datetime.now() - startTime

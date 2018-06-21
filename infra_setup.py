@@ -435,8 +435,10 @@ for n in private_networks_dict:
     fog_ip = device_ip[fog]
     #print fog_ip
     linklist=[]
+    #print linklist
 
-    for e in edge_devices:
+    edge_dev = private_networks_dict[n]["conn_dev"]
+    for e in edge_dev:
         print "Creating sensors for device - {0}".format(e)
         log_file.write("Creating sensors for device - {0} \n".format(e))
         s = []
@@ -488,7 +490,8 @@ for n in private_networks_dict:
         c.close()
 
         devices_with_sensors[e]=s
-    sensor_link[fog_ip] = linklist
+    #print len(linklist)
+    sensor_link[fog] = linklist
 
 
 log_file.close()

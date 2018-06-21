@@ -5,7 +5,7 @@ import requests
 import sys
 import os
 
-INTERVAL = 2
+INTERVAL = 1
 QOS = 1
 
 topic1="pub_"
@@ -55,28 +55,33 @@ def main(argv):
 	]
     for cmd in commands:
         os.system(cmd)
+
+
+
     client = mqtt.Client()
+    #client2 = mqtt.Client()
     #client.on_connect = on_connect
     client.on_message = on_message
     client.connect(host,port)
     #client.loop_start()
     client.subscribe(topic2, qos=QOS)
+    #client2.loop_forever()
+    f1 = pub_path + sensor_id
+    fd1 = open(f1, "a+")
+
     for i in range(180):
         r=requests.get(data_path)
         data = str(time()) + "!" +r.text
-        #t1 = time()
-        f1 = pub_path + sensor_id
-        fd1 = open(f1,"a+")
-        fd1.write(data+"\n")
-        fd1.close()
+
         client.loop_start()
-        #client.subscribe(topic2)
-        #sleep(Interval)
         client.publish(topic1, data,qos=QOS)
         client.loop_stop()
         #print(topic2)
-        sleep(INTERVAL)
-        #client.loop_start()
+        #sleep(INTERVAL)
+        #f1 = pub_path + sensor_id
+        #fd1 = open(f1,"a+")
+        fd1.write(data+"\n")
+        #fd1.close()
         #client.subscribe(topic2, qos=QOS)
         #client.loop_stop()
         #t2 = time()
@@ -84,6 +89,7 @@ def main(argv):
         #sleep(INTERVAL)
     #sleep(10)
     #client.loop_stop()
+    fd1.close()
     client.loop_forever()
 
 if __name__=="__main__":
