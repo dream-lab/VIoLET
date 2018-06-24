@@ -110,7 +110,7 @@ for n in private_networks_dict:
     fog = private_networks_dict[n]["gw"]
     ip = device_ip[fog]
     sensor_link_list = fog_sensor_link[fog]
-    print ip
+    print n
 
     device_list=private_networks_dict[n]["conn_dev"]
 
@@ -118,12 +118,12 @@ for n in private_networks_dict:
 
     while len(device_list) >= 2:
         devices = random.sample(device_list,2)
-        #print devices
+        print "Devices --> ",devices
         topic = ''.join(random.choice(string.ascii_lowercase) for _ in range(32))
-        #print topic
+        print "Topic --> " + topic
         sensor_link = random.choice(sensor_link_list)
         print "sensor_link --> " + sensor_link
-
+        print
         cmd = [
             "python {0}/subscribe.py {1} {2}".format(pub_sub,topic,ip),
             "python {0}/publish.py {1} {2} {3}".format(pub_sub,topic,ip,sensor_link)
@@ -132,10 +132,10 @@ for n in private_networks_dict:
         #print command
         i=0
         for device in devices:
-            if i == 0:
-                print "subscriber - publisher --> " + device
-            else:
-                print "publisher - subscriber --> " + device
+            #if i == 0:
+            #    print "subscriber - publisher --> " + device
+            #else:
+            #    print "publisher - subscriber --> " + device
             vm_name = device_vm[device]
             host = container_vm[vm_name]["public_DNS"]
             user = container_vm[vm_name]["user"]

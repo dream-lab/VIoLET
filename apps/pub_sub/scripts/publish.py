@@ -71,10 +71,11 @@ def main(argv):
 
     for i in range(180):
         r=requests.get(data_path)
-        data = str(time()) + "!" +r.text
+        #data = str(time()) + "!" +r.text
 
         client.loop_start()
-        client.publish(topic1, data,qos=QOS)
+        data = str(time()) + "!" +r.text
+        client.publish(topic1, data ,qos=QOS)
         client.loop_stop()
         #print(topic2)
         #sleep(INTERVAL)

@@ -10,10 +10,12 @@ from datetime import datetime
 from threading import Thread
 
 private_networks_dict = json.load(open('../../dump/infra/infra_pvt.json'))
+fog_devices = json.load(open('../../dump/infra/infra_fog_devices.json'))
 device_networks_dict = json.load(open('../../dump/infra/infra_device_networks.json'))
 device_vm = json.load(open('../../dump/infra/infra_device_vm.json'))
 vm_config = json.load(open("../../config/vm_config.json"))
 container_vm = vm_config["container_host_VM"]
+container_vm_names = container_vm.keys()
 
 
 pub_list_txt = open('publisher_list.txt', 'r')
@@ -36,6 +38,13 @@ lat_file_list = []
 tmp_dir = "tmp"
 
 #os.system("mkdir tmp")
+
+latency_dict = {}
+
+for net_name in private_networks_dict.keys():
+    latency_dict[private_networks_dict[net_name]["gw"]] = private_networks_dict[net_name]["latency"]
+
+print latency_dict
 
 for pl in pub_list:
     device, file_key = pl.split()
@@ -95,4 +104,47 @@ for pl in pub_list:
 #    for command in commands:
 #        os.system(command)
 
+
+fog_devices.sort()
+
+for fog in fog_devices:
+    f = open(tmp_dir + "/" + fog + "_latency.txt", "r")
+    expected = float(latency_dict[fog]) * 4
+    latencies = f.readlines()
+    f.close()
+    d = open(tmp_dir + "/" + fog + "_deviation.txt", "w")
+    for lat in latencies:
+        dev = (((float(lat) * 1000) - expected) / expected) * 100
+        d.write(str(dev) + "\n")
+
+    d.close()
+
+
+
+
+plot_in_file = "latency_deviation.txt"
+
+command = "paste -d ',' "
+
+for fog in fog_devices:
+    print fog
+    command += tmp_dir + "/" + fog + "_deviation.txt" + " "
+
+command += " > {0}".format(plot_in_file)
+
+os.system(command)
+
+plot_out_file = "latency_deviation"
+
+command = 'python ../../vPlot.py {0} {1} "'.format(plot_in_file, plot_out_file)
+
+for fog in fog_devices:
+    print fog
+    command += fog + ","
+
+#command = command[:len(command) - 1]
+
+command += '" "Latency Deviation % " "Private Networks"'
+
+os.system(command)
 
