@@ -1,0 +1,1814 @@
+{
+    "private_networks": {
+        "violet_private_1": {
+            "subnet": "192.168.1.0/24",
+            "ip_range": "192.168.1.0/24",
+            "bandwidth_mbps": "25",
+            "gateway": "Fog-1",
+            "devices": [
+                "Edge-1.5",
+                "Edge-1.3",
+                "Edge-1.2",
+                "Edge-1.9",
+                "Edge-1.8",
+                "Edge-1.13",
+                "Edge-1.12",
+                "Edge-1.11",
+                "Edge-1.10",
+                "Edge-1.17",
+                "Edge-1.16",
+                "Edge-1.15",
+                "Edge-1.14",
+                "Edge-1.19",
+                "Edge-1.18",
+                "Edge-1.7",
+                "Edge-1.6",
+                "Edge-1.4",
+                "Edge-1.1",
+                "Edge-1.20"
+            ],
+            "latency_ms": "5"
+        },
+        "violet_private_2": {
+            "subnet": "192.168.2.0/24",
+            "ip_range": "192.168.2.0/24",
+            "bandwidth_mbps": "75",
+            "gateway": "Fog-2",
+            "devices": [
+                "Edge-2.18",
+                "Edge-2.19",
+                "Edge-2.12",
+                "Edge-2.13",
+                "Edge-2.10",
+                "Edge-2.11",
+                "Edge-2.16",
+                "Edge-2.17",
+                "Edge-2.14",
+                "Edge-2.15",
+                "Edge-2.20",
+                "Edge-2.8",
+                "Edge-2.9",
+                "Edge-2.1",
+                "Edge-2.2",
+                "Edge-2.3",
+                "Edge-2.4",
+                "Edge-2.5",
+                "Edge-2.6",
+                "Edge-2.7"
+            ],
+            "latency_ms": "5"
+        },
+        "violet_private_3": {
+            "subnet": "192.168.3.0/24",
+            "ip_range": "192.168.3.0/24",
+            "bandwidth_mbps": "50",
+            "gateway": "Fog-3",
+            "devices": [
+                "Edge-3.20",
+                "Edge-3.5",
+                "Edge-3.4",
+                "Edge-3.7",
+                "Edge-3.6",
+                "Edge-3.1",
+                "Edge-3.3",
+                "Edge-3.2",
+                "Edge-3.9",
+                "Edge-3.8",
+                "Edge-3.19",
+                "Edge-3.18",
+                "Edge-3.15",
+                "Edge-3.14",
+                "Edge-3.17",
+                "Edge-3.16",
+                "Edge-3.11",
+                "Edge-3.10",
+                "Edge-3.13",
+                "Edge-3.12"
+            ],
+            "latency_ms": "5"
+        },
+        "violet_private_4": {
+            "subnet": "192.168.4.0/24",
+            "ip_range": "192.168.4.0/24",
+            "bandwidth_mbps": "100",
+            "gateway": "Fog-4",
+            "devices": [
+                "Edge-4.20",
+                "Edge-4.6",
+                "Edge-4.7",
+                "Edge-4.4",
+                "Edge-4.5",
+                "Edge-4.2",
+                "Edge-4.3",
+                "Edge-4.1",
+                "Edge-4.8",
+                "Edge-4.9",
+                "Edge-4.14",
+                "Edge-4.15",
+                "Edge-4.16",
+                "Edge-4.17",
+                "Edge-4.10",
+                "Edge-4.11",
+                "Edge-4.12",
+                "Edge-4.13",
+                "Edge-4.18",
+                "Edge-4.19"
+            ],
+            "latency_ms": "5"
+        },
+        "violet_private_5": {
+            "subnet": "192.168.5.0/24",
+            "ip_range": "192.168.5.0/24",
+            "bandwidth_mbps": "75",
+            "gateway": "Fog-5",
+            "devices": [
+                "Edge-5.8",
+                "Edge-5.20",
+                "Edge-5.17",
+                "Edge-5.16",
+                "Edge-5.15",
+                "Edge-5.14",
+                "Edge-5.13",
+                "Edge-5.12",
+                "Edge-5.11",
+                "Edge-5.10",
+                "Edge-5.19",
+                "Edge-5.18",
+                "Edge-5.1",
+                "Edge-5.7",
+                "Edge-5.6",
+                "Edge-5.5",
+                "Edge-5.4",
+                "Edge-5.3",
+                "Edge-5.2",
+                "Edge-5.9"
+            ],
+            "latency_ms": "25"
+        }
+    },
+    "block_network_route": [],
+    "public_networks": {
+        "violet_public_1": {
+            "subnet": "10.0.1.0/24",
+            "ip_range": "10.0.1.0/24",
+            "bandwidth_mbps": "25",
+            "gateway": "Fog-5",
+            "devices": [
+                "Fog-2",
+                "Fog-3",
+                "Fog-1",
+                "Fog-4",
+                "Fog-5"
+            ],
+            "latency_ms": "25"
+        }
+    },
+    "devices": {
+        "Edge-5.8": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Fog-2": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "TX1"
+        },
+        "Fog-3": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "TX1"
+        },
+        "Edge-1.5": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Fog-1": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "SI"
+        },
+        "Edge-1.3": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-1.2": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Fog-4": {
+            "sensors": [
+                {
+                    "count": 4,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "TX1"
+        },
+        "Fog-5": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "TX1"
+        },
+        "Edge-1.9": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-1.8": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-1.13": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-1.12": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-1.11": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-1.10": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-1.17": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-1.16": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-1.15": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-1.14": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-1.19": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-1.18": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.20": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-4.20": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-1.7": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-1.6": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-1.4": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-1.1": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.20": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-2.18": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-2.19": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 4,
+                    "sensor_type": "accelerometer"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-2.12": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 4,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-2.13": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-2.10": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-2.11": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-2.16": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-2.17": {
+            "sensors": [
+                {
+                    "count": 4,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-2.14": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-2.15": {
+            "sensors": [
+                {
+                    "count": 5,
+                    "sensor_type": "gyroscope"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-4.6": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-4.7": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-4.4": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-4.5": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-4.2": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-4.3": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-4.1": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-4.8": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-4.9": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.17": {
+            "sensors": [
+                {
+                    "count": 5,
+                    "sensor_type": "accelerometer"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.16": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.15": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.14": {
+            "sensors": [
+                {
+                    "count": 4,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.13": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-5.12": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-5.11": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.10": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.19": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.18": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-2.20": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-4.14": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-4.15": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-4.16": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-4.17": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-4.10": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-4.11": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-4.12": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-4.13": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-4.18": {
+            "sensors": [
+                {
+                    "count": 4,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-4.19": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-3.5": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-3.4": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.7": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-3.6": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-3.1": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.3": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-3.2": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-3.9": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.8": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 4,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-2.8": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-2.9": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.1": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 4,
+                    "sensor_type": "accelerometer"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-5.7": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-5.6": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 4,
+                    "sensor_type": "accelerometer"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.5": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-5.4": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-2.1": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-2.2": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 4,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-2.3": {
+            "sensors": [
+                {
+                    "count": 4,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-2.4": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-2.5": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-2.6": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-2.7": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.3": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-5.2": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.19": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.18": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.15": {
+            "sensors": [
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-3.14": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 4,
+                    "sensor_type": "gyroscope"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.17": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.16": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-3.11": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.10": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.13": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        },
+        "Edge-3.12": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-5.9": {
+            "sensors": [
+                {
+                    "count": 1,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 3,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi3B"
+        },
+        "Edge-1.20": {
+            "sensors": [
+                {
+                    "count": 2,
+                    "sensor_type": "accelerometer"
+                },
+                {
+                    "count": 1,
+                    "sensor_type": "gyroscope"
+                },
+                {
+                    "count": 2,
+                    "sensor_type": "custom"
+                }
+            ],
+            "device_type": "Pi2B"
+        }
+    },
+    "public_global_network": {
+        "subnet": "10.0.0.0/24",
+        "ip_range": "10.0.0.0/24",
+        "bandwidth_mbps": "100",
+        "devices": [
+            "Fog-2",
+            "Fog-3",
+            "Fog-1",
+            "Fog-4",
+            "Fog-5"
+        ],
+        "latency_ms": "50"
+    }
+}

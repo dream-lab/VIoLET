@@ -1,35 +1,35 @@
 {
-    "admin_VM" : {
-        "VIoLET_admin" : {
-            "public_DNS"    : "ec2-18-188-234-0.us-east-2.compute.amazonaws.com",
-            "key_path"      : "/home/centos/CIBO-CentOS.pem",
-            "user"          : "centos"
+    "admin_VM": {
+        "VIoLET_admin": {
+            "hostname_ip": "ec2-18-188-234-0.us-east-2.compute.amazonaws.com",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos"
         }
     },
-    "container_host_VM" : {
-        "M1" : {
-            "public_DNS"    : "172.31.44.161",
-            "key_path"      : "/home/centos/CIBO-CentOS.pem",
-            "user"          : "centos",
-            "coremark"      : "371384"
+    "container_VM": {
+        "M1": {
+            "hostname_ip": "172.31.44.161",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos",
+            "vm_type": "m4.10xl"
         },
-        "M2" : {
-            "public_DNS"    : "172.31.41.228",
-            "key_path"      : "/home/centos/CIBO-CentOS.pem",
-            "user"          : "centos",
-            "coremark"      : "371384"
+        "M2": {
+            "hostname_ip": "172.31.41.228",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos",
+            "vm_type": "m4.10xl"
         },
-        "M3" : {
-            "public_DNS"    : "172.31.45.128", 
-            "key_path"      : "/home/centos/CIBO-CentOS.pem",
-            "user"          : "centos",
-            "coremark"      : "371384"
+        "M3": {
+            "hostname_ip": "172.31.45.128",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos",
+            "vm_type": "m4.10xl"
         },
-        "M4" : {
-            "public_DNS"    : "172.31.43.53",
-            "key_path"      : "/home/centos/CIBO-CentOS.pem",
-            "user"          : "centos",
-            "coremark"      : "371384"
+        "M4": {
+            "hostname_ip": "172.31.43.53",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos",
+            "vm_type": "m4.10xl"
         }
     }
 }

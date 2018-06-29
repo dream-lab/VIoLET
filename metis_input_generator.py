@@ -5,11 +5,11 @@ public_networks = {}
 private_networks = {}
 metis_input = {}
 infra_config = json.load(open('config/infra_config.json'))
-all_devices_list= json.load(open('dump/infra/all_devices_list.json'))
+all_devices_list= infra_config["devices"]
 device_types = json.load(open('config/device_types.json'))
 
-edge_count = len(infra_config["devices"]["Edge"].keys())
-fog_count = len(infra_config["devices"]["Fog"].keys())
+#edge_count = len(infra_config["devices"]["Edge"].keys())
+#fog_count = len(infra_config["devices"]["Fog"].keys())
 
 for d in all_devices_list:
     device_networks[d] = {}
@@ -18,15 +18,15 @@ for d in all_devices_list:
 
 private_networks = infra_config["private_networks"]
 for p in private_networks:
-    gw = private_networks[p]["gw"]
+    gw = private_networks[p]["gateway"]
     device_networks[gw]["private"].append(p)
-    conn_dev = private_networks[p]["conn_dev"]
+    conn_dev = private_networks[p]["devices"]
     for d in conn_dev:
         device_networks[d]["private"].append(p)
 
 public_networks = infra_config["public_networks"]
 for p in public_networks:
-    conn_dev = public_networks[p]["conn_dev"]
+    conn_dev = public_networks[p]["devices"]
     for d in conn_dev:
         device_networks[d]["public"].append(p)
 

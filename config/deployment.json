@@ -1,0 +1,31 @@
+{
+	"device_ssh_user": "violet",
+	"device_ssh_password": "123456",
+	"sanity_check": {
+		"network_bw": "0.05",
+		"network_latency": "0.1",
+		"network_visibility_ratio": "0.01",
+		"cpu_coremark_ratio": "1.0",
+		"cpu_whetstone_ratio": "0",
+		"container_top_period_secs": "30"
+	},
+	"partitioning_goals": {
+		"coremark_limit": "true",
+		"whetstone_limit": "false",
+		"bandwidth_limit": "true",
+		"latency_limit": "true",
+		"memory_limit": "false",
+		"disk_limit": "false"
+	},
+	"partitioning_sanity_check": {
+		"coremark_limit": "true",
+		"whetstone_limit": "false",
+		"memory_limit": "true",
+		"disk_limit": "true",
+		"bandwidth_limit": "false",
+		"latency_limit": "false"
+	},
+	"log_path": "/tmp/violet/logs",
+	"retain_disk_on_kill": "false",
+	"vm_top_period_secs": "30"
+}
