@@ -162,6 +162,9 @@ pvt_networks_dict = {}
 BW = ["5","10","25","50"]
 LAT = ["20","40","100","200"]
 
+private_ip_range = "192.168."
+public_ip_range = "10.0."
+
 pvt_network_index = 1
 for i in range(num_pvt_networks):
     conn_dev = []
@@ -174,6 +177,8 @@ for i in range(num_pvt_networks):
 	    #print device
 	    conn_dev.append(device)
     pvt_networks_dict[pvt_network_name] = {
+    "subnet": private_ip_range+str(pvt_network_index)+".0/24",
+    "ip_range": private_ip_range+str(pvt_network_index)+".0/24",
 	"gateway":gw,
 	"latency_ms":lat,
 	"bandwidth_mbps":bw,
@@ -202,6 +207,8 @@ for device in devices.keys():
         #print device
         conn_dev.append(device)
 pub_networks_dict[pub_network_name] = {
+    "subnet": public_ip_range+str(pub_network_index)+".0/24",
+    "ip_range": public_ip_range+str(pub_network_index)+".0/24",
     "gateway":gw,
     "latency_ms":lat,
     "bandwidth_mbps":bw,
