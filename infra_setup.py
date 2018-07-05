@@ -11,11 +11,7 @@ startTime = datetime.now()
 infra_config = json.load(open("config/infra_config.json"))
 vm_config = json.load(open("config/vm_config.json"))
 vm_types = json.load(open("config/vm_types.json"))
-<<<<<<< HEAD
-sensor_types =  json.load(open("config/sensor_types.json"))
-=======
 sensors =  json.load(open("config/sensor_types.json"))
->>>>>>> 99455bd2d5cc234f169d6331934ba24758b833de
 deployment =  json.load(open("config/deployment.json"))
 device_types =  json.load(open("config/device_types.json"))
 partitions = json.load(open('dump/metis/metis_partitions.json'))
@@ -152,10 +148,6 @@ for d in all_devices_list:
     device_relibality_params =  device_types[device_type]["reliability"]
 
     vm_index = int(partitions[d])
-<<<<<<< HEAD
-    print vm_index
-=======
->>>>>>> 99455bd2d5cc234f169d6331934ba24758b833de
     vm_name = container_vm_names[vm_index]
     vm_mount_path = vm_types[vm_config["container_VM"][vm_name]["vm_type"]]["shared_mount"]
     host = container_vm[vm_name]["hostname_ip"]
@@ -234,10 +226,6 @@ for i in range(len(private_networks_dict)):
     stdin, stdout, stderr = c.exec_command(command)
     output = stdout.read()
     output = output.split("\n")
-<<<<<<< HEAD
-    print output
-=======
->>>>>>> 99455bd2d5cc234f169d6331934ba24758b833de
     device_ip["IP"] = output[0].split("/")[0]
     device_ip["eth"] = output[1]
     eth_ip_dict[gw]["docker_d0_bridge"] = device_ip
