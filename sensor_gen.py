@@ -14,7 +14,7 @@ deployment_output = json.load(open("dump/infra/deployment_output.json"))
 
 
 all_devices_list = deployment_output.keys()
-print all_devices_list
+#print all_devices_list
 container_vm = vm_config["container_VM"]
 container_vm_names = container_vm.keys()
 
@@ -110,7 +110,7 @@ for sensor in sensor_types_list:
     sensor_types_dict[sensor_type] = params
 
 
-print sensor_types_dict
+#print sensor_types_dict
 
 
 
@@ -145,7 +145,7 @@ for d in all_devices_list:
 
     nw_name_list = deployment_output[d]["private_networks"].keys()
     device_ip = deployment_output[d]["private_networks"][nw_name_list[0]]
-
+    print "Creating sensor for device - {0}".format(d)
     for sensor in sensors:
         sensor_dict = {}
         sensor_type = sensor["sensor_type"]
@@ -159,7 +159,7 @@ for d in all_devices_list:
             link_list.append(link)
             params = sensor_types_dict[sensor_type]
             command = "sudo docker exec -i {8} python {9}/data_gen.py {0} {1} {2} {3} {4} {5} {6} {7}".format(sensor_file_name,params[0],params[1],params[2],params[3],params[4],params[5],params[6],d,            sensor_bin_path)
-            print command
+            #print command
             stdin , stdout, stderr = c.exec_command(command)
             num_sensors -= 1
 
@@ -171,14 +171,16 @@ for d in all_devices_list:
 
     sensor_txt = sensor_txt[:len(sensor_txt) -1]
     command = "sudo docker exec -id {0} python {1}/sensor_data_host.py {2} {3} '{4}'".format(d,sensor_bin_path,device_ip,sensor_data_path,sensor_txt)
-    print command
+    #print command
     stdin,stdout, stderr = c.exec_command(command)
-    print stdout,stderr
+    #print stdout,stderr
 
     c.close()
 
     deployment_output[d]["sensors"] = sensor_dict_list
 
+
+print "\n\nDeployment Ouput with sensor creation\n\n"
 print deployment_output
 
 
