@@ -46,9 +46,7 @@ for vm in container_vm_names:
     k = paramiko.RSAKey.from_private_key_file(key)
     c = paramiko.SSHClient()
     c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-
     c.connect(hostname = host, username = user, pkey = k)
-    #command = "sudo docker rm Edge-3.12 --force"
     command = "sudo docker rm $(docker ps -a -q) --force"
     stdin , stdout, stderr = c.exec_command(command)
     print stdout.read()

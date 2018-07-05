@@ -27,6 +27,11 @@
 	},
 	"log_path": "/tmp/violet/logs",
 	"retain_disk_on_kill": "false",
+<<<<<<< HEAD
 	"vm_top_period_secs": "30",
     "sensor_duration_secs": "3600"
 }
+=======
+	"vm_top_period_secs": "30"
+}
+>>>>>>> 99455bd2d5cc234f169d6331934ba24758b833de
