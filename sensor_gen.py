@@ -139,7 +139,7 @@ for d in all_devices_list:
         stdin , stdout, stderr = c.exec_command(cmd)
 
     sensors = infra_config["devices"][d]["sensors"]
-    link_dict = {}
+    sensor_dict_list = []
     sensor_txt = ""
     #Assuming 1 fog for each private network and fog is common to multiple private networks
 
@@ -147,19 +147,27 @@ for d in all_devices_list:
     device_ip = deployment_output[d]["private_networks"][nw_name_list[0]]
 
     for sensor in sensors:
+        sensor_dict = {}
         sensor_type = sensor["sensor_type"]
         num_sensors = sensor["count"]
+        link_list = []
 
         while num_sensors:
             sensor_file_name = sensor_type + "_" + str(num_sensors)
             sensor_txt += sensor_file_name +","
             link = "http://"+device_ip+":5000/sensors/"+sensor_file_name
-            link_dict[sensor_file_name] = link
+            link_list.append(link)
             params = sensor_types_dict[sensor_type]
             command = "sudo docker exec -i {8} python {9}/data_gen.py {0} {1} {2} {3} {4} {5} {6} {7}".format(sensor_file_name,params[0],params[1],params[2],params[3],params[4],params[5],params[6],d,            sensor_bin_path)
             print command
             stdin , stdout, stderr = c.exec_command(command)
             num_sensors -= 1
+
+        sensor_dict = {
+            "sensor_type":sensor["sensor_type"],
+            "links":link_list
+            }
+        sensor_dict_list.append(sensor_dict)
 
     sensor_txt = sensor_txt[:len(sensor_txt) -1]
     command = "sudo docker exec -id {0} python {1}/sensor_data_host.py {2} {3} '{4}'".format(d,sensor_bin_path,device_ip,sensor_data_path,sensor_txt)
@@ -169,7 +177,7 @@ for d in all_devices_list:
 
     c.close()
 
-    deployment_output[d]["sensors"] = link_dict
+    deployment_output[d]["sensors"] = sensor_dict_list
 
 print deployment_output
 
