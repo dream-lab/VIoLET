@@ -227,7 +227,9 @@ bw = random.choice(BW)
 infra_config["public_global_network"] = {
     "latency_ms": lat,
     "bandwidth_mbps": bw,
-    "devices": conn_dev
+    "devices": conn_dev,
+    "subnet": public_ip_range+str(pub_network_index)+".0/24",
+    "ip_range": public_ip_range+str(pub_network_index)+".0/24"
 }
 
 infra_config["block_network_route"] = []
