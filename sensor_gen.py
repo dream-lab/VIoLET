@@ -182,4 +182,5 @@ for d in all_devices_list:
 print deployment_output
 
 
-
+with open('dump/infra/deployment_output.json','w') as file:
+    file.write(json.dumps(deployment_output))
