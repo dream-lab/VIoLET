@@ -17,7 +17,7 @@ all_devices_list = deployment_output.keys()
 #print all_devices_list
 container_vm = vm_config["container_VM"]
 container_vm_names = container_vm.keys()
-
+sensor_duration_secs = deployment["sensor_duration_secs"]
 
 path = "VIoLET"
 sensor_path = path + "/sensors"
@@ -56,7 +56,6 @@ sensor_types_dict = {}
 for sensor in sensor_types_list:
     sensor_id = str(sensor["id"])
     timestamp = str(sensor["timestamp"])
-    sample_size = str(sensor["sample_size"])
     dist_rate = str(sensor["dist_rate"])
     dist_value = str(sensor["dist_value"])
 
@@ -105,7 +104,7 @@ for sensor in sensor_types_list:
         #min_value = sensor["value_params"]["min_value"]
         value_params = path + "," + min_value
 
-    params = [sensor_id, timestamp, sample_size, dist_rate, rate_params, dist_value, value_params]
+    params = [sensor_id, timestamp, sensor_duration_secs, dist_rate, rate_params, dist_value, value_params]
     sensor_type = str(sensor["type"])
     sensor_types_dict[sensor_type] = params
 
@@ -159,7 +158,7 @@ for d in all_devices_list:
             link_list.append(link)
             params = sensor_types_dict[sensor_type]
             command = "sudo docker exec -i {8} python {9}/data_gen.py {0} {1} {2} {3} {4} {5} {6} {7}".format(sensor_file_name,params[0],params[1],params[2],params[3],params[4],params[5],params[6],d,            sensor_bin_path)
-            #print command
+            print command
             stdin , stdout, stderr = c.exec_command(command)
             num_sensors -= 1
 

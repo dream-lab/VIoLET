@@ -4,17 +4,16 @@
             "type": "accelerometer",
             "id": "true",
             "timestamp": "true",
-            "sample_size": "10000",
             "dist_rate": "uniform",
             "rate_params": {
-                "lower_limit": "100",
-                "upper_limit": "500",
-                "unit": "ms"
+                "lower_limit": "1",
+                "upper_limit": "10",
+                "unit": "s"
             },
             "dist_value": "normal",
             "value_params": {
                 "mean": "150",
-                "variance": "100",
+                "variance": "50",
                 "min_value": "25"
             }
         },
@@ -22,13 +21,12 @@
             "type": "gyroscope",
             "id": "true",
             "timestamp": "true",
-            "sample_size": "10000",
             "dist_rate": "normal",
             "rate_params": {
-                "mean": "10",
+                "mean": "20",
                 "variance": "5",
-                "min_value": "5",
-                "unit": "m"
+                "min_value": "2",
+                "unit": "s"
             },
             "dist_value": "poisson",
             "value_params": {
@@ -40,7 +38,6 @@
             "type": "custom",
             "id": "true",
             "timestamp": "true",
-            "sample_size": "10000",
             "dist_rate": "user_defined",
             "rate_params": {
                 "path": "sensors_data_gen/time.csv",

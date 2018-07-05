@@ -1,23 +1,35 @@
 {
-    "admin_VM" : {
-        "VIoLET_admin" : {
-            "hostname_ip"   : "172.31.46.23",
-            "key_path"      : "/home/centos/CIBO-CentOS.pem",
-            "user"          : "centos"
+    "admin_VM": {
+        "VIoLET_admin": {
+            "hostname_ip": "172.31.46.23",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos"
         }
     },
-    "container_VM" : {
-        "M1" : {
-            "hostname_ip"   : "172.31.41.88",
-            "key_path"      : "/home/centos/CIBO-CentOS.pem",
-            "user"          : "centos",
-            "vm_type"       : "m4.xl"
+    "container_VM": {
+        "M1": {
+            "hostname_ip": "172.31.44.161",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos",
+            "vm_type": "m4.10xl"
         },
-        "M2" : {
-            "hostname_ip"   : "172.31.41.167",
-            "key_path"      : "/home/centos/CIBO-CentOS.pem",
-            "user"          : "centos",
-            "vm_type"       : "m4.xl"
+        "M2": {
+            "hostname_ip": "172.31.41.228",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos",
+            "vm_type": "m4.10xl"
+        },
+        "M3": {
+            "hostname_ip": "172.31.45.128",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos",
+            "vm_type": "m4.10xl"
+        },
+        "M4": {
+            "hostname_ip": "172.31.43.53",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos",
+            "vm_type": "m4.10xl"
         }
     }
 }

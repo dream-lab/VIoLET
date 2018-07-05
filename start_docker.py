@@ -31,16 +31,9 @@ for c_vm in container_vm:
     host = container_vm[c_vm]["hostname_ip"]
     user = container_vm[c_vm]["user"]
     key = container_vm[c_vm]["key_path"]
-    k = paramiko.RSAKey.from_private_key_file(key)
-    c = paramiko.SSHClient()
-    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    c.connect( hostname = host, username = user, pkey = k)
-
-    command = "nohup sudo /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise {0}:2375 --cluster-store consul://{1}:8500 &".format(host,admin_ip)
+    command = "nohup ssh -i {0} {1}@{2} sudo /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise {2}:2375 --cluster-store consul://{3}:8500 &".format(key,user,host,admin_ip)
     print command
-    stdin, stdout, stderr = c.exec_command(command)
-    print stdout, stderr
-    c.close()
+    os.system(command)
 
 
 

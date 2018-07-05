@@ -15,7 +15,7 @@ def main(argv):
     data = ""
 
     timestamp = bool(argv[3])
-    size = int(argv[4])
+    duration = int(argv[4])
     rate = str(argv[5])
     rate_params = argv[6].split(',')
     value = str(argv[7])
@@ -41,7 +41,9 @@ def main(argv):
     if timestamp:
         st = dt.datetime.now()
 
-    for i in range(size):
+    i=0
+    curr = 0
+    while curr < duration:
         tim=""
         val=""
         if rate == "normal":
@@ -94,6 +96,7 @@ def main(argv):
                 i+= 1
             r_value = (dt.datetime.strptime(r_val[i].rstrip("\n"), time_str) - initial_time).total_seconds()
             #print rval
+            i+=1
             min_value = 0
             unit = rate_params[1]
             if unit == "ms":
@@ -119,8 +122,11 @@ def main(argv):
             d_value = d_val[i].rstrip("\n")
             #print d_value
 
-        st = st + dt.timedelta(seconds=max(min_value, r_value))
+        curr += max(min_value, r_value)
+        if curr > duration:
+            break
 
+        st = st + dt.timedelta(seconds=max(min_value, r_value))
         df = data + "," + str(st) + "," + str(d_value) + "\n"
 
         #print df
