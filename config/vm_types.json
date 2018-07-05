@@ -1,0 +1,26 @@
+{
+	"m4.10xl": {
+		"core_count": "40",
+		"coremark": "371384",
+		"whetstone": "-1",
+		"memory_mb": "163840",
+		"disk_mb": "4096",
+		"out_bw_mbps": "10000",
+		"out_latency_ms": "0.4",
+		"local_bw_mbps": "27000",
+		"local_latency_ms": "0.06",
+		"shared_mount": "/tmp/log/"
+	},
+	"m4.xl": {
+		"core_count": "4",
+		"coremark": "38625",
+		"whetstone": "-1",
+		"memory_mb": "16384",
+		"disk_mb": "2048",
+		"out_bw_mbps": "750",
+		"out_latency_ms": "0.4",
+		"local_bw_mbps": "27000",
+		"local_latency_ms": "0.06",
+		"shared_mount": "/tmp/log/"
+	}
+}

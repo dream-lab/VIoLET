@@ -1,0 +1,23 @@
+{
+    "admin_VM": {
+        "VIoLET_admin": {
+            "hostname_ip": "ec2-18-188-234-0.us-east-2.compute.amazonaws.com",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos"
+        }
+    },
+    "container_VM": {
+        "M1": {
+            "hostname_ip": "172.31.41.88",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos",
+            "vm_type": "m4.xl"
+        },
+        "M2": {
+            "hostname_ip": "172.31.41.167",
+            "key_path": "/home/centos/CIBO-CentOS.pem",
+            "user": "centos",
+            "vm_type": "m4.xl"
+        }
+    }
+}
