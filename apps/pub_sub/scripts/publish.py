@@ -17,6 +17,9 @@ sub_path = path + "/sub_"
 pub_path = path + "/pub_"
 lat_path = path + "/latency_"
 
+public_port = 1884
+private_port = 1885
+
 pub_data_list = []
 sub_data_list = []
 cnt = 0
@@ -36,7 +39,11 @@ def main(argv):
     global pub_data_list
     sensor_id=argv[1]
     host=argv[2]
-    port=1883
+    network=argv[5]
+    if network=="public":
+        port=public_port
+    else:
+        port=private_port
     topic1 = topic1+sensor_id
     topic2 = topic2+sensor_id
     data_path = argv[3]

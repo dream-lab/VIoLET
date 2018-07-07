@@ -24,16 +24,22 @@ infra_config = json.load(open("../../config/infra_config.json"))
 deployment_output = json.load(open("../../dump/infra/deployment_output.json"))
 all_device_list = deployment_output.keys()
 private_networks_dict = infra_config["private_networks"]
-
+public_networks_dict = infra_config["public_networks"]
 vm_config = json.load(open("../../config/vm_config.json"))
 
-fog_devices = []
+networks = []
 
-for d in all_device_list:
-    if "Fog" in d:
-        fog_devices.append(d)
+latency_dict = {}
 
-print fog_devices
+for n in private_networks_dict.keys():
+    networks.append(n)
+    latency_dict[n] = private_networks_dict[n]["latency_ms"]
+
+for n in public_networks_dict.keys():
+    networks.append(n)
+    latency_dict[n] = public_networks_dict[n]["latency_ms"]
+
+print latency_dict
 
 container_vm = vm_config["container_VM"]
 container_vm_names = container_vm.keys()
@@ -62,22 +68,18 @@ lat_file_list = []
 
 tmp_dir = "tmp"
 
-#os.system("mkdir tmp")
-
-latency_dict = {}
-
-for net_name in private_networks_dict.keys():
-    latency_dict[private_networks_dict[net_name]["gateway"]] = private_networks_dict[net_name]["latency_ms"]
-
-print latency_dict
 
 for pl in pub_list:
-    device, file_key = pl.split()
-    network_name = deployment_output[device]["private_networks"].keys()
-    fog = private_networks_dict[network_name[0]]["gateway"]
-    print fog
+    device, file_key, network = pl.split()
+    if network == "private":
+        network_name = deployment_output[device]["private_networks"].keys()
+        print network_name[0]
+    else:
+        network_name = deployment_output[device]["public_networks"].keys()
+        print network_name[0]
+
     vm_name = deployment_output[device]["host_vm_name"]
-    tmp_fog_dir = tmp_dir + "/" + fog
+    tmp_fog_dir = tmp_dir + "/" + network_name[0]
     tmp_fog_device_dir = tmp_fog_dir + "/" + device
     host = container_vm[vm_name]["hostname_ip"]
     user = container_vm[vm_name]["user"]
@@ -97,10 +99,10 @@ for pl in pub_list:
     lat_file_list.append(lat_file)
 
     commands = [
-            "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,pub_file),
-            "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,sub_file),
-            "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,lat_file)
-            ]
+        "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,pub_file),
+        "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,sub_file),
+        "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,lat_file)
+    ]
 
     for command in commands:
         print command
@@ -117,7 +119,7 @@ for pl in pub_list:
             "scp -i {0} {1}@{2}:{3} {4}".format(key, user, host, lat_file, tmp_fog_device_dir),
             #"diff {0}/{1} {0}/{2}".format(tmp_fog_device_dir, pub_file, sub_file),
             "wc -l {0}".format(tmp_fog_device_dir + "/" + lat_file),
-            "cat {0}/{1} >> {2}/{3}".format(tmp_fog_device_dir, lat_file, tmp_dir, fog+"_latency.txt")
+            "cat {0}/{1} >> {2}/{3}".format(tmp_fog_device_dir, lat_file, tmp_dir, network_name[0]+"_latency.txt")
             ]
 
     for command in commands:
@@ -131,15 +133,14 @@ for pl in pub_list:
 #    for command in commands:
 #        os.system(command)
 
+networks.sort()
 
-fog_devices.sort()
-
-for fog in fog_devices:
-    f = open(tmp_dir + "/" + fog + "_latency.txt", "r")
-    expected = float(latency_dict[fog]) * 4
+for network in networks:
+    f = open(tmp_dir + "/" + network + "_latency.txt", "r")
+    expected = float(latency_dict[network]) * 4
     latencies = f.readlines()
     f.close()
-    d = open(tmp_dir + "/" + fog + "_deviation.txt", "w")
+    d = open(tmp_dir + "/" + network + "_deviation.txt", "w")
     for lat in latencies:
         dev = (((float(lat) * 1000) - expected) / expected) * 100
         d.write(str(dev) + "\n")
@@ -153,9 +154,9 @@ plot_in_file = "latency_deviation.txt"
 
 command = "paste -d ',' "
 
-for fog in fog_devices:
-    print fog
-    command += tmp_dir + "/" + fog + "_deviation.txt" + " "
+for network in networks:
+    print network
+    command += tmp_dir + "/" + network + "_deviation.txt" + " "
 
 command += " > {0}".format(plot_in_file)
 
@@ -165,13 +166,13 @@ plot_out_file = "latency_deviation"
 
 command = 'python ../../vPlot.py {0} {1} "'.format(plot_in_file, plot_out_file)
 
-for fog in fog_devices:
-    print fog
-    command += fog + ","
+for network in networks:
+    print network
+    command += network + ","
 
 #command = command[:len(command) - 1]
 
-command += '" "Latency Deviation % " "Private Networks"'
+command += '" "Latency Deviation % " "Networks"'
 
 os.system(command)
 

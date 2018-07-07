@@ -10,6 +10,9 @@ msg="ON"
 topic1="pub_"
 topic2="sub_"
 
+public_port=1884
+private_port=1885
+
 
 #def on_connect(client, userdata, flags, rc):
 #    print("connected")
@@ -35,7 +38,11 @@ def main(argv):
     global topic2
     sensor_id=argv[1]
     host=argv[2]
-    port=1883
+    network=argv[3]
+    if network=="public":
+        port=public_port
+    else:
+        port=private_port
     topic1 = topic1+sensor_id
     topic2 = topic2+sensor_id
     client = mqtt.Client()

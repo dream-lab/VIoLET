@@ -54,6 +54,9 @@ path = "VIoLET/pub_sub"
 
 num_msgs = sys.argv[1]
 
+public_port = 1884
+private_port = 1885
+
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print "                  PUB - SUB                    "
@@ -77,6 +80,8 @@ for i in range(len(container_vm_names)):
 
 print "Binding Broker address to Mosquitto....."
 
+network = "private"
+
 for fog in fog_device:
     vm_name = deployment_output[fog]["host_vm_name"]
     host = container_vm[vm_name]["hostname_ip"]
@@ -95,8 +100,9 @@ for fog in fog_device:
         "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(fog,path,pub_sub_data),
         "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(fog,path,pub_sub),
         "sudo docker cp -a {0} {1}:{2}".format(pub_sub,fog,path),
-        "sudo docker exec -i {0} python {1}/{2}/mqtt.py {3}".format(fog,path,pub_sub,fog_ip),
-        "sudo docker exec -i {0} systemctl start mosquitto".format(fog)
+        "sudo docker exec -i {0} python {1}/{2}/mqtt.py {3} {4}".format(fog,path,pub_sub,fog_ip,network),
+        #"sudo docker exec -i {0} systemctl start mosquitto -p {0} -d".format(fog,public_port),
+        "sudo docker exec -i {0} mosquitto -c /etc/mosquitto/mosquitto-{2}.conf -p {1} -d".format(fog,private_port,network)
     ]
     for command in commands:
         print command
@@ -125,8 +131,6 @@ for n in private_networks_dict:
             for link in sensor["links"]:
                 sensor_link_list.append(link)
 
-    #print sensor_link_list
-
 
     while len(device_list) >= 2:
         devices = random.sample(device_list,2)
@@ -137,8 +141,8 @@ for n in private_networks_dict:
         print "sensor_link --> " + sensor_link
         print
         cmd = [
-            "python {0}/{1}/subscribe.py {2} {3}".format(path,pub_sub,topic,fog_ip),
-            "python {0}/{1}/publish.py {2} {3} {4} {5}".format(path,pub_sub,topic,fog_ip,sensor_link,num_msgs)
+            "python {0}/{1}/subscribe.py {2} {3} {4}".format(path,pub_sub,topic,fog_ip,network),
+            "python {0}/{1}/publish.py {2} {3} {4} {5} {6}".format(path,pub_sub,topic,fog_ip,sensor_link,num_msgs,network)
         ]
 
         #print command
@@ -160,7 +164,7 @@ for n in private_networks_dict:
                 "sudo docker exec -id {0} {1}".format(device,cmd[i])
             ]
             if i == 1:
-                pf.write(device + " " + topic + "\n")
+                pf.write(device + " " + topic + " " + network + "\n")
 
             for command in commands:
                 print command
@@ -199,10 +203,10 @@ for n in private_networks_dict:
             "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(device,path,pub_sub_data),
             "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(device,path,pub_sub),
             "sudo docker cp -a {0} {1}:{2}".format(pub_sub,device,path,pub_sub),
-            "sudo docker exec -id {0} python {1}/{2}/subscribe.py {3} {4}".format(device,path,pub_sub,topic,fog_ip),
-            "sudo docker exec -id {0} python {1}/{2}/publish.py {3} {4} {5} {6}".format(device,path,pub_sub,topic,fog_ip,sensor_link,num_msgs)
+            "sudo docker exec -id {0} python {1}/{2}/subscribe.py {3} {4} {5}".format(device,path,pub_sub,topic,fog_ip,network),
+            "sudo docker exec -id {0} python {1}/{2}/publish.py {3} {4} {5} {6} {7}".format(device,path,pub_sub,topic,fog_ip,sensor_link,num_msgs,network)
         ]
-        pf.write(device + " " + topic + "\n")
+        pf.write(device + " " + topic + " " + network + "\n")
 
         for command in commands:
             print command
@@ -213,6 +217,7 @@ for n in private_networks_dict:
 
 
 print "pub-sub on public networks"
+#for fog in fog_device:
 fog = random.choice(fog_device)
 vm_name = deployment_output[fog]["host_vm_name"]
 host = container_vm[vm_name]["hostname_ip"]
@@ -227,17 +232,21 @@ c.connect(hostname = host, username = user, pkey = k)
 nw_name_list = deployment_output[fog]["public_networks"].keys()
 fog_ip = deployment_output[fog]["public_networks"][nw_name_list[0]]
 
+network = "public"
+
 commands = [
-    "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(fog,path,pub_sub_data),
-    "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(fog,path,pub_sub),
-    "sudo docker cp -a {0} {1}:{2}".format(pub_sub,fog,path),
-    "sudo docker exec -i {0} python {1}/{2}/mqtt.py {3}".format(fog,path,pub_sub,fog_ip),
-    "sudo docker exec -i {0} systemctl start mosquitto".format(fog)
+        "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(fog,path,pub_sub_data),
+        "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(fog,path,pub_sub),
+        "sudo docker cp -a {0} {1}:{2}".format(pub_sub,fog,path),
+        "sudo docker exec -i {0} python {1}/{2}/mqtt.py {3} {4}".format(fog,path,pub_sub,fog_ip,network),
+        "sudo docker exec -i {0} mosquitto -c /etc/mosquitto/mosquitto-{2}.conf -p {1} -d".format(fog,public_port,network)
 ]
+
 for command in commands:
     print command
     stdin , stdout, stderr = c.exec_command(command)
     print stderr.read(),stdout.read()
+
 c.close()
 
 
@@ -253,6 +262,7 @@ for n in public_networks_dict:
     print device_list
 
     sensor_link_list = []
+
     for device in device_list:
         sensors_list = deployment_output[device]["sensors"]
         for sensor in sensors_list:
@@ -272,8 +282,8 @@ for n in public_networks_dict:
         print "sensor_link --> " + sensor_link
         print
         cmd = [
-            "python {0}/{1}/subscribe.py {2} {3}".format(path,pub_sub,topic,fog_ip),
-            "python {0}/{1}/publish.py {2} {3} {4} {5}".format(path,pub_sub,topic,fog_ip,sensor_link,num_msgs)
+            "python {0}/{1}/subscribe.py {2} {3} {4}".format(path,pub_sub,topic,fog_ip,network),
+            "python {0}/{1}/publish.py {2} {3} {4} {5} {6}".format(path,pub_sub,topic,fog_ip,sensor_link,num_msgs,network)
         ]
 
         #print command
@@ -295,7 +305,7 @@ for n in public_networks_dict:
                 "sudo docker exec -id {0} {1}".format(device,cmd[i])
             ]
             if i == 1:
-                pf.write(device + " " + topic + "\n")
+                pf.write(device + " " + topic + " " + network + "\n")
 
             for command in commands:
                 print command
@@ -334,10 +344,10 @@ for n in public_networks_dict:
             "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(device,path,pub_sub_data),
             "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(device,path,pub_sub),
             "sudo docker cp -a {0} {1}:{2}".format(pub_sub,device,path,pub_sub),
-            "sudo docker exec -id {0} python {1}/{2}/subscribe.py {3} {4}".format(device,path,pub_sub,topic,fog_ip),
-            "sudo docker exec -id {0} python {1}/{2}/publish.py {3} {4} {5} {6}".format(device,path,pub_sub,topic,fog_ip,sensor_link,num_msgs)
+            "sudo docker exec -id {0} python {1}/{2}/subscribe.py {3} {4} {5}".format(device,path,pub_sub,topic,fog_ip,network),
+            "sudo docker exec -id {0} python {1}/{2}/publish.py {3} {4} {5} {6} {7}".format(device,path,pub_sub,topic,fog_ip,sensor_link,num_msgs,network)
         ]
-        pf.write(device + " " + topic + "\n")
+        pf.write(device + " " + topic + " " + network + "\n")
 
         for command in commands:
             print command
