@@ -80,6 +80,7 @@ for sensor in sensor_types_list:
 
     if str(sensor["dist_rate"]) == "user_defined" :
         path = sensor["rate_params"]["path"]
+        path = path.split("/")[-1]
         unit = sensor["rate_params"]["unit"]
         rate_params = path + "," + unit
 
@@ -101,6 +102,7 @@ for sensor in sensor_types_list:
 
     if str(sensor["dist_value"]) == "user_defined" :
         path = sensor["value_params"]["path"]
+        path = path.split("/")[-1]
         #min_value = sensor["value_params"]["min_value"]
         value_params = path + "," + min_value
 
@@ -116,6 +118,23 @@ for sensor in sensor_types_list:
 for d in all_devices_list:
     print "Copying required binary and data files for device - {0}".format(d)
     #log_file.write("Creating sensors for device - {0} \n".format(d))
+
+    if "Fog" in d:
+        nw_name_list = deployment_output[d]["public_networks"].keys()
+        device_ip = deployment_output[d]["public_networks"][nw_name_list[0]]
+    else:
+        nw_name_list = deployment_output[d]["private_networks"].keys()
+        device_ip = deployment_output[d]["private_networks"][nw_name_list[0]]
+
+    print device_ip
+
+    try:
+        port = infra_config["devices"][d]["port"]
+    except KeyError, e:
+        print "setting port to default 5000"
+        port = 5000
+
+
     vm_name = deployment_output[d]["host_vm_name"]
     host = container_vm[vm_name]["hostname_ip"]
     user = container_vm[vm_name]["user"]
@@ -125,25 +144,36 @@ for d in all_devices_list:
     c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     c.connect(hostname = host, username = user, pkey = k)
 
-    command = [
+    commands = [
         "sudo docker exec -i {0} bash -c 'mkdir -p {1}'".format(d,sensor_bin_path),
         "sudo docker exec -i {0} bash -c 'mkdir -p {1}'".format(d,sensor_data_path),
         "sudo docker cp -a {0}/bin {1}:/{2}".format(sensors_data_gen,d,sensor_path),
-        "sudo docker cp -a {0}/data {1}:/{2}".format(sensors_data_gen,d,sensor_path)
-        #"sudo docker exec -id {0} python {1}/sensor_data_host.py {2}".format(d,sensor_bin_path,device_ip[d])
+        "sudo docker cp -a {0}/data {1}:/{2}".format(sensors_data_gen,d,sensor_path),
+        "sudo docker exec -i {0} pip install gunicorn".format(d)
+        #"sudo docker exec -i {0} bash -c 'cd {1}; gunicorn -w 4 --bind {2}:{3} wsgi'".format(d,sensor_bin_path,device_ip,port)
     ]
 
 
-    for cmd in command:
-        stdin , stdout, stderr = c.exec_command(cmd)
+    for command in commands:
+        print command
+        stdin , stdout, stderr = c.exec_command(command)
+        print stderr.read()
 
     sensors = infra_config["devices"][d]["sensors"]
     sensor_dict_list = []
     sensor_txt = ""
     #Assuming 1 fog for each private network and fog is common to multiple private networks
 
-    nw_name_list = deployment_output[d]["private_networks"].keys()
-    device_ip = deployment_output[d]["private_networks"][nw_name_list[0]]
+    #nw_name_list = deployment_output[d]["private_networks"].keys()
+    #device_ip = deployment_output[d]["private_networks"][nw_name_list[0]]
+    #print device_ip
+
+    #try:
+    #    port = infra_config["devices"][d]["port"]
+    #except KeyError, e:
+    #    print "setting port to default 5000"
+    #    port = 5000
+
     print "Creating sensor for device - {0}".format(d)
     for sensor in sensors:
         sensor_dict = {}
@@ -154,7 +184,7 @@ for d in all_devices_list:
         while num_sensors:
             sensor_file_name = sensor_type + "_" + str(num_sensors)
             sensor_txt += sensor_file_name +","
-            link = "http://"+device_ip+":5000/sensors/"+sensor_file_name
+            link = "http://"+device_ip+":"+str(port)+"/sensors/"+sensor_file_name
             link_list.append(link)
             params = sensor_types_dict[sensor_type]
             command = "sudo docker exec -i {8} python {9}/data_gen.py {0} {1} {2} {3} {4} {5} {6} {7}".format(sensor_file_name,params[0],params[1],params[2],params[3],params[4],params[5],params[6],d,            sensor_bin_path)
@@ -169,11 +199,12 @@ for d in all_devices_list:
         sensor_dict_list.append(sensor_dict)
 
     sensor_txt = sensor_txt[:len(sensor_txt) -1]
-    command = "sudo docker exec -id {0} python {1}/sensor_data_host.py {2} {3} '{4}'".format(d,sensor_bin_path,device_ip,sensor_data_path,sensor_txt)
-    #print command
-    stdin,stdout, stderr = c.exec_command(command)
-    #print stdout,stderr
 
+
+    command = "sudo docker exec -id {0} bash -c 'cd {1}; gunicorn -w 5 --bind {2}:{3} wsgi'".format(d,sensor_bin_path,device_ip,port)
+    print command
+    stdin,stdout,stderr = c.exec_command(command)
+    print stderr.read()
     c.close()
 
     deployment_output[d]["sensors"] = sensor_dict_list

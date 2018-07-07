@@ -22,9 +22,10 @@ def on_message(client, userdata, message):
     global topic2
     global msg
     msg = message.payload.decode('utf-8')
-    #print(msg)
-    #print(topic2)
-    client.publish(topic2, msg, qos=QOS)
+    msgid, pub_time, payload = msg.split("!")
+    data = str(time()) + "!" + msgid + "!" + pub_time
+    print(data)
+    client.publish(topic2, data, qos=QOS)
 
 
 
@@ -35,11 +36,9 @@ def main(argv):
     sensor_id=argv[1]
     host=argv[2]
     port=1883
-    #rtt_array = []
     topic1 = topic1+sensor_id
     topic2 = topic2+sensor_id
     client = mqtt.Client()
-    #client.on_connect = on_connect
     client.on_message = on_message
     client.connect(host,port)
     client.subscribe(topic1, qos=QOS)

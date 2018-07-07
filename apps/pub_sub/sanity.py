@@ -9,6 +9,8 @@ import sys
 from datetime import datetime
 from threading import Thread
 
+
+'''
 private_networks_dict = json.load(open('../../dump/infra/infra_pvt.json'))
 fog_devices = json.load(open('../../dump/infra/infra_fog_devices.json'))
 device_networks_dict = json.load(open('../../dump/infra/infra_device_networks.json'))
@@ -16,6 +18,29 @@ device_vm = json.load(open('../../dump/infra/infra_device_vm.json'))
 vm_config = json.load(open("../../config/vm_config.json"))
 container_vm = vm_config["container_host_VM"]
 container_vm_names = container_vm.keys()
+'''
+
+infra_config = json.load(open("../../config/infra_config.json"))
+deployment_output = json.load(open("../../dump/infra/deployment_output.json"))
+all_device_list = deployment_output.keys()
+private_networks_dict = infra_config["private_networks"]
+
+vm_config = json.load(open("../../config/vm_config.json"))
+
+fog_devices = []
+
+for d in all_device_list:
+    if "Fog" in d:
+        fog_devices.append(d)
+
+print fog_devices
+
+container_vm = vm_config["container_VM"]
+container_vm_names = container_vm.keys()
+
+
+pub_sub_data = "data"
+path = "VIoLET/pub_sub"
 
 
 pub_list_txt = open('publisher_list.txt', 'r')
@@ -42,19 +67,19 @@ tmp_dir = "tmp"
 latency_dict = {}
 
 for net_name in private_networks_dict.keys():
-    latency_dict[private_networks_dict[net_name]["gw"]] = private_networks_dict[net_name]["latency"]
+    latency_dict[private_networks_dict[net_name]["gateway"]] = private_networks_dict[net_name]["latency_ms"]
 
 print latency_dict
 
 for pl in pub_list:
     device, file_key = pl.split()
-    network_name = device_networks_dict[device][0]
-    fog = private_networks_dict[network_name]["gw"]
+    network_name = deployment_output[device]["private_networks"].keys()
+    fog = private_networks_dict[network_name[0]]["gateway"]
     print fog
-    vm_name = device_vm[device]
+    vm_name = deployment_output[device]["host_vm_name"]
     tmp_fog_dir = tmp_dir + "/" + fog
     tmp_fog_device_dir = tmp_fog_dir + "/" + device
-    host = container_vm[vm_name]["public_DNS"]
+    host = container_vm[vm_name]["hostname_ip"]
     user = container_vm[vm_name]["user"]
     key = container_vm[vm_name]["key_path"]
     k = paramiko.RSAKey.from_private_key_file(key)
@@ -72,14 +97,15 @@ for pl in pub_list:
     lat_file_list.append(lat_file)
 
     commands = [
-            "sudo docker cp {0}:{1} .".format(device, pub_file),
-            "sudo docker cp {0}:{1} .".format(device, sub_file),
-            "sudo docker cp {0}:{1} .".format(device, lat_file)
+            "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,pub_file),
+            "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,sub_file),
+            "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,lat_file)
             ]
 
     for command in commands:
+        print command
         stdin, stdout, stderr = c.exec_command(command)
-
+        print stderr.read()
     c.close()
 
     time.sleep(0.2)
@@ -89,12 +115,13 @@ for pl in pub_list:
             "scp -i {0} {1}@{2}:{3} {4}".format(key, user, host, pub_file, tmp_fog_device_dir),
             "scp -i {0} {1}@{2}:{3} {4}".format(key, user, host, sub_file, tmp_fog_device_dir),
             "scp -i {0} {1}@{2}:{3} {4}".format(key, user, host, lat_file, tmp_fog_device_dir),
-            "diff {0}/{1} {0}/{2}".format(tmp_fog_device_dir, pub_file, sub_file),
+            #"diff {0}/{1} {0}/{2}".format(tmp_fog_device_dir, pub_file, sub_file),
             "wc -l {0}".format(tmp_fog_device_dir + "/" + lat_file),
             "cat {0}/{1} >> {2}/{3}".format(tmp_fog_device_dir, lat_file, tmp_dir, fog+"_latency.txt")
             ]
 
     for command in commands:
+        print command
         os.system(command)
 
 #for lat_file in lat_file_list:

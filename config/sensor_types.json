@@ -40,12 +40,12 @@
             "timestamp": "true",
             "dist_rate": "user_defined",
             "rate_params": {
-                "path": "sensors_data_gen/time.csv",
+                "path": "sensors_data_gen/data/time.csv",
                 "unit": "s"
             },
             "dist_value": "user_defined",
             "value_params": {
-                "path": "sensors_data_gen/data.csv"
+                "path": "sensors_data_gen/data/data.csv"
             }
         }
     ]

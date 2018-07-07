@@ -71,11 +71,11 @@ for vm_name in container_vm_names:
 
     for device in stdout.read().split():
         print device
-        command = "sudo docker rm -f {0}".format(device)
+        command = "sudo docker container rm -f {0}".format(device)
         #print command
         stdin , stdout, stderr = c.exec_command(command)
-        print stdout.read()
-        print stderr.read()
+        #print stdout.read()
+        #print stderr.read()
     c.close()
 
 time.sleep(5)
@@ -109,5 +109,18 @@ for p in public_networks:
 #print stderr.read()
 c.close()
 
+'''
+for c_vm in container_vm:
+    host = container_vm[c_vm]["hostname_ip"]
+    user = container_vm[c_vm]["user"]
+    key = container_vm[c_vm]["key_path"]
+    commands = [
+        "nohup ssh -i {0} {1}@{2} sudo pkill dockerd".format(key,user,host),
+        "nohup ssh -i {0} {1}@{2} sudo /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise {2}:2375 --cluster-store consul://{3}:8500 &".format(key,user,host,admin_ip)
+    ]
+    for command in commands:
+        print command
+        os.system(command)
+'''
 
 print "{0}".format(datetime.now() - startTime)

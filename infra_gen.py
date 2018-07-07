@@ -8,6 +8,8 @@ num_fog_devices = 0
 edge_device_types_dict = {}
 fog_device_types_dict = {}
 all_devices_list = []
+
+ports = range(1025,65535)
 i=1
 sensor_types = json.load(open("config/sensor_types.json"))
 sensor_types_list = sensor_types["sensor_types"]
@@ -98,11 +100,13 @@ for i in range(num_fog_devices):
     fog_type=random.choice(fog_device_types_dict.keys())
     #print fog_type
     fog_name = "Fog-{0}".format(fog_index)
+    port = random.choice(ports)
     all_devices_list.insert(len(all_devices_list), fog_name)
     sensors = create_sensors()
     devices[fog_name] = {
         "device_type": fog_type,
-        "sensors": sensors
+        "sensors": sensors,
+        "port":port
     }
     fog_index += 1
     fog_device_types_dict[fog_type] -= 1
@@ -120,11 +124,13 @@ for i in range(num_pvt_networks):
         edge_type = random.choice(edge_device_types_dict.keys())
         #print edge_type
         edge_name = "Edge-{0}.{1}".format(pvt_network_index, edge_index)
+        port = random.choice(ports)
         all_devices_list.insert(len(all_devices_list), edge_name)
 	sensors = create_sensors()
         devices[edge_name] = {
             "device_type": edge_type,
-            "sensors": sensors
+            "sensors": sensors,
+            "port": port
         }
         edge_index += 1
         edge_device_types_dict[edge_type] -= 1
@@ -138,11 +144,13 @@ pvt_network_index = 1
 for i in range(remanant):
     edge_type = random.choice(edge_device_types_dict.keys())
     edge_name = "Edge-{0}.{1}".format(pvt_network_index, last_edge_index)
-    all_device_list.append(edge_name)
+    port = random.choice(ports)
+    all_devices_list.append(edge_name)
     sensors = create_sensors()
     devices[edge_name] = {
         "device_type": edge_type,
-        "sensors": sensors
+        "sensors": sensors,
+        "port": port
     }
     pvt_network_index += 1
     edge_device_types_dict[edge_type] -= 1

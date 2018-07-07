@@ -3,10 +3,17 @@ import csv
 import datetime as dt
 import sys
 
-app = Flask(__name__)
+application = Flask(__name__)
 
+sensor_data_dict = {}
+
+count = 0
+start_time = dt.datetime.now()
+
+path = "../data"
 
 def response_data(sensor_data,curr_time):
+    global count
     count=0
     for data in sensor_data:
         t = dt.datetime.strptime(data.split(",")[1],"%Y-%m-%d %H:%M:%S.%f")
@@ -15,9 +22,16 @@ def response_data(sensor_data,curr_time):
         else: break
     return sensor_data[count],count
 
-@app.route("/sensors/<string:sensor>/")
+@application.route("/sensors/<string:sensor>/")
 def getMember(sensor):
+    global sensor_data_dict
+    global count
     curr_time = dt.datetime.now()
+    if sensor not in sensor_data_dict:
+        f = open(path + "/" + sensor, "r")
+        sensor_data_dict[sensor] = f.readlines()
+        f.close()
+
     sensor_data = sensor_data_dict[sensor]
     data,count = response_data(sensor_data,curr_time)
     sensor_data = sensor_data[count:]
@@ -26,12 +40,4 @@ def getMember(sensor):
     return str(data)
 
 if __name__ == "__main__":
-    start_time =dt.datetime.now()
-    path = sys.argv[2]
-    sensors = sys.argv[3]
-    sensor_data_dict = {}
-    for s in sensors.split(","):
-        f = open(path+"/"+s, "r")
-        sensor_data_dict[s] = f.readlines()
-    app.run(host=sys.argv[1])
-
+    application.run(host='0.0.0.0')

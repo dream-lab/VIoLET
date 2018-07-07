@@ -28,5 +28,5 @@
 	"log_path": "/tmp/violet/logs",
 	"retain_disk_on_kill": "false",
 	"vm_top_period_secs": "30",
-    "sensor_duration_secs": "600"
+    "sensor_duration_secs": "3600"
 }
