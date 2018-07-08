@@ -21,7 +21,7 @@ infra_config = json.load(open("config/infra_config.json"))
 #fog_devices = json.load(open('dump/infra/infra_fog_devices.json'))
 #all_devices = json.load(open('dump/infra/all_devices_list.json'))
 vm_config = json.load(open("config/vm_config.json"))
-deployment_output = json.load(open("dump/infra/deployment_output.json"))
+#deployment_output = json.load(open("dump/infra/deployment_output.json"))
 
 #ip_device = {v: k for k, v in device_ip.iteritems()}
 

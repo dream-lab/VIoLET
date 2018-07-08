@@ -57,11 +57,16 @@ for d in all_devices_list:
 print vm_coremark_metis
 
 i = 0
+flag = 0
 for vm_c in vm_coremark_metis:
     if vm_c > container_vm_coremark[i]:
-        print "Metis partitions improper. Rerun the gpmetis command"
-        sys.exit(0)
+        flag = 1
     i += 1
+
+if flag == 1:
+    print "Metis partitions improper. Rerun the gpmetis command"
+else:
+    print "Metis partitions for container distribution is properly generated"
 
 partitions = {}
 i = 0
@@ -71,7 +76,5 @@ for d in all_devices_list:
 
 with open('dump/metis/metis_partitions.json','w') as file:
     file.write(json.dumps(partitions))
-
-print "Metis partitions for container distribution is properly generated"
 
 print partitions
