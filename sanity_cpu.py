@@ -29,6 +29,7 @@ network_dict = {}
 coremark_avg = coremark_list = []
 coremark_devices_all = {}
 flag = sys.argv[1]
+flag = int(flag)
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print "               Sanity check                   "
@@ -142,7 +143,7 @@ if flag == 2:
         print "\ndevice - {0} \n  device_type = {1} \n  expected coremark = {2} observed coremark = {3}\n\n".format(device, d_type, expected_coremark, c_avg)
 
         delta = (float(c_avg) - float(expected_coremark)) / float(expected_coremark) * 100
-    print delta
+        print delta
 
         if d_type == "Pi2B":
             f_pi2b_delta.write(str(delta)+"\n")
