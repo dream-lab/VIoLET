@@ -1,5 +1,6 @@
 {
-	"device_ssh_user": "violet",
+    "control_interval_secs" : "4",
+    "device_ssh_user": "violet",
 	"device_ssh_password": "123456",
 	"sanity_check": {
 		"network_bw": "0.05",
