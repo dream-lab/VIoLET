@@ -50,7 +50,7 @@ container_vm_names = container_vm.keys()
 #pub_sub_tar = "scripts.tar.gz"
 pub_sub = "scripts"
 pub_sub_data = "data"
-path = "VIoLET/pub_sub"
+path = "violet/sanity/pub_sub"
 
 num_msgs = sys.argv[1]
 

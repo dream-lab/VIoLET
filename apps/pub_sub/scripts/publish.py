@@ -12,7 +12,7 @@ topic1="pub_"
 topic2="sub_"
 sensor_id = "sensor"
 
-path = "VIoLET/pub_sub/data"
+path = "violet/sanity/pub_sub/data"
 sub_path = path + "/sub_"
 pub_path = path + "/pub_"
 lat_path = path + "/latency_"

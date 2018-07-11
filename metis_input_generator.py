@@ -48,7 +48,10 @@ for i in range(len(all_devices_list)):
     device = all_devices_list[i]
     #if(i < fog_count):
     device_type = infra_config["devices"][device]["device_type"]
-    info["weight"] = device_types[device_type]["coremark"]
+    coremark = device_types[device_type]["coremark"]
+    memory_mb = device_types[device_type]["memory_mb"]
+    disk_mb = device_types[device_type]["disk_mb"]
+    info["weight"] = coremark + " " + memory_mb + " " + disk_mb
     #else:
     #device_type = infra_config["devices"][device]["device_type"]
     #info["weight"] = device_types[device_type]["coremark"]
@@ -89,7 +92,7 @@ for p in public_networks:
     n = len(public_networks[p]["devices"])
     graph_edges += (n*(n-1)/2)
 
-f.write("{0} {1} 011\n".format(edge_count+fog_count, graph_edges))
+f.write("{0} {1} 011 3\n".format(edge_count+fog_count, graph_edges))
 for i in range(len(all_devices_list)):
     index = i+1
     m = metis_input[str(index)]

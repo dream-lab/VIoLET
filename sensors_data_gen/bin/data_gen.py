@@ -5,7 +5,7 @@ import time
 
 time_str = "%Y-%m-%d %H:%M:%S.%f"
 
-sensor_data_path = "VIoLET/sensors/data"
+sensor_data_path = "violet/sensors/data"
 def main(argv):
     print argv
     filename = argv[1]

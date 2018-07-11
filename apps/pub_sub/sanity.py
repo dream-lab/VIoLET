@@ -46,7 +46,7 @@ container_vm_names = container_vm.keys()
 
 
 pub_sub_data = "data"
-path = "VIoLET/pub_sub"
+path = "violet/sanity/pub_sub"
 
 
 pub_list_txt = open('publisher_list.txt', 'r')
@@ -66,7 +66,7 @@ pub_file_list = []
 sub_file_list = []
 lat_file_list = []
 
-tmp_dir = "tmp"
+tmp_dir = "../../dump/sanity/pub_sub"
 
 
 for pl in pub_list:
@@ -150,7 +150,7 @@ for network in networks:
 
 
 
-plot_in_file = "latency_deviation.txt"
+plot_in_file = tmp_dir + "/latency_deviation.txt"
 
 command = "paste -d ',' "
 
@@ -162,9 +162,9 @@ command += " > {0}".format(plot_in_file)
 
 os.system(command)
 
-plot_out_file = "latency_deviation"
+plot_out_file = tmp_dir + "/latency_deviation"
 
-command = 'python ../../vPlot.py {0} {1} "'.format(plot_in_file, plot_out_file)
+command = 'python ../../dump/sanity/vPlot.py {0} {1} "'.format(plot_in_file, plot_out_file)
 
 for network in networks:
     print network

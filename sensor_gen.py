@@ -6,6 +6,9 @@ import json
 from datetime import datetime
 from threading import Thread
 
+
+startTime = datetime.now()
+
 infra_config = json.load(open("config/infra_config.json"))
 vm_config = json.load(open("config/vm_config.json"))
 sensor_types =  json.load(open("config/sensor_types.json"))
@@ -19,18 +22,21 @@ container_vm = vm_config["container_VM"]
 container_vm_names = container_vm.keys()
 sensor_duration_secs = deployment["sensor_duration_secs"]
 
-path = "VIoLET"
+path = "violet"
 sensor_path = path + "/sensors"
 sensor_bin_path = sensor_path + "/bin"
 sensor_data_path = sensor_path + "/data"
 
+log_file = open("sensor_gen_log","w")
 
+log_file.write("\n\n\n*****************************************Creating Sensors*******************************\n\n\n")
 
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print "             Copy data to other VMs            "
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print
+log_file.write("\n\n\n***********************Copy data to other VMs*********************************\n\n\n")
 
 sensors_data_gen = "sensors_data_gen"
 
@@ -48,6 +54,7 @@ print "           Create sensors                      "
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print
 
+log_file.write("\n\n\n****************************Create Sensors*******************************************\n\n\n")
 
 sensor_types_list = sensor_types["sensor_types"]
 
@@ -110,14 +117,13 @@ for sensor in sensor_types_list:
     sensor_type = str(sensor["type"])
     sensor_types_dict[sensor_type] = params
 
-
-#print sensor_types_dict
+#log_file.write(x for x in sensor_types_dict)
 
 
 
 for d in all_devices_list:
     print "Copying required binary and data files for device - {0}".format(d)
-    #log_file.write("Creating sensors for device - {0} \n".format(d))
+    log_file.write("Creating sensors for device - {0} \n".format(d))
 
     if "Fog" in d:
         nw_name_list = deployment_output[d]["public_networks"].keys()
@@ -155,9 +161,10 @@ for d in all_devices_list:
 
 
     for command in commands:
-        print command
+        log_file.write(command + "\n")
         stdin , stdout, stderr = c.exec_command(command)
-        print stderr.read()
+        log_file.write(stdout.read() + "\n")
+        log_file.write(stderr.read() + "\n")
 
     sensors = infra_config["devices"][d]["sensors"]
     sensor_dict_list = []
@@ -188,8 +195,10 @@ for d in all_devices_list:
             link_list.append(link)
             params = sensor_types_dict[sensor_type]
             command = "sudo docker exec -i {8} python {9}/data_gen.py {0} {1} {2} {3} {4} {5} {6} {7}".format(sensor_file_name,params[0],params[1],params[2],params[3],params[4],params[5],params[6],d,            sensor_bin_path)
-            print command
+            log_file.write(command + "\n")
             stdin , stdout, stderr = c.exec_command(command)
+            log_file.write(stdout.read()+"\n")
+            log_file.write(stderr.read()+"\n")
             num_sensors -= 1
 
         sensor_dict = {
@@ -202,17 +211,23 @@ for d in all_devices_list:
 
 
     command = "sudo docker exec -id {0} bash -c 'cd {1}; gunicorn -w 5 --bind {2}:{3} wsgi'".format(d,sensor_bin_path,device_ip,port)
-    print command
+    log_file.write(command+"\n")
     stdin,stdout,stderr = c.exec_command(command)
-    print stderr.read()
+    log_file.write(stdout.read()+"\n")
+    log_file.write(stderr.read()+"\n")
     c.close()
 
     deployment_output[d]["sensors"] = sensor_dict_list
 
 
 print "\n\nDeployment Ouput with sensor creation\n\n"
-print deployment_output
+#log_file.write(d for d in deployment_output)
+
+log_file.close()
 
 
 with open('dump/infra/deployment_output.json','w') as file:
     file.write(json.dumps(deployment_output))
+
+print datetime.now() - startTime
+
