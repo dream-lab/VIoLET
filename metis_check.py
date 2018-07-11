@@ -34,12 +34,17 @@ container_vm = vm_config["container_VM"]
 container_vm_names = container_vm.keys()
 
 container_vm_coremark = []
-
+container_vm_memory_mb = []
+container_vm_disk_mb = []
 for c in container_vm:
     container_vm_coremark.append(int(vm_types[container_vm[c]["vm_type"]]["coremark"]))
-print container_vm_coremark
-vm_coremark_metis = [0] * number_of_vms
+    container_vm_memory_mb.append(int(vm_types[container_vm[c]["vm_type"]]["memory_mb"]))
+    container_vm_disk_mb.append(int(vm_types[container_vm[c]["vm_type"]]["disk_mb"]))
+print container_vm_coremark, container_vm_memory_mb, container_vm_disk_mb
 
+vm_coremark_metis = [0] * number_of_vms
+vm_memory_metis = [0] * number_of_vms
+vm_disk_metis = [0] * number_of_vms
 
 i = 0
 for d in all_devices_list:
@@ -51,14 +56,18 @@ for d in all_devices_list:
     #    device_type = "edge_device_types"
     dt = infra_config["devices"][d]["device_type"]
     c = device_types[dt]["coremark"]
+    m_mb = device_types[dt]["memory_mb"]
+    d_mb = device_types[dt]["disk_mb"]
     vm_coremark_metis[int(content[i])] += int(c)
+    vm_memory_metis[int(content[i])] += int(m_mb)
+    vm_disk_metis[int(content[i])] += int(d_mb)
     i += 1
 
-print vm_coremark_metis
+print vm_coremark_metis, vm_memory_metis, vm_disk_metis
 
 i = 0
-for vm_c in vm_coremark_metis:
-    if vm_c > container_vm_coremark[i]:
+for vm_c,vm_m,vm_d in zip(vm_coremark_metis,vm_memory_metis,vm_disk_metis):
+    if vm_c > container_vm_coremark[i] or vm_m > container_vm_memory_mb[i] or vm_d > container_vm_disk_mb[i]:
         print "Metis partitions improper. Rerun the gpmetis command"
         sys.exit(0)
     i += 1
