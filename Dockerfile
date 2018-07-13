@@ -16,6 +16,7 @@ RUN yum install -y python-pip
 RUN pip install paho-mqtt
 RUN pip install numpy
 RUN pip install flask
+RUN pip install gunicorn
 RUN pip install requests
 RUN yum install -y mosquitto
 RUN yum install -y wget

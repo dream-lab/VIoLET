@@ -217,47 +217,47 @@ for n in private_networks_dict:
 
 
 print "pub-sub on public networks"
-#for fog in fog_device:
-fog = random.choice(fog_device)
-vm_name = deployment_output[fog]["host_vm_name"]
-host = container_vm[vm_name]["hostname_ip"]
-user = container_vm[vm_name]["user"]
-key = container_vm[vm_name]["key_path"]
-k = paramiko.RSAKey.from_private_key_file(key)
-c = paramiko.SSHClient()
-c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+for fog in fog_device:
+    vm_name = deployment_output[fog]["host_vm_name"]
+    host = container_vm[vm_name]["hostname_ip"]
+    user = container_vm[vm_name]["user"]
+    key = container_vm[vm_name]["key_path"]
+    k = paramiko.RSAKey.from_private_key_file(key)
+    c = paramiko.SSHClient()
+    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-c.connect(hostname = host, username = user, pkey = k)
+    c.connect(hostname = host, username = user, pkey = k)
 
-nw_name_list = deployment_output[fog]["public_networks"].keys()
-fog_ip = deployment_output[fog]["public_networks"][nw_name_list[0]]
+    nw_name_list = deployment_output[fog]["public_networks"].keys()
+    fog_ip = deployment_output[fog]["public_networks"][nw_name_list[0]]
 
-network = "public"
+    network = "public"
 
-commands = [
+    commands = [
         "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(fog,path,pub_sub_data),
         "sudo docker exec -i {0} bash -c 'mkdir -p {1}/{2}'".format(fog,path,pub_sub),
         "sudo docker cp -a {0} {1}:{2}".format(pub_sub,fog,path),
         "sudo docker exec -i {0} python {1}/{2}/mqtt.py {3} {4}".format(fog,path,pub_sub,fog_ip,network),
         "sudo docker exec -i {0} mosquitto -c /etc/mosquitto/mosquitto-{2}.conf -p {1} -d".format(fog,public_port,network)
-]
+    ]
 
-for command in commands:
-    print command
-    stdin , stdout, stderr = c.exec_command(command)
-    print stderr.read(),stdout.read()
+    for command in commands:
+        print command
+        stdin , stdout, stderr = c.exec_command(command)
+        print stderr.read(),stdout.read()
 
-c.close()
+    c.close()
 
 
 
 
 
 for n in public_networks_dict:
-    #fog = random.choice(fog_device)
-    #nw_name_list = deployment_output[fog]["public_networks"].keys()
-    #fog_ip = deployment_output[fog]["public_networks"][nw_name_list[0]]
+    fog = public_networks_dict[n]["gateway"]
+    nw_name_list = deployment_output[fog]["public_networks"].keys()
+    fog_ip = deployment_output[fog]["public_networks"][nw_name_list[0]]
     #print fog_ip
+    #fog = public_networks_dict[n]["gateway"]
     device_list = public_networks_dict[n]["devices"]
     print device_list
 
