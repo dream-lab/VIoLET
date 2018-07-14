@@ -11,7 +11,7 @@
 		"reliability": {
 			"mttf_sec": "300",
 			"mttr_sec": "5",
-			"cpu_var_max": "0.2",
+			"cpu_var_max": "0.5",
 			"cpu_var_period_sec": "600",
 			"out_bw_var_max": "0.1",
 			"out_bw_var_period_secs": "1200",
@@ -33,7 +33,7 @@
 		"reliability": {
 			"mttf_sec": "300",
 			"mttr_sec": "5",
-			"cpu_var_max": "0.2",
+			"cpu_var_max": "0.5",
 			"cpu_var_period_sec": "600",
 			"out_bw_var_max": "0.1",
 			"out_bw_var_period_secs": "1200",
@@ -55,7 +55,7 @@
 		"reliability": {
 			"mttf_sec": "300",
 			"mttr_sec": "5",
-			"cpu_var_max": "0.2",
+			"cpu_var_max": "0.5",
 			"cpu_var_period_sec": "600",
 			"out_bw_var_max": "0.1",
 			"out_bw_var_period_secs": "1200",
@@ -77,7 +77,7 @@
 		"reliability": {
 			"mttf_sec": "300",
 			"mttr_sec": "5",
-			"cpu_var_max": "0.2",
+			"cpu_var_max": "0.5",
 			"cpu_var_period_sec": "600",
 			"out_bw_var_max": "0.1",
 			"out_bw_var_period_secs": "1200",
