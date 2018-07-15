@@ -78,7 +78,7 @@ for vm_name in container_vm_names:
         #print stderr.read()
     c.close()
 
-time.sleep(5)
+time.sleep(1)
 #Delete networks
 print "Deleting Networks"
 vm_name = container_vm_names[0]

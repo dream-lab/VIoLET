@@ -43,6 +43,28 @@
 			"out_packet_corruption_ratio": "0.0001"
 		}
 	},
+	"Pi3B+": {
+                "core_count": "4",
+                "coremark": "16612",
+                "whetstone": "-1",
+                "memory_mb": "1024",
+                "disk_mb": "2048",
+                "nic_out_bw_mbps": "100",
+                "docker_image": "shrey67/centos_systemd",
+                "host_mount": "/tmp/log",
+                "reliability": {
+                        "mttf_sec": "300",
+                        "mttr_sec": "5",
+                        "cpu_var_max": "0.2",
+                        "cpu_var_period_sec": "600",
+                        "out_bw_var_max": "0.1",
+                        "out_bw_var_period_secs": "1200",
+                        "out_lat_var_max": "0.05",
+                        "out_lat_var_period_secs": "1200",
+                        "out_packet_loss_ratio": "0.00001",
+                        "out_packet_corruption_ratio": "0.0001"
+                }
+        },
 	"TX1": {
 		"core_count": "8",
 		"coremark": "26371",

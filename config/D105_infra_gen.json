@@ -4,17 +4,12 @@
         "violet_public_1": 
         [
             {
-                "device_type":"Pi2B",
-                "number_devices":"2",
+                "device_type":"TX1",
+                "number_devices":"4",
                 "number_sensors":"5"
             },
             {
-                "device_type":"Pi3B+",
-                "number_devices":"2",
-                "number_sensors":"5"
-            },
-	    {
-                "device_type":"Pi3B",
+                "device_type":"SI",
                 "number_devices":"1",
                 "number_sensors":"5"
             }
@@ -24,23 +19,37 @@
     {
         "violet_private_1":
         {
-            "device_type":"Pi3B+",
-            "number_devices":"7",
-            "gateway_device_type":"Pi3B+",
+            "device_type":"Pi2B",
+            "number_devices":"20",
+            "gateway_device_type":"TX1",
             "number_sensors":"5"
         },
         "violet_private_2":
         {
-            "device_type":"Pi3B+",
-            "number_devices":"7",
-            "gateway_device_type":"Pi3B+",
+            "device_type":"Pi2B",
+            "number_devices":"20",
+            "gateway_device_type":"TX1",
             "number_sensors":"5"
         },
         "violet_private_3":
         {
+            "device_type":"Pi2B",
+            "number_devices":"20",
+            "gateway_device_type":"TX1",
+            "number_sensors":"5"
+        },
+       "violet_private_4":
+        {
             "device_type":"Pi3B",
-            "number_devices":"5",
-            "gateway_device_type":"Pi3B",
+            "number_devices":"20",
+            "gateway_device_type":"TX1",
+            "number_sensors":"5"
+        },
+        "violet_private_5":
+        {
+            "device_type":"Pi3B",
+            "number_devices":"20",
+            "gateway_device_type":"SI",
             "number_sensors":"5"
         }
     },
