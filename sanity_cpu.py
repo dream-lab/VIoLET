@@ -57,6 +57,8 @@ if flag == 1:
             path = "coremark_executables/coremark_2/coremark.exe"
         elif (device_type == "Pi3B"):
             path = "coremark_executables/coremark_2/coremark.exe"
+	elif (device_type == "Pi3B+"):
+	    path = "coremark_executables/coremark_2/coremark.exe"
 
         print "\n\nCopying coremark files to {0}".format(device)
         commands = [

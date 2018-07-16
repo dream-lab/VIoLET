@@ -5,7 +5,7 @@ import sys
 
 
 INTERVAL = 1
-QOS = 1
+QOS = 2
 msg="ON"
 topic1="pub_"
 topic2="sub_"
@@ -27,7 +27,6 @@ def on_message(client, userdata, message):
     msg = message.payload.decode('utf-8')
     msgid, pub_time, payload = msg.split("!")
     data = str(time()) + "!" + msgid + "!" + pub_time
-    print(data)
     client.publish(topic2, data, qos=QOS)
 
 

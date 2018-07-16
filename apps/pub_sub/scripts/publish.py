@@ -6,7 +6,7 @@ import sys
 import os
 
 INTERVAL = 1
-QOS = 1
+QOS = 2
 
 topic1="pub_"
 topic2="sub_"
@@ -66,7 +66,8 @@ def main(argv):
 
     client.loop_start()
     for i in range(num_msgs):
-        data = "PubMsgId-"+str(i) + "!" + str(time()) + "!" +requests.get(data_path).text
+        sensor_data = requests.get(data_path).text
+        data = "PubMsgId-"+str(i) + "!" + str(time()) + "!" + sensor_data
         client.publish(topic1, data ,qos=QOS)
         pub_data_list.append(data)
         sleep(INTERVAL)

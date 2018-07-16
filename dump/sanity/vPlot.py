@@ -18,8 +18,8 @@ from pylab import *
     xAxis-HeaderLabels should be comma separated values.
 '''
 
-f_mean = open("/home/centos/VIoLET_development_Shreyas/dump/mean","a")
-f_median = open("/home/centos/VIoLET_development_Shreyas/dump/median","a")
+f_mean = open("../mean","a")
+f_median = open("../median","a")
 
 #Array Declarations
 mean=[]
