@@ -67,23 +67,31 @@ for sensor in sensor_types_list:
     dist_value = str(sensor["dist_value"])
 
     if str(sensor["dist_rate"]) == "normal" :
-        mean = sensor["rate_params"]["mean"]
-        variance = sensor["rate_params"]["variance"]
-        min_value = sensor["rate_params"]["min_value"]
+        mean = float(sensor["rate_params"]["mean"])
+        variance = float(sensor["rate_params"]["variance"])
+        min_value = float(sensor["rate_params"]["min_value"])
         unit = sensor["rate_params"]["unit"]
         rate_params = mean + "," +variance + "," + min_value + "," +unit
-
+	if mean < variance || mean <= 0 || min_value <= 0:
+		log_file.write("\nNormal dist_rate\nIncorrect initialization of distribute rate for sensor")
+		print "Incorrect initialization of distribute rate for sensor"
     if str(sensor["dist_rate"]) == "uniform" :
-        lower_limit = sensor["rate_params"]["lower_limit"]
-        upper_limit = sensor["rate_params"]["upper_limit"]
+        lower_limit = float(sensor["rate_params"]["lower_limit"])
+        upper_limit = float(sensor["rate_params"]["upper_limit"])
         unit = sensor["rate_params"]["unit"]
         rate_params = lower_limit + "," + upper_limit + "," + unit
+	if lower_limit <=0 || lower_limit >= upper_limit:
+		log_file.write("\nUniform dist_rate\nIncorrect initialization of distribute rate for sensor")
+		print "Incorrect initialization of distribute rate for sensor"
 
     if str(sensor["dist_rate"]) == "poisson" :
-        lmbda = sensor["rate_params"]["lambda"]
-        min_value = sensor["rate_params"]["min_value"]
+        lmbda = float(sensor["rate_params"]["lambda"])
+        min_value = float(sensor["rate_params"]["min_value"])
         unit = sensor["rate_params"]["unit"]
         rate_params = lmbda + "," + min_value + "," + unit
+	if lmbda <= 0 || min_value <= 0:
+		log_file.write("\nPoisson dist_rate\nIncorrect initialization of distribute rate for sensor")
+		print "Incorrect initialization of distribute rate for sensor"
 
     if str(sensor["dist_rate"]) == "user_defined" :
         path = sensor["rate_params"]["path"]
@@ -156,7 +164,6 @@ for d in all_devices_list:
         "sudo docker cp -a {0}/bin {1}:/{2}".format(sensors_data_gen,d,sensor_path),
         "sudo docker cp -a {0}/data {1}:/{2}".format(sensors_data_gen,d,sensor_path),
         "sudo docker exec -i {0} pip install gunicorn".format(d)
-        #"sudo docker exec -i {0} bash -c 'cd {1}; gunicorn -w 4 --bind {2}:{3} wsgi'".format(d,sensor_bin_path,device_ip,port)
     ]
 
 
@@ -210,7 +217,7 @@ for d in all_devices_list:
     sensor_txt = sensor_txt[:len(sensor_txt) -1]
 
 
-    command = "sudo docker exec -id {0} bash -c 'cd {1}; gunicorn -w 1 --bind {2}:{3} wsgi'".format(d,sensor_bin_path,device_ip,port)
+    command = "sudo docker exec -id {0} bash -c 'cd {1}; gunicorn -w 4 --bind {2}:{3} wsgi'".format(d,sensor_bin_path,device_ip,port)
     log_file.write(command+"\n")
     stdin,stdout,stderr = c.exec_command(command)
     log_file.write(stdout.read()+"\n")
