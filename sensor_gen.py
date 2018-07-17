@@ -210,7 +210,7 @@ for d in all_devices_list:
     sensor_txt = sensor_txt[:len(sensor_txt) -1]
 
 
-    command = "sudo docker exec -id {0} bash -c 'cd {1}; gunicorn -w 5 --bind {2}:{3} wsgi'".format(d,sensor_bin_path,device_ip,port)
+    command = "sudo docker exec -id {0} bash -c 'cd {1}; gunicorn -w 1 --bind {2}:{3} wsgi'".format(d,sensor_bin_path,device_ip,port)
     log_file.write(command+"\n")
     stdin,stdout,stderr = c.exec_command(command)
     log_file.write(stdout.read()+"\n")
@@ -221,7 +221,7 @@ for d in all_devices_list:
 
 
 print "\n\nDeployment Ouput with sensor creation\n\n"
-#log_file.write(d for d in deployment_output)
+print deployment_output
 
 log_file.close()
 

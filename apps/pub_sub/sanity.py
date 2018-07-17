@@ -1,4 +1,3 @@
-
 import os
 import paramiko
 import random
@@ -8,17 +7,6 @@ import threading
 import sys
 from datetime import datetime
 from threading import Thread
-
-
-'''
-private_networks_dict = json.load(open('../../dump/infra/infra_pvt.json'))
-fog_devices = json.load(open('../../dump/infra/infra_fog_devices.json'))
-device_networks_dict = json.load(open('../../dump/infra/infra_device_networks.json'))
-device_vm = json.load(open('../../dump/infra/infra_device_vm.json'))
-vm_config = json.load(open("../../config/vm_config.json"))
-container_vm = vm_config["container_host_VM"]
-container_vm_names = container_vm.keys()
-'''
 
 infra_config = json.load(open("../../config/infra_config.json"))
 deployment_output = json.load(open("../../dump/infra/deployment_output.json"))
@@ -49,7 +37,7 @@ pub_sub_data = "data"
 path = "violet/sanity/pub_sub"
 
 
-pub_list_txt = open('publisher_list.txt', 'r')
+pub_list_txt = open('pub_sub_broker.txt', 'r')
 
 
 print
@@ -70,17 +58,18 @@ tmp_dir = "../../dump/sanity/pub_sub"
 
 
 for pl in pub_list:
-    device, file_key, network = pl.split()
+    pub, sub, broker, topic, network, sensor_link = pl.split()
+    print "\nGetting pub sub and latency data from {0}".format(pub)
     if network == "private":
-        network_name = deployment_output[device]["private_networks"].keys()
-        print network_name[0]
+        network_name = deployment_output[pub]["private_networks"].keys()
+        #print network_name[0]
     else:
-        network_name = deployment_output[device]["public_networks"].keys()
-        print network_name[0]
+        network_name = deployment_output[pub]["public_networks"].keys()
+        #print network_name[0]
 
-    vm_name = deployment_output[device]["host_vm_name"]
+    vm_name = deployment_output[pub]["host_vm_name"]
     tmp_fog_dir = tmp_dir + "/" + network_name[0]
-    tmp_fog_device_dir = tmp_fog_dir + "/" + device
+    tmp_fog_device_dir = tmp_fog_dir + "/" + pub
     host = container_vm[vm_name]["hostname_ip"]
     user = container_vm[vm_name]["user"]
     key = container_vm[vm_name]["key_path"]
@@ -90,48 +79,41 @@ for pl in pub_list:
 
     c.connect(hostname = host, username = user, pkey = k)
 
-    pub_file = "pub_" + file_key
-    sub_file = "sub_" + file_key
-    lat_file = "latency_" + file_key
+    pub_file = "pub_" + topic
+    sub_file = "sub_" + topic
+    lat_file = "latency_" + topic
 
     pub_file_list.append(pub_file)
     sub_file_list.append(sub_file)
     lat_file_list.append(lat_file)
 
     commands = [
-        "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,pub_file),
-        "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,sub_file),
-        "sudo docker cp {0}:{1}/{2}/{3} .".format(device,path,pub_sub_data,lat_file)
+	"mkdir -p {0}".format(path),
+        "sudo docker cp {0}:{1}/{2}/{3} {4}".format(pub,path,pub_sub_data,pub_file,path),
+        "sudo docker cp {0}:{1}/{2}/{3} {4}".format(pub,path,pub_sub_data,sub_file,path),
+        "sudo docker cp {0}:{1}/{2}/{3} {4}".format(pub,path,pub_sub_data,lat_file,path)
     ]
 
     for command in commands:
-        print command
+        #print command
         stdin, stdout, stderr = c.exec_command(command)
-        print stderr.read()
+        if stderr.read() is not " ": print stderr.read()
     c.close()
 
     time.sleep(0.2)
 
     commands = [
             "mkdir -p {0}".format(tmp_fog_device_dir),
-            "scp -i {0} {1}@{2}:{3} {4}".format(key, user, host, pub_file, tmp_fog_device_dir),
-            "scp -i {0} {1}@{2}:{3} {4}".format(key, user, host, sub_file, tmp_fog_device_dir),
-            "scp -i {0} {1}@{2}:{3} {4}".format(key, user, host, lat_file, tmp_fog_device_dir),
-            #"diff {0}/{1} {0}/{2}".format(tmp_fog_device_dir, pub_file, sub_file),
+            "scp -i {0} {1}@{2}:{3}/{4} {5}".format(key, user, host, path, pub_file, tmp_fog_device_dir),
+            "scp -i {0} {1}@{2}:{3}/{4} {5}".format(key, user, host, path, sub_file, tmp_fog_device_dir),
+            "scp -i {0} {1}@{2}:{3}/{4} {5}".format(key, user, host, path, lat_file, tmp_fog_device_dir),
             "wc -l {0}".format(tmp_fog_device_dir + "/" + lat_file),
             "cat {0}/{1} >> {2}/{3}".format(tmp_fog_device_dir, lat_file, tmp_dir, network_name[0]+"_latency.txt")
             ]
 
     for command in commands:
-        print command
         os.system(command)
 
-#for lat_file in lat_file_list:
-#    commands = [
-#            "cat {0}/{1} >> latency.txt".format(tmp_fog_device_dir, lat_file)
-#            ]
-#    for command in commands:
-#        os.system(command)
 
 networks.sort()
 
@@ -149,13 +131,13 @@ for network in networks:
 
 
 
-
+print "\n\nGenerating Plot\n\n"
 plot_in_file = tmp_dir + "/latency_deviation.txt"
 
 command = "paste -d ',' "
 
 for network in networks:
-    print network
+    #print network
     command += tmp_dir + "/" + network + "_deviation.txt" + " "
 
 command += " > {0}".format(plot_in_file)
@@ -167,7 +149,7 @@ plot_out_file = tmp_dir + "/latency_deviation"
 command = 'python ../../dump/sanity/vPlot.py {0} {1} "'.format(plot_in_file, plot_out_file)
 
 for network in networks:
-    print network
+    #print network
     command += network + ","
 
 #command = command[:len(command) - 1]

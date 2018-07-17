@@ -6,7 +6,7 @@ import sys
 import os
 
 INTERVAL = 1
-QOS = 2
+QOS = 1
 
 topic1="pub_"
 topic2="sub_"

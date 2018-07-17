@@ -5,7 +5,7 @@ import sys
 
 
 INTERVAL = 1
-QOS = 2
+QOS = 1
 msg="ON"
 topic1="pub_"
 topic2="sub_"
