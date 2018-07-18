@@ -261,7 +261,7 @@ for i in range(len(private_networks_dict)):
     "sudo docker exec -i {0} tc qdisc add dev {1} handle 1: root htb default 11".format(gw, eth_ip_dict[gw][private_network[i]]["eth"]),
     "sudo docker exec -i {0} tc class add dev {1} parent 1: classid 1:1 htb rate {2}Mbps".format(gw, eth_ip_dict[gw][private_network[i]]["eth"], private_networks_dict[private_network[i]]["bandwidth_mbps"]),
     "sudo docker exec -i {0} tc class add dev {1} parent 1:1 classid 1:11 htb rate {2}Mbit".format(gw, eth_ip_dict[gw][private_network[i]]["eth"], private_networks_dict[private_network[i]]["bandwidth_mbps"]),
-    "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(gw, eth_ip_dict[gw][private_network[i]]["eth"], int( private_networks_dict[private_network[i]]["latency_ms"]))
+    "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(gw, eth_ip_dict[gw][private_network[i]]["eth"], float( private_networks_dict[private_network[i]]["latency_ms"]))
     ]
     log_file.write("Setting TC rules\n")
     for command in commands:
@@ -307,7 +307,7 @@ for i in range(len(private_networks_dict)):
     "sudo docker exec -i {0} tc qdisc add dev {1} handle 1: root htb default 11".format(gw, eth_ip_dict[gw]["public_global_network"]["eth"]),
     "sudo docker exec -i {0} tc class add dev {1} parent 1: classid 1:1 htb rate {2}Mbps".format(gw, eth_ip_dict[gw]["public_global_network"]["eth"], public_global_network_dict["bandwidth_mbps"]),
     "sudo docker exec -i {0} tc class add dev {1} parent 1:1 classid 1:11 htb rate {2}Mbit".format(gw, eth_ip_dict[gw]["public_global_network"]["eth"], public_global_network_dict["bandwidth_mbps"]),
-    "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(gw, eth_ip_dict[gw]["public_global_network"]["eth"], int( public_global_network_dict["latency_ms"]))
+    "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(gw, eth_ip_dict[gw]["public_global_network"]["eth"], float( public_global_network_dict["latency_ms"]))
     ]
     log_file.write("Setting TC rules\n")
     for command in commands:
@@ -360,7 +360,7 @@ for i in range(len(private_networks_dict)):
         "sudo docker exec -i {0} tc qdisc add dev {1} handle 1: root htb default 11".format(device, eth_ip_dict[device][private_network[i]]["eth"]),
         "sudo docker exec -i {0} tc class add dev {1} parent 1: classid 1:1 htb rate {2}Mbps".format(device, eth_ip_dict[device][private_network[i]]["eth"], private_networks_dict[private_network[i]]["bandwidth_mbps"]),
         "sudo docker exec -i {0} tc class add dev {1} parent 1:1 classid 1:11 htb rate {2}Mbit".format(device, eth_ip_dict[device][private_network[i]]["eth"], private_networks_dict[private_network[i]]["bandwidth_mbps"]),
-        "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(device, eth_ip_dict[device][private_network[i]]["eth"], int( private_networks_dict[private_network[i]]["latency_ms"]))
+        "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(device, eth_ip_dict[device][private_network[i]]["eth"], float( private_networks_dict[private_network[i]]["latency_ms"]))
         ]
         log_file.write("Setting TC rules\n")
         for command in commands:
@@ -438,7 +438,7 @@ for i in range(len(public_networks_dict)):
         "sudo docker exec -i {0} tc qdisc add dev {1} handle 1: root htb default 11".format(device, eth_ip_dict[device][public_network[i]]["eth"]),
         "sudo docker exec -i {0} tc class add dev {1} parent 1: classid 1:1 htb rate {2}Mbps".format(device, eth_ip_dict[device][public_network[i]]["eth"], public_networks_dict[public_network[i]]["bandwidth_mbps"]),
         "sudo docker exec -i {0} tc class add dev {1} parent 1:1 classid 1:11 htb rate {2}Mbit".format(device, eth_ip_dict[device][public_network[i]]["eth"], public_networks_dict[public_network[i]]["bandwidth_mbps"]),
-        "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(device, eth_ip_dict[device][public_network[i]]["eth"], int( public_networks_dict[public_network[i]]["latency_ms"]))
+        "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(device, eth_ip_dict[device][public_network[i]]["eth"], float( public_networks_dict[public_network[i]]["latency_ms"]))
         ]
 
         log_file.write("Setting TC rules\n")

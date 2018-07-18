@@ -5,10 +5,10 @@
 		"whetstone": "-1",
 		"memory_mb": "28672",
 		"disk_mb": "409600",
-		"out_bw_mbps": "10000",
-		"out_latency_ms": "0.4",
-		"local_bw_mbps": "27000",
-		"local_latency_ms": "0.06",
+		"out_bw_mbps": "2048",
+		"out_latency_ms": "1.11",
+		"local_bw_mbps": "39116",
+		"local_latency_ms": "0.053",
 		"shared_mount": "/tmp/log/"
 	},
 	"m4.xl": {

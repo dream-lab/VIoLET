@@ -44,12 +44,12 @@
         "public_networks":
         {
             "bandwidth_mbps":["25","50","75","100"],
-            "latency_ms":["25","50","75","100"]
+            "latency_ms":["75","50","10","25"]
         },
         "private_networks":
         {
             "bandwidth_mbps":["25","50","75","100"],
-            "latency_ms":["25","50","75","100"]
+            "latency_ms":["0.1","0.2","50","25"]
         }
     }
 }

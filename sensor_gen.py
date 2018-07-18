@@ -71,16 +71,16 @@ for sensor in sensor_types_list:
         variance = float(sensor["rate_params"]["variance"])
         min_value = float(sensor["rate_params"]["min_value"])
         unit = sensor["rate_params"]["unit"]
-        rate_params = mean + "," +variance + "," + min_value + "," +unit
-	if mean < variance || mean <= 0 || min_value <= 0:
+        rate_params = str(mean) + "," + str(variance) + "," + str(min_value) + "," +unit
+	if mean < variance or mean <= 0 or min_value <= 0:
 		log_file.write("\nNormal dist_rate\nIncorrect initialization of distribute rate for sensor")
 		print "Incorrect initialization of distribute rate for sensor"
     if str(sensor["dist_rate"]) == "uniform" :
         lower_limit = float(sensor["rate_params"]["lower_limit"])
         upper_limit = float(sensor["rate_params"]["upper_limit"])
         unit = sensor["rate_params"]["unit"]
-        rate_params = lower_limit + "," + upper_limit + "," + unit
-	if lower_limit <=0 || lower_limit >= upper_limit:
+        rate_params = str(lower_limit) + "," + str(upper_limit) + "," + unit
+	if lower_limit <=0 or lower_limit >= upper_limit:
 		log_file.write("\nUniform dist_rate\nIncorrect initialization of distribute rate for sensor")
 		print "Incorrect initialization of distribute rate for sensor"
 
@@ -88,8 +88,8 @@ for sensor in sensor_types_list:
         lmbda = float(sensor["rate_params"]["lambda"])
         min_value = float(sensor["rate_params"]["min_value"])
         unit = sensor["rate_params"]["unit"]
-        rate_params = lmbda + "," + min_value + "," + unit
-	if lmbda <= 0 || min_value <= 0:
+        rate_params = str(lmbda) + "," + str(min_value) + "," + unit
+	if lmbda <= 0 or min_value <= 0:
 		log_file.write("\nPoisson dist_rate\nIncorrect initialization of distribute rate for sensor")
 		print "Incorrect initialization of distribute rate for sensor"
 
@@ -127,7 +127,13 @@ for sensor in sensor_types_list:
 
 #log_file.write(x for x in sensor_types_dict)
 
+vm_device_dict = {}
 
+for d in all_devices_list:
+    vm_name = deployment_output[d]["host_vm_name"]
+    if vm_name not in vm_device_dict:
+	vm_device_dict[vm_name] = []
+    vm_device_dict[vm_name].append(d)
 
 for d in all_devices_list:
     print "Copying required binary and data files for device - {0}".format(d)
