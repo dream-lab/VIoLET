@@ -2,7 +2,7 @@ import json
 import sys
 
 infra_config = json.load(open("config/infra_config.json"))
-all_devices_list = json.load(open("dump/infra/all_devices_list.json"))
+#all_devices_list = json.load(open("dump/infra/all_devices_list.json"))
 updated_devices_list = json.load(open("dump/infra/updated_devices_list.json"))
 vm_config = json.load(open("config/vm_config.json"))
 device_types = json.load(open("config/device_types.json"))
