@@ -126,6 +126,7 @@ for n in private_networks_dict:
             for link in sensor["links"]:
                 sensor_link_list.append(link)
 
+    #print sensor_link_list
     pub = ""
     sub = ""
     while len(device_list) >= 2:
