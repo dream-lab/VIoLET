@@ -44,8 +44,13 @@ log_file.write("path = " + path + "\n")
 log_file.write("pub_sub = " + pub_sub + "\n")
 log_file.write("pub_sub_data = " + pub_sub_data + "\n")
 
-num_msgs = sys.argv[1]
+num_msgs = "180"
+try:
+    num_msgs = sys.argv[1]
+except IndexError:
+    print "Default number of messages is set"
 
+print "Number of Messages = {0}".format(num_msgs)
 log_file.write("number of messages = " + num_msgs + "\n")
 
 public_port = 1884
@@ -389,11 +394,14 @@ for n in public_networks_dict:
 total_time = datetime.now() - startTime
 print total_time
 log_file.write(str(total_time))
+print "Please wait for {} seconds to finish".format(num_msgs)
 log_file.close()
+
+
+
 
 f = open("pub_sub_broker.txt","w")
 for p in pub_sub_broker_list:
 	f.write(p+"\n")
 f.close()
-
 
