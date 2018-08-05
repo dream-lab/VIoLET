@@ -183,7 +183,7 @@ for p in private_networks_dict.keys():
     print
 
     gw_device_type = private_networks_dict[p]["gateway_device_type"]
-    gw = random.choice(device_type_fog_dict[gw_device_type])
+    gw = device_type_fog_dict[gw_device_type][0]
     device_type_fog_dict[gw_device_type].remove(gw)
     device_type = private_networks_dict[p]["device_type"]
     number_devices = private_networks_dict[p]["number_devices"]
@@ -191,6 +191,7 @@ for p in private_networks_dict.keys():
     for n in range(int(number_devices)):
         device_name = "Edge-{0}.{1}".format(pvt_network_index,index)
         port = random.choice(ports)
+	#ports.remove(port)
         devices[device_name] = create_device(port,device_type,num_sensors)
         all_devices_list.append(device_name)
         conn_dev.append(device_name)

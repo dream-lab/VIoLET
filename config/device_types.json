@@ -6,7 +6,7 @@
 		"memory_mb": "1024",
 		"disk_mb": "2048",
 		"nic_out_bw_mbps": "100",
-		"docker_image": "shrey67/centos_systemd",
+		"docker_image": "dreamlab/violet",
 		"host_mount": "/tmp/log",
 		"reliability": {
 			"mttf_sec": "300",
@@ -28,7 +28,7 @@
 		"memory_mb": "1024",
 		"disk_mb": "2048",
 		"nic_out_bw_mbps": "100",
-		"docker_image": "shrey67/centos_systemd",
+		"docker_image": "dreamlab/violet",
 		"host_mount": "/tmp/log",
 		"reliability": {
 			"mttf_sec": "300",
@@ -50,7 +50,7 @@
                 "memory_mb": "1024",
                 "disk_mb": "2048",
                 "nic_out_bw_mbps": "100",
-                "docker_image": "shrey67/centos_systemd",
+                "docker_image": "dreamlab/violet",
                 "host_mount": "/tmp/log",
                 "reliability": {
                         "mttf_sec": "300",
@@ -72,7 +72,7 @@
 		"memory_mb": "4096",
 		"disk_mb": "2048",
 		"nic_out_bw_mbps": "100",
-		"docker_image": "shrey67/centos_systemd",
+		"docker_image": "dreamlab/violet",
 		"host_mount": "/tmp/log",
 		"reliability": {
 			"mttf_sec": "300",
@@ -94,7 +94,7 @@
 		"memory_mb": "1024",
 		"disk_mb": "2048",
 		"nic_out_bw_mbps": "100",
-		"docker_image": "shrey67/centos_systemd",
+		"docker_image": "dreamlab/violet",
 		"host_mount": "/tmp/log",
 		"reliability": {
 			"mttf_sec": "300",

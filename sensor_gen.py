@@ -171,15 +171,16 @@ def sensor_gen(vm_name,devices):
         	"sudo docker exec -i {0} bash -c 'mkdir -p {1}'".format(d,sensor_bin_path),
         	"sudo docker exec -i {0} bash -c 'mkdir -p {1}'".format(d,sensor_data_path),
         	"sudo docker cp -a {0}/bin {1}:/{2}".format(sensors_data_gen,d,sensor_path),
-        	"sudo docker cp -a {0}/data {1}:/{2}".format(sensors_data_gen,d,sensor_path),
-        	"sudo docker exec -i {0} pip install gunicorn".format(d)
+        	"sudo docker cp -a {0}/data {1}:/{2}".format(sensors_data_gen,d,sensor_path)
+        	#"sudo docker exec -i {0} pip install gunicorn".format(d)
     	]
 
 	for command in commands:
             log_file.write(command + "\n")
 	    #print command
-            stdin , stdout, stderr = c.exec_command(command,get_pty=True)
-	    stdout.readlines()
+	    stdin , stdout, stderr = c.exec_command(command)
+            #stdin , stdout, stderr = c.exec_command(command,get_pty=True)
+	    #stdout.readlines()
             log_file.write(stdout.read() + "\n")
             log_file.write(stderr.read() + "\n")
 

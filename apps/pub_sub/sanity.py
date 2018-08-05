@@ -58,6 +58,8 @@ tmp_dir = "../../dump/sanity/pub_sub"
 
 
 for pl in pub_list:
+    if len(pl.split()) != 6 :
+	continue
     pub, sub, broker, topic, network, sensor_link = pl.split()
     print "\nGetting pub sub and latency data from {0}".format(pub)
     if network == "private":

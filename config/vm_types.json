@@ -1,5 +1,5 @@
 {
-	"d4_v2": {
+	"Standard_D4_v2": {
 		"core_count": "8",
 		"coremark": "102341",
 		"whetstone": "-1",
@@ -11,12 +11,12 @@
 		"local_latency_ms": "0.053",
 		"shared_mount": "/tmp/log/"
 	},
-	"m4.xl": {
-		"core_count": "4",
-		"coremark": "38625",
+	"Standard_D32_v3": {
+		"core_count": "32",
+		"coremark": "298702",
 		"whetstone": "-1",
-		"memory_mb": "16384",
-		"disk_mb": "102400",
+		"memory_mb": "131072",
+		"disk_mb": "1047552",
 		"out_bw_mbps": "750",
 		"out_latency_ms": "0.4",
 		"local_bw_mbps": "27000",
