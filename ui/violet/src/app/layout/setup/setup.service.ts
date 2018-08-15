@@ -18,4 +18,32 @@ export class SetupService {
     getMetisInputGen() {
         return this.http.get(this.url + "metis_gen");
     }
+
+    postPartitionGen(vm: number) {
+        let formData: FormData = new FormData();
+        formData.append('vm', vm.toString());
+        return this.http.post(this.url + "partition_gen", formData);
+    }
+
+    postCheckMetis(vm: number) {
+        let formData: FormData = new FormData();
+        formData.append('vm', vm.toString());
+        return this.http.post(this.url + "metis_check", formData);
+    }
+
+    getStartDocker() {
+        return this.http.get(this.url + "start_docker");
+    }
+
+    getDeleteInfra() {
+        return this.http.get(this.url + "delete_infra");
+    }
+
+    getInfraSetup() {
+        return this.http.get(this.url + "infra_setup");
+    }
+
+    getSensorGen() {
+        return this.http.get(this.url + "sensor_gen");
+    }
 }

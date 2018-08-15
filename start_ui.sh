@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
-python backend_ui.py;
+backend="python backend_ui.py";
 
-pushd ./ui/violet/dist; python -m SimpleHTTPServer 4000; popd
+frontend="python -m SimpleHTTPServer 4000";
+
+$backend &
+
+pushd ./ui/violet/dist;
+
+$frontend &
+
+popd;
