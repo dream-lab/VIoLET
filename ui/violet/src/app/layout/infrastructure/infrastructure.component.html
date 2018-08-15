@@ -1,0 +1,83 @@
+<div [@routerTransition]>
+
+    <app-page-header [heading]="'Infrastructure'" [icon]="'fa-edit'"></app-page-header>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <form role="form">
+                <fieldset class="form-group">
+                    <label>Devices</label>
+                    <input type="number" [(value)]="infra.devices" (change)="logger()" class="form-control">
+                    <!--<small class="help-block">Enter the total number</small>-->
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label>Fog Devices</label>
+                    <input type="number" class="form-control">
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label>Sensors per Device</label>
+                    <input type="number" class="form-control">
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label>Public Network Edge Density</label>
+                    <input type="number" class="form-control">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Container Image</label>
+                    <input  class="form-control">
+                </fieldset>
+
+            </form>
+        </div>
+        <div class="col-lg-6">
+
+            <form role="form">
+                <fieldset class="form-group">
+                    <label>Fog Type 1 Devices</label>
+                    <input type="number" class="form-control">
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label>Fog Type 2 Devices</label>
+                    <input type="number" class="form-control">
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label>Edge Type 1 Devices</label>
+                    <input type="number" class="form-control">
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label>Edge Type 2 Devices</label>
+                    <input type="number" class="form-control">
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-4">
+            <span></span>
+        </div>
+        <div class="col-log-6">
+            <label>Direct Config File Upload &nbsp; &nbsp;</label>
+            <input type="file" id="InfraConfigInputFile">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-5">
+            <span></span>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+        <div class="col-md-1">
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+    </div>
+</div>

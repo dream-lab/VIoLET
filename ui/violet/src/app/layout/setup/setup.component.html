@@ -1,0 +1,29 @@
+<div>
+
+    <app-page-header [heading]="'Setup'" [icon]="'fa-edit'"></app-page-header>
+
+    <div class="row">
+        <div class="col-log-6">
+            <label>  &nbsp; &nbsp; Infrastructure Generator </label>
+        </div>
+    </div>
+    <div class="row">
+        &nbsp; &nbsp; <button type="submit" class="btn btn-primary" [disabled]="generateInfraStatus==='running'" (click)="generateInfra()">Run</button>
+        <span *ngIf="generateInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"></i></span>
+        <span *ngIf="generateInfraStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"></i></span>
+        <span *ngIf="generateInfraStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"></i></span>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-log-6">
+            <label>  &nbsp; &nbsp; Metis Input Generator </label>
+        </div>
+    </div>
+    <div class="row">
+        &nbsp; &nbsp; <button type="submit" class="btn btn-primary" [disabled]="generateMetisInputStatus==='running'" (click)="generateMetisInput()">Run</button>
+        <span *ngIf="generateMetisInputStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"></i></span>
+        <span *ngIf="generateMetisInputStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"></i></span>
+        <span *ngIf="generateMetisInputStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"></i></span>
+    </div>
+
+</div>
