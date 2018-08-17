@@ -23,7 +23,7 @@
 	},
 	"Pi3B": {
 		"core_count": "4",
-		"coremark": "13717",
+		"coremark": "15456",
 		"whetstone": "-1",
 		"memory_mb": "1024",
 		"disk_mb": "2048",
@@ -45,7 +45,7 @@
 	},
 	"Pi3B+": {
                 "core_count": "4",
-                "coremark": "16612",
+                "coremark": "17894",
                 "whetstone": "-1",
                 "memory_mb": "1024",
                 "disk_mb": "2048",
