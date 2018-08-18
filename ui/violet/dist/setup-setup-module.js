@@ -46,7 +46,7 @@ var SetupRoutingModule = /** @class */ (function () {
 
 /***/ "./src/app/layout/setup/setup.component.html":
 /*!***************************************************!*\
-  !*** ./src/app/layout/setup/setup.component.html ***!
+  !*** ./src/app/layout/setup/setup.component.html.old ***!
   \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -110,7 +110,7 @@ var SetupComponent = /** @class */ (function () {
     SetupComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-setup',
-            template: __webpack_require__(/*! ./setup.component.html */ "./src/app/layout/setup/setup.component.html"),
+            template: __webpack_require__(/*! ./setup.component.html.old */ "./src/app/layout/setup/setup.component.html.old"),
             styles: [__webpack_require__(/*! ./setup.component.scss */ "./src/app/layout/setup/setup.component.scss")]
         }),
         __metadata("design:paramtypes", [_setup_service__WEBPACK_IMPORTED_MODULE_1__["SetupService"]])

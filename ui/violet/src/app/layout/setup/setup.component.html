@@ -1,142 +1,140 @@
 <div>
-
     <app-page-header [heading]="'Setup'" [icon]="'fa-edit'"></app-page-header>
-
     <div class="row">
-
-        <div class="col-lg-4">
-
-            <div class="row">
-                <div class="col-log-6">
-                    <label> &nbsp; &nbsp; 1. Infrastructure Generator </label>
+        <div class="col-lg-3">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <div class="card-title">
+                        Generate Config
+                    </div>
+                    <div class="card-text">
+                        <span
+                            *ngIf="generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'">
+                            &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
+                        </span>
+                        <button type="submit" class="btn btn-primary"
+                                [disabled]="generateInfraStatus==='running'"
+                                (click)="generateInfra()">
+                            Run
+                        </button>
+                        <span *ngIf="generateInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="generateInfraStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="generateInfraStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
+                                                                                       style="vertical-align: middle"></i></span>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                &nbsp; &nbsp;
-                <button type="submit" class="btn btn-primary" [disabled]="generateInfraStatus==='running'"
-                        (click)="generateInfra()">Run
-                </button>
-                <span *ngIf="generateInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"></i></span>
-                <span *ngIf="generateInfraStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"></i></span>
-                <span *ngIf="generateInfraStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"></i></span>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-log-6">
-                    <label> &nbsp; &nbsp; 2. Metis Input Generator </label>
-                </div>
-            </div>
-            <div class="row">
-                &nbsp; &nbsp;
-                <button type="submit" class="btn btn-primary" [disabled]="generateMetisInputStatus==='running'"
-                        (click)="generateMetisInput()">Run
-                </button>
-                <span *ngIf="generateMetisInputStatus==='success'">&nbsp; &nbsp; <i
-                    class="fa fa-2x fa-check"></i></span>
-                <span *ngIf="generateMetisInputStatus==='failure'">&nbsp; &nbsp; <i
-                    class="fa fa-2x fa-times"></i></span>
-                <span *ngIf="generateMetisInputStatus==='running'">&nbsp; &nbsp; <i
-                    class="fa fa-2x fa-spinner"></i></span>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-log-6">
-                    <label> &nbsp; &nbsp; 3. Partition Generator </label>
-                </div>
-            </div>
-            <div class="row">
-                &nbsp; &nbsp; <input type="number" placeholder="VMs" class="form-inline" [(ngModel)]="vm">
-                &nbsp; &nbsp; &nbsp;
-                <button type="submit" class="btn btn-primary" [disabled]="(! (vm>0)) || generatePartitionStatus==='running'"
-                        (click)="generatePartition()">Run
-                </button>
-                <span *ngIf="generatePartitionStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"></i></span>
-                <span *ngIf="generatePartitionStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"></i></span>
-                <span *ngIf="generatePartitionStatus==='running'">&nbsp; &nbsp; <i
-                    class="fa fa-2x fa-spinner"></i></span>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-log-6">
-                    <label> &nbsp; &nbsp; 4. Metis Check </label>
-                </div>
-            </div>
-            <div class="row">
-                &nbsp; &nbsp; <input type="number" placeholder="VMs" class="form-inline" [(ngModel)]="vm">
-                &nbsp; &nbsp; &nbsp;
-                <button type="submit" class="btn btn-primary" [disabled]="(! (vm>0)) || checkMetisStatus==='running'"
-                        (click)="checkMetis()">Run
-                </button>
-                <span *ngIf="checkMetisStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"></i></span>
-                <span *ngIf="checkMetisStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"></i></span>
-                <span *ngIf="checkMetisStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"></i></span>
-            </div>
-            <br>
-        </div>
-        <div class="col-lg-4">
-            <div class="row">
-                <div class="col-log-6">
-                    <label> &nbsp; &nbsp; 5. Start Docker </label>
-                </div>
-            </div>
-            <div class="row">
-                &nbsp; &nbsp;
-                <button type="submit" class="btn btn-primary" [disabled]="startDockerStatus==='running'"
-                        (click)="startDocker()">Run
-                </button>
-                <span *ngIf="startDockerStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"></i></span>
-                <span *ngIf="startDockerStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"></i></span>
-                <span *ngIf="startDockerStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"></i></span>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-log-6">
-                    <label> &nbsp; &nbsp; 6. Delete Infrastructure </label>
-                </div>
-            </div>
-            <div class="row">
-                &nbsp; &nbsp;
-                <button type="submit" class="btn btn-primary" [disabled]="deleteInfraStatus==='running'"
-                        (click)="deleteInfra()">Run
-                </button>
-                <span *ngIf="deleteInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"></i></span>
-                <span *ngIf="deleteInfraStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"></i></span>
-                <span *ngIf="deleteInfraStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"></i></span>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-log-6">
-                    <label> &nbsp; &nbsp; 7. Setup Infrastructure </label>
-                </div>
-            </div>
-            <div class="row">
-                &nbsp; &nbsp;
-                <button type="submit" class="btn btn-primary" [disabled]="infraSetupStatus==='running'"
-                        (click)="infraSetup()">Run
-                </button>
-                <span *ngIf="infraSetupStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"></i></span>
-                <span *ngIf="infraSetupStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"></i></span>
-                <span *ngIf="infraSetupStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"></i></span>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-log-6">
-                    <label> &nbsp; &nbsp; 8. Generate Sensors </label>
-                </div>
-            </div>
-            <div class="row">
-                &nbsp; &nbsp;
-                <button type="submit" class="btn btn-primary" [disabled]="sensorGenStatus==='running'"
-                        (click)="sensorGen()">Run
-                </button>
-                <span *ngIf="sensorGenStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"></i></span>
-                <span *ngIf="sensorGenStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"></i></span>
-                <span *ngIf="sensorGenStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"></i></span>
             </div>
         </div>
-
-
+        <div class="col-lg-3">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <div class="card-title">
+                        Partition
+                    </div>
+                    <div class="card-text">
+                        <span
+                            *ngIf="generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'">
+                            &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
+                        </span>
+                        <button type="submit" class="btn btn-primary"
+                                [disabled]="generateInfraStatus==='running'"
+                                (click)="generateInfra()">
+                            Run
+                        </button>
+                        <span *ngIf="generateInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="generateInfraStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="generateInfraStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
+                                                                                       style="vertical-align: middle"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <div class="card-title">
+                        Deployment
+                    </div>
+                    <div class="card-text">
+                        <span
+                            *ngIf="generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'">
+                            &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
+                        </span>
+                        <button type="submit" class="btn btn-primary"
+                                [disabled]="generateInfraStatus==='running'"
+                                (click)="generateInfra()">
+                            Run
+                        </button>
+                        <span *ngIf="generateInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="generateInfraStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="generateInfraStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
+                                                                                       style="vertical-align: middle"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <div class="card-title">
+                        Sanity
+                    </div>
+                    <div class="card-text">
+                        <span
+                            *ngIf="generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'">
+                            &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
+                        </span>
+                        <select class="form-inline" style="display: inline">
+                            <option>N/W</option>
+                            <option>CPU</option>
+                            <option>App</option>
+                        </select>
+                        &nbsp; &nbsp;
+                        <button type="submit" class="btn btn-primary"
+                                [disabled]="generateInfraStatus==='running'"
+                                (click)="generateInfra()">
+                            Run
+                        </button>
+                        <span *ngIf="generateInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="generateInfraStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="generateInfraStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
+                                                                                       style="vertical-align: middle"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <ngb-tabset>
+                        <ngb-tab title="Info">
+                            <ng-template ngbTabContent>
+                                <p>Sample Text</p>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab title="JSON Files">
+                            <ng-template ngbTabContent>
+                                <p>Sample Text</p>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab title="Visualization">
+                            <ng-template ngbTabContent>
+                                <p>Sample Text</p>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
