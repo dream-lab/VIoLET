@@ -15,12 +15,12 @@
 		"core_count": "32",
 		"coremark": "298702",
 		"whetstone": "-1",
-		"memory_mb": "131072",
-		"disk_mb": "1047552",
-		"out_bw_mbps": "750",
-		"out_latency_ms": "0.4",
-		"local_bw_mbps": "27000",
-		"local_latency_ms": "0.06",
+		"memory_mb": "128000",
+		"disk_mb": "819200",
+		"out_bw_mbps": "2990",
+		"out_latency_ms": "0.45",
+		"local_bw_mbps": "28364",
+		"local_latency_ms": "0.018",
 		"shared_mount": "/tmp/log/"
 	}
 }
