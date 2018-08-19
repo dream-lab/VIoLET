@@ -29,7 +29,9 @@
         "chart.js": "^2.7.2",
         "core-js": "^2.5.5",
         "font-awesome": "^4.7.0",
+        "ng2-ace-editor": "^0.3.8",
         "ng2-charts": "^1.6.0",
+        "ngx-json-viewer": "^2.3.1",
         "rxjs": "^6.1.0",
         "yarn": "^1.6.0",
         "zone.js": "^0.8.26"

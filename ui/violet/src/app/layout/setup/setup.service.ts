@@ -15,6 +15,14 @@ export class SetupService {
         return this.http.get(this.url + "infra_gen");
     }
 
+    getInfraGenInput() {
+        return this.http.get(this.url + "infra_gen_input");
+    }
+
+    getInfraGenOutput() {
+        return this.http.get(this.url + "infra_gen_output");
+    }
+
     getMetisInputGen() {
         return this.http.get(this.url + "metis_gen");
     }
@@ -45,5 +53,17 @@ export class SetupService {
 
     getSensorGen() {
         return this.http.get(this.url + "sensor_gen");
+    }
+
+    getSanityNetwork() {
+        return this.http.get(this.url + "sanity_network");
+    }
+
+    getSanityCPU() {
+        return this.http.get(this.url + "sanity_cpu");
+    }
+
+    getSanityPubSub() {
+        return this.http.get(this.url + "pub_sub");
     }
 }

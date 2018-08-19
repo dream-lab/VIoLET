@@ -35,19 +35,19 @@
                     </div>
                     <div class="card-text">
                         <span
-                            *ngIf="generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'">
+                            *ngIf="partitionStatus==='success' || partitionStatus==='failure' || partitionStatus==='running'">
                             &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
                         </span>
                         <button type="submit" class="btn btn-primary"
-                                [disabled]="generateInfraStatus==='running'"
-                                (click)="generateInfra()">
+                                [disabled]="generateInfraStatus != 'success' || partitionStatus==='running'"
+                                (click)="generateMetisInput()">
                             Run
                         </button>
-                        <span *ngIf="generateInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
+                        <span *ngIf="partitionStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
                                                                                        style="vertical-align: middle"></i></span>
-                        <span *ngIf="generateInfraStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
+                        <span *ngIf="partitionStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
                                                                                        style="vertical-align: middle"></i></span>
-                        <span *ngIf="generateInfraStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
+                        <span *ngIf="partitionStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
                                                                                        style="vertical-align: middle"></i></span>
                     </div>
                 </div>
@@ -61,19 +61,19 @@
                     </div>
                     <div class="card-text">
                         <span
-                            *ngIf="generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'">
+                            *ngIf="deploymentStatus==='success' || deploymentStatus==='failure' || deploymentStatus==='running'">
                             &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
                         </span>
                         <button type="submit" class="btn btn-primary"
-                                [disabled]="generateInfraStatus==='running'"
-                                (click)="generateInfra()">
+                                [disabled]="partitionStatus != 'success' || deploymentStatus==='running'"
+                                (click)="startDocker()">
                             Run
                         </button>
-                        <span *ngIf="generateInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
+                        <span *ngIf="deploymentStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
                                                                                        style="vertical-align: middle"></i></span>
-                        <span *ngIf="generateInfraStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
+                        <span *ngIf="deploymentStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
                                                                                        style="vertical-align: middle"></i></span>
-                        <span *ngIf="generateInfraStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
+                        <span *ngIf="deploymentStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
                                                                                        style="vertical-align: middle"></i></span>
                     </div>
                 </div>
@@ -87,25 +87,24 @@
                     </div>
                     <div class="card-text">
                         <span
-                            *ngIf="generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'">
+                            *ngIf="sanityStatus==='success' || sanityStatus==='failure' || sanityStatus==='running'">
                             &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
                         </span>
-                        <select class="form-inline" style="display: inline">
-                            <option>N/W</option>
-                            <option>CPU</option>
-                            <option>App</option>
-                        </select>
-                        &nbsp; &nbsp;
+                        <select class="form-inline" style="display: inline" [(ngModel)] = "sanitySelection">
+                            <option value="N/W">N/W</option>
+                            <option value="CPU">CPU</option>
+                            <option value="App">App</option>
+                        </select>                        &nbsp; &nbsp;
                         <button type="submit" class="btn btn-primary"
-                                [disabled]="generateInfraStatus==='running'"
-                                (click)="generateInfra()">
+                                [disabled]="deploymentStatus != 'success' || sanityStatus==='running'"
+                                (click)="sanityRun()">
                             Run
                         </button>
-                        <span *ngIf="generateInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
+                        <span *ngIf="sanityStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
                                                                                        style="vertical-align: middle"></i></span>
-                        <span *ngIf="generateInfraStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
+                        <span *ngIf="sanityStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
                                                                                        style="vertical-align: middle"></i></span>
-                        <span *ngIf="generateInfraStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
+                        <span *ngIf="sanityStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
                                                                                        style="vertical-align: middle"></i></span>
                     </div>
                 </div>
@@ -119,12 +118,30 @@
                     <ngb-tabset>
                         <ngb-tab title="Info">
                             <ng-template ngbTabContent>
-                                <p>Sample Text</p>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <span>About</span>
+                                        <p>A quick brown fox jumps over the lazy dog</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span>Console Output</span>
+                                        <ace-editor [text]="console_output" mode="text" style="height:300px;"></ace-editor>
+                                    </div>
+                                </div>
                             </ng-template>
                         </ngb-tab>
-                        <ngb-tab title="JSON Files">
+                        <ngb-tab title="File View">
                             <ng-template ngbTabContent>
-                                <p>Sample Text</p>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <span>Input File</span>
+                                        <ace-editor [text]="input_file" mode="object" style="height:300px;"></ace-editor>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span>Output File</span>
+                                        <ace-editor [text]="output_file" mode="json" style="height:300px;"></ace-editor>
+                                    </div>
+                                </div>
                             </ng-template>
                         </ngb-tab>
                         <ngb-tab title="Visualization">
