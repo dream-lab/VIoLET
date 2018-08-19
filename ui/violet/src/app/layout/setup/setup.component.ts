@@ -52,6 +52,8 @@ export class SetupComponent implements OnInit {
     generateInfra() {
         this.generateInfraStatus = "running";
         this.getInfraInput();
+        this.output_file = '';
+        this.console_output = '';
         this.setupService.getInfraGen().subscribe(res => {
                 this.generateInfraStatus = "success";
                 this.console_output = res['message'];
@@ -73,21 +75,23 @@ export class SetupComponent implements OnInit {
         this.partitionStatus = "running";
         this.input_file = this.output_file;
         this.output_file = '';
+        this.console_output = '1. Generating Metis Input... \n';
         this.setupService.getMetisInputGen().subscribe(res => {
                 this.generateMetisInputStatus = "success";
-                this.console_output = res['message'];
+                this.console_output += res['message'];
                 this.generatePartition();
             },
             error => {
                 this.generateMetisInputStatus = "failure";
                 this.partitionStatus = "failure";
-                this.console_output = error.error['message'];
+                this.console_output += error.error['message'];
             }
         );
     }
 
     generatePartition() {
         this.generatePartitionStatus = "running";
+        this.console_output += '2. Generating Partition... \n';
         this.setupService.postPartitionGen(this.vm).subscribe(res => {
                 this.generatePartitionStatus = "success";
                 this.console_output += res['message']
@@ -103,10 +107,11 @@ export class SetupComponent implements OnInit {
 
     checkMetis() {
         this.checkMetisStatus = "running";
+        this.console_output += '3. Running Metis Check \n';
         this.setupService.postCheckMetis(this.vm).subscribe(res => {
                 this.checkMetisStatus = "success";
                 this.partitionStatus = "success";
-                this.console_output += res['message']
+                this.console_output += res['message'];
                 this.getPartitionOutput();
             },
             error => {
@@ -128,23 +133,26 @@ export class SetupComponent implements OnInit {
         this.startDockerStatus = "running";
         this.deploymentStatus = "running";
         this.getDeploymentInput();
+        this.output_file = '';
+        this.console_output = '1. Starting Docker... \n';
         this.setupService.getStartDocker().subscribe(res => {
                 this.startDockerStatus = "success";
-                this.console_output = res['message']
+                this.console_output += res['message'];
                 this.deleteInfra();
             },
             error => {
                 this.startDockerStatus = "failure";
                 this.deploymentStatus = "failure";
-                this.console_output = error.error['message'];
+                this.console_output += error.error['message'];
             });
     }
 
     deleteInfra() {
         this.deleteInfraStatus = "running";
+        this.console_output += '2. Deleting Infrastructure... \n';
         this.setupService.getDeleteInfra().subscribe(res =>{
                 this.deleteInfraStatus = "success";
-                this.console_output += res['message']
+                this.console_output += res['message'];
                 this.infraSetup();
         },
             error =>  {
@@ -156,9 +164,10 @@ export class SetupComponent implements OnInit {
 
     infraSetup() {
         this.infraSetupStatus = "running";
+        this.console_output += '3. Running Infrastructure setup... \n';
         this.setupService.getInfraSetup().subscribe(res => {
                 this.infraSetupStatus = "success";
-                this.console_output += res['message']
+                this.console_output += res['message'];
                 this.sensorGen();
             },
             error => {
@@ -170,6 +179,7 @@ export class SetupComponent implements OnInit {
 
     sensorGen() {
         this.sensorGenStatus = "running";
+        this.console_output += '4. Running Sensor Gen... \n';
         this.setupService.getSensorGen().subscribe(res => {
                 this.sensorGenStatus = "success";
                 this.deploymentStatus = "success";

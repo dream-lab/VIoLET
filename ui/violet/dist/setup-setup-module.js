@@ -22523,6 +22523,8 @@ var SetupComponent = /** @class */ (function () {
         var _this = this;
         this.generateInfraStatus = "running";
         this.getInfraInput();
+        this.output_file = '';
+        this.console_output = '';
         this.setupService.getInfraGen().subscribe(function (res) {
             _this.generateInfraStatus = "success";
             _this.console_output = res['message'];
@@ -22542,19 +22544,21 @@ var SetupComponent = /** @class */ (function () {
         this.partitionStatus = "running";
         this.input_file = this.output_file;
         this.output_file = '';
+        this.console_output = '1. Generating Metis Input... \n';
         this.setupService.getMetisInputGen().subscribe(function (res) {
             _this.generateMetisInputStatus = "success";
-            _this.console_output = res['message'];
+            _this.console_output += res['message'];
             _this.generatePartition();
         }, function (error) {
             _this.generateMetisInputStatus = "failure";
             _this.partitionStatus = "failure";
-            _this.console_output = error.error['message'];
+            _this.console_output += error.error['message'];
         });
     };
     SetupComponent.prototype.generatePartition = function () {
         var _this = this;
         this.generatePartitionStatus = "running";
+        this.console_output += '2. Generating Partition... \n';
         this.setupService.postPartitionGen(this.vm).subscribe(function (res) {
             _this.generatePartitionStatus = "success";
             _this.console_output += res['message'];
@@ -22568,6 +22572,7 @@ var SetupComponent = /** @class */ (function () {
     SetupComponent.prototype.checkMetis = function () {
         var _this = this;
         this.checkMetisStatus = "running";
+        this.console_output += '3. Running Metis Check \n';
         this.setupService.postCheckMetis(this.vm).subscribe(function (res) {
             _this.checkMetisStatus = "success";
             _this.partitionStatus = "success";
@@ -22592,19 +22597,22 @@ var SetupComponent = /** @class */ (function () {
         this.startDockerStatus = "running";
         this.deploymentStatus = "running";
         this.getDeploymentInput();
+        this.output_file = '';
+        this.console_output = '1. Starting Docker... \n';
         this.setupService.getStartDocker().subscribe(function (res) {
             _this.startDockerStatus = "success";
-            _this.console_output = res['message'];
+            _this.console_output += res['message'];
             _this.deleteInfra();
         }, function (error) {
             _this.startDockerStatus = "failure";
             _this.deploymentStatus = "failure";
-            _this.console_output = error.error['message'];
+            _this.console_output += error.error['message'];
         });
     };
     SetupComponent.prototype.deleteInfra = function () {
         var _this = this;
         this.deleteInfraStatus = "running";
+        this.console_output += '2. Deleting Infrastructure... \n';
         this.setupService.getDeleteInfra().subscribe(function (res) {
             _this.deleteInfraStatus = "success";
             _this.console_output += res['message'];
@@ -22618,6 +22626,7 @@ var SetupComponent = /** @class */ (function () {
     SetupComponent.prototype.infraSetup = function () {
         var _this = this;
         this.infraSetupStatus = "running";
+        this.console_output += '3. Running Infrastructure setup... \n';
         this.setupService.getInfraSetup().subscribe(function (res) {
             _this.infraSetupStatus = "success";
             _this.console_output += res['message'];
@@ -22631,6 +22640,7 @@ var SetupComponent = /** @class */ (function () {
     SetupComponent.prototype.sensorGen = function () {
         var _this = this;
         this.sensorGenStatus = "running";
+        this.console_output += '4. Running Sensor Gen... \n';
         this.setupService.getSensorGen().subscribe(function (res) {
             _this.sensorGenStatus = "success";
             _this.deploymentStatus = "success";
