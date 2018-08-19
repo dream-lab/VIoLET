@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class SetupService {
 
-    url = "http://localhost:5000/";
+    url = "http://104.211.99.136:5000/";
 
     constructor(private http: HttpClient) {
     }

@@ -22757,7 +22757,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var SetupService = /** @class */ (function () {
     function SetupService(http) {
         this.http = http;
-        this.url = "http://localhost:5000/";
+        this.url = "http://104.211.99.136:5000/";
     }
     SetupService.prototype.getInfraGen = function () {
         return this.http.get(this.url + "infra_gen");
