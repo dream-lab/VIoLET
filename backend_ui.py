@@ -87,49 +87,70 @@ def metis_check():
     except:
         return (json.dumps({'message': e}), 500)
 
+@app.route('/deployment_input', methods=['GET'])
+def deployment_input():
+    try:
+        with open('config/vm_config.json', 'r') as f:
+            d = json.load(f)
+            d = json.dumps(d, indent=4)
+            return json.dumps({'data': d, 'name': 'vm_config.json'})
+    except:
+        return ('Failure', 500)
+
+
+@app.route('/deployment_output', methods=['GET'])
+def deployment_output():
+    try:
+        with open('dump/infra/deployment_output.json', 'r') as f:
+            d = json.load(f)
+            d = json.dumps(d, indent=4)
+            return json.dumps({'data': d, 'name': 'deployment_output.json'})
+    except:
+        return ('Failure', 500)
+
 
 @app.route('/start_docker', methods=['GET'])
 def start_docker():
     try:
-        r = os.system("python start_docker.py ")
-        if r != 0:
-            raise Exception
-        return json.dumps({'message': 'Success'})
+        r, e = Popen(["python", "start_docker.py"], stdout=PIPE, stderr=PIPE).communicate()
+        if e != '':
+            raise
+        return json.dumps({'message': r})
     except:
-        return ('Failure', 500)
+        return (json.dumps({'message': e}), 500)
 
 
 @app.route('/delete_infra', methods=['GET'])
 def delete_infra():
     try:
-        r = os.system("python delete_infra.py ")
-        if r != 0:
-            raise Exception
-        return json.dumps({'message': 'Success'})
+        r, e = Popen(["python", "delete_infra.py"], stdout=PIPE, stderr=PIPE).communicate()
+        if e != '':
+            raise
+        return json.dumps({'message': r})
     except:
-        return ('Failure', 500)
+        return (json.dumps({'message': e}), 500)
 
 
 @app.route('/infra_setup', methods=['GET'])
 def infra_setup():
     try:
-        r = os.system("python infra_setup.py ")
-        if r != 0:
-            raise Exception
-        return json.dumps({'message': 'Success'})
+        r, e = Popen(["python", "infra_setup.py"], stdout=PIPE, stderr=PIPE).communicate()
+        if e != '':
+            raise
+        return json.dumps({'message': r})
     except:
-        return ('Failure', 500)
+        return (json.dumps({'message': e}), 500)
 
 
 @app.route('/sensor_gen', methods=['GET'])
 def sensor_gen():
     try:
-        r = os.system("python sensor_gen.py ")
-        if r != 0:
-            raise Exception
-        return json.dumps({'message': 'Success'})
+        r, e = Popen(["python", "sensor_gen.py"], stdout=PIPE, stderr=PIPE).communicate()
+        if e != '':
+            raise
+        return json.dumps({'message': r})
     except:
-        return ('Failure', 500)
+        return (json.dumps({'message': e}), 500)
 
 
 @app.route('/sanity_network', methods=['GET'])

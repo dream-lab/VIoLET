@@ -105,7 +105,7 @@ export class SetupComponent implements OnInit {
         this.checkMetisStatus = "running";
         this.setupService.postCheckMetis(this.vm).subscribe(res => {
                 this.checkMetisStatus = "success";
-                this.partitionStatus = "Success";
+                this.partitionStatus = "success";
                 this.console_output += res['message']
                 this.getPartitionOutput();
             },
@@ -116,34 +116,55 @@ export class SetupComponent implements OnInit {
             });
     }
 
+    getDeploymentInput() {
+        this.setupService.getDeploymentInput().subscribe(res => this.input_file = res['data']);
+    }
+
+    getDeploymentOutput() {
+        this.setupService.getDeploymentOutput().subscribe(res => this.output_file = res['data']);
+    }
+
     startDocker() {
         this.startDockerStatus = "running";
         this.deploymentStatus = "running";
+        this.getDeploymentInput();
         this.setupService.getStartDocker().subscribe(res => {
                 this.startDockerStatus = "success";
-                this.infraSetup();
+                this.console_output = res['message']
+                this.deleteInfra();
             },
             error => {
                 this.startDockerStatus = "failure";
                 this.deploymentStatus = "failure";
+                this.console_output = error.error['message'];
             });
     }
 
     deleteInfra() {
         this.deleteInfraStatus = "running";
-        this.setupService.getDeleteInfra().subscribe(res => this.deleteInfraStatus = "success",
-            error => this.deleteInfraStatus = "failure");
+        this.setupService.getDeleteInfra().subscribe(res =>{
+                this.deleteInfraStatus = "success";
+                this.console_output += res['message']
+                this.infraSetup();
+        },
+            error =>  {
+            this.deleteInfraStatus = "failure";
+            this.deploymentStatus = "failure";
+            this.console_output += error.error['message'];
+            });
     }
 
     infraSetup() {
         this.infraSetupStatus = "running";
         this.setupService.getInfraSetup().subscribe(res => {
                 this.infraSetupStatus = "success";
+                this.console_output += res['message']
                 this.sensorGen();
             },
             error => {
                 this.infraSetupStatus = "failure";
                 this.deploymentStatus = "failure";
+                this.console_output += error.error['message'];
             });
     }
 
@@ -152,10 +173,13 @@ export class SetupComponent implements OnInit {
         this.setupService.getSensorGen().subscribe(res => {
                 this.sensorGenStatus = "success";
                 this.deploymentStatus = "success";
+                this.console_output += res['message'];
+                this.getDeploymentOutput();
             },
             error => {
                 this.sensorGenStatus = "failure";
                 this.deploymentStatus = "failure";
+                this.console_output += error.error['message'];
             });
     }
 

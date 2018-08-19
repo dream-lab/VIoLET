@@ -22570,7 +22570,7 @@ var SetupComponent = /** @class */ (function () {
         this.checkMetisStatus = "running";
         this.setupService.postCheckMetis(this.vm).subscribe(function (res) {
             _this.checkMetisStatus = "success";
-            _this.partitionStatus = "Success";
+            _this.partitionStatus = "success";
             _this.console_output += res['message'];
             _this.getPartitionOutput();
         }, function (error) {
@@ -22579,32 +22579,53 @@ var SetupComponent = /** @class */ (function () {
             _this.console_output += error.error['message'];
         });
     };
+    SetupComponent.prototype.getDeploymentInput = function () {
+        var _this = this;
+        this.setupService.getDeploymentInput().subscribe(function (res) { return _this.input_file = res['data']; });
+    };
+    SetupComponent.prototype.getDeploymentOutput = function () {
+        var _this = this;
+        this.setupService.getDeploymentOutput().subscribe(function (res) { return _this.output_file = res['data']; });
+    };
     SetupComponent.prototype.startDocker = function () {
         var _this = this;
         this.startDockerStatus = "running";
         this.deploymentStatus = "running";
+        this.getDeploymentInput();
         this.setupService.getStartDocker().subscribe(function (res) {
             _this.startDockerStatus = "success";
-            _this.infraSetup();
+            _this.console_output = res['message'];
+            _this.deleteInfra();
         }, function (error) {
             _this.startDockerStatus = "failure";
             _this.deploymentStatus = "failure";
+            _this.console_output = error.error['message'];
         });
     };
     SetupComponent.prototype.deleteInfra = function () {
         var _this = this;
         this.deleteInfraStatus = "running";
-        this.setupService.getDeleteInfra().subscribe(function (res) { return _this.deleteInfraStatus = "success"; }, function (error) { return _this.deleteInfraStatus = "failure"; });
+        this.setupService.getDeleteInfra().subscribe(function (res) {
+            _this.deleteInfraStatus = "success";
+            _this.console_output += res['message'];
+            _this.infraSetup();
+        }, function (error) {
+            _this.deleteInfraStatus = "failure";
+            _this.deploymentStatus = "failure";
+            _this.console_output += error.error['message'];
+        });
     };
     SetupComponent.prototype.infraSetup = function () {
         var _this = this;
         this.infraSetupStatus = "running";
         this.setupService.getInfraSetup().subscribe(function (res) {
             _this.infraSetupStatus = "success";
+            _this.console_output += res['message'];
             _this.sensorGen();
         }, function (error) {
             _this.infraSetupStatus = "failure";
             _this.deploymentStatus = "failure";
+            _this.console_output += error.error['message'];
         });
     };
     SetupComponent.prototype.sensorGen = function () {
@@ -22613,9 +22634,12 @@ var SetupComponent = /** @class */ (function () {
         this.setupService.getSensorGen().subscribe(function (res) {
             _this.sensorGenStatus = "success";
             _this.deploymentStatus = "success";
+            _this.console_output += res['message'];
+            _this.getDeploymentOutput();
         }, function (error) {
             _this.sensorGenStatus = "failure";
             _this.deploymentStatus = "failure";
+            _this.console_output += error.error['message'];
         });
     };
     SetupComponent.prototype.sanityNetwork = function () {
@@ -22757,7 +22781,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var SetupService = /** @class */ (function () {
     function SetupService(http) {
         this.http = http;
-        this.url = "http://104.211.99.136:5000/";
+        this.url = 'http://' + window.location.hostname + ':5000/';
     }
     SetupService.prototype.getInfraGen = function () {
         return this.http.get(this.url + "infra_gen");
@@ -22795,6 +22819,12 @@ var SetupService = /** @class */ (function () {
     };
     SetupService.prototype.getSensorGen = function () {
         return this.http.get(this.url + "sensor_gen");
+    };
+    SetupService.prototype.getDeploymentInput = function () {
+        return this.http.get(this.url + "deployment_input");
+    };
+    SetupService.prototype.getDeploymentOutput = function () {
+        return this.http.get(this.url + "deployment_output");
     };
     SetupService.prototype.getSanityNetwork = function () {
         return this.http.get(this.url + "sanity_network");

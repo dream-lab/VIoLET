@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class SetupService {
 
-    url = "http://104.211.99.136:5000/";
+    url = 'http://' + window.location.hostname + ':5000/';
 
     constructor(private http: HttpClient) {
     }
@@ -57,6 +57,14 @@ export class SetupService {
 
     getSensorGen() {
         return this.http.get(this.url + "sensor_gen");
+    }
+
+    getDeploymentInput() {
+        return this.http.get(this.url + "deployment_input");
+    }
+
+    getDeploymentOutput() {
+        return this.http.get(this.url + "deployment_output");
     }
 
     getSanityNetwork() {
