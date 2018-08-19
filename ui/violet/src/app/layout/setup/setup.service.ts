@@ -39,6 +39,10 @@ export class SetupService {
         return this.http.post(this.url + "metis_check", formData);
     }
 
+    getPartitionOutput() {
+        return this.http.get(this.url + "partition_output");
+    }
+
     getStartDocker() {
         return this.http.get(this.url + "start_docker");
     }

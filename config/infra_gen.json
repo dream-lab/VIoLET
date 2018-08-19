@@ -13,17 +13,13 @@
                 "number_devices":"3",
                 "number_sensors":"5"
             },
-	    {
-<<<<<<< HEAD
-		        "device_type":"TX1",
-=======
+	        {
                 "device_type":"TX1",
                 "number_devices":"1",
                 "number_sensors":"5"
             },
             {
                 "device_type":"SI",
->>>>>>> 0d3790b09775bcf8996eba7a59c951ae8eb4e719
                 "number_devices":"1",
                 "number_sensors":"5"
             }

@@ -33,7 +33,7 @@ export class SetupComponent implements OnInit {
     data = "A quick brown fox jumps over the lazy dog";
     options: any = {maxLines: 1000, printMargin: false};
 
-    vm = 20;
+    vm = 5;
 
     constructor(public setupService: SetupService) {
     }
@@ -64,44 +64,55 @@ export class SetupComponent implements OnInit {
         );
     }
 
+    getPartitionOutput() {
+        this.setupService.getPartitionOutput().subscribe(res => this.output_file = res['data']);
+    }
+
     generateMetisInput() {
         this.generateMetisInputStatus = "running";
         this.partitionStatus = "running";
+        this.input_file = this.output_file;
+        this.output_file = '';
         this.setupService.getMetisInputGen().subscribe(res => {
                 this.generateMetisInputStatus = "success";
+                this.console_output = res['message'];
                 this.generatePartition();
             },
             error => {
                 this.generateMetisInputStatus = "failure";
                 this.partitionStatus = "failure";
+                this.console_output = error.error['message'];
             }
         );
     }
 
     generatePartition() {
         this.generatePartitionStatus = "running";
-        console.log(this.vm);
         this.setupService.postPartitionGen(this.vm).subscribe(res => {
                 this.generatePartitionStatus = "success";
+                this.console_output += res['message']
                 this.checkMetis();
             },
             error => {
                 this.generatePartitionStatus = "failure";
                 this.partitionStatus = "failure";
+                this.console_output += error.error['message'];
             }
         );
     }
 
     checkMetis() {
         this.checkMetisStatus = "running";
-        console.log(this.vm);
         this.setupService.postCheckMetis(this.vm).subscribe(res => {
                 this.checkMetisStatus = "success";
                 this.partitionStatus = "Success";
+                this.console_output += res['message']
+                this.getPartitionOutput();
             },
             error => {
                 this.checkMetisStatus = "failure";
                 this.partitionStatus = "failure";
+                this.console_output += error.error['message'];
             });
     }
 

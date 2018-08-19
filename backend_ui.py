@@ -11,7 +11,7 @@ CORS(app)
 @app.route('/infra_gen', methods=['GET'])
 def infra_gen():
     try:
-        r, e = Popen(["python", "infra_gen.py"], stdout=PIPE, stderr=PIPE).communicate()
+        r, e = Popen(["python", "infra_gen.py", "-s", "10", "-l", "1"], stdout=PIPE, stderr=PIPE).communicate()
         if e != '':
             raise
         return json.dumps({'message': r})
@@ -41,38 +41,51 @@ def infra_gen_output():
         return ('Failure', 500)
 
 
+@app.route('/partition_output', methods=['GET'])
+def partition_output():
+    try:
+        with open('dump/metis/metis_partitions.json', 'r') as f:
+            d = json.load(f)
+            d = json.dumps(d, indent=4)
+            return json.dumps({'data': d, 'name': 'metis_partitions.json'})
+    except:
+        return ('Failure', 500)
+
+
 @app.route('/metis_gen', methods=['GET'])
 def metis_gen():
     try:
-        r = os.system("python metis_input_generator.py ")
-        if r != 0:
-            raise Exception
-        return json.dumps({'message': 'Success'})
+        r, e = Popen(["python", "metis_input_generator.py"], stdout=PIPE, stderr=PIPE).communicate()
+        if e != '':
+            raise
+        return json.dumps({'message': r})
     except:
-        return ('Failure', 500)
+        return (json.dumps({'message': e}), 500)
 
 
 @app.route('/partition_gen', methods=['POST'])
 def partition_gen():
     try:
-        r = os.system("/usr/local/bin/gpmetis dump/metis/metis_input " + str(request.form['vm']))
-        if r != 0:
-            raise Exception
-        return json.dumps({'message': 'Success'})
+        r, e = Popen(["/usr/local/bin/gpmetis", "dump/metis/metis_input", str(request.form['vm'])], stdout=PIPE,
+                     stderr=PIPE).communicate()
+        if e != '':
+            raise
+        return json.dumps({'message': r})
     except:
-        return ('Failure', 500)
+        return (json.dumps({'message': e}), 500)
 
 
 @app.route('/metis_check', methods=['POST'])
 def metis_check():
     try:
-        r = os.system("python metis_check.py dump/metis/metis_input.part." + str(request.form['vm']) + " " + str(
-            request.form['vm']))
-        if r != 0:
-            raise Exception
-        return json.dumps({'message': 'Success'})
+        r, e = Popen(["python", "metis_check.py", "dump/metis/metis_input.part." + str(request.form['vm']),
+                      str(request.form['vm'])], stdout=PIPE,
+                     stderr=PIPE).communicate()
+        if e != '':
+            raise
+        return json.dumps({'message': r})
     except:
-        return ('Failure', 500)
+        return (json.dumps({'message': e}), 500)
 
 
 @app.route('/start_docker', methods=['GET'])

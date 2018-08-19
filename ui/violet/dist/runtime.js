@@ -61,7 +61,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"access-denied-access-denied-module":"access-denied-access-denied-module","common":"common","charts-charts-module":"charts-charts-module","tables-tables-module":"tables-tables-module","dashboard-dashboard-module~layout-layout-module":"dashboard-dashboard-module~layout-layout-module","dashboard-dashboard-module":"dashboard-dashboard-module","layout-layout-module":"layout-layout-module","not-found-not-found-module":"not-found-not-found-module","server-error-server-error-module":"server-error-server-error-module","setup-setup-module":"setup-setup-module"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"access-denied-access-denied-module":"access-denied-access-denied-module","common":"common","charts-charts-module":"charts-charts-module","tables-tables-module":"tables-tables-module","dashboard-dashboard-module~layout-layout-module~setup-setup-module":"dashboard-dashboard-module~layout-layout-module~setup-setup-module","dashboard-dashboard-module":"dashboard-dashboard-module","layout-layout-module":"layout-layout-module","setup-setup-module":"setup-setup-module","not-found-not-found-module":"not-found-not-found-module","server-error-server-error-module":"server-error-server-error-module"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
