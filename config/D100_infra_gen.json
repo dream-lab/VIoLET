@@ -10,20 +10,21 @@
             },
             {
                 "device_type":"Pi3B",
-                "number_devices":"3",
+                "number_devices":"2",
                 "number_sensors":"5"
             },
 	    {
-<<<<<<< HEAD
-		        "device_type":"TX1",
-=======
+                "device_type":"Pi3B+",
+                "number_devices":"1",
+                "number_sensors":"5"
+            },
+	    {
                 "device_type":"TX1",
                 "number_devices":"1",
                 "number_sensors":"5"
             },
             {
                 "device_type":"SI",
->>>>>>> 0d3790b09775bcf8996eba7a59c951ae8eb4e719
                 "number_devices":"1",
                 "number_sensors":"5"
             }
@@ -47,42 +48,42 @@
         },
         "violet_private_3":
         {
-            "device_type":"Pi2B",
+            "device_type":"Pi3B+",
             "number_devices":"11",
-            "gateway_device_type":"Pi2B",
+            "gateway_device_type":"Pi3B+",
             "number_sensors":"5"
         },
        "violet_private_4":
         {
+            "device_type":"Pi2B",
+            "number_devices":"11",
+            "gateway_device_type":"Pi2B",
+            "number_sensors":"5"
+        },
+        "violet_private_5":
+        {
             "device_type":"Pi3B",
             "number_devices":"11",
             "gateway_device_type":"Pi3B",
             "number_sensors":"5"
         },
-        "violet_private_5":
+	"violet_private_6":
         {
             "device_type":"Pi2B",
             "number_devices":"11",
             "gateway_device_type":"Pi2B",
             "number_sensors":"5"
         },
-	"violet_private_6":
-        {
-            "device_type":"Pi3B",
-            "number_devices":"11",
-            "gateway_device_type":"Pi3B",
-            "number_sensors":"5"
-        },
         "violet_private_7":
         {
-            "device_type":"Pi2B",
+            "device_type":"Pi3B",
             "number_devices":"11",
             "gateway_device_type":"TX1",
             "number_sensors":"5"
         },
         "violet_private_8":
         {
-            "device_type":"Pi3B+",
+            "device_type":"Pi2B",
             "number_devices":"11",
             "gateway_device_type":"SI",
             "number_sensors":"5"

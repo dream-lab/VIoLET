@@ -1,6 +1,7 @@
 import json
 import random
-
+import sys
+import getopt
 
 infra_gen_dict = json.load(open("config/infra_gen.json"))
 public_networks_dict=infra_gen_dict["public_networks"]
@@ -37,7 +38,48 @@ all_devices_list = []
 device_type_fog_dict = {}
 
 
+seed = 10
+logic = 0
+
+def main(argv):
+    global seed,logic
+    try:
+	opts, args = getopt.getopt(argv,"s:l:",["seed=","logic="])
+    except getopt.GetoptError:
+	print 'python infra_gen.py -s <seed_value> -l <logic_value>'
+	sys.exit(2)
+    for opt, arg in opts:
+	if opt in ("-s","--seed"):
+	    seed = arg
+	    print seed
+	if opt in ("-l","--logic"):
+	    logic = arg
+	    print logic
+	
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
+
+
+
 ports = range(1025,65535)
+
+#try:
+#    seed = sys.argv[1]
+#except IndexError:
+#    seed = 500
+#    print "seed not given, will generate random bandwidth and latency combination for network"
+
+#print "seed=",seed
+
+bw_lat = [(20,5),(40,5),(60,5),(80,5),(100,5),(20,25),(40,25),(60,25),(80,25),(100,25),(20,50),(40,50),(20,75)]
+
+if logic == "1":
+	print bw_lat
+	print "The above combination of bw_lat pairs will be used for the networks"
+
+
+r = random.Random(seed)
 
 sensors_list = []
 for sensor in sensor_types_list:
@@ -81,22 +123,29 @@ for p in public_networks_dict.keys():
     #conn_dev = []
     #bw = random.choice(pub_bandwidth_mbps)
     
-    lat = random.choice(pub_latency_ms)
-    print "pub_latency_ms for {0} is {1}".format(p,lat)
-    print
-    peak_bw = pub_window_size/float(lat)
-    pub_bw = []
-    for bw in pub_bandwidth_mbps:
-	if float(bw) < peak_bw:
-	    pub_bw.append(bw)
-    bw = min(pub_bandwidth_mbps)
-    try:
-        bw = random.choice(pub_bw)
-    except IndexError:
-	print "The latency choosen is not a valid choice as bandwidth depends on it as well as window size"
-	print "Please change the infra_gen.json to retry or run again for correct results"
-	print "Default value of bw is set to the minimum of the available bandwidth"
+    if logic == "1":
+	bw,lat = r.choice(bw_lat)
+    else:
+    	lat = r.choice(pub_latency_ms)
+    	#print "pub_latency_ms for {0} is {1}".format(p,lat)
+    	print
+    	peak_bw = pub_window_size/float(lat)
+    	pub_bw = []
+    	for bw in pub_bandwidth_mbps:
+		if float(bw) < peak_bw:
+		    pub_bw.append(bw)
+    	bw = min(pub_bandwidth_mbps)
+    	try:
+    	    bw = r.choice(pub_bw)
+    	except IndexError:
+		print "The latency choosen is not a valid choice as bandwidth depends on it as well as window size"
+		print "Please change the infra_gen.json to retry or run again for correct results"
+		print "Default value of bw is set to the minimum of the available bandwidth"
+                #print "pub_bandwidth_mbps for {0} is {1}".format(p,bw)
+    
     print "pub_bandwidth_mbps for {0} is {1}".format(p,bw)
+    print 
+    print "pub_latency_ms for {0} is {1}".format(p,lat)
     print 
     devices_list = public_networks_dict[p]
     for d in devices_list:
@@ -106,7 +155,7 @@ for p in public_networks_dict.keys():
         num_sensors = int(d["number_sensors"])
         for n in range(int(number_devices)):
             device_name = "Fog-{0}".format(index)
-            port = random.choice(ports)
+            port = r.choice(ports)
             devices[device_name] = create_device(port,device_type,num_sensors)
             all_devices_list.append(device_name)
             conn_dev.append(device_name)
@@ -126,23 +175,30 @@ for p in public_networks_dict.keys():
 infra_config["public_networks"] = pub_network_dict
 
 #bw = random.choice(pub_bandwidth_mbps)
-lat = random.choice(pub_latency_ms)
-print "pub_latency_ms for {0} is {1}".format("public_global_network",lat)
-print
-peak_bw = pub_window_size/float(lat)
-pub_bw = []
-for bw in pub_bandwidth_mbps:
-    if float(bw) < peak_bw:
-        pub_bw.append(bw)
 
-bw = min(pub_bandwidth_mbps)
-try:
-    bw = random.choice(pub_bw)
-except IndexError:
-    print "The latency choosen is not a valid choice as bandwidth depends on it as well as window size"
-    print "Please change the infra_gen.json to retry or run again for correct results"
-    print "Default value of bw is set to the minimum of the available bandwidth"
+if logic == "1":
+    bw,lat = r.choice(bw_lat)
+else:
+    lat = r.choice(pub_latency_ms)
+    #print "pub_latency_ms for {0} is {1}".format("public_global_network",lat)
+    #print
+    peak_bw = pub_window_size/float(lat)
+    pub_bw = []
+    for bw in pub_bandwidth_mbps:
+        if float(bw) < peak_bw:
+            pub_bw.append(bw)
+
+    bw = min(pub_bandwidth_mbps)
+    try:
+        bw = r.choice(pub_bw)
+    except IndexError:
+        print "The latency choosen is not a valid choice as bandwidth depends on it as well as window size"
+        print "Please change the infra_gen.json to retry or run again for correct results"
+        print "Default value of bw is set to the minimum of the available bandwidth"
+
 print "pub_bandwidth_mbps for {0} is {1}".format("public_global_network",bw)
+print
+print "pub_latency_ms for {0} is {1}".format("public_global_network",lat)
 print
 
 
@@ -163,23 +219,30 @@ for p in private_networks_dict.keys():
     pvt_network_name = p
     conn_dev = []
     #bw = random.choice(pvt_bandwidth_mbps)
-    lat = random.choice(pvt_latency_ms)
-    print "pvt_latency_ms for {0} is {1}".format(p,lat)
-    print
-    peak_bw = pvt_window_size/float(lat)
-    pvt_bw = []
-    for bw in pvt_bandwidth_mbps:
-        if float(bw) < peak_bw:
-            pvt_bw.append(bw)
+    if logic == "1":
+	bw,lat = r.choice(bw_lat)
+    else:
+    	lat = r.choice(pvt_latency_ms)
+    	#print "pvt_latency_ms for {0} is {1}".format(p,lat)
+    	#print
+    	peak_bw = pvt_window_size/float(lat)
+    	pvt_bw = []
+    	for bw in pvt_bandwidth_mbps:
+    	    if float(bw) < peak_bw:
+    	        pvt_bw.append(bw)
+	
+	bw = min(pvt_bandwidth_mbps)
+    	try:
+        	bw = r.choice(pvt_bw)
+    	except IndexError:
+        	print "The latency choosen is not a valid choice as bandwidth depends on it as well as window size"
+        	print "Please change the infra_gen.json to retry or run again for correct results"
+        	print "Default value of bw is set to the minimum of the available bandwidth"
 
-    bw = min(pvt_bandwidth_mbps)
-    try:
-        bw = random.choice(pvt_bw)
-    except IndexError:
-        print "The latency choosen is not a valid choice as bandwidth depends on it as well as window size"
-        print "Please change the infra_gen.json to retry or run again for correct results"
-        print "Default value of bw is set to the minimum of the available bandwidth"
+    
     print "pvt_bandwidth_mbps for {0} is {1}".format(p,bw)
+    print
+    print "pvt_latency_ms for {0} is {1}".format(p,lat)
     print
 
     gw_device_type = private_networks_dict[p]["gateway_device_type"]
@@ -190,7 +253,7 @@ for p in private_networks_dict.keys():
     num_sensors = int(private_networks_dict[p]["number_sensors"])
     for n in range(int(number_devices)):
         device_name = "Edge-{0}.{1}".format(pvt_network_index,index)
-        port = random.choice(ports)
+        port = r.choice(ports)
 	#ports.remove(port)
         devices[device_name] = create_device(port,device_type,num_sensors)
         all_devices_list.append(device_name)
@@ -219,4 +282,6 @@ with open('dump/infra/all_devices_list.json','w') as fd:
     fd.write(json.dumps(all_devices_list))
 
 
+#if __name__ == "__main__":
+#   main(sys.argv[1:])
 

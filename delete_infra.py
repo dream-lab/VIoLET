@@ -67,13 +67,14 @@ for vm_name in container_vm_names:
     c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     c.connect(hostname = host, username = user, pkey = k)
     command = "sudo docker ps -a -q"
-    stdin,stdout,stderr = c.exec_command(command,timeout=5)
-
+    stdin,stdout,stderr = c.exec_command(command,timeout=30)
+    time.sleep(0.5)
     for device in stdout.read().split():
         print device
         command = "sudo docker container rm -f {0}".format(device)
         #print command
-        stdin , stdout, stderr = c.exec_command(command, timeout=5)
+        stdin , stdout, stderr = c.exec_command(command, timeout=30)
+	time.sleep(0.2)
         #print stdout.read()
         #print stderr.read()
     c.close()
@@ -94,16 +95,18 @@ c.connect(hostname = host, username = user, pkey = k)
 for p in private_networks:
     command = "sudo docker network rm {0}".format(p)
     print "Deleting network {0}".format(p)
-    stdin , stdout, stderr = c.exec_command(command, timeout=5)
+    stdin , stdout, stderr = c.exec_command(command, timeout=30)
     stdout.readlines()
+    time.sleep(0.2)
     #print stdout.read()
     #print stderr.read()
 
 for p in public_networks:
     command = "sudo docker network rm {0}".format(p)
     print "Deleting network {0}".format(p)
-    stdin , stdout, stderr = c.exec_command(command, timeout=5)
+    stdin , stdout, stderr = c.exec_command(command, timeout=30)
     stdout.readlines()
+    time.sleep(0.2)
     #print stdout.read()
     #print stderr.read()
 
