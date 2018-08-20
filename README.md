@@ -32,23 +32,22 @@ Deploying VIoLET involves 4 parts.
 
 ## Part - 1 [VIoLET Infrastructure & VMs]
 ### Clone the Repo
-To validate VIoLET we have used Amazon EC2 instances. But, there is no dependency on AWS instances as such. One can use any VMs/machines with ssh+key access instead of ssh+password access. <br />
+To validate VIoLET we have used Amazon EC2 and Azure instances. But, there are no dependency on AWS or Azure instances as such. One can use any VMs/machines with ssh+key access instead of ssh+password access. <br />
 Clone the repository and place it on the Admin VM. <br />
 Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance will suffice)
 
 
 ### Generate infra_config.json
-**infra_config.json** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. There are few sample config files - **infra_config_d105.json** is for D105 and **infra_config_d408.json** is for D408. To use these sample json, rename the file to **infra_config.json**. Though it is preferred to use **infra_gen.py** to generate the **infra_config.json** file, user can write their own json with the exact syntax as mentioned in the sample file. Use **infra_gen.py** with the following syntax.<br />
+**infra_config.json** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. There are few sample config files - **D25_infra_config.json** is for D25 and **D100_infra_config.json** is for D100. To use these sample json, copy the file to **infra_config.json**. Though it is preferred to use **infra_gen.py** to generate the **infra_config.json** file, user can write their own json with the exact syntax as mentioned in the sample file. Use **infra_gen.py** with the following syntax.<br />
 
-<br /> For D105 (100 Edge - {50 Pi2Bs, 50 Pi3Bs}, 5 Fog - {4 TX1, 1 SI}) the command would be as such.
+<br /> For D25 (25 devices comprise of 3 private networks and 1 public network. Each private network has 8 devices and public network has TX1 along with gateways of all private networks. Private network 1 and 2 has Pi3B+ and private network 3 has pi3B. 
 ```sh
 """
-python infra_gen.py <number_of_devices> <number_of_fog_devices> <number_of_edge_type1,number_of_edge_type2> <number_of_fog_type_1,number_of_fog_type2> <number_of_sensors_per_device> <public_network_edge_density> <container_image>
+python infra_gen.py -s <seed_value> -l <logic_value>
 """
 
-python infra_gen.py 105 5 50,50 1,4 5 50 centos_systemd
+python infra_gen.py -s 10 -l 1
 ```
-At present, the OS image for the containers must either be shrey67/centos_systemd or it can be any docker image which has extended the shrey67/centos_systemd image. Since the image is fetched from the docker hub, the first deployment is expected to take significant amount of time. Alternatively, user can pull the image manually on all the container-host VMs as mentioned in the next few steps.
 
 
 ### Calculating the number of container_host_VMs required
@@ -94,7 +93,7 @@ nohup /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cl
 ```
 Pull the required docker image for VIoLET on all the container-host VMs.
 ```sh
-docker pull shrey67/centos_systemd
+docker pull dreamlab/violet
 ```
 
 <br />NOTE: ec2 instances do not come with a disk storage by default. Usually, the ephermal storage drivers aren't sufficent to support the container deployment. User must attach and mount the EBS volume to the container-host VMs and move **/var/lib/docker** to the disk and do a softlink to **/var/lib/docker**. For example, let us assume the disk path to be /disk. Follow these commands after stopping the docker.
