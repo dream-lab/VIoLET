@@ -29,11 +29,13 @@ export class SetupComponent implements OnInit {
 
     input_file = '';
     output_file = '';
+    input_file_name = '';
+    output_file_name = '';
     console_output = '';
     data = "A quick brown fox jumps over the lazy dog";
     options: any = {maxLines: 1000, printMargin: false};
 
-    vm = 5;
+    vm = 3;
 
     constructor(public setupService: SetupService) {
     }
@@ -42,11 +44,17 @@ export class SetupComponent implements OnInit {
     }
 
     getInfraInput() {
-        this.setupService.getInfraGenInput().subscribe(res => this.input_file = res['data']);
+        this.setupService.getInfraGenInput().subscribe(res => {
+            this.input_file = res['data'];
+            this.input_file_name = ' - ' + res['name'];
+        });
     }
 
     getInfraOutput() {
-        this.setupService.getInfraGenOutput().subscribe(res => this.output_file = res['data']);
+        this.setupService.getInfraGenOutput().subscribe(res => {
+            this.output_file = res['data'];
+            this.output_file_name = ' - ' + res['name'];
+        });
     }
 
     generateInfra() {
@@ -67,14 +75,19 @@ export class SetupComponent implements OnInit {
     }
 
     getPartitionOutput() {
-        this.setupService.getPartitionOutput().subscribe(res => this.output_file = res['data']);
+        this.setupService.getPartitionOutput().subscribe(res =>{
+            this.output_file = res['data'];
+            this.output_file_name = ' - ' + res['name'];
+        });
     }
 
     generateMetisInput() {
         this.generateMetisInputStatus = "running";
         this.partitionStatus = "running";
         this.input_file = this.output_file;
+        this.input_file_name = this.output_file_name;
         this.output_file = '';
+        this.output_file_name = '';
         this.console_output = '1. Generating Metis Input... \n';
         this.setupService.getMetisInputGen().subscribe(res => {
                 this.generateMetisInputStatus = "success";
@@ -91,7 +104,7 @@ export class SetupComponent implements OnInit {
 
     generatePartition() {
         this.generatePartitionStatus = "running";
-        this.console_output += '2. Generating Partition... \n';
+        this.console_output += '\n2. Generating Partition... \n';
         this.setupService.postPartitionGen(this.vm).subscribe(res => {
                 this.generatePartitionStatus = "success";
                 this.console_output += res['message']
@@ -107,7 +120,7 @@ export class SetupComponent implements OnInit {
 
     checkMetis() {
         this.checkMetisStatus = "running";
-        this.console_output += '3. Running Metis Check \n';
+        this.console_output += '\n3. Running Metis Check \n';
         this.setupService.postCheckMetis(this.vm).subscribe(res => {
                 this.checkMetisStatus = "success";
                 this.partitionStatus = "success";
@@ -122,11 +135,17 @@ export class SetupComponent implements OnInit {
     }
 
     getDeploymentInput() {
-        this.setupService.getDeploymentInput().subscribe(res => this.input_file = res['data']);
+        this.setupService.getDeploymentInput().subscribe(res =>{
+            this.input_file = res['data'];
+            this.input_file_name = ' - ' + res['name'];
+        });
     }
 
     getDeploymentOutput() {
-        this.setupService.getDeploymentOutput().subscribe(res => this.output_file = res['data']);
+        this.setupService.getDeploymentOutput().subscribe(res =>{
+            this.output_file = res['data'];
+            this.output_file_name = ' - ' + res['name'];
+        });
     }
 
     startDocker() {
@@ -134,6 +153,7 @@ export class SetupComponent implements OnInit {
         this.deploymentStatus = "running";
         this.getDeploymentInput();
         this.output_file = '';
+        this.output_file_name = '';
         this.console_output = '1. Starting Docker... \n';
         this.setupService.getStartDocker().subscribe(res => {
                 this.startDockerStatus = "success";

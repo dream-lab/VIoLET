@@ -1,3 +1,5 @@
+from time import sleep
+
 from flask import Flask, request
 from flask_cors import CORS
 import os
@@ -112,10 +114,9 @@ def deployment_output():
 @app.route('/start_docker', methods=['GET'])
 def start_docker():
     try:
-        r, e = Popen(["python", "start_docker.py"], stdout=PIPE, stderr=PIPE).communicate()
-        if e != '':
-            raise
-        return json.dumps({'message': r})
+        p = Popen(["python", "start_docker.py"])
+        sleep(90)
+        return json.dumps({'message': "Docker started \n\n"})
     except:
         return (json.dumps({'message': e}), 500)
 
@@ -123,10 +124,10 @@ def start_docker():
 @app.route('/delete_infra', methods=['GET'])
 def delete_infra():
     try:
-        r, e = Popen(["python", "delete_infra.py"], stdout=PIPE, stderr=PIPE).communicate()
+        r, e = Popen(["python", "delete_infra.py"], stderr=PIPE).communicate()
         if e != '':
             raise
-        return json.dumps({'message': r})
+        return json.dumps({'message': "Infrastructure deleted \n\n"})
     except:
         return (json.dumps({'message': e}), 500)
 
@@ -134,10 +135,10 @@ def delete_infra():
 @app.route('/infra_setup', methods=['GET'])
 def infra_setup():
     try:
-        r, e = Popen(["python", "infra_setup.py"], stdout=PIPE, stderr=PIPE).communicate()
+        r, e = Popen(["python", "infra_setup.py"], stderr=PIPE).communicate()
         if e != '':
             raise
-        return json.dumps({'message': r})
+        return json.dumps({'message': "Infrastructure setup complete \n\n"})
     except:
         return (json.dumps({'message': e}), 500)
 
@@ -145,10 +146,10 @@ def infra_setup():
 @app.route('/sensor_gen', methods=['GET'])
 def sensor_gen():
     try:
-        r, e = Popen(["python", "sensor_gen.py"], stdout=PIPE, stderr=PIPE).communicate()
+        r, e = Popen(["python", "sensor_gen.py"], stderr=PIPE).communicate()
         if e != '':
             raise
-        return json.dumps({'message': r})
+        return json.dumps({'message': "Sensor generation complete \n\n"})
     except:
         return (json.dumps({'message': e}), 500)
 

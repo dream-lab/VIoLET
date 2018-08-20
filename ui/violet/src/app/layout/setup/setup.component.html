@@ -121,7 +121,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <span>About</span>
-                                        <p>A quick brown fox jumps over the lazy dog</p>
+                                        <p>To be added</p>
                                     </div>
                                     <div class="col-lg-6">
                                         <span>Console Output</span>
@@ -134,11 +134,11 @@
                             <ng-template ngbTabContent>
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <span>Input File</span>
+                                        <span>Input File{{input_file_name}}</span>
                                         <ace-editor [text]="input_file" mode="object" style="height:300px;"></ace-editor>
                                     </div>
                                     <div class="col-lg-6">
-                                        <span>Output File</span>
+                                        <span>Output File{{output_file_name}}</span>
                                         <ace-editor [text]="output_file" mode="json" style="height:300px;"></ace-editor>
                                     </div>
                                 </div>
