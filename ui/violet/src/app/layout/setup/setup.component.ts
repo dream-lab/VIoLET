@@ -223,42 +223,57 @@ export class SetupComponent implements OnInit {
     sanityNetwork() {
         this.sanityStatus = "running";
         this.sanityNetworkStatus = "running";
+        this.console_output = 'Running N/W sanity check... \n';
+        this.getSanityInput();
+        this.output_file = '';
+        this.output_file_name = '';
         this.setupService.getSanityNetwork().subscribe(res => {
                 this.sanityNetworkStatus = "success";
                 this.sanityStatus = "success";
+                this.console_output += res['message'];
             },
             error => {
                 this.sanityNetworkStatus = "failure";
                 this.sanityStatus = "failure";
+                this.console_output += "\n Failed";
             });
     }
 
     sanityCPU() {
         this.sanityStatus = "running";
         this.sanityCPUStatus = "running";
+        this.console_output = 'Running CPU sanity check... \n';
+        this.getSanityInput();
+        this.output_file = '';
+        this.output_file_name = '';
         this.setupService.getSanityCPU().subscribe(res => {
                 this.sanityCPUStatus = "success";
                 this.sanityStatus = "success";
+                this.console_output += res['message'];
             },
             error => {
                 this.sanityCPUStatus = "failure";
                 this.sanityStatus = "failure";
+                this.console_output += "\n Failed";
             });
     }
 
     sanityPubSub() {
         this.sanityStatus = "running";
         this.sanityPubSubStatus = "running";
+        this.console_output = 'Running Pub/Sub sanity check... \n';
         this.getSanityInput();
         this.output_file = '';
         this.output_file_name = '';
         this.setupService.getSanityPubSub().subscribe(res => {
                 this.sanityPubSubStatus = "success";
                 this.sanityStatus = "success";
+                this.console_output += res['message'];
             },
             error => {
                 this.sanityPubSubStatus = "failure";
                 this.sanityStatus = "failure";
+                this.console_output += "\n Failed";
             });
     }
 

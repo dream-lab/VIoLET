@@ -155,31 +155,37 @@ def sensor_gen():
 @app.route('/sanity_network', methods=['GET'])
 def sanity_network():
     try:
-        r = os.system("python sanity_network.py ")
-        if r != 0:
-            raise Exception
-        return json.dumps({'message': 'Success'})
+        p = Popen(["python", "sanity_network.py"])
+        sleep(240)
+        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py bandwidth_delta bw.pdf "Bandwidth" "Deviation"'], shell=True)
+        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py bandwidth_delta bw.pdf "Bandwidth" "Deviation"'], shell=True)
+        return json.dumps({'message': "CPU sanity check complete \n\n"})
     except:
-        return ('Failure', 500)
+        return (json.dumps({'message': 'Failure'}), 500)
 
 
 @app.route('/sanity_cpu', methods=['GET'])
 def sanity_cpu():
     try:
-        r = os.system("python sanity_cpu.py ")
-        if r != 0:
-            raise Exception
-        return json.dumps({'message': 'Success'})
+        p = Popen(["python", "sanity_cpu.py 1"])
+        sleep(240)
+        p = Popen(["python", "sanity_cpu.py 2"])
+        sleep(60)
+        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi2b_delta f_pi2b.pdf "Coremark (Pi2B)" "Deviation"'], shell=True)
+        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi3b_delta f_pi3b.pdf "Coremark (Pi3B)" "Deviation"'], shell=True)
+        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_tx1_delta f_tx1.pdf "Coremark (TX1)" "Deviation"'], shell=True)
+        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_si_delta f_si.pdf "Coremark (SI)" "Deviation"'], shell=True)
+        return json.dumps({'message': "CPU sanity check complete \n\n"})
     except:
-        return ('Failure', 500)
+        return (json.dumps({'message': 'Failure'}), 500)
 
 
 @app.route('/pub_sub', methods=['GET'])
 def pub_sub():
     try:
-        p = Popen(["python", "apps/pub_sub/pub_sub.py"])
-        sleep(180)
-        p = Popen(["python", "apps/pub_sub/sanity.py"])
+        p = Popen(["cd /home/centos/shriram/VIoLET/apps/pubsub; python pub_sub.py"], shell=True)
+        sleep(240)
+        p = Popen(["cd /home/centos/shriram/VIoLET/apps/pubsub; python sanity.py"], shell=True)
         sleep(90)
         return json.dumps({'message': "Pub/Sub sanity check complete \n\n"})
     except:

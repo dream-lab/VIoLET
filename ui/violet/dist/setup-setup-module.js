@@ -22683,39 +22683,54 @@ var SetupComponent = /** @class */ (function () {
         var _this = this;
         this.sanityStatus = "running";
         this.sanityNetworkStatus = "running";
+        this.console_output = 'Running N/W sanity check... \n';
+        this.getSanityInput();
+        this.output_file = '';
+        this.output_file_name = '';
         this.setupService.getSanityNetwork().subscribe(function (res) {
             _this.sanityNetworkStatus = "success";
             _this.sanityStatus = "success";
+            _this.console_output += res['message'];
         }, function (error) {
             _this.sanityNetworkStatus = "failure";
             _this.sanityStatus = "failure";
+            _this.console_output += "\n Failed";
         });
     };
     SetupComponent.prototype.sanityCPU = function () {
         var _this = this;
         this.sanityStatus = "running";
         this.sanityCPUStatus = "running";
+        this.console_output = 'Running CPU sanity check... \n';
+        this.getSanityInput();
+        this.output_file = '';
+        this.output_file_name = '';
         this.setupService.getSanityCPU().subscribe(function (res) {
             _this.sanityCPUStatus = "success";
             _this.sanityStatus = "success";
+            _this.console_output += res['message'];
         }, function (error) {
             _this.sanityCPUStatus = "failure";
             _this.sanityStatus = "failure";
+            _this.console_output += "\n Failed";
         });
     };
     SetupComponent.prototype.sanityPubSub = function () {
         var _this = this;
         this.sanityStatus = "running";
         this.sanityPubSubStatus = "running";
+        this.console_output = 'Running Pub/Sub sanity check... \n';
         this.getSanityInput();
         this.output_file = '';
         this.output_file_name = '';
         this.setupService.getSanityPubSub().subscribe(function (res) {
             _this.sanityPubSubStatus = "success";
             _this.sanityStatus = "success";
+            _this.console_output += res['message'];
         }, function (error) {
             _this.sanityPubSubStatus = "failure";
             _this.sanityStatus = "failure";
+            _this.console_output += "\n Failed";
         });
     };
     SetupComponent.prototype.sanityRun = function () {
