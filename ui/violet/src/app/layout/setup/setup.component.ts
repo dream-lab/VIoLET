@@ -213,6 +213,13 @@ export class SetupComponent implements OnInit {
             });
     }
 
+    getSanityInput() {
+        this.setupService.getDeploymentOutput().subscribe(res =>{
+            this.input_file = res['data'];
+            this.input_file_name = ' - ' + res['name'];
+        });
+    }
+
     sanityNetwork() {
         this.sanityStatus = "running";
         this.sanityNetworkStatus = "running";
@@ -242,6 +249,9 @@ export class SetupComponent implements OnInit {
     sanityPubSub() {
         this.sanityStatus = "running";
         this.sanityPubSubStatus = "running";
+        this.getSanityInput();
+        this.output_file = '';
+        this.output_file_name = '';
         this.setupService.getSanityPubSub().subscribe(res => {
                 this.sanityPubSubStatus = "success";
                 this.sanityStatus = "success";

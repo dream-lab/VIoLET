@@ -118,7 +118,7 @@ def start_docker():
         sleep(90)
         return json.dumps({'message': "Docker started \n\n"})
     except:
-        return (json.dumps({'message': e}), 500)
+        return (json.dumps({'message': 'Failure'}), 500)
 
 
 @app.route('/delete_infra', methods=['GET'])
@@ -147,8 +147,6 @@ def infra_setup():
 def sensor_gen():
     try:
         r, e = Popen(["python", "sensor_gen.py"], stderr=PIPE).communicate()
-        if e != '':
-            raise
         return json.dumps({'message': "Sensor generation complete \n\n"})
     except:
         return (json.dumps({'message': e}), 500)
@@ -179,12 +177,13 @@ def sanity_cpu():
 @app.route('/pub_sub', methods=['GET'])
 def pub_sub():
     try:
-        r = os.system("python apps/pub_sub/scripts/pub_sub.py ")
-        if r != 0:
-            raise Exception
-        return json.dumps({'message': 'Success'})
+        p = Popen(["python", "apps/pub_sub/pub_sub.py"])
+        sleep(180)
+        p = Popen(["python", "apps/pub_sub/sanity.py"])
+        sleep(90)
+        return json.dumps({'message': "Pub/Sub sanity check complete \n\n"})
     except:
-        return ('Failure', 500)
+        return (json.dumps({'message': 'Failure'}), 500)
 
 
 if __name__ == '__main__':
