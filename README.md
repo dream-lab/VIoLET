@@ -40,15 +40,34 @@ Note: Apart from consul (a key store database) No other devices are deployed on 
 ### Generate infra_config.json
 **infra_config.json** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. There are few sample config files - **D25_infra_config.json** is for D25 and **D100_infra_config.json** is for D100. To use these sample json, copy the file to **infra_config.json**. Though it is preferred to use **infra_gen.py** to generate the **infra_config.json** file, user can write their own json with the exact syntax as mentioned in the sample file. Use **infra_gen.py** with the following syntax.<br />
 
-<br /> For D25 (25 devices comprise of 3 private networks and 1 public network. Each private network has 8 devices and public network has TX1 along with gateways of all private networks. Private network 1 and 2 has Pi3B+ and private network 3 has pi3B. 
+<br /> For D25 (25 devices comprise of 3 private networks and 1 public network. Each private network has 8 devices and public network has TX1 along with gateways of all private networks. Private network 1 and 2 has Pi3B+ and private network 3 has pi3B. the command mentioned below wil generate infra_config.json file under config folder which will be used by all the following steps. The script will be comprise of random in the sense of bandwidth and latency unless you have pass the required command-line argument. 
+```sh
+"""
+python infra_gen.py
+"""
+
+python infra_gen.py
+```
+
+If user wants to regenerate the same deployment, use seed value for pseudo-randomness in generation of infra_config.json
+```sh
+"""
+python infra_gen.py -s <seed_value>
+"""
+
+python infra_gen.py -s 10
+```
+
+There is way to pass the bandwidth and latency pairs to constraint your deployment. User has manually update the bw and lat arrays in infra_gen.py and use logic value as 1. Otherwise bw and latencies will be picked randomly from the values given in infra_gen.json in config folder.
 ```sh
 """
 python infra_gen.py -s <seed_value> -l <logic_value>
 """
 
-python infra_gen.py -s 10 -l 1
+python infra_gen.py -l 1
 ```
 
+Note: User can use both option simultaneously.
 
 ### Calculating the number of container_host_VMs required
 This step is needed to determine the number of container VMs we will need to deploy the infra_config and to compute the --cpus for every container. --cpus is an option given by the docker daemon which specifies the host machine's cpu utilization for a container. <br/>
@@ -183,5 +202,6 @@ python sanity.py
 
 Note: We are calculating latency deviation for each message send from publisher. This will take minimum of 4 times of latency because there will be four interactions during the ping-pong-ping test as explained above. In simple terms, The message will be sent by publisher to subscriber via broker and then suubscriber sends back the message as soon as the reciept of the message. The subscriber message will follow the same path which is broker to back to publisher. The topics are different for message transfer and hence both the devices act as publisher and subscriber.
 
+All the numbers are gathered and are made available in dump/sanity/pub_sub directory.
 
 ### *ACKNOWLEDGEMENT: This work is supported by grants from VMWARE, Cargill, IUSSTF and IMPRINT*
