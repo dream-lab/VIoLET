@@ -65,11 +65,11 @@ Step 1 generates **coremark.exe**, an executable file. Run the coremark executab
 ```
 Once you get the coremark numbers (Iterations/Sec). Calculate the number of VMs and cpus ratio for each device.<br />
 <br /> <br />
-The following example for D105 will explain it better.<br />
-D105 (100 Edge devices, 5 Fog devices)
-Amongst 100 Edge devices, let us assume there are 50 Raspberry Pi2B devices and 50 Raspberry Pi3B devices. Similarly let there be 4 Nvidia Jetson Tx1, Fog devices and 1 SoftIron overdrive 3000, Fog device. And let the VM be m5.12xlarge (48 cores)
+The following example for D25 will explain it better.<br />
+D25 (21 Edge devices, 4 Fog devices)
+Amongst 21 Edge devices, let us assume there are 14 Raspberry Pi3B devices and 7 Raspberry Pi3B+ devices. Similarly let there be 1 Nvidia Jetson Tx1, Fog devices, 2 Pi3B+, Fog device and 1 Pi3B, Fog device. And let the VM be Standard_D16_v3 (16 cores)
 
-For D105 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
+For D25 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
 ![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/resources/coremark.png)
 
 After determining the number of container-host VMs, go ahead and create those many Amazon EC2 instances. All the container host VMs must be of the same type according to the one mentioned in the calculations. VM details are captured in **config/vm_config.json** file. Update the public DNS, key path, user, coremark numbers. Also user must update the --cpus and coremark number for every device type in **config/device_types.json** file. 
@@ -174,5 +174,14 @@ To deploy equal number of publisher and subscriber on edge devices (containers) 
 python pub_sub.py
 ```
 The script will run for around 10 minutes and will collect latency and send/receive of data for 180 entries (data send/receive every second for 180 seconds) on each container under above mentioned files.
+
+After 180 seconds, sanity script can be run to collect latency deviation from all the publishers and plot the violin plot for each private network. This verifies the latency deviation is within +-5% of 4 times of latency set by deployment.
+
+```sh
+python sanity.py
+```
+
+Note: We are calculating latency deviation for each message send from publisher. This will take minimum of 4 times of latency because there will be four interactions during the ping-pong-ping test as explained above. In simple terms, The message will be sent by publisher to subscriber via broker and then suubscriber sends back the message as soon as the reciept of the message. The subscriber message will follow the same path which is broker to back to publisher. The topics are different for message transfer and hence both the devices act as publisher and subscriber.
+
 
 ### *ACKNOWLEDGEMENT: This work is supported by grants from VMWARE, Cargill, IUSSTF and IMPRINT*
