@@ -40,7 +40,7 @@ Note: Apart from consul (a key store database) No other devices are deployed on 
 ### Generate infra_config.json
 **infra_config.json** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. There are few sample config files - **D25_infra_config.json** is for D25 and **D100_infra_config.json** is for D100. To use these sample json, copy the file to **infra_config.json**. Though it is preferred to use **infra_gen.py** to generate the **infra_config.json** file, user can write their own json with the exact syntax as mentioned in the sample file. Use **infra_gen.py** with the following syntax.<br />
 
-<br /> For D25 (25 devices comprise of 3 private networks and 1 public network. Each private network has 8 devices and public network has TX1 along with gateways of all private networks. Private network 1 and 2 has Pi3B+ and private network 3 has pi3B. the command mentioned below wil generate infra_config.json file under config folder which will be used by all the following steps. The script will be comprise of random in the sense of bandwidth and latency unless you have pass the required command-line argument. 
+<br /> For D25 (25 devices comprise of 3 private networks and 1 public network. Each private network has 8 devices and public network has TX1 along with gateways of all private networks. Private network 1 and 2 has Pi3B+ and private network 3 has pi3B. The command mentioned below will generate infra_config.json file under config folder which will be used by all the following steps. The deployment will use random values for bandwidth and latency unless you have pass the required command-line argument. 
 ```sh
 """
 python infra_gen.py
