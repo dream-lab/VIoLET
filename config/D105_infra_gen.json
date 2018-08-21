@@ -4,8 +4,23 @@
         "violet_public_1": 
         [
             {
+                "device_type":"Pi2B",
+                "number_devices":"2",
+                "number_sensors":"5"
+            },
+            {
+                "device_type":"Pi3B",
+                "number_devices":"2",
+                "number_sensors":"5"
+            },
+	    {
+                "device_type":"Pi3B+",
+                "number_devices":"2",
+                "number_sensors":"5"
+            },
+	    {
                 "device_type":"TX1",
-                "number_devices":"4",
+                "number_devices":"1",
                 "number_sensors":"5"
             },
             {
@@ -20,35 +35,56 @@
         "violet_private_1":
         {
             "device_type":"Pi2B",
-            "number_devices":"20",
-            "gateway_device_type":"TX1",
+            "number_devices":"11",
+            "gateway_device_type":"Pi2B",
             "number_sensors":"5"
         },
         "violet_private_2":
         {
-            "device_type":"Pi2B",
-            "number_devices":"20",
-            "gateway_device_type":"TX1",
+            "device_type":"Pi3B",
+            "number_devices":"11",
+            "gateway_device_type":"Pi3B",
             "number_sensors":"5"
         },
         "violet_private_3":
         {
-            "device_type":"Pi3B",
-            "number_devices":"20",
-            "gateway_device_type":"TX1",
+            "device_type":"Pi3B+",
+            "number_devices":"11",
+            "gateway_device_type":"Pi3B+",
             "number_sensors":"5"
         },
        "violet_private_4":
         {
-            "device_type":"Pi3B",
-            "number_devices":"20",
-            "gateway_device_type":"TX1",
+            "device_type":"Pi2B",
+            "number_devices":"11",
+            "gateway_device_type":"Pi2B",
             "number_sensors":"5"
         },
         "violet_private_5":
         {
+            "device_type":"Pi3B",
+            "number_devices":"11",
+            "gateway_device_type":"Pi3B",
+            "number_sensors":"5"
+        },
+	"violet_private_6":
+        {
             "device_type":"Pi3B+",
-            "number_devices":"20",
+            "number_devices":"11",
+            "gateway_device_type":"Pi3B+",
+            "number_sensors":"5"
+        },
+        "violet_private_7":
+        {
+            "device_type":"Pi2B",
+            "number_devices":"11",
+            "gateway_device_type":"TX1",
+            "number_sensors":"5"
+        },
+        "violet_private_8":
+        {
+            "device_type":"Pi3B",
+            "number_devices":"11",
             "gateway_device_type":"SI",
             "number_sensors":"5"
         }
@@ -57,16 +93,15 @@
     {
         "public_networks":
         {
-            "bandwidth_mbps":["10","15","20","25","30","35","40","45","50"],
-            "latency_ms":["10","15","20","25","30","35","40","45","50"],
-	    "window_size_bits":"524288"
+            "bandwidth_mbps":["5","20","40","60","80","100"],
+            "latency_ms":["1","5","25","50","75","100"],
+	    "window_size_bits":"524280"
         },
         "private_networks":
         {
-            "bandwidth_mbps":["10","15","20","25","30","35","40","45","50"],
-            "latency_ms":["10","15","20","25","30","35","40","45","50"],
-	    "window_size_bits":"524288"
+            "bandwidth_mbps":["5","20","40","60","80","100"],
+            "latency_ms":["1","5","25","50","75","100"],
+            "window_size_bits":"524280"
         }
     }
-
 }

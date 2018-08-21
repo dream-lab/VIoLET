@@ -2,7 +2,6 @@
     "admin_VM": {
         "VIoLET_admin": {
             "hostname_ip": "10.0.0.4",
-	    "public_ip": "",
             "key_path": "/home/centos/M_rsa",
             "user": "centos"
         }
@@ -10,21 +9,18 @@
     "container_VM": {
         "M1": {
             "hostname_ip": "10.0.0.5",
-	    "public_ip": "104.211.98.151",
             "key_path": "/home/centos/M_rsa",
             "user": "centos",
             "vm_type": "Standard_D16_v3"
         },
         "M2": {
             "hostname_ip": "10.0.0.6",
-	    "public_ip": "104.211.102.6",
             "key_path": "/home/centos/M_rsa",
             "user": "centos",
             "vm_type": "Standard_D16_v3"
         },
         "M3": {
             "hostname_ip": "10.0.0.7",
-	    "public_ip": "104.211.102.33",
             "key_path": "/home/centos/M_rsa",
             "user": "centos",
             "vm_type": "Standard_D16_v3"

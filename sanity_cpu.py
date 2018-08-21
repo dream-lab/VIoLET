@@ -37,6 +37,23 @@ print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print
 
 
+print
+print "+++++++++++++++++++++++++++++++++++++++++++++++"
+print "             Copy data to other VMs            "
+print "+++++++++++++++++++++++++++++++++++++++++++++++"
+print
+#log_file.write("\n\n\n***********************Copying coremark executables to other VMs*********************************\n\n\n")
+
+coremark_exe = "coremark_exe"
+
+
+for i in range(len(container_vm_names)):
+    key_path = container_vm[container_vm_names[i]]["key_path"]
+    user = container_vm[container_vm_names[i]]["user"]
+    host = container_vm[container_vm_names[i]]["hostname_ip"]
+    os.system("scp -rp -i {0} {1} {2}@{3}:/home/{2}".format(key_path, coremark_exe, user, host))
+
+
 print "**************************** [Sanity] CPU allocation****************************"
 
 if flag == 1:
@@ -53,17 +70,21 @@ if flag == 1:
 
         device_type = infra_config["devices"][device]["device_type"]
 
-        if (device_type == "Pi2B"):
-            path = "coremark_executables/coremark_2/coremark.exe"
-        elif (device_type == "Pi3B"):
-            path = "coremark_executables/coremark_2/coremark.exe"
-	elif (device_type == "Pi3B+"):
-	    path = "coremark_executables/coremark_2/coremark.exe"
+        if (device_type == "SI"):
+            path = "/home/centos/coremark_exe/si/coremark.exe"
+        else:
+            path = "/home/centos/coremark_exe/pi/coremark.exe"
+	#elif (device_type == "Pi3B+"):
+	#    path = "coremark_executables/coremark_2/coremark.exe"
+	#elif (device_type == "TX1"):
+        #    path = "coremark_executables/coremark_2/coremark.exe"
+	#elif (device_type == "SI"):
+        #    path = "coremark_executables/coremark_2/coremark.exe"
 
         print "\n\nCopying coremark files to {0}".format(device)
         commands = [
         "sudo docker cp {0} {1}:/".format(path,device),
-        "sudo docker cp c_coremark.py {0}:/".format(device)
+        "sudo docker cp {0}/c_coremark.py {1}:/".format(coremark_exe,device)
         ]
         for command in commands:
             stdin, stdout, stderr = c.exec_command(command,timeout=5)
