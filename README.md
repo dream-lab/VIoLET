@@ -28,7 +28,7 @@ Deploying VIoLET involves 4 parts.
 7. Run sanity check to verify whether bandwidth and latency requirements have met.
 8. Run pub_sub application to verify the latency of an application on VIoLET infrastructure.
 
-![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/resources/VIoLET-architecture.png)
+![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.1/resources/architecture.png)
 
 ## Part - 1 [VIoLET Infrastructure & VMs]
 ### Clone the Repo
@@ -70,7 +70,7 @@ D25 (21 Edge devices, 4 Fog devices)
 Amongst 21 Edge devices, let us assume there are 14 Raspberry Pi3B devices and 7 Raspberry Pi3B+ devices. Similarly let there be 1 Nvidia Jetson Tx1, Fog devices, 2 Pi3B+, Fog device and 1 Pi3B, Fog device. And let the VM be Standard_D16_v3 (16 cores)
 
 For D25 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
-![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/resources/coremark.png)
+![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.1/resources/coremark.png)
 
 After determining the number of container-host VMs, go ahead and create those many Amazon EC2 instances. All the container host VMs must be of the same type according to the one mentioned in the calculations. VM details are captured in **config/vm_config.json** file. Update the public DNS, key path, user, coremark numbers. Also user must update the --cpus and coremark number for every device type in **config/device_types.json** file. 
 
