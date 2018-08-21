@@ -4,10 +4,6 @@
         <span>{{ 'Collapse' | translate }}</span>
     </div>
     <div class="list-group">
-        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-            <span>{{ 'Dashboard' | translate }}</span>
-        </a>
         <a routerLink="/setup" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-cogs"></i>&nbsp;
             <span>{{ 'Setup' | translate }}</span>
@@ -28,10 +24,6 @@
                 <!--</ul>-->
             <!--</li>-->
         <!--</div>-->
-        <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
-            <span>{{ 'Charts' | translate }}</span>
-        </a>
         <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Tables' | translate }}</span>

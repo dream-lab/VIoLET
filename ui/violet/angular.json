@@ -22,10 +22,12 @@
             ],
             "styles": [
               "node_modules/font-awesome/css/font-awesome.css",
-              "src/styles/app.scss"
+              "src/styles/app.scss",
+              "node_modules/ng2-image-viewer/imageviewer.scss"
             ],
             "scripts": [
-              "node_modules/chart.js/dist/Chart.js"
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/ng2-image-viewer/imageviewer.js"
             ]
           },
           "configurations": {

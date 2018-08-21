@@ -10,6 +10,8 @@ app = Flask('violet_ui_backend')
 CORS(app)
 
 
+# Infra
+
 @app.route('/infra_gen', methods=['GET'])
 def infra_gen():
     try:
@@ -43,13 +45,31 @@ def infra_gen_output():
         return ('Failure', 500)
 
 
+# Partition
+
+@app.route('/partition_input', methods=['GET'])
+def partition_input():
+    try:
+        d1 = ''
+        d2 = ''
+        with open('config/vm_config.json', 'r') as f:
+            d1 = json.load(f)
+            d1 = json.dumps(d1, indent=4)
+        with open('config/vm_types.json', 'r') as f:
+            d2 = json.load(f)
+            d2 = json.dumps(d2, indent=4)
+        return json.dumps({'vm_config.json': d1, 'vm_types.json': d2})
+    except:
+        return ('Failure', 500)
+
+
 @app.route('/partition_output', methods=['GET'])
 def partition_output():
     try:
         with open('dump/metis/metis_partitions.json', 'r') as f:
             d = json.load(f)
             d = json.dumps(d, indent=4)
-            return json.dumps({'data': d, 'name': 'metis_partitions.json'})
+            return json.dumps({'metis_partitions.json': d})
     except:
         return ('Failure', 500)
 
@@ -77,6 +97,7 @@ def partition_gen():
         return (json.dumps({'message': e}), 500)
 
 
+
 @app.route('/metis_check', methods=['POST'])
 def metis_check():
     try:
@@ -88,6 +109,7 @@ def metis_check():
         return json.dumps({'message': r})
     except:
         return (json.dumps({'message': e}), 500)
+
 
 @app.route('/deployment_input', methods=['GET'])
 def deployment_input():
@@ -167,9 +189,9 @@ def sanity_network():
 @app.route('/sanity_cpu', methods=['GET'])
 def sanity_cpu():
     try:
-        p = Popen(["python", "sanity_cpu.py 1"])
+        p = Popen(["python sanity_cpu.py 1"], shell=True)
         sleep(240)
-        p = Popen(["python", "sanity_cpu.py 2"])
+        p = Popen(["python sanity_cpu.py 2"], shell=True)
         sleep(60)
         p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi2b_delta f_pi2b.pdf "Coremark (Pi2B)" "Deviation"'], shell=True)
         p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi3b_delta f_pi3b.pdf "Coremark (Pi3B)" "Deviation"'], shell=True)

@@ -15,14 +15,6 @@ export class SetupService {
         return this.http.get(this.url + "infra_gen");
     }
 
-    getInfraGenInput() {
-        return this.http.get(this.url + "infra_gen_input");
-    }
-
-    getInfraGenOutput() {
-        return this.http.get(this.url + "infra_gen_output");
-    }
-
     getMetisInputGen() {
         return this.http.get(this.url + "metis_gen");
     }
@@ -39,10 +31,6 @@ export class SetupService {
         return this.http.post(this.url + "metis_check", formData);
     }
 
-    getPartitionOutput() {
-        return this.http.get(this.url + "partition_output");
-    }
-
     getStartDocker() {
         return this.http.get(this.url + "start_docker");
     }
@@ -57,14 +45,6 @@ export class SetupService {
 
     getSensorGen() {
         return this.http.get(this.url + "sensor_gen");
-    }
-
-    getDeploymentInput() {
-        return this.http.get(this.url + "deployment_input");
-    }
-
-    getDeploymentOutput() {
-        return this.http.get(this.url + "deployment_output");
     }
 
     getSanityNetwork() {

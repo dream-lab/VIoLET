@@ -1,0 +1,149 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="custom-card-body">
+                <ngb-tabset>
+                    <ngb-tab title="Input">
+                        <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="card mb-3" style="margin-top: 5px; height: 350px;">
+                                        <div class="card-header">
+                                            Summary
+                                        </div>
+                                        <div class="card-body table-responsive" style="font-size: 0.8em">
+                                            <table class="table table-bordered table-sm">
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row" rowspan="2">Networks</th>
+                                                    <td>Private</td>
+                                                    <td>{{sdService.summaryInfraInput["pvt_networks"]}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Public</td>
+                                                    <td>{{sdService.summaryInfraInput["pub_networks"]}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" rowspan="2">Devices</th>
+                                                    <td>Private</td>
+                                                    <td>{{sdService.summaryInfraInput["pvt_dev_cnt"]}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Public</td>
+                                                    <td>{{sdService.summaryInfraInput["pub_dev_cnt"]}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" rowspan="2">Bandwidth (mbps)</th>
+                                                    <td>Private</td>
+                                                    <td>{{sdService.summaryInfraInput["pvt_bandwidth"]}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Public</td>
+                                                    <td>{{sdService.summaryInfraInput["pub_bandwidth"]}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" rowspan="2">Latency (ms)</th>
+                                                    <td>Private</td>
+                                                    <td>{{sdService.summaryInfraInput["pvt_latency"]}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Public</td>
+                                                    <td>{{sdService.summaryInfraInput["pub_latency"]}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select class="form-control" [(ngModel)] = "sdService.inputInfraFile">
+                                        <option value="" disabled selected>Select</option>
+                                        <option *ngFor="let i of sdService.inputFileDD['infra']" [value]="i">{{i}}</option>
+                                    </select>
+                                    <ace-editor [text]="sdService.files[sdService.inputInfraFile]" mode="text" style="height:300px;"></ace-editor>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Console">
+                        <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <ace-editor [text]="sdService.consoleOutput['infra']" mode="text" style="margin-top: 15px; height:300px;"></ace-editor>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Output">
+                        <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                   <br>
+                                   <ngb-tabset type="pills">
+                                       <ngb-tab title="Private" style="margin-top: 5px">
+                                           <ng-template ngbTabContent>
+                                               <br>
+                                               <table class="table table-bordered table-sm" style="font-size: 0.8em">
+                                                   <thead> <tr>
+                                                       <th>Network</th>
+                                                       <th>B/W</th>
+                                                       <th>Latency</th>
+                                                       <th>Subnet</th>
+                                                       <th>Devices</th>
+                                                   </tr> </thead>
+                                                   <tbody>
+                                                   <tr *ngFor="let j of sdService.summaryInfraOutput['pvt'] | keyvalue">
+                                                       <td>{{j.key}}</td>
+                                                       <td>{{j.value['bandwidth_mbps']}}</td>
+                                                       <td>{{j.value['latency_ms']}}</td>
+                                                       <td>{{j.value['subnet']}}</td>
+                                                       <td>{{j.value['devices'].length}}</td>
+                                                   </tr>
+                                                   </tbody>
+                                               </table>
+                                           </ng-template>
+                                       </ngb-tab>
+                                       <ngb-tab title="Public" style="margin-top: 5px">
+                                           <ng-template ngbTabContent>
+                                               <br>
+                                               <table class="table table-bordered table-sm" style="font-size: 0.8em">
+                                                   <thead> <tr>
+                                                       <th>Network</th>
+                                                       <th>B/W</th>
+                                                       <th>Latency</th>
+                                                       <th>Subnet</th>
+                                                       <th>Devices</th>
+                                                   </tr> </thead>
+                                                   <tbody>
+                                                   <tr *ngFor="let j of sdService.summaryInfraOutput['pub'] | keyvalue">
+                                                       <td>{{j.key}}</td>
+                                                       <td>{{j.value['bandwidth_mbps']}}</td>
+                                                       <td>{{j.value['latency_ms']}}</td>
+                                                       <td>{{j.value['subnet']}}</td>
+                                                       <td>{{j.value['devices'].length}}</td>
+                                                   </tr>
+                                                   </tbody>
+                                               </table>
+                                           </ng-template>
+                                       </ngb-tab>
+                                   </ngb-tabset>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select class="form-control" [(ngModel)] = "sdService.outputInfraFile">
+                                        <option value="" disabled selected>Select</option>
+                                        <option *ngFor="let i of sdService.outputFileDD['infra']" [value]="i">{{i}}</option>
+                                    </select>
+                                    <ace-editor [text]="sdService.files[sdService.outputInfraFile]" mode="text" style="height:300px;"></ace-editor>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Visualization" [disabled]="true">
+                        <ng-template ngbTabContent>
+                            <img src="../../../assets/images/latency_deviation.png" style="height:300px; max-width: 100%"/>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+            </div>
+        </div>
+    </div>
+</div>

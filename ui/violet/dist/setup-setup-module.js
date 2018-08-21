@@ -22446,7 +22446,7 @@ var SetupRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <app-page-header [heading]=\"'Setup'\" [icon]=\"'fa-edit'\"></app-page-header>\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Generate Config\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"generateInfraStatus==='running'\"\r\n                                (click)=\"generateInfra()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"generateInfraStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"generateInfraStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"generateInfraStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Partition\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"partitionStatus==='success' || partitionStatus==='failure' || partitionStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"generateInfraStatus != 'success' || partitionStatus==='running'\"\r\n                                (click)=\"generateMetisInput()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"partitionStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"partitionStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"partitionStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Deployment\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"deploymentStatus==='success' || deploymentStatus==='failure' || deploymentStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"partitionStatus != 'success' || deploymentStatus==='running'\"\r\n                                (click)=\"startDocker()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"deploymentStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"deploymentStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"deploymentStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Sanity\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"sanityStatus==='success' || sanityStatus==='failure' || sanityStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <select class=\"form-inline\" style=\"display: inline\" [(ngModel)] = \"sanitySelection\">\r\n                            <option value=\"N/W\">N/W</option>\r\n                            <option value=\"CPU\">CPU</option>\r\n                            <option value=\"App\">Pub/Sub</option>\r\n                        </select>                        &nbsp; &nbsp;\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"deploymentStatus != 'success' || sanityStatus==='running'\"\r\n                                (click)=\"sanityRun()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"sanityStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"sanityStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"sanityStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-12\">\r\n            <div class=\"card\">\r\n                <div class=\"card-body\">\r\n                    <ngb-tabset>\r\n                        <ngb-tab title=\"Info\">\r\n                            <ng-template ngbTabContent>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>About</span>\r\n                                        <p>To be added</p>\r\n                                    </div>\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>Console Output</span>\r\n                                        <ace-editor [text]=\"console_output\" mode=\"text\" style=\"height:300px;\"></ace-editor>\r\n                                    </div>\r\n                                </div>\r\n                            </ng-template>\r\n                        </ngb-tab>\r\n                        <ngb-tab title=\"File View\">\r\n                            <ng-template ngbTabContent>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>Input File{{input_file_name}}</span>\r\n                                        <ace-editor [text]=\"input_file\" mode=\"object\" style=\"height:300px;\"></ace-editor>\r\n                                    </div>\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>Output File{{output_file_name}}</span>\r\n                                        <ace-editor [text]=\"output_file\" mode=\"json\" style=\"height:300px;\"></ace-editor>\r\n                                    </div>\r\n                                </div>\r\n                            </ng-template>\r\n                        </ngb-tab>\r\n                        <ngb-tab title=\"Visualization\">\r\n                            <ng-template ngbTabContent>\r\n                                <p>Sample Text</p>\r\n                            </ng-template>\r\n                        </ngb-tab>\r\n                    </ngb-tabset>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div>\r\n    <app-page-header [heading]=\"'Setup'\" [icon]=\"'fa-edit'\"></app-page-header>\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Generate Config\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"generateInfraStatus==='running'\"\r\n                                (click)=\"generateInfra()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"generateInfraStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"generateInfraStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"generateInfraStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Partition\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"partitionStatus==='success' || partitionStatus==='failure' || partitionStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"generateInfraStatus != 'success' || partitionStatus==='running'\"\r\n                                (click)=\"generateMetisInput()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"partitionStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"partitionStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"partitionStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Deployment\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"deploymentStatus==='success' || deploymentStatus==='failure' || deploymentStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"partitionStatus != 'success' || deploymentStatus==='running'\"\r\n                                (click)=\"startDocker()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"deploymentStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"deploymentStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"deploymentStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Sanity\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"sanityStatus==='success' || sanityStatus==='failure' || sanityStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <select class=\"form-inline\" style=\"display: inline\" [(ngModel)] = \"sanitySelection\">\r\n                            <option value=\"N/W\">N/W</option>\r\n                            <option value=\"CPU\">CPU</option>\r\n                            <option value=\"App\">Pub/Sub</option>\r\n                        </select>                        &nbsp; &nbsp;\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"deploymentStatus != 'success' || sanityStatus==='running'\"\r\n                                (click)=\"sanityRun()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"sanityStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"sanityStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"sanityStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-12\">\r\n            <div class=\"card\">\r\n                <div class=\"card-body\">\r\n                    <ngb-tabset>\r\n                        <ngb-tab title=\"Info\">\r\n                            <ng-template ngbTabContent>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>About</span>\r\n                                        <p>To be added</p>\r\n                                    </div>\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>Console Output</span>\r\n                                        <ace-editor [text]=\"consoleOutput\" mode=\"text\" style=\"height:300px;\"></ace-editor>\r\n                                    </div>\r\n                                </div>\r\n                            </ng-template>\r\n                        </ngb-tab>\r\n                        <ngb-tab title=\"File View\">\r\n                            <ng-template ngbTabContent>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>Input File{{input_file_name}}</span>\r\n                                        <ace-editor [text]=\"inputFile\" mode=\"object\" style=\"height:300px;\"></ace-editor>\r\n                                    </div>\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>Output File{{output_file_name}}</span>\r\n                                        <ace-editor [text]=\"outputFile\" mode=\"json\" style=\"height:300px;\"></ace-editor>\r\n                                    </div>\r\n                                </div>\r\n                            </ng-template>\r\n                        </ngb-tab>\r\n                        <ngb-tab title=\"Visualization\">\r\n                            <ng-template ngbTabContent>\r\n                                <p>Sample Text</p>\r\n                            </ng-template>\r\n                        </ngb-tab>\r\n                    </ngb-tabset>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -22516,14 +22516,14 @@ var SetupComponent = /** @class */ (function () {
     SetupComponent.prototype.getInfraInput = function () {
         var _this = this;
         this.setupService.getInfraGenInput().subscribe(function (res) {
-            _this.input_file = res['data'];
+            _this.inputFile = res['data'];
             _this.input_file_name = ' - ' + res['name'];
         });
     };
     SetupComponent.prototype.getInfraOutput = function () {
         var _this = this;
         this.setupService.getInfraGenOutput().subscribe(function (res) {
-            _this.output_file = res['data'];
+            _this.outputFile = res['data'];
             _this.output_file_name = ' - ' + res['name'];
         });
     };
@@ -22535,17 +22535,17 @@ var SetupComponent = /** @class */ (function () {
         this.console_output = '';
         this.setupService.getInfraGen().subscribe(function (res) {
             _this.generateInfraStatus = "success";
-            _this.console_output = res['message'];
+            _this.consoleOutput = res['message'];
             _this.getInfraOutput();
         }, function (error) {
             _this.generateInfraStatus = "failure";
-            _this.console_output = error.error['message'];
+            _this.consoleOutput = error.error['message'];
         });
     };
     SetupComponent.prototype.getPartitionOutput = function () {
         var _this = this;
         this.setupService.getPartitionOutput().subscribe(function (res) {
-            _this.output_file = res['data'];
+            _this.outputFile = res['data'];
             _this.output_file_name = ' - ' + res['name'];
         });
     };
@@ -22560,12 +22560,12 @@ var SetupComponent = /** @class */ (function () {
         this.console_output = '1. Generating Metis Input... \n';
         this.setupService.getMetisInputGen().subscribe(function (res) {
             _this.generateMetisInputStatus = "success";
-            _this.console_output += res['message'];
+            _this.consoleOutput += res['message'];
             _this.generatePartition();
         }, function (error) {
             _this.generateMetisInputStatus = "failure";
             _this.partitionStatus = "failure";
-            _this.console_output += error.error['message'];
+            _this.consoleOutput += error.error['message'];
         });
     };
     SetupComponent.prototype.generatePartition = function () {
@@ -22574,12 +22574,12 @@ var SetupComponent = /** @class */ (function () {
         this.console_output += '\n2. Generating Partition... \n';
         this.setupService.postPartitionGen(this.vm).subscribe(function (res) {
             _this.generatePartitionStatus = "success";
-            _this.console_output += res['message'];
+            _this.consoleOutput += res['message'];
             _this.checkMetis();
         }, function (error) {
             _this.generatePartitionStatus = "failure";
             _this.partitionStatus = "failure";
-            _this.console_output += error.error['message'];
+            _this.consoleOutput += error.error['message'];
         });
     };
     SetupComponent.prototype.checkMetis = function () {
@@ -22589,25 +22589,25 @@ var SetupComponent = /** @class */ (function () {
         this.setupService.postCheckMetis(this.vm).subscribe(function (res) {
             _this.checkMetisStatus = "success";
             _this.partitionStatus = "success";
-            _this.console_output += res['message'];
+            _this.consoleOutput += res['message'];
             _this.getPartitionOutput();
         }, function (error) {
             _this.checkMetisStatus = "failure";
             _this.partitionStatus = "failure";
-            _this.console_output += error.error['message'];
+            _this.consoleOutput += error.error['message'];
         });
     };
     SetupComponent.prototype.getDeploymentInput = function () {
         var _this = this;
         this.setupService.getDeploymentInput().subscribe(function (res) {
-            _this.input_file = res['data'];
+            _this.inputFile = res['data'];
             _this.input_file_name = ' - ' + res['name'];
         });
     };
     SetupComponent.prototype.getDeploymentOutput = function () {
         var _this = this;
         this.setupService.getDeploymentOutput().subscribe(function (res) {
-            _this.output_file = res['data'];
+            _this.outputFile = res['data'];
             _this.output_file_name = ' - ' + res['name'];
         });
     };
@@ -22621,12 +22621,12 @@ var SetupComponent = /** @class */ (function () {
         this.console_output = '1. Starting Docker... \n';
         this.setupService.getStartDocker().subscribe(function (res) {
             _this.startDockerStatus = "success";
-            _this.console_output += res['message'];
+            _this.consoleOutput += res['message'];
             _this.deleteInfra();
         }, function (error) {
             _this.startDockerStatus = "failure";
             _this.deploymentStatus = "failure";
-            _this.console_output += error.error['message'];
+            _this.consoleOutput += error.error['message'];
         });
     };
     SetupComponent.prototype.deleteInfra = function () {
@@ -22635,12 +22635,12 @@ var SetupComponent = /** @class */ (function () {
         this.console_output += '2. Deleting Infrastructure... \n';
         this.setupService.getDeleteInfra().subscribe(function (res) {
             _this.deleteInfraStatus = "success";
-            _this.console_output += res['message'];
+            _this.consoleOutput += res['message'];
             _this.infraSetup();
         }, function (error) {
             _this.deleteInfraStatus = "failure";
             _this.deploymentStatus = "failure";
-            _this.console_output += error.error['message'];
+            _this.consoleOutput += error.error['message'];
         });
     };
     SetupComponent.prototype.infraSetup = function () {
@@ -22649,12 +22649,12 @@ var SetupComponent = /** @class */ (function () {
         this.console_output += '3. Running Infrastructure setup... \n';
         this.setupService.getInfraSetup().subscribe(function (res) {
             _this.infraSetupStatus = "success";
-            _this.console_output += res['message'];
+            _this.consoleOutput += res['message'];
             _this.sensorGen();
         }, function (error) {
             _this.infraSetupStatus = "failure";
             _this.deploymentStatus = "failure";
-            _this.console_output += error.error['message'];
+            _this.consoleOutput += error.error['message'];
         });
     };
     SetupComponent.prototype.sensorGen = function () {
@@ -22664,18 +22664,18 @@ var SetupComponent = /** @class */ (function () {
         this.setupService.getSensorGen().subscribe(function (res) {
             _this.sensorGenStatus = "success";
             _this.deploymentStatus = "success";
-            _this.console_output += res['message'];
+            _this.consoleOutput += res['message'];
             _this.getDeploymentOutput();
         }, function (error) {
             _this.sensorGenStatus = "failure";
             _this.deploymentStatus = "failure";
-            _this.console_output += error.error['message'];
+            _this.consoleOutput += error.error['message'];
         });
     };
     SetupComponent.prototype.getSanityInput = function () {
         var _this = this;
         this.setupService.getDeploymentOutput().subscribe(function (res) {
-            _this.input_file = res['data'];
+            _this.inputFile = res['data'];
             _this.input_file_name = ' - ' + res['name'];
         });
     };
@@ -22690,11 +22690,11 @@ var SetupComponent = /** @class */ (function () {
         this.setupService.getSanityNetwork().subscribe(function (res) {
             _this.sanityNetworkStatus = "success";
             _this.sanityStatus = "success";
-            _this.console_output += res['message'];
+            _this.consoleOutput += res['message'];
         }, function (error) {
             _this.sanityNetworkStatus = "failure";
             _this.sanityStatus = "failure";
-            _this.console_output += "\n Failed";
+            _this.consoleOutput += "\n Failed";
         });
     };
     SetupComponent.prototype.sanityCPU = function () {
@@ -22708,11 +22708,11 @@ var SetupComponent = /** @class */ (function () {
         this.setupService.getSanityCPU().subscribe(function (res) {
             _this.sanityCPUStatus = "success";
             _this.sanityStatus = "success";
-            _this.console_output += res['message'];
+            _this.consoleOutput += res['message'];
         }, function (error) {
             _this.sanityCPUStatus = "failure";
             _this.sanityStatus = "failure";
-            _this.console_output += "\n Failed";
+            _this.consoleOutput += "\n Failed";
         });
     };
     SetupComponent.prototype.sanityPubSub = function () {
@@ -22726,11 +22726,11 @@ var SetupComponent = /** @class */ (function () {
         this.setupService.getSanityPubSub().subscribe(function (res) {
             _this.sanityPubSubStatus = "success";
             _this.sanityStatus = "success";
-            _this.console_output += res['message'];
+            _this.consoleOutput += res['message'];
         }, function (error) {
             _this.sanityPubSubStatus = "failure";
             _this.sanityStatus = "failure";
-            _this.console_output += "\n Failed";
+            _this.consoleOutput += "\n Failed";
         });
     };
     SetupComponent.prototype.sanityRun = function () {
