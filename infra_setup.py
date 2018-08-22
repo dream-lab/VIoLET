@@ -123,11 +123,15 @@ print
 
 log_file.write("\n\n\n****************************************     CREATING CONTAINERS     ****************************************\n")
 
+vm_port = 5000
+
 #CREATE DEVICES
 for d in all_devices_list:
     device_output = {}
     device_type = infra_config["devices"][d]["device_type"]
+    device_port = infra_config["devices"][d]["port"]
 
+    '''
     #cpus has to be picked automatically once the initial steps are automated.
     ########################
     if device_type == "Pi2B":
@@ -139,16 +143,27 @@ for d in all_devices_list:
     elif device_type == "SI":
         cpus = 8.21
     ########################
+    '''
 
     container_OS = device_types[device_type]["docker_image"]
     container_host_mount_path = device_types[device_type]["host_mount"]
+    coremark = float(device_types[device_type]["coremark"])
     memory_mb = device_types[device_type]["memory_mb"]
     disk_mb = device_types[device_type]["disk_mb"]
     nic_out_bw_mbps = device_types[device_type]["nic_out_bw_mbps"]
     device_relibality_params =  device_types[device_type]["reliability"]
+    vm_port += 1
+    #cpus = (coremark/vm_coremark)*vm_core_count
 
     vm_index = int(partitions[d])
     vm_name = container_vm_names[vm_index]
+
+    vm_coremark = float(vm_types[container_vm[vm_name]["vm_type"]]["coremark"])
+    vm_cores = float(vm_types[container_vm[vm_name]["vm_type"]]["core_count"])
+    cpu = (coremark/vm_coremark)*vm_cores
+    cpus = "%.2f"% round(cpu,2)
+    print vm_coremark,vm_cores,cpus
+
     vm_mount_path = vm_types[vm_config["container_VM"][vm_name]["vm_type"]]["shared_mount"]
     host = container_vm[vm_name]["hostname_ip"]
     user = container_vm[vm_name]["user"]
@@ -158,7 +173,7 @@ for d in all_devices_list:
     c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     c.connect( hostname = host, username = user, pkey = k)
 
-    commands = ["sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v {0}:{1} --cpus={2}  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {3} --name {3} {4} > /dev/null &".format(container_host_mount_path,vm_mount_path,cpus,d,container_OS)]
+    commands = ["sudo docker run -p {7}:{7} --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v {0}:{1} --cpus={2} --memory={5}m --storage-opt size={6}M --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {3} --name {3} {4} > /dev/null &".format(container_host_mount_path,vm_mount_path,cpus,d,container_OS,memory_mb,disk_mb,device_port)]
 
     print "Creating {0} in {1} {2}".format(d,vm_name,host)
     log_file.write("\n\nCreating {0} in {1}\n".format(d,vm_name))
@@ -261,7 +276,7 @@ for i in range(len(private_networks_dict)):
     "sudo docker exec -i {0} tc qdisc add dev {1} handle 1: root htb default 11".format(gw, eth_ip_dict[gw][private_network[i]]["eth"]),
     "sudo docker exec -i {0} tc class add dev {1} parent 1: classid 1:1 htb rate {2}Mbps".format(gw, eth_ip_dict[gw][private_network[i]]["eth"], private_networks_dict[private_network[i]]["bandwidth_mbps"]),
     "sudo docker exec -i {0} tc class add dev {1} parent 1:1 classid 1:11 htb rate {2}Mbit".format(gw, eth_ip_dict[gw][private_network[i]]["eth"], private_networks_dict[private_network[i]]["bandwidth_mbps"]),
-    "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(gw, eth_ip_dict[gw][private_network[i]]["eth"], int( private_networks_dict[private_network[i]]["latency_ms"]))
+    "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(gw, eth_ip_dict[gw][private_network[i]]["eth"], float( private_networks_dict[private_network[i]]["latency_ms"]))
     ]
     log_file.write("Setting TC rules\n")
     for command in commands:
@@ -307,7 +322,7 @@ for i in range(len(private_networks_dict)):
     "sudo docker exec -i {0} tc qdisc add dev {1} handle 1: root htb default 11".format(gw, eth_ip_dict[gw]["public_global_network"]["eth"]),
     "sudo docker exec -i {0} tc class add dev {1} parent 1: classid 1:1 htb rate {2}Mbps".format(gw, eth_ip_dict[gw]["public_global_network"]["eth"], public_global_network_dict["bandwidth_mbps"]),
     "sudo docker exec -i {0} tc class add dev {1} parent 1:1 classid 1:11 htb rate {2}Mbit".format(gw, eth_ip_dict[gw]["public_global_network"]["eth"], public_global_network_dict["bandwidth_mbps"]),
-    "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(gw, eth_ip_dict[gw]["public_global_network"]["eth"], int( public_global_network_dict["latency_ms"]))
+    "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(gw, eth_ip_dict[gw]["public_global_network"]["eth"], float( public_global_network_dict["latency_ms"]))
     ]
     log_file.write("Setting TC rules\n")
     for command in commands:
@@ -360,7 +375,7 @@ for i in range(len(private_networks_dict)):
         "sudo docker exec -i {0} tc qdisc add dev {1} handle 1: root htb default 11".format(device, eth_ip_dict[device][private_network[i]]["eth"]),
         "sudo docker exec -i {0} tc class add dev {1} parent 1: classid 1:1 htb rate {2}Mbps".format(device, eth_ip_dict[device][private_network[i]]["eth"], private_networks_dict[private_network[i]]["bandwidth_mbps"]),
         "sudo docker exec -i {0} tc class add dev {1} parent 1:1 classid 1:11 htb rate {2}Mbit".format(device, eth_ip_dict[device][private_network[i]]["eth"], private_networks_dict[private_network[i]]["bandwidth_mbps"]),
-        "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(device, eth_ip_dict[device][private_network[i]]["eth"], int( private_networks_dict[private_network[i]]["latency_ms"]))
+        "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(device, eth_ip_dict[device][private_network[i]]["eth"], float( private_networks_dict[private_network[i]]["latency_ms"]))
         ]
         log_file.write("Setting TC rules\n")
         for command in commands:
@@ -438,7 +453,7 @@ for i in range(len(public_networks_dict)):
         "sudo docker exec -i {0} tc qdisc add dev {1} handle 1: root htb default 11".format(device, eth_ip_dict[device][public_network[i]]["eth"]),
         "sudo docker exec -i {0} tc class add dev {1} parent 1: classid 1:1 htb rate {2}Mbps".format(device, eth_ip_dict[device][public_network[i]]["eth"], public_networks_dict[public_network[i]]["bandwidth_mbps"]),
         "sudo docker exec -i {0} tc class add dev {1} parent 1:1 classid 1:11 htb rate {2}Mbit".format(device, eth_ip_dict[device][public_network[i]]["eth"], public_networks_dict[public_network[i]]["bandwidth_mbps"]),
-        "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(device, eth_ip_dict[device][public_network[i]]["eth"], int( public_networks_dict[public_network[i]]["latency_ms"]))
+        "sudo docker exec -i {0} tc qdisc add dev {1} parent 1:11 handle 10: netem delay {2}ms".format(device, eth_ip_dict[device][public_network[i]]["eth"], float( public_networks_dict[public_network[i]]["latency_ms"]))
         ]
 
         log_file.write("Setting TC rules\n")
