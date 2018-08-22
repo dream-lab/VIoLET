@@ -8138,6 +8138,8 @@ var SetupDataService = /** @class */ (function () {
         this.outputPartitionFile = '';
         this.inputDepFile = '';
         this.outputDepFile = '';
+        this.inputSanFile = '';
+        this.outputSanFile = '';
     }
     // Infra
     SetupDataService.prototype.getSummaryInfraInput = function () {
@@ -8252,7 +8254,13 @@ var SetupDataService = /** @class */ (function () {
         this.http.get(this.url + "deployment_output").subscribe(function (res) {
             _this.files['deployment_output.json'] = res['deployment_output.json'];
             _this.outputFileDD['deployment'] = ['deployment_output.json'];
-            _this.outputDepFile = _this.outputDepFile['deployment'][0];
+            _this.outputDepFile = _this.outputFileDD['deployment'][0];
+        });
+    };
+    SetupDataService.prototype.getDeploymentPlots = function () {
+        var _this = this;
+        this.http.get(this.url + "deployment_plot", { responseType: 'blob' }).subscribe(function (res) {
+            _this.createImageFromBlob(res, 'deployment_network');
         });
     };
     SetupDataService.prototype.createImageFromBlob = function (image, name) {
@@ -8264,6 +8272,12 @@ var SetupDataService = /** @class */ (function () {
         if (image) {
             reader.readAsDataURL(image);
         }
+    };
+    // Sanity
+    SetupDataService.prototype.getSanityInput = function () {
+        this.inputFileDD['sanity'] = ['infra_config.json', 'vm_config.json', 'metis_partitions.json', 'deployment.json',
+            'sensor_types.json'];
+        this.inputSanFile = this.inputFileDD['sanity'][0];
     };
     SetupDataService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({

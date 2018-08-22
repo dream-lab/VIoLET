@@ -22,7 +22,7 @@ export class SetupComponent implements OnInit {
     infraSetupStatus = '';
     sensorGenStatus = '';
 
-    sanitySelection = 'N/W';
+    sanitySelection = 'CPU';
     sanityStatus = '';
     sanityNetworkStatus = '';
     sanityCPUStatus = '';
@@ -173,6 +173,8 @@ export class SetupComponent implements OnInit {
                 this.deploymentStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
                 this.setupDataService.getDeploymentOutput();
+                this.setupDataService.getDeploymentPlots();
+                this.setupDataService.getSanityInput();
             },
             error => {
                 this.sensorGenStatus = "failure";
@@ -183,80 +185,67 @@ export class SetupComponent implements OnInit {
 
     // Sanity
 
-    // getSanityInput() {
-    //     this.setupService.getDeploymentOutput().subscribe(res =>{
-    //         this.inputFile = res['data'];
-    //         this.input_file_name = ' - ' + res['name'];
-    //     });
-    // }
-    //
-    // sanityNetwork() {
-    //     this.sanityStatus = "running";
-    //     this.sanityNetworkStatus = "running";
-    //     this.consoleOutput = 'Running N/W sanity check... \n';
-    //     this.getSanityInput();
-    //     this.outputFile = '';
-    //     this.output_file_name = '';
-    //     this.setupService.getSanityNetwork().subscribe(res => {
-    //             this.sanityNetworkStatus = "success";
-    //             this.sanityStatus = "success";
-    //             this.consoleOutput += res['message'];
-    //         },
-    //         error => {
-    //             this.sanityNetworkStatus = "failure";
-    //             this.sanityStatus = "failure";
-    //             this.consoleOutput += "\n Failed";
-    //         });
-    // }
-    //
-    // sanityCPU() {
-    //     this.sanityStatus = "running";
-    //     this.sanityCPUStatus = "running";
-    //     this.consoleOutput = 'Running CPU sanity check... \n';
-    //     this.getSanityInput();
-    //     this.outputFile = '';
-    //     this.output_file_name = '';
-    //     this.setupService.getSanityCPU().subscribe(res => {
-    //             this.sanityCPUStatus = "success";
-    //             this.sanityStatus = "success";
-    //             this.consoleOutput += res['message'];
-    //         },
-    //         error => {
-    //             this.sanityCPUStatus = "failure";
-    //             this.sanityStatus = "failure";
-    //             this.consoleOutput += "\n Failed";
-    //         });
-    // }
-    //
-    // sanityPubSub() {
-    //     this.sanityStatus = "running";
-    //     this.sanityPubSubStatus = "running";
-    //     this.consoleOutput = 'Running Pub/Sub sanity check... \n';
-    //     this.getSanityInput();
-    //     this.outputFile = '';
-    //     this.output_file_name = '';
-    //     this.setupService.getSanityPubSub().subscribe(res => {
-    //             this.sanityPubSubStatus = "success";
-    //             this.sanityStatus = "success";
-    //             this.consoleOutput += res['message'];
-    //         },
-    //         error => {
-    //             this.sanityPubSubStatus = "failure";
-    //             this.sanityStatus = "failure";
-    //             this.consoleOutput += "\n Failed";
-    //         });
-    // }
-    //
-    // sanityRun() {
-    //     if (this.sanitySelection === 'N/W') {
-    //         this.sanityNetwork();
-    //     }
-    //     else if (this.sanitySelection === 'CPU') {
-    //         this.sanityCPU();
-    //     }
-    //     else if (this.sanitySelection === 'App') {
-    //         this.sanityPubSub();
-    //     }
-    // }
+    sanityNetwork() {
+        this.sanityStatus = "running";
+        this.sanityNetworkStatus = "running";
+        this.setupDataService.consoleOutput['sanity'] = 'Running N/W Micro benchmark... \n*****************************\n';
+        this.setupService.getSanityNetwork().subscribe(res => {
+                this.sanityNetworkStatus = "success";
+                this.sanityStatus = "success";
+                this.setupDataService.consoleOutput['sanity'] += res['message'];
+            },
+            error => {
+                this.sanityNetworkStatus = "failure";
+                this.sanityStatus = "failure";
+                this.setupDataService.consoleOutput['sanity'] += "\n Failed";
+            });
+    }
+
+    sanityCPU() {
+        this.sanityStatus = "running";
+        this.sanityCPUStatus = "running";
+        this.setupDataService.consoleOutput['sanity'] = 'Running CPU Micro benchmark ... \n***************************\n';
+        this.setupService.getSanityCPU().subscribe(res => {
+                this.sanityCPUStatus = "success";
+                this.sanityStatus = "success";
+                this.setupDataService.consoleOutput['sanity'] += res['message'];
+            },
+            error => {
+                this.sanityCPUStatus = "failure";
+                this.sanityStatus = "failure";
+                this.setupDataService.consoleOutput['sanity'] += "\n Failed";
+            });
+    }
+
+    sanityPubSub() {
+        this.sanityStatus = "running";
+        this.sanityPubSubStatus = "running";
+        this.setupDataService.consoleOutput['sanity'] = 'Running Pub/Sub Micro benchmark... \n*************************\n';
+        this.setupService.getSanityPubSub().subscribe(res => {
+                this.sanityPubSubStatus = "success";
+                this.sanityStatus = "success";
+                this.setupDataService.consoleOutput['sanity'] += res['message'];
+            },
+            error => {
+                this.sanityPubSubStatus = "failure";
+                this.sanityStatus = "failure";
+                this.setupDataService.consoleOutput['sanity'] += "\n Failed";
+            });
+    }
+
+    sanityRun() {
+
+        this.currentView = 'sanity';
+
+        if (this.sanitySelection === 'N/W') {
+            this.sanityNetwork();
+        }
+        else if (this.sanitySelection === 'CPU') {
+            this.sanityCPU();
+        }
+        else if (this.sanitySelection === 'App') {
+            this.sanityPubSub();
+        }
+    }
 
 }

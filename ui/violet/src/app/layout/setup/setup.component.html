@@ -83,7 +83,7 @@
             <div class="card bg-light mb-3">
                 <div class="card-body">
                     <div class="card-title">
-                        Micro Benchmark
+                        <span style="cursor:pointer; color:#007bff;"  (click)="currentView='sanity'">Micro Benchmark</span>
                     </div>
                     <div class="card-text">
                         <span
@@ -97,7 +97,7 @@
                         </select>                        &nbsp; &nbsp;
                         <button type="submit" class="btn btn-primary"
                                 [disabled]="deploymentStatus != 'success' || sanityStatus==='running'"
-                                (click)="true">
+                                (click)="sanityRun()">
                             Run
                         </button>
                         <span *ngIf="sanityStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
@@ -114,4 +114,5 @@
     <app-setup-infra *ngIf="currentView==='infra'"></app-setup-infra>
     <app-setup-partition *ngIf="currentView==='partition'"></app-setup-partition>
     <app-setup-deployment *ngIf="currentView==='deployment'"></app-setup-deployment>
+    <app-setup-sanity *ngIf="currentView==='sanity'"></app-setup-sanity>
 </div>

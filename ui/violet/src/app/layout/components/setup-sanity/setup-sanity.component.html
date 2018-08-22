@@ -3,70 +3,19 @@
         <div class="card">
             <div class="custom-card-body">
                 <ngb-tabset>
-                    <ngb-tab title="Input">
+                    <ngb-tab title="Input" >
                         <ng-template ngbTabContent>
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <br>
-                                    <ngb-tabset type="pills">
-                                        <ngb-tab title="VM Types" style="margin-top: 5px">
-                                            <ng-template ngbTabContent>
-                                                <br>
-                                                <table class="table table-bordered table-sm" style="font-size: 0.8em">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>VM</th>
-                                                        <th>Coremark</th>
-                                                        <th>Memory (MB)</th>
-                                                        <th>Disk (MB)</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr *ngFor="let j of sdService.summaryPartitionInput['vmt'] | keyvalue">
-                                                        <td>{{j.key}}</td>
-                                                        <td>{{j.value['coremark']}}</td>
-                                                        <td>{{j.value['memory_mb']}}</td>
-                                                        <td>{{j.value['disk_mb']}}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </ng-template>
-                                        </ngb-tab>
-                                        <ngb-tab title="Device Types" style="margin-top: 5px">
-                                            <ng-template ngbTabContent>
-                                                <br>
-                                                <table class="table table-bordered table-sm" style="font-size: 0.8em">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Device</th>
-                                                        <th>Coremark</th>
-                                                        <th>Memory (MB)</th>
-                                                        <th>Disk (MB)</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr *ngFor="let j of sdService.summaryPartitionInput['dvt'] | keyvalue">
-                                                        <td>{{j.key}}</td>
-                                                        <td>{{j.value['coremark']}}</td>
-                                                        <td>{{j.value['memory_mb']}}</td>
-                                                        <td>{{j.value['disk_mb']}}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </ng-template>
-                                        </ngb-tab>
-                                    </ngb-tabset>
-                                </div>
-                                <div class="col-lg-6">
-                                    <select class="form-control" [(ngModel)] = "sdService.inputPartitionFile">
+                                <div class="col-lg-12">
+                                    <select class="form-control" [(ngModel)] = "sdService.inputSanFile">
                                         <option value="" disabled selected>Select</option>
-                                        <option *ngFor="let i of sdService.inputFileDD['partition']" [value]="i">{{i}}</option>
+                                        <option *ngFor="let i of sdService.inputFileDD['sanity']" [value]="i">{{i}}</option>
                                     </select>
-                                    <ace-editor [text]="sdService.files[sdService.inputPartitionFile]" mode="text" style="height:300px;"></ace-editor>
+                                    <ace-editor [text]="sdService.files[sdService.inputSanFile]" mode="text" style="height:300px;"></ace-editor>
                                 </div>
                             </div>
                         </ng-template>
-                    </ngb-tab >
+                    </ngb-tab>
                     <ngb-tab title="Console">
                         <ng-template ngbTabContent>
                             <div class="row">
@@ -76,7 +25,7 @@
                             </div>
                         </ng-template>
                     </ngb-tab>
-                    <ngb-tab title="Output">
+                    <ngb-tab title="Output" [disabled]="true">
                         <ng-template ngbTabContent>
                             <div class="row">
                                 <div class="col-lg-6">

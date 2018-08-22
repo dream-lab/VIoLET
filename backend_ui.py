@@ -170,6 +170,15 @@ def deployment_output():
         return ('Failure', 500)
 
 
+@app.route('/deployment_plot', methods=['GET'])
+def deployment_plot():
+    try:
+        r, e = Popen(["python graph_nw.py network"], stderr=PIPE, shell=True).communicate()
+        return send_file("network.png", attachment_filename='network.png')
+    except:
+        return (json.dumps({'message': e}), 500)
+
+
 @app.route('/start_docker', methods=['GET'])
 def start_docker():
     try:

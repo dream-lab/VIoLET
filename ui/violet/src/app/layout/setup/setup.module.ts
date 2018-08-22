@@ -10,9 +10,10 @@ import {ImageViewerModule} from "ng2-image-viewer";
 import {SetupInfraComponent} from "../components/setup-infra/setup-infra.component";
 import {SetupPartitionComponent} from "../components/setup-partition/setup-partition.component";
 import {SetupDeploymentComponent} from "../components/setup-deployment/setup-deployment.component";
+import {SetupSanityComponent} from "../components/setup-sanity/setup-sanity.component";
 
 @NgModule({
     imports: [CommonModule, PageHeaderModule, SetupRoutingModule, FormsModule, NgbModule.forRoot(), AceEditorModule, ImageViewerModule],
-    declarations: [SetupComponent, SetupInfraComponent, SetupPartitionComponent, SetupDeploymentComponent]
+    declarations: [SetupComponent, SetupInfraComponent, SetupPartitionComponent, SetupDeploymentComponent, SetupSanityComponent]
 })
 export class SetupModule {}

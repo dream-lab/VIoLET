@@ -29,6 +29,9 @@ export class SetupDataService {
     inputDepFile = '';
     outputDepFile = '';
 
+    inputSanFile = '';
+    outputSanFile = '';
+
     constructor(private http: HttpClient) {
     }
 
@@ -158,6 +161,12 @@ export class SetupDataService {
         });
     }
 
+    getDeploymentPlots() {
+        this.http.get(this.url + "deployment_plot",  { responseType: 'blob' }).subscribe(res =>{
+            this.createImageFromBlob(res, 'deployment_network');
+        });
+
+    }
 
     createImageFromBlob(image: Blob, name: string) {
         let reader = new FileReader();
@@ -168,6 +177,14 @@ export class SetupDataService {
         if (image) {
             reader.readAsDataURL(image);
         }
+    }
+
+    // Sanity
+
+    getSanityInput() {
+        this.inputFileDD['sanity'] = ['infra_config.json', 'vm_config.json', 'metis_partitions.json', 'deployment.json',
+            'sensor_types.json'];
+        this.inputSanFile = this.inputFileDD['sanity'][0];
     }
 
 }
