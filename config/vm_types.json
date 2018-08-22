@@ -1,26 +1,38 @@
 {
-	"m4.10xl": {
-		"core_count": "40",
-		"coremark": "371384",
+	"Standard_D4_v2": {
+		"core_count": "8",
+		"coremark": "102341",
 		"whetstone": "-1",
-		"memory_mb": "163840",
-		"disk_mb": "102400",
-		"out_bw_mbps": "10000",
-		"out_latency_ms": "0.4",
-		"local_bw_mbps": "27000",
-		"local_latency_ms": "0.06",
+		"memory_mb": "28672",
+		"disk_mb": "409600",
+		"out_bw_mbps": "2048",
+		"out_latency_ms": "1.11",
+		"local_bw_mbps": "39116",
+		"local_latency_ms": "0.053",
 		"shared_mount": "/tmp/log/"
 	},
-	"m4.xl": {
-		"core_count": "4",
-		"coremark": "38625",
+	"Standard_D16_v3": {
+                "core_count": "16",
+                "coremark": "159505",
+                "whetstone": "-1",
+                "memory_mb": "63488",
+                "disk_mb": "512000",
+                "out_bw_mbps": "2048",
+                "out_latency_ms": "1.11",
+                "local_bw_mbps": "39116",
+                "local_latency_ms": "0.053",
+                "shared_mount": "/tmp/log/"
+        },
+	"Standard_D32_v3": {
+		"core_count": "32",
+		"coremark": "298702",
 		"whetstone": "-1",
-		"memory_mb": "16384",
-		"disk_mb": "102400",
-		"out_bw_mbps": "750",
-		"out_latency_ms": "0.4",
-		"local_bw_mbps": "27000",
-		"local_latency_ms": "0.06",
+		"memory_mb": "128000",
+		"disk_mb": "819200",
+		"out_bw_mbps": "2990",
+		"out_latency_ms": "0.45",
+		"local_bw_mbps": "28364",
+		"local_latency_ms": "0.018",
 		"shared_mount": "/tmp/log/"
 	}
 }
