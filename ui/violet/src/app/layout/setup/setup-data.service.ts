@@ -154,7 +154,7 @@ export class SetupDataService {
         this.http.get(this.url + "deployment_output").subscribe(res =>{
             this.files['deployment_output.json'] = res['deployment_output.json'];
             this.outputFileDD['deployment'] = ['deployment_output.json'];
-            this.outputDepFile = this.outputDepFile['deployment'][0];
+            this.outputDepFile = this.outputFileDD['deployment'][0];
         });
     }
 

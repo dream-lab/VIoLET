@@ -82,8 +82,6 @@ def partition_output():
 def partition_plot_coremark():
     try:
         r, e = Popen(["cd /home/centos/shriram/VIoLET/dump/metis; python bsplot.py coremark"], stderr=PIPE, shell=True).communicate()
-        if e != '':
-            raise
         return send_file("dump/metis/coremark.png", attachment_filename='coremark.png')
     except:
         return (json.dumps({'message': e}), 500)
@@ -92,9 +90,7 @@ def partition_plot_coremark():
 @app.route('/partition_plot_memory', methods=['GET'])
 def partition_plot_memory():
     try:
-        r, e = Popen(["cd /home/centos/shriram/VIoLET/dump/metis; python bsplot.py memory"], stderr=PIPE).communicate()
-        if e != '':
-            raise
+        r, e = Popen(["cd /home/centos/shriram/VIoLET/dump/metis; python bsplot.py memory"], stderr=PIPE, shell=True).communicate()
         return send_file("dump/metis/memory.png", attachment_filename='memory.png')
     except:
         return (json.dumps({'message': e}), 500)
@@ -103,9 +99,7 @@ def partition_plot_memory():
 @app.route('/partition_plot_disk', methods=['GET'])
 def partition_plot_disk():
     try:
-        r, e = Popen(["cd /home/centos/shriram/VIoLET/dump/metis; python bsplot.py disk"], stderr=PIPE).communicate()
-        if e != '':
-            raise
+        r, e = Popen(["cd /home/centos/shriram/VIoLET/dump/metis; python bsplot.py disk"], stderr=PIPE, shell=True).communicate()
         return send_file("dump/metis/disk.png", attachment_filename='disk.png')
     except:
         return (json.dumps({'message': e}), 500)
