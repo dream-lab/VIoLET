@@ -15,7 +15,7 @@
                                                 <table class="table table-bordered table-sm" style="font-size: 0.8em">
                                                     <thead>
                                                     <tr>
-                                                        <th>Device</th>
+                                                        <th>VM</th>
                                                         <th>Coremark</th>
                                                         <th>Memory (MB)</th>
                                                         <th>Disk (MB)</th>
@@ -32,24 +32,24 @@
                                                 </table>
                                             </ng-template>
                                         </ngb-tab>
-                                        <ngb-tab title="Container VMs" style="margin-top: 5px">
+                                        <ngb-tab title="Device Types" style="margin-top: 5px">
                                             <ng-template ngbTabContent>
                                                 <br>
                                                 <table class="table table-bordered table-sm" style="font-size: 0.8em">
                                                     <thead>
                                                     <tr>
-                                                        <th>Container</th>
+                                                        <th>Device</th>
                                                         <th>Coremark</th>
                                                         <th>Memory (MB)</th>
                                                         <th>Disk (MB)</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr *ngFor="let j of sdService.summaryPartitionInput['vmc']['container_VM'] | keyvalue">
+                                                    <tr *ngFor="let j of sdService.summaryPartitionInput['dvt'] | keyvalue">
                                                         <td>{{j.key}}</td>
-                                                        <td>{{sdService.summaryPartitionInput['vmt'][j.value['vm_type']]['coremark']}}</td>
-                                                        <td>{{sdService.summaryPartitionInput['vmt'][j.value['vm_type']]['memory_mb']}}</td>
-                                                        <td>{{sdService.summaryPartitionInput['vmt'][j.value['vm_type']]['disk_mb']}}</td>
+                                                        <td>{{j.value['coremark']}}</td>
+                                                        <td>{{j.value['memory_mb']}}</td>
+                                                        <td>{{j.value['disk_mb']}}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>

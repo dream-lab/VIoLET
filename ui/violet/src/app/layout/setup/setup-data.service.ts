@@ -80,6 +80,7 @@ export class SetupDataService {
     getSummaryPartitionInput() {
         this.summaryPartitionInput['vmc'] = JSON.parse(this.files['vm_config.json']);
         this.summaryPartitionInput['vmt'] = JSON.parse(this.files['vm_types.json']);
+        this.summaryPartitionInput['dvt'] = JSON.parse(this.files['device_types.json']);
         this.summaryPartitionInput['vm_count'] = Object.keys(this.summaryPartitionInput['vmc']['container_VM']).length;
     }
 
@@ -104,7 +105,8 @@ export class SetupDataService {
         this.http.get(this.url + "partition_input").subscribe(res =>{
             this.files['vm_config.json'] = res['vm_config.json'];
             this.files['vm_types.json'] = res['vm_types.json'];
-            this.inputFileDD['partition'] = ['vm_types.json', 'vm_config.json', 'infra_config.json'];
+            this.files['device_types.json'] = res['device_types.json'];
+            this.inputFileDD['partition'] = ['vm_types.json', 'vm_config.json', 'device_types.json'];
             this.inputPartitionFile = this.inputFileDD['partition'][0]
             this.getSummaryPartitionInput();
         });

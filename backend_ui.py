@@ -52,13 +52,17 @@ def partition_input():
     try:
         d1 = ''
         d2 = ''
+        d3 = ''
         with open('config/vm_config.json', 'r') as f:
             d1 = json.load(f)
             d1 = json.dumps(d1, indent=4)
         with open('config/vm_types.json', 'r') as f:
             d2 = json.load(f)
             d2 = json.dumps(d2, indent=4)
-        return json.dumps({'vm_config.json': d1, 'vm_types.json': d2})
+        with open('config/device_types.json', 'r') as f:
+            d3 = json.load(f)
+            d3 = json.dumps(d3, indent=4)
+        return json.dumps({'vm_config.json': d1, 'vm_types.json': d2, 'device_types.json': d3})
     except:
         return ('Failure', 500)
 
@@ -95,6 +99,7 @@ def partition_gen():
         return json.dumps({'message': r})
     except:
         return (json.dumps({'message': e}), 500)
+    # return json.dumps({'message': 'success'})
 
 
 
@@ -109,6 +114,7 @@ def metis_check():
         return json.dumps({'message': r})
     except:
         return (json.dumps({'message': e}), 500)
+    # return json.dumps({'message': 'success'})
 
 
 @app.route('/deployment_input', methods=['GET'])
@@ -137,7 +143,7 @@ def deployment_output():
 def start_docker():
     try:
         p = Popen(["python", "start_docker.py"])
-        sleep(90)
+        sleep(30)
         return json.dumps({'message': "Docker started \n\n"})
     except:
         return (json.dumps({'message': 'Failure'}), 500)
