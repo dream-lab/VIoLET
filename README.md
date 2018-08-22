@@ -28,28 +28,46 @@ Deploying VIoLET involves 4 parts.
 7. Run sanity check to verify whether bandwidth and latency requirements have met.
 8. Run pub_sub application to verify the latency of an application on VIoLET infrastructure.
 
-![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/resources/VIoLET-architecture.png)
+![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.1/resources/architecture.png)
 
 ## Part - 1 [VIoLET Infrastructure & VMs]
 ### Clone the Repo
-To validate VIoLET we have used Amazon EC2 instances. But, there is no dependency on AWS instances as such. One can use any VMs/machines with ssh+key access instead of ssh+password access. <br />
+To validate VIoLET we have used Amazon EC2 and Azure instances. But, there are no dependency on AWS or Azure instances as such. One can use any VMs/machines with ssh+key access instead of ssh+password access. <br />
 Clone the repository and place it on the Admin VM. <br />
 Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance will suffice)
 
 
 ### Generate infra_config.json
-**infra_config.json** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. There are few sample config files - **infra_config_d105.json** is for D105 and **infra_config_d408.json** is for D408. To use these sample json, rename the file to **infra_config.json**. Though it is preferred to use **infra_gen.py** to generate the **infra_config.json** file, user can write their own json with the exact syntax as mentioned in the sample file. Use **infra_gen.py** with the following syntax.<br />
+**infra_config.json** is the input file for VIoLET. This file contains the device details and network connectivity details to deploy the system. There are few sample config files - **D25_infra_config.json** is for D25 and **D100_infra_config.json** is for D100. To use these sample json, copy the file to **infra_config.json**. Though it is preferred to use **infra_gen.py** to generate the **infra_config.json** file, user can write their own json with the exact syntax as mentioned in the sample file. Use **infra_gen.py** with the following syntax.<br />
 
-<br /> For D105 (100 Edge - {50 Pi2Bs, 50 Pi3Bs}, 5 Fog - {4 TX1, 1 SI}) the command would be as such.
+<br /> For D25 (25 devices comprise of 3 private networks and 1 public network. Each private network has 8 devices and public network has TX1 along with gateways of all private networks. Private network 1 and 2 has Pi3B+ and private network 3 has pi3B. The command mentioned below will generate infra_config.json file under config folder which will be used by all the following steps. The deployment will use random values for bandwidth and latency unless you have pass the required command-line argument. 
 ```sh
 """
-python infra_gen.py <number_of_devices> <number_of_fog_devices> <number_of_edge_type1,number_of_edge_type2> <number_of_fog_type_1,number_of_fog_type2> <number_of_sensors_per_device> <public_network_edge_density> <container_image>
+python infra_gen.py
 """
 
-python infra_gen.py 105 5 50,50 1,4 5 50 centos_systemd
+python infra_gen.py
 ```
-At present, the OS image for the containers must either be shrey67/centos_systemd or it can be any docker image which has extended the shrey67/centos_systemd image. Since the image is fetched from the docker hub, the first deployment is expected to take significant amount of time. Alternatively, user can pull the image manually on all the container-host VMs as mentioned in the next few steps.
 
+If user wants to regenerate the same deployment, use seed value for pseudo-randomness in generation of infra_config.json
+```sh
+"""
+python infra_gen.py -s <seed_value>
+"""
+
+python infra_gen.py -s 10
+```
+
+There is way to pass the bandwidth and latency pairs to constraint your deployment. User has manually update the bw and lat arrays in infra_gen.py and use logic value as 1. Otherwise bw and latencies will be picked randomly from the values given in infra_gen.json in config folder.
+```sh
+"""
+python infra_gen.py -s <seed_value> -l <logic_value>
+"""
+
+python infra_gen.py -l 1
+```
+
+Note: User can use both option simultaneously.
 
 ### Calculating the number of container_host_VMs required
 This step is needed to determine the number of container VMs we will need to deploy the infra_config and to compute the --cpus for every container. --cpus is an option given by the docker daemon which specifies the host machine's cpu utilization for a container. <br/>
@@ -66,12 +84,12 @@ Step 1 generates **coremark.exe**, an executable file. Run the coremark executab
 ```
 Once you get the coremark numbers (Iterations/Sec). Calculate the number of VMs and cpus ratio for each device.<br />
 <br /> <br />
-The following example for D105 will explain it better.<br />
-D105 (100 Edge devices, 5 Fog devices)
-Amongst 100 Edge devices, let us assume there are 50 Raspberry Pi2B devices and 50 Raspberry Pi3B devices. Similarly let there be 4 Nvidia Jetson Tx1, Fog devices and 1 SoftIron overdrive 3000, Fog device. And let the VM be m5.12xlarge (48 cores)
+The following example for D25 will explain it better.<br />
+D25 (21 Edge devices, 4 Fog devices)
+Amongst 21 Edge devices, let us assume there are 14 Raspberry Pi3B devices and 7 Raspberry Pi3B+ devices. Similarly let there be 1 Nvidia Jetson Tx1, Fog devices, 2 Pi3B+, Fog device and 1 Pi3B, Fog device. And let the VM be Standard_D16_v3 (16 cores)
 
-For D105 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
-![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.0/resources/coremark.png)
+For D25 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
+![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.1/resources/coremark.png)
 
 After determining the number of container-host VMs, go ahead and create those many Amazon EC2 instances. All the container host VMs must be of the same type according to the one mentioned in the calculations. VM details are captured in **config/vm_config.json** file. Update the public DNS, key path, user, coremark numbers. Also user must update the --cpus and coremark number for every device type in **config/device_types.json** file. 
 
@@ -94,7 +112,7 @@ nohup /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cl
 ```
 Pull the required docker image for VIoLET on all the container-host VMs.
 ```sh
-docker pull shrey67/centos_systemd
+docker pull dreamlab/violet
 ```
 
 <br />NOTE: ec2 instances do not come with a disk storage by default. Usually, the ephermal storage drivers aren't sufficent to support the container deployment. User must attach and mount the EBS volume to the container-host VMs and move **/var/lib/docker** to the disk and do a softlink to **/var/lib/docker**. For example, let us assume the disk path to be /disk. Follow these commands after stopping the docker.
@@ -175,5 +193,15 @@ To deploy equal number of publisher and subscriber on edge devices (containers) 
 python pub_sub.py
 ```
 The script will run for around 10 minutes and will collect latency and send/receive of data for 180 entries (data send/receive every second for 180 seconds) on each container under above mentioned files.
+
+After 180 seconds, sanity script can be run to collect latency deviation from all the publishers and plot the violin plot for each private network. This verifies the latency deviation is within +-5% of 4 times of latency set by deployment.
+
+```sh
+python sanity.py
+```
+
+Note: We are calculating latency deviation for each message send from publisher. This will take minimum of 4 times of latency because there will be four interactions during the ping-pong-ping test as explained above. In simple terms, The message will be sent by publisher to subscriber via broker and then suubscriber sends back the message as soon as the reciept of the message. The subscriber message will follow the same path which is broker to back to publisher. The topics are different for message transfer and hence both the devices act as publisher and subscriber.
+
+All the numbers are gathered and are made available in dump/sanity/pub_sub directory.
 
 ### *ACKNOWLEDGEMENT: This work is supported by grants from VMWARE, Cargill, IUSSTF and IMPRINT*

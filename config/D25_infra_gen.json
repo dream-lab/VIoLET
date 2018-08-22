@@ -4,18 +4,18 @@
         "violet_public_1": 
         [
             {
-                "device_type":"TX1",
-                "number_devices":"1",
-                "number_sensors":"5"
-            },
-            {
-                "device_type":"Pi2B",
+                "device_type":"Pi3B+",
                 "number_devices":"2",
                 "number_sensors":"5"
             },
-            {
+	    {
                 "device_type":"Pi3B",
-                "number_devices":"3",
+                "number_devices":"1",
+                "number_sensors":"5"
+            },
+	    {
+                "device_type":"TX1",
+                "number_devices":"1",
                 "number_sensors":"5"
             }
         ]
@@ -24,22 +24,22 @@
     {
         "violet_private_1":
         {
-            "device_type":"Pi3B",
+            "device_type":"Pi3B+",
             "number_devices":"7",
-            "gateway_device_type":"Pi3B",
+            "gateway_device_type":"Pi3B+",
             "number_sensors":"5"
         },
         "violet_private_2":
         {
-            "device_type":"Pi3B",
+            "device_type":"Pi3B+",
             "number_devices":"7",
-            "gateway_device_type":"Pi3B",
+            "gateway_device_type":"Pi3B+",
             "number_sensors":"5"
         },
         "violet_private_3":
         {
             "device_type":"Pi3B",
-            "number_devices":"5",
+            "number_devices":"7",
             "gateway_device_type":"Pi3B",
             "number_sensors":"5"
         }
@@ -48,13 +48,15 @@
     {
         "public_networks":
         {
-            "bandwidth_mbps":["25","50","75","100"],
-            "latency_ms":["5","25","50","75"]
+            "bandwidth_mbps":["10","15","20","25","30","35","40","45","50"],
+            "latency_ms":["10","15","20","25","30","35","40","45","50"],
+	    "window_size_bits":"524288"
         },
         "private_networks":
         {
-            "bandwidth_mbps":["25","50","75","100"],
-            "latency_ms":["5","25","50","75"]
+            "bandwidth_mbps":["10","15","20","25","30","35","40","45","50"],
+            "latency_ms":["10","15","20","25","30","35","40","45","50"],
+	    "window_size_bits":"524288"
         }
     }
 }

@@ -62,7 +62,7 @@ if __name__ == "__main__":
 
 
 
-ports = range(1025,65535)
+ports = range(32768,60999)
 
 #try:
 #    seed = sys.argv[1]
