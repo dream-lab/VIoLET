@@ -11,9 +11,10 @@ import {SetupInfraComponent} from "../components/setup-infra/setup-infra.compone
 import {SetupPartitionComponent} from "../components/setup-partition/setup-partition.component";
 import {SetupDeploymentComponent} from "../components/setup-deployment/setup-deployment.component";
 import {SetupSanityComponent} from "../components/setup-sanity/setup-sanity.component";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
-    imports: [CommonModule, PageHeaderModule, SetupRoutingModule, FormsModule, NgbModule.forRoot(), AceEditorModule, ImageViewerModule],
+    imports: [CommonModule, PageHeaderModule, SetupRoutingModule, FormsModule, NgbModule.forRoot(), AceEditorModule, PdfViewerModule, ImageViewerModule],
     declarations: [SetupComponent, SetupInfraComponent, SetupPartitionComponent, SetupDeploymentComponent, SetupSanityComponent]
 })
 export class SetupModule {}

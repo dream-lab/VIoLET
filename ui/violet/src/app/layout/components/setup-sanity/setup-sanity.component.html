@@ -20,7 +20,7 @@
                         <ng-template ngbTabContent>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <ace-editor [text]="sdService.consoleOutput['partition']" mode="text" style="margin-top: 15px; height:300px;"></ace-editor>
+                                    <ace-editor [text]="sdService.consoleOutput['sanity']" mode="text" style="margin-top: 15px; height:300px;"></ace-editor>
                                 </div>
                             </div>
                         </ng-template>
@@ -63,19 +63,12 @@
                     </ngb-tab>
                     <ngb-tab title="Visualization" >
                         <ng-template ngbTabContent>
-                            <div class="row" *ngIf="sdService.images['partition_coremark']" style="text-align: center">
-                                <div class="col-lg-4">
-                                    <span>Coremark</span>
-                                    <img [src]="sdService.images['partition_coremark']" style="height:300px; max-width: 100%"/>
-                                </div>
-                                <div class="col-lg-4">
-                                    <span>Memory</span>
-                                    <img [src]="sdService.images['partition_memory']" style="height:300px; max-width: 100%"/>
-                                </div>
-                                <div class="col-lg-4">
-                                    <span>Disk</span>
-                                    <img [src]="sdService.images['partition_disk']" style="height:300px; max-width: 100%"/>
-                                </div>
+                            <div class="row" style="text-align: center">
+                             <pdf-viewer src="../../../../../assets/images/f_pi3b.pdf"
+                                                      [render-text]="true"
+                                         [zoom]="0.7"
+                                                      style="display: block; margin-right: auto; margin-left: auto">
+                           </pdf-viewer>
                             </div>
                         </ng-template>
                     </ngb-tab>
