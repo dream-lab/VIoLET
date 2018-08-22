@@ -57,7 +57,7 @@
             <div class="card bg-light mb-3">
                 <div class="card-body">
                     <div class="card-title">
-                        Deployment
+                        <span style="cursor:pointer; color:#007bff;"  (click)="currentView='deployment'">Deployment</span>
                     </div>
                     <div class="card-text">
                         <span
@@ -66,7 +66,7 @@
                         </span>
                         <button type="submit" class="btn btn-primary"
                                 [disabled]="partitionStatus != 'success' || deploymentStatus==='running'"
-                                (click)="true">
+                                (click)="startDocker()">
                             Run
                         </button>
                         <span *ngIf="deploymentStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
@@ -83,7 +83,7 @@
             <div class="card bg-light mb-3">
                 <div class="card-body">
                     <div class="card-title">
-                        Sanity
+                        Micro Benchmark
                     </div>
                     <div class="card-text">
                         <span
@@ -91,8 +91,8 @@
                             &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
                         </span>
                         <select class="form-inline" style="display: inline" [(ngModel)] = "sanitySelection">
-                            <option value="N/W">N/W</option>
                             <option value="CPU">CPU</option>
+                            <option value="N/W">N/W</option>
                             <option value="App">Pub/Sub</option>
                         </select>                        &nbsp; &nbsp;
                         <button type="submit" class="btn btn-primary"
@@ -113,4 +113,5 @@
     </div>
     <app-setup-infra *ngIf="currentView==='infra'"></app-setup-infra>
     <app-setup-partition *ngIf="currentView==='partition'"></app-setup-partition>
+    <app-setup-deployment *ngIf="currentView==='deployment'"></app-setup-deployment>
 </div>

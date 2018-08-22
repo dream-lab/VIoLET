@@ -9,6 +9,7 @@ export class SetupDataService {
     url = 'http://' + window.location.hostname + ':5000/';
 
     files = {};
+    images = {};
 
     inputFileDD = {};
     outputFileDD = {};
@@ -24,6 +25,9 @@ export class SetupDataService {
     summaryPartitionOutput = {};
     inputPartitionFile = '';
     outputPartitionFile = '';
+
+    inputDepFile = '';
+    outputDepFile = '';
 
     constructor(private http: HttpClient) {
     }
@@ -101,13 +105,26 @@ export class SetupDataService {
         }
     }
 
+    getPartitionPlots() {
+        this.http.get(this.url + "partition_plot_coremark",  { responseType: 'blob' }).subscribe(res =>{
+            this.createImageFromBlob(res, 'partition_coremark');
+            this.http.get(this.url + "partition_plot_disk",  { responseType: 'blob' }).subscribe(res =>{
+                this.createImageFromBlob(res, 'partition_disk');
+                this.http.get(this.url + "partition_plot_memory",  { responseType: 'blob' }).subscribe(res =>{
+                    this.createImageFromBlob(res, 'partition_memory');
+                });
+            });
+        });
+
+    }
+
     getPartitionInput() {
         this.http.get(this.url + "partition_input").subscribe(res =>{
             this.files['vm_config.json'] = res['vm_config.json'];
             this.files['vm_types.json'] = res['vm_types.json'];
             this.files['device_types.json'] = res['device_types.json'];
             this.inputFileDD['partition'] = ['vm_types.json', 'vm_config.json', 'device_types.json'];
-            this.inputPartitionFile = this.inputFileDD['partition'][0]
+            this.inputPartitionFile = this.inputFileDD['partition'][0];
             this.getSummaryPartitionInput();
         });
     }
@@ -124,11 +141,33 @@ export class SetupDataService {
     // Deployment
 
     getDeploymentInput() {
-        return this.http.get(this.url + "deployment_input");
+        this.http.get(this.url + "deployment_input").subscribe(res =>{
+            this.files['deployment.json'] = res['deployment.json'];
+            this.files['sensor_types.json'] = res['sensor_types.json'];
+            this.inputFileDD['deployment'] = ['infra_config.json', 'vm_config.json', 'metis_partitions.json', 'deployment.json',
+                'sensor_types.json'];
+            this.inputDepFile = this.inputFileDD['deployment'][0];
+        });
     }
 
     getDeploymentOutput() {
-        return this.http.get(this.url + "deployment_output");
+        this.http.get(this.url + "deployment_output").subscribe(res =>{
+            this.files['deployment_output.json'] = res['deployment_output.json'];
+            this.outputFileDD['deployment'] = ['deployment_output.json'];
+            this.outputDepFile = this.outputDepFile['deployment'][0];
+        });
+    }
+
+
+    createImageFromBlob(image: Blob, name: string) {
+        let reader = new FileReader();
+        reader.addEventListener("load", () => {
+            this.images[name] = reader.result;
+        }, false);
+
+        if (image) {
+            reader.readAsDataURL(image);
+        }
     }
 
 }

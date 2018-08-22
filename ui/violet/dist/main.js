@@ -12,40 +12,22 @@ var map = {
 		"./src/app/access-denied/access-denied.module.ts",
 		"access-denied-access-denied-module"
 	],
-	"./charts/charts.module": [
-		"./src/app/layout/charts/charts.module.ts",
-		"common",
-		"charts-charts-module"
-	],
-	"./dashboard/dashboard.module": [
-		"./src/app/layout/dashboard/dashboard.module.ts",
-		"dashboard-dashboard-module~layout-layout-module~setup-setup-module",
-		"common",
-		"dashboard-dashboard-module"
-	],
 	"./layout/layout.module": [
 		"./src/app/layout/layout.module.ts",
-		"dashboard-dashboard-module~layout-layout-module~setup-setup-module",
-		"common",
+		"layout-layout-module~setup-setup-module",
 		"layout-layout-module"
 	],
 	"./not-found/not-found.module": [
 		"./src/app/not-found/not-found.module.ts",
 		"not-found-not-found-module"
 	],
-	"./server-error/server-error.module": [
-		"./src/app/server-error/server-error.module.ts",
-		"server-error-server-error-module"
-	],
 	"./setup/setup.module": [
 		"./src/app/layout/setup/setup.module.ts",
-		"dashboard-dashboard-module~layout-layout-module~setup-setup-module",
-		"common",
+		"layout-layout-module~setup-setup-module",
 		"setup-setup-module"
 	],
 	"./tables/tables.module": [
 		"./src/app/layout/tables/tables.module.ts",
-		"common",
 		"tables-tables-module"
 	]
 };
@@ -95,7 +77,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 var routes = [
     { path: '', loadChildren: './layout/layout.module#LayoutModule', canActivate: [_shared__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]] },
-    { path: 'error', loadChildren: './server-error/server-error.module#ServerErrorModule' },
     { path: 'access-denied', loadChildren: './access-denied/access-denied.module#AccessDeniedModule' },
     { path: 'not-found', loadChildren: './not-found/not-found.module#NotFoundModule' },
     { path: '**', redirectTo: 'not-found' }

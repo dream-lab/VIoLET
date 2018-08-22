@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["dashboard-dashboard-module~layout-layout-module~setup-setup-module"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["layout-layout-module~setup-setup-module"],{
 
 /***/ "./node_modules/@ng-bootstrap/ng-bootstrap/accordion/accordion-config.js":
 /*!*******************************************************************************!*\
@@ -8094,7 +8094,189 @@ function regExpEscape(text) {
 }
 //# sourceMappingURL=util.js.map
 
+/***/ }),
+
+/***/ "./src/app/layout/setup/setup-data.service.ts":
+/*!****************************************************!*\
+  !*** ./src/app/layout/setup/setup-data.service.ts ***!
+  \****************************************************/
+/*! exports provided: SetupDataService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetupDataService", function() { return SetupDataService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var SetupDataService = /** @class */ (function () {
+    function SetupDataService(http) {
+        this.http = http;
+        this.url = 'http://' + window.location.hostname + ':5000/';
+        this.files = {};
+        this.images = {};
+        this.inputFileDD = {};
+        this.outputFileDD = {};
+        this.consoleOutput = {};
+        this.summaryInfraInput = {};
+        this.summaryInfraOutput = {};
+        this.inputInfraFile = '';
+        this.outputInfraFile = '';
+        this.summaryPartitionInput = {};
+        this.summaryPartitionOutput = {};
+        this.inputPartitionFile = '';
+        this.outputPartitionFile = '';
+        this.inputDepFile = '';
+        this.outputDepFile = '';
+    }
+    // Infra
+    SetupDataService.prototype.getSummaryInfraInput = function () {
+        var temp = JSON.parse(this.files['infra_gen.json']);
+        this.summaryInfraInput['pvt_networks'] = Object.keys(temp.private_networks).length;
+        this.summaryInfraInput['pub_networks'] = Object.keys(temp.public_networks).length;
+        this.summaryInfraInput['pvt_bandwidth'] = temp.network.private_networks.bandwidth_mbps.join(', ');
+        this.summaryInfraInput['pub_bandwidth'] = temp.network.public_networks.bandwidth_mbps.join(', ');
+        this.summaryInfraInput['pvt_latency'] = temp.network.private_networks.latency_ms.join(', ');
+        this.summaryInfraInput['pub_latency'] = temp.network.public_networks.latency_ms.join(', ');
+        this.summaryInfraInput['pvt_dev_cnt'] = 0;
+        for (var i in temp['private_networks']) {
+            this.summaryInfraInput['pvt_dev_cnt'] += +temp['private_networks'][i]['number_devices'];
+        }
+        this.summaryInfraInput['pub_dev_cnt'] = 0;
+        for (var i in temp['public_networks']) {
+            for (var _i = 0, _a = temp['public_networks'][i]; _i < _a.length; _i++) {
+                var j = _a[_i];
+                this.summaryInfraInput['pub_dev_cnt'] += +j['number_devices'];
+            }
+        }
+    };
+    SetupDataService.prototype.getSummaryInfraOutput = function () {
+        var temp = JSON.parse(this.files['infra_config.json']);
+        this.summaryInfraOutput['pvt'] = temp['private_networks'];
+        this.summaryInfraOutput['pub'] = temp['public_networks'];
+    };
+    SetupDataService.prototype.getInfraInput = function () {
+        var _this = this;
+        this.http.get(this.url + "infra_gen_input").subscribe(function (res) {
+            _this.files['infra_gen.json'] = res['data'];
+            _this.inputFileDD['infra'] = ['infra_gen.json'];
+            _this.inputInfraFile = _this.inputFileDD['infra'][0];
+            _this.getSummaryInfraInput();
+        });
+    };
+    SetupDataService.prototype.getInfraOutput = function () {
+        var _this = this;
+        this.http.get(this.url + "infra_gen_output").subscribe(function (res) {
+            _this.files['infra_config.json'] = res['data'];
+            _this.outputFileDD['infra'] = ['infra_config.json'];
+            _this.outputInfraFile = _this.outputFileDD['infra'][0];
+            _this.getSummaryInfraOutput();
+        });
+    };
+    // Partition
+    SetupDataService.prototype.getSummaryPartitionInput = function () {
+        this.summaryPartitionInput['vmc'] = JSON.parse(this.files['vm_config.json']);
+        this.summaryPartitionInput['vmt'] = JSON.parse(this.files['vm_types.json']);
+        this.summaryPartitionInput['dvt'] = JSON.parse(this.files['device_types.json']);
+        this.summaryPartitionInput['vm_count'] = Object.keys(this.summaryPartitionInput['vmc']['container_VM']).length;
+    };
+    SetupDataService.prototype.getSummaryPartitionOutput = function () {
+        var _this = this;
+        var temp = JSON.parse(this.files['metis_partitions.json']);
+        var i = 0;
+        this.summaryPartitionOutput['cnt'] = {};
+        Object.entries(this.summaryPartitionInput['vmc']['container_VM']).forEach(function (_a) {
+            var key = _a[0], value = _a[1];
+            _this.summaryPartitionOutput['cnt'][i.toString()] = { 'name': key, 'cnt': 0 };
+            i++;
+        });
+        for (var j in temp) {
+            this.summaryPartitionOutput['cnt'][temp[j]]['cnt']++;
+        }
+    };
+    SetupDataService.prototype.getPartitionPlots = function () {
+        var _this = this;
+        this.http.get(this.url + "partition_plot_coremark", { responseType: 'blob' }).subscribe(function (res) {
+            _this.createImageFromBlob(res, 'partition_coremark');
+            _this.http.get(_this.url + "partition_plot_disk", { responseType: 'blob' }).subscribe(function (res) {
+                _this.createImageFromBlob(res, 'partition_disk');
+                _this.http.get(_this.url + "partition_plot_memory", { responseType: 'blob' }).subscribe(function (res) {
+                    _this.createImageFromBlob(res, 'partition_memory');
+                });
+            });
+        });
+    };
+    SetupDataService.prototype.getPartitionInput = function () {
+        var _this = this;
+        this.http.get(this.url + "partition_input").subscribe(function (res) {
+            _this.files['vm_config.json'] = res['vm_config.json'];
+            _this.files['vm_types.json'] = res['vm_types.json'];
+            _this.files['device_types.json'] = res['device_types.json'];
+            _this.inputFileDD['partition'] = ['vm_types.json', 'vm_config.json', 'device_types.json'];
+            _this.inputPartitionFile = _this.inputFileDD['partition'][0];
+            _this.getSummaryPartitionInput();
+        });
+    };
+    SetupDataService.prototype.getPartitionOutput = function () {
+        var _this = this;
+        this.http.get(this.url + "partition_output").subscribe(function (res) {
+            _this.files['metis_partitions.json'] = res['metis_partitions.json'];
+            _this.outputFileDD['partition'] = ['metis_partitions.json'];
+            _this.outputPartitionFile = _this.outputFileDD['partition'][0];
+            _this.getSummaryPartitionOutput();
+        });
+    };
+    // Deployment
+    SetupDataService.prototype.getDeploymentInput = function () {
+        var _this = this;
+        this.http.get(this.url + "deployment_input").subscribe(function (res) {
+            _this.files['deployment.json'] = res['deployment.json'];
+            _this.files['sensor_types.json'] = res['sensor_types.json'];
+            _this.inputFileDD['deployment'] = ['infra_config.json', 'vm_config.json', 'metis_partitions.json', 'deployment.json',
+                'sensor_types.json'];
+            _this.inputDepFile = _this.inputFileDD['deployment'][0];
+        });
+    };
+    SetupDataService.prototype.getDeploymentOutput = function () {
+        var _this = this;
+        this.http.get(this.url + "deployment_output").subscribe(function (res) {
+            _this.files['deployment_output.json'] = res['deployment_output.json'];
+            _this.outputFileDD['deployment'] = ['deployment_output.json'];
+            _this.outputDepFile = _this.outputDepFile['deployment'][0];
+        });
+    };
+    SetupDataService.prototype.createImageFromBlob = function (image, name) {
+        var _this = this;
+        var reader = new FileReader();
+        reader.addEventListener("load", function () {
+            _this.images[name] = reader.result;
+        }, false);
+        if (image) {
+            reader.readAsDataURL(image);
+        }
+    };
+    SetupDataService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], SetupDataService);
+    return SetupDataService;
+}());
+
+
+
 /***/ })
 
 }]);
-//# sourceMappingURL=dashboard-dashboard-module~layout-layout-module~setup-setup-module.js.map
+//# sourceMappingURL=layout-layout-module~setup-setup-module.js.map

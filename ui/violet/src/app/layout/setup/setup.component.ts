@@ -87,7 +87,7 @@ export class SetupComponent implements OnInit {
         this.setupDataService.consoleOutput['partition'] += '\n2. Generating Partition...\n************************\n';
         this.setupService.postPartitionGen(this.vm).subscribe(res => {
                 this.generatePartitionStatus = "success";
-                this.setupDataService.consoleOutput['partition'] += res['message']
+                this.setupDataService.consoleOutput['partition'] += res['message'];
                 this.checkMetis();
             },
             error => {
@@ -106,6 +106,8 @@ export class SetupComponent implements OnInit {
                 this.partitionStatus = "success";
                 this.setupDataService.consoleOutput['partition'] += res['message'];
                 this.setupDataService.getPartitionOutput();
+                this.setupDataService.getPartitionPlots();
+                this.setupDataService.getDeploymentInput();
             },
             error => {
                 this.checkMetisStatus = "failure";
@@ -116,84 +118,68 @@ export class SetupComponent implements OnInit {
 
     // Deployment
 
-    // getDeploymentInput() {
-    //     this.setupService.getDeploymentInput().subscribe(res =>{
-    //         this.inputFile = res['data'];
-    //         this.input_file_name = ' - ' + res['name'];
-    //     });
-    // }
-    //
-    // getDeploymentOutput() {
-    //     this.setupService.getDeploymentOutput().subscribe(res =>{
-    //         this.outputFile = res['data'];
-    //         this.output_file_name = ' - ' + res['name'];
-    //     });
-    // }
-    //
-    // startDocker() {
-    //     this.startDockerStatus = "running";
-    //     this.deploymentStatus = "running";
-    //     this.getDeploymentInput();
-    //     this.outputFile = '';
-    //     this.output_file_name = '';
-    //     this.consoleOutput = '1. Starting Docker... \n';
-    //     this.setupService.getStartDocker().subscribe(res => {
-    //             this.startDockerStatus = "success";
-    //             this.consoleOutput += res['message'];
-    //             this.deleteInfra();
-    //         },
-    //         error => {
-    //             this.startDockerStatus = "failure";
-    //             this.deploymentStatus = "failure";
-    //             this.consoleOutput += error.error['message'];
-    //         });
-    // }
-    //
-    // deleteInfra() {
-    //     this.deleteInfraStatus = "running";
-    //     this.consoleOutput += '2. Deleting Infrastructure... \n';
-    //     this.setupService.getDeleteInfra().subscribe(res =>{
-    //             this.deleteInfraStatus = "success";
-    //             this.consoleOutput += res['message'];
-    //             this.infraSetup();
-    //     },
-    //         error =>  {
-    //         this.deleteInfraStatus = "failure";
-    //         this.deploymentStatus = "failure";
-    //         this.consoleOutput += error.error['message'];
-    //         });
-    // }
-    //
-    // infraSetup() {
-    //     this.infraSetupStatus = "running";
-    //     this.consoleOutput += '3. Running Infrastructure setup... \n';
-    //     this.setupService.getInfraSetup().subscribe(res => {
-    //             this.infraSetupStatus = "success";
-    //             this.consoleOutput += res['message'];
-    //             this.sensorGen();
-    //         },
-    //         error => {
-    //             this.infraSetupStatus = "failure";
-    //             this.deploymentStatus = "failure";
-    //             this.consoleOutput += error.error['message'];
-    //         });
-    // }
-    //
-    // sensorGen() {
-    //     this.sensorGenStatus = "running";
-    //     this.consoleOutput += '4. Running Sensor Gen... \n';
-    //     this.setupService.getSensorGen().subscribe(res => {
-    //             this.sensorGenStatus = "success";
-    //             this.deploymentStatus = "success";
-    //             this.consoleOutput += res['message'];
-    //             this.getDeploymentOutput();
-    //         },
-    //         error => {
-    //             this.sensorGenStatus = "failure";
-    //             this.deploymentStatus = "failure";
-    //             this.consoleOutput += error.error['message'];
-    //         });
-    // }
+    startDocker() {
+        this.startDockerStatus = "running";
+        this.deploymentStatus = "running";
+        this.currentView = 'deployment';
+        this.setupDataService.consoleOutput['deployment'] = '1. Starting Docker... \n******************************\n';
+        this.setupService.getStartDocker().subscribe(res => {
+                this.startDockerStatus = "success";
+                this.setupDataService.consoleOutput['deployment'] += res['message'];
+                this.deleteInfra();
+            },
+            error => {
+                this.startDockerStatus = "failure";
+                this.deploymentStatus = "failure";
+                this.setupDataService.consoleOutput['deployment'] += error.error['message'];
+            });
+    }
+
+    deleteInfra() {
+        this.deleteInfraStatus = "running";
+        this.setupDataService.consoleOutput['deployment'] += '2. Deleting Infrastructure... \n*********************\n';
+        this.setupService.getDeleteInfra().subscribe(res =>{
+                this.deleteInfraStatus = "success";
+                this.setupDataService.consoleOutput['deployment'] += res['message'];
+                this.infraSetup();
+        },
+            error =>  {
+            this.deleteInfraStatus = "failure";
+            this.deploymentStatus = "failure";
+                this.setupDataService.consoleOutput['deployment'] += error.error['message'];
+            });
+    }
+
+    infraSetup() {
+        this.infraSetupStatus = "running";
+        this.setupDataService.consoleOutput['deployment'] += '3. Running Infrastructure setup... \n****************\n';
+        this.setupService.getInfraSetup().subscribe(res => {
+                this.infraSetupStatus = "success";
+                this.setupDataService.consoleOutput['deployment'] += res['message'];
+                this.sensorGen();
+            },
+            error => {
+                this.infraSetupStatus = "failure";
+                this.deploymentStatus = "failure";
+                this.setupDataService.consoleOutput['deployment'] += error.error['message'];
+            });
+    }
+
+    sensorGen() {
+        this.sensorGenStatus = "running";
+        this.setupDataService.consoleOutput['deployment'] += '4. Running Sensor Gen... \n*************************\n';
+        this.setupService.getSensorGen().subscribe(res => {
+                this.sensorGenStatus = "success";
+                this.deploymentStatus = "success";
+                this.setupDataService.consoleOutput['deployment'] += res['message'];
+                this.setupDataService.getDeploymentOutput();
+            },
+            error => {
+                this.sensorGenStatus = "failure";
+                this.deploymentStatus = "failure";
+                this.setupDataService.consoleOutput['deployment'] += error.error['message'];
+            });
+    }
 
     // Sanity
 

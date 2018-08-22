@@ -22181,163 +22181,650 @@ var AceEditorModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/ngx-json-viewer/ngx-json-viewer.es5.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/ngx-json-viewer/ngx-json-viewer.es5.js ***!
-  \*************************************************************/
-/*! exports provided: NgxJsonViewerModule, NgxJsonViewerComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/ng2-image-viewer/ng2-image-viewer.umd.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/ng2-image-viewer/ng2-image-viewer.umd.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxJsonViewerModule", function() { return NgxJsonViewerModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxJsonViewerComponent", function() { return NgxJsonViewerComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+(function (global, factory) {
+	 true ? factory(exports, __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js"), __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js")) :
+	undefined;
+}(this, (function (exports,core,common) { 'use strict';
 
-
-var NgxJsonViewerComponent = /** @class */ (function () {
-    function NgxJsonViewerComponent() {
-        this.expanded = true;
-        /**
-         * @deprecated It will be always true and deleted in version 3.0.0
-         */
-        this.cleanOnChange = true;
-        this.segments = [];
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @author Breno Prata - 22/12/2017
+ */
+var ImageViewerComponent = (function () {
+    function ImageViewerComponent() {
+        this.BASE_64_IMAGE = 'data:image/png;base64,';
+        this.BASE_64_PNG = this.BASE_64_IMAGE + " ";
+        this.BASE_64_PDF = 'data:application/pdf;base64, ';
+        this.ROTACAO_PADRAO_GRAUS = 90;
+        this.TOTAL_ROTACAO_GRAUS_VERTICAL = this.ROTACAO_PADRAO_GRAUS * 3;
+        this.rotate = true;
+        this.download = true;
+        this.fullscreen = true;
+        this.resetZoom = true;
+        this.loadOnInit = false;
+        this.showOptions = true;
+        this.showPDFOnlyOption = true;
+        this.primaryColor = '#0176bd';
+        this.buttonsColor = 'white';
+        this.buttonsHover = '#333333';
+        this.defaultDownloadName = 'Image';
+        this.rotateRightTooltipLabel = 'Rotate right';
+        this.rotateLeftTooltipLabel = 'Rotate left';
+        this.resetZoomTooltipLabel = 'Reset zoom';
+        this.fullscreenTooltipLabel = 'Fullscreen';
+        this.downloadTooltipLabel = 'Download';
+        this.showPDFOnlyLabel = 'Show only PDF';
+        this.enableTooltip = true;
+        this.onNext = new core.EventEmitter();
+        this.onPrevious = new core.EventEmitter();
+        this.mostrarPainelOpcoes = true;
+        this.showOnlyPDF = false;
     }
     /**
      * @return {?}
      */
-    NgxJsonViewerComponent.prototype.ngOnChanges = function () {
-        var _this = this;
-        if (this.cleanOnChange) {
-            this.segments = [];
+    ImageViewerComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        if (this.loadOnInit) {
+            this.isImagensPresentes();
         }
-        if (typeof this.json === 'object') {
-            Object.keys(this.json).forEach(function (key) {
-                _this.segments.push(_this.parseKeyValue(key, _this.json[key]));
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this.inicializarCores();
+        if (this.loadOnInit) {
+            this.inicializarImageViewer();
+            setTimeout(function () {
+                _this.showImage();
+            }, 1000);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.inicializarCores = /**
+     * @return {?}
+     */
+    function () {
+        $('.inline-icon').css('background-color', this.primaryColor);
+        $('.footer-info').css('background-color', this.primaryColor);
+        $('.footer-icon').css('color', this.buttonsColor);
+        $('.footer-icon').hover(function () {
+            $(this).css('color', this.buttonsHover);
+        });
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        this.imagesChange(changes);
+        this.primaryColorChange(changes);
+        this.buttonsColorChange(changes);
+        this.buttonsHoverChange(changes);
+        this.defaultDownloadNameChange(changes);
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.primaryColorChange = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        var _this = this;
+        if (changes['primaryColor'] || changes['showOptions']) {
+            setTimeout(function () {
+                $('.inline-icon').css('background-color', _this.primaryColor);
+                $('.footer-info').css('background-color', _this.primaryColor);
+            }, 350);
+        }
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.buttonsColorChange = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        var _this = this;
+        if (changes['buttonsColor'] || changes['rotate'] || changes['download']
+            || changes['fullscreen']) {
+            setTimeout(function () {
+                $('.footer-icon').css('color', _this.buttonsColor);
+            }, 350);
+        }
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.buttonsHoverChange = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes['buttonsHover']) {
+            $('.footer-icon').hover(function () {
+                $(this).css('color', this.buttonsHover);
             });
         }
     };
     /**
-     * @param {?} segment
+     * @param {?} changes
      * @return {?}
      */
-    NgxJsonViewerComponent.prototype.isExpandable = function (segment) {
-        return segment.type === 'object' || segment.type === 'array';
-    };
-    /**
-     * @param {?} segment
+    ImageViewerComponent.prototype.defaultDownloadNameChange = /**
+     * @param {?} changes
      * @return {?}
      */
-    NgxJsonViewerComponent.prototype.toggle = function (segment) {
-        if (this.isExpandable(segment)) {
-            segment.expanded = !segment.expanded;
+    function (changes) {
+        if (changes['defaultDownloadName']) {
+            this.defaultDownloadName = this.defaultDownloadName;
         }
     };
     /**
-     * @param {?} key
-     * @param {?} value
+     * @param {?} changes
      * @return {?}
      */
-    NgxJsonViewerComponent.prototype.parseKeyValue = function (key, value) {
-        var /** @type {?} */ segment = {
-            key: key,
-            value: value,
-            type: undefined,
-            description: '' + value,
-            expanded: this.expanded
-        };
-        switch (typeof segment.value) {
-            case 'number': {
-                segment.type = 'number';
-                break;
-            }
-            case 'boolean': {
-                segment.type = 'boolean';
-                break;
-            }
-            case 'function': {
-                segment.type = 'function';
-                break;
-            }
-            case 'string': {
-                segment.type = 'string';
-                segment.description = '"' + segment.value + '"';
-                break;
-            }
-            case 'undefined': {
-                segment.type = 'undefined';
-                segment.description = 'undefined';
-                break;
-            }
-            case 'object': {
-                // yea, null is object
-                if (segment.value === null) {
-                    segment.type = 'null';
-                    segment.description = 'null';
-                }
-                else if (Array.isArray(segment.value)) {
-                    segment.type = 'array';
-                    segment.description = 'Array[' + segment.value.length + '] ' + JSON.stringify(segment.value);
-                }
-                else if (segment.value instanceof Date) {
-                    segment.type = 'date';
-                }
-                else {
-                    segment.type = 'object';
-                    segment.description = 'Object ' + JSON.stringify(segment.value);
-                }
-                break;
-            }
+    ImageViewerComponent.prototype.imagesChange = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        var _this = this;
+        if (changes['images'] && this.isImagensPresentes()) {
+            this.inicializarImageViewer();
+            setTimeout(function () {
+                _this.showImage();
+            }, 1000);
         }
-        return segment;
     };
-    return NgxJsonViewerComponent;
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.isImagensPresentes = /**
+     * @return {?}
+     */
+    function () {
+        return this.images
+            && this.images.length > 0;
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.inicializarImageViewer = /**
+     * @return {?}
+     */
+    function () {
+        this.indexImagemAtual = 1;
+        this.totalImagens = this.images.length;
+        this.wrapper = $("#" + this.idContainer);
+        this.curSpan = this.wrapper.find('.current');
+        this.viewer = ImageViewer(this.wrapper.find('.image-container'));
+        this.wrapper.find('.total').html(this.totalImagens);
+        this.rotacaoImagemAtual = 0;
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.showImage = /**
+     * @return {?}
+     */
+    function () {
+        this.prepararTrocaImagem();
+        var /** @type {?} */ imgObj = this.BASE_64_PNG;
+        if (this.isPDF()) {
+            this.carregarViewerPDF();
+        }
+        else {
+            imgObj = this.BASE_64_PNG + this.getImagemAtual();
+            this.stringDownloadImagem = this.BASE_64_IMAGE + this.getImagemAtual();
+        }
+        this.viewer.load(imgObj, imgObj);
+        this.curSpan.html(this.indexImagemAtual);
+        this.inicializarCores();
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.carregarViewerPDF = /**
+     * @return {?}
+     */
+    function () {
+        this.esconderBotoesImageViewer();
+        var _a = this.getTamanhoIframe(), widthIframe = _a.widthIframe, heightIframe = _a.heightIframe;
+        this.injetarIframe(widthIframe, heightIframe);
+    };
+    /**
+     * @param {?} widthIframe
+     * @param {?} heightIframe
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.injetarIframe = /**
+     * @param {?} widthIframe
+     * @param {?} heightIframe
+     * @return {?}
+     */
+    function (widthIframe, heightIframe) {
+        $("<iframe class=\"iframeViewer\"\n        style=\"width: " + widthIframe + "px; height: " + heightIframe + "px\"\n        src=\"" + this.converterPDFBase64ParaBlob() + "\"\n       </iframe>").appendTo('.iv-image-wrap');
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.getTamanhoIframe = /**
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ widthIframe = parseFloat($("#" + this.idContainer).css('width'));
+        var /** @type {?} */ heightIframe = parseFloat($("#" + this.idContainer).css('height'));
+        return { widthIframe: widthIframe, heightIframe: heightIframe };
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.esconderBotoesImageViewer = /**
+     * @return {?}
+     */
+    function () {
+        $('.iv-loader').css('visibility', 'hidden');
+        $('.options-image-viewer').css('visibility', 'hidden');
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.isPDF = /**
+     * @return {?}
+     */
+    function () {
+        return this.getImagemAtual().startsWith('JVBE') || this.getImagemAtual().startsWith('0M8R');
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.prepararTrocaImagem = /**
+     * @return {?}
+     */
+    function () {
+        this.rotacaoImagemAtual = 0;
+        this.limparCacheElementos();
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.limparCacheElementos = /**
+     * @return {?}
+     */
+    function () {
+        $('.iframeViewer').remove();
+        $('.iv-large-image').remove();
+        $('.iv-loader').css('visibility', 'auto');
+        $('.options-image-viewer').css('visibility', 'inherit');
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.getPdfBase64 = /**
+     * @return {?}
+     */
+    function () {
+        return "" + this.BASE_64_PDF + this.getImagemAtual();
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.proximaImagem = /**
+     * @return {?}
+     */
+    function () {
+        this.isImagemVertical = false;
+        this.indexImagemAtual++;
+        if (this.indexImagemAtual > this.totalImagens) {
+            this.indexImagemAtual = 1;
+        }
+        this.onNext.emit(this.indexImagemAtual);
+        if (!this.isPDF() && this.showOnlyPDF) {
+            this.proximaImagem();
+            return;
+        }
+        this.showImage();
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.imagemAnterior = /**
+     * @return {?}
+     */
+    function () {
+        this.isImagemVertical = false;
+        this.indexImagemAtual--;
+        if (this.indexImagemAtual <= 0) {
+            this.indexImagemAtual = this.totalImagens;
+        }
+        this.onPrevious.emit(this.indexImagemAtual);
+        if (!this.isPDF() && this.showOnlyPDF) {
+            this.imagemAnterior();
+            return;
+        }
+        this.showImage();
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.rotacionarDireita = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        var /** @type {?} */ timeout = this.resetarZoom();
+        setTimeout(function () {
+            _this.rotacaoImagemAtual += _this.ROTACAO_PADRAO_GRAUS;
+            _this.isImagemVertical = !_this.isImagemVertical;
+            _this.atualizarRotacao();
+        }, timeout);
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.rotacionarEsquerda = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        var /** @type {?} */ timeout = this.resetarZoom();
+        setTimeout(function () {
+            _this.rotacaoImagemAtual -= _this.ROTACAO_PADRAO_GRAUS;
+            _this.isImagemVertical = !_this.isImagemVertical;
+            _this.atualizarRotacao();
+        }, timeout);
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.resetarZoom = /**
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ defaultZoom = 100;
+        this.viewer.zoom(defaultZoom);
+        var /** @type {?} */ timeout = 800;
+        if (this.viewer.zoomValue === defaultZoom) {
+            timeout = 0;
+        }
+        return timeout;
+    };
+    /**
+     * @param {?=} isAnimacao
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.atualizarRotacao = /**
+     * @param {?=} isAnimacao
+     * @return {?}
+     */
+    function (isAnimacao) {
+        if (isAnimacao === void 0) { isAnimacao = true; }
+        var /** @type {?} */ scale = '';
+        if (this.isImagemVertical && this.isImagemSobrepondoNaVertical()) {
+            scale = "scale(" + this.getScale() + ")";
+        }
+        var /** @type {?} */ novaRotacao = "rotate(" + this.rotacaoImagemAtual + "deg)";
+        this.carregarImagem(novaRotacao, scale, isAnimacao);
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.getScale = /**
+     * @return {?}
+     */
+    function () {
+        return (parseFloat($('.iv-large-image').css('width')) - (parseFloat($("#" + this.idContainer).css('height')))) * 2.3 / (parseFloat($("#" + this.idContainer).css('height')));
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.isImagemSobrepondoNaVertical = /**
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ margemErro = 5;
+        return parseFloat($("#" + this.idContainer).css('height')) < parseFloat($('.iv-large-image').css('width')) + margemErro;
+    };
+    /**
+     * @param {?} novaRotacao
+     * @param {?} scale
+     * @param {?=} isAnimacao
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.carregarImagem = /**
+     * @param {?} novaRotacao
+     * @param {?} scale
+     * @param {?=} isAnimacao
+     * @return {?}
+     */
+    function (novaRotacao, scale, isAnimacao) {
+        var _this = this;
+        if (isAnimacao === void 0) { isAnimacao = true; }
+        if (isAnimacao) {
+            this.adicionarAnimacao('.iv-snap-image');
+            this.adicionarAnimacao('.iv-large-image');
+        }
+        this.adicionarRotacao('.iv-snap-image', novaRotacao, scale);
+        this.adicionarRotacao('.iv-large-image', novaRotacao, scale);
+        setTimeout(function () {
+            if (isAnimacao) {
+                _this.retirarAnimacao('.iv-snap-image');
+                _this.retirarAnimacao('.iv-large-image');
+            }
+        }, 501);
+    };
+    /**
+     * @param {?} componente
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.retirarAnimacao = /**
+     * @param {?} componente
+     * @return {?}
+     */
+    function (componente) {
+        $(componente).css({ 'transition': "auto" });
+    };
+    /**
+     * @param {?} componente
+     * @param {?} novaRotacao
+     * @param {?} scale
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.adicionarRotacao = /**
+     * @param {?} componente
+     * @param {?} novaRotacao
+     * @param {?} scale
+     * @return {?}
+     */
+    function (componente, novaRotacao, scale) {
+        $(componente).css({ 'transform': novaRotacao + " " + scale });
+    };
+    /**
+     * @param {?} componente
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.adicionarAnimacao = /**
+     * @param {?} componente
+     * @return {?}
+     */
+    function (componente) {
+        $(componente).css({ 'transition': "0.5s linear" });
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.mostrarFullscreen = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        var /** @type {?} */ timeout = this.resetarZoom();
+        setTimeout(function () {
+            _this.viewerFullscreen = ImageViewer();
+            var /** @type {?} */ imgSrc = _this.BASE_64_PNG + _this.getImagemAtual();
+            _this.viewerFullscreen.show(imgSrc, imgSrc);
+            _this.atualizarRotacao(false);
+        }, timeout);
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.converterPDFBase64ParaBlob = /**
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ arrBuffer = this.base64ToArrayBuffer(this.getImagemAtual());
+        var /** @type {?} */ newBlob = new Blob([arrBuffer], { type: 'application/pdf' });
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveOrOpenBlob(newBlob);
+            return;
+        }
+        return window.URL.createObjectURL(newBlob);
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.getImagemAtual = /**
+     * @return {?}
+     */
+    function () {
+        return this.images[this.indexImagemAtual - 1];
+    };
+    /**
+     * @param {?} data
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.base64ToArrayBuffer = /**
+     * @param {?} data
+     * @return {?}
+     */
+    function (data) {
+        var /** @type {?} */ binaryString = window.atob(data);
+        var /** @type {?} */ binaryLen = binaryString.length;
+        var /** @type {?} */ bytes = new Uint8Array(binaryLen);
+        for (var /** @type {?} */ i = 0; i < binaryLen; i++) {
+            var /** @type {?} */ ascii = binaryString.charCodeAt(i);
+            bytes[i] = ascii;
+        }
+        return bytes;
+    };
+    /**
+     * @return {?}
+     */
+    ImageViewerComponent.prototype.showPDFOnly = /**
+     * @return {?}
+     */
+    function () {
+        this.showOnlyPDF = !this.showOnlyPDF;
+        this.proximaImagem();
+    };
+    ImageViewerComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'app-image-viewer',
+                    template: "<div id=\"{{idContainer}}\" class=\"image-gallery-2\"> <div class=\"image-container\"></div> <div class=\"inline-icon\"> <div> <a class=\"tooltip\" (click)=\"showPDFOnly()\" *ngIf=\"showPDFOnlyOption\"> <span *ngIf=\"enableTooltip\" class=\"tooltiptext filterTooltip\"> <span>{{showPDFOnlyLabel}}:</span> <i class=\"material-icons\">{{showOnlyPDF ? 'check':'close'}}</i> </span> <i class=\"material-icons footer-icon\">picture_as_pdf</i> </a> </div> <div *ngIf=\"showOptions\" class=\"options-image-viewer\"> <a class=\"tooltip\" (click)=\"rotacionarDireita()\" *ngIf=\"rotate\"> <span *ngIf=\"enableTooltip\" class=\"tooltiptext\">{{rotateRightTooltipLabel}}</span> <i class=\"material-icons footer-icon\">rotate_right</i> </a> <a class=\"tooltip\" (click)=\"rotacionarEsquerda()\" *ngIf=\"rotate\"> <span *ngIf=\"enableTooltip\" class=\"tooltiptext\">{{rotateLeftTooltipLabel}}</span> <i class=\"material-icons footer-icon\">rotate_left</i> </a> <a class=\"tooltip\" (click)=\"resetarZoom()\" *ngIf=\"resetZoom\"> <span *ngIf=\"enableTooltip\" class=\"tooltiptext\">{{resetZoomTooltipLabel}}</span> <i class=\"material-icons footer-icon\">fullscreen_exit</i> </a> <a class=\"tooltip\" (click)=\"mostrarFullscreen()\"  *ngIf=\"fullscreen\"> <span *ngIf=\"enableTooltip\" class=\"tooltiptext\">{{fullscreenTooltipLabel}}</span> <i class=\"material-icons footer-icon\">fullscreen</i> </a> <a class=\"tooltip\" href=\"{{stringDownloadImagem}}\" download=\"{{defaultDownloadName}} {{indexImagemAtual}}.png\" *ngIf=\"download\"> <span *ngIf=\"enableTooltip\" class=\"tooltiptext\">{{downloadTooltipLabel}}</span> <i class=\"material-icons footer-icon\">file_download</i> </a> </div> </div> <i class=\"material-icons prev\" (click)=\"imagemAnterior()\">keyboard_arrow_left</i> <i class=\"material-icons next\" (click)=\"proximaImagem()\">keyboard_arrow_right</i> <div class=\"footer-info\"> <span class=\"current\"></span>/<span class=\"total\"></span> </div> </div> ",
+                    styles: [".footer-icon { font-size: xx-large; } .tooltip { position: relative; display: inline-block; z-index: 1000; } .tooltip .tooltiptext { visibility: hidden; width: 120px; background-color: #555; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; bottom: 125%; left: 40%; margin-left: -60px; opacity: 0; transition: opacity 0.3s; } .tooltip .tooltiptext::after { content: \"\"; position: absolute; top: 100%; left: 50%; margin-left: -5px; border-width: 5px; border-style: solid; border-color: #555 transparent transparent transparent; } .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; } "]
+                },] },
+    ];
+    /** @nocollapse */
+    ImageViewerComponent.ctorParameters = function () { return []; };
+    ImageViewerComponent.propDecorators = {
+        "idContainer": [{ type: core.Input },],
+        "images": [{ type: core.Input },],
+        "rotate": [{ type: core.Input },],
+        "download": [{ type: core.Input },],
+        "fullscreen": [{ type: core.Input },],
+        "resetZoom": [{ type: core.Input },],
+        "loadOnInit": [{ type: core.Input },],
+        "showOptions": [{ type: core.Input },],
+        "showPDFOnlyOption": [{ type: core.Input },],
+        "primaryColor": [{ type: core.Input },],
+        "buttonsColor": [{ type: core.Input },],
+        "buttonsHover": [{ type: core.Input },],
+        "defaultDownloadName": [{ type: core.Input },],
+        "rotateRightTooltipLabel": [{ type: core.Input },],
+        "rotateLeftTooltipLabel": [{ type: core.Input },],
+        "resetZoomTooltipLabel": [{ type: core.Input },],
+        "fullscreenTooltipLabel": [{ type: core.Input },],
+        "downloadTooltipLabel": [{ type: core.Input },],
+        "showPDFOnlyLabel": [{ type: core.Input },],
+        "enableTooltip": [{ type: core.Input },],
+        "onNext": [{ type: core.Output },],
+        "onPrevious": [{ type: core.Output },],
+    };
+    return ImageViewerComponent;
 }());
-NgxJsonViewerComponent.decorators = [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
-                selector: 'ngx-json-viewer',
-                template: "\n    <section class=\"ngx-json-viewer\">\n      <section\n        *ngFor=\"let segment of segments\"\n        [ngClass]=\"['segment', 'segment-type-' + segment.type]\">\n        <section\n          (click)=\"toggle(segment)\"\n          [ngClass]=\"{\n            'segment-main': true,\n            'expandable': isExpandable(segment),\n            'expanded': segment.expanded\n          }\">\n          <div *ngIf=\"isExpandable(segment)\" class=\"toggler\"></div>\n          <span class=\"segment-key\">{{ segment.key }}</span>\n          <span class=\"segment-separator\">:</span>\n          <span *ngIf=\"!segment.expanded || !isExpandable(segment)\" class=\"segment-value\">{{ segment.description }}</span>\n        </section>\n        <section *ngIf=\"segment.expanded && isExpandable(segment)\" class=\"children\">\n          <ngx-json-viewer [json]=\"segment.value\" [expanded]=\"expanded\"></ngx-json-viewer>\n        </section>\n      </section>\n    </section>\n  ",
-                styles: ["\n    @charset \"UTF-8\";\n    .ngx-json-viewer {\n      font-family: monospace;\n      font-size: 1em;\n      width: 100%;\n      height: 100%;\n      overflow: hidden;\n      position: relative; }\n      .ngx-json-viewer .segment {\n        padding: 2px;\n        margin: 1px 1px 1px 12px; }\n        .ngx-json-viewer .segment .segment-main {\n          word-wrap: break-word; }\n          .ngx-json-viewer .segment .segment-main .toggler {\n            position: absolute;\n            margin-left: -14px;\n            margin-top: 3px;\n            font-size: .8em;\n            line-height: 1.2em;\n            vertical-align: middle;\n            color: #787878; }\n            .ngx-json-viewer .segment .segment-main .toggler::after {\n              display: inline-block;\n              content: \"\u25BA\";\n              -webkit-transition: -webkit-transform 0.1s ease-in;\n              transition: -webkit-transform 0.1s ease-in;\n              transition: transform 0.1s ease-in;\n              transition: transform 0.1s ease-in, -webkit-transform 0.1s ease-in; }\n          .ngx-json-viewer .segment .segment-main .segment-key {\n            color: #4E187C; }\n          .ngx-json-viewer .segment .segment-main .segment-separator {\n            color: #999; }\n          .ngx-json-viewer .segment .segment-main .segment-value {\n            color: #000; }\n        .ngx-json-viewer .segment .children {\n          margin-left: 12px; }\n      .ngx-json-viewer .segment-type-string > .segment-main > .segment-value {\n        color: #FF6B6B; }\n      .ngx-json-viewer .segment-type-number > .segment-main > .segment-value {\n        color: #009688; }\n      .ngx-json-viewer .segment-type-boolean > .segment-main > .segment-value {\n        color: #b938a4; }\n      .ngx-json-viewer .segment-type-date > .segment-main > .segment-value {\n        color: #05668D; }\n      .ngx-json-viewer .segment-type-array > .segment-main > .segment-value {\n        color: #999; }\n      .ngx-json-viewer .segment-type-object > .segment-main > .segment-value {\n        color: #999; }\n      .ngx-json-viewer .segment-type-function > .segment-main > .segment-value {\n        color: #999; }\n      .ngx-json-viewer .segment-type-null > .segment-main > .segment-value {\n        color: #fff; }\n      .ngx-json-viewer .segment-type-undefined > .segment-main > .segment-value {\n        color: #fff; }\n      .ngx-json-viewer .segment-type-null > .segment-main > .segment-value {\n        background-color: red; }\n      .ngx-json-viewer .segment-type-undefined > .segment-main > .segment-key {\n        color: #999; }\n      .ngx-json-viewer .segment-type-undefined > .segment-main > .segment-value {\n        background-color: #999; }\n      .ngx-json-viewer .segment-type-object > .segment-main,\n      .ngx-json-viewer .segment-type-array > .segment-main {\n        white-space: nowrap; }\n      .ngx-json-viewer .expanded > .toggler::after {\n        -webkit-transform: rotate(90deg);\n                transform: rotate(90deg); }\n      .ngx-json-viewer .expandable,\n      .ngx-json-viewer .expandable > .toggler {\n        cursor: pointer; }\n  "]
-            },] },
-];
-/**
- * @nocollapse
- */
-NgxJsonViewerComponent.ctorParameters = function () { return []; };
-NgxJsonViewerComponent.propDecorators = {
-    'json': [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    'expanded': [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-    'cleanOnChange': [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
-};
-var NgxJsonViewerModule = /** @class */ (function () {
-    function NgxJsonViewerModule() {
-    }
-    return NgxJsonViewerModule;
-}());
-NgxJsonViewerModule.decorators = [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
-                imports: [
-                    _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
-                ],
-                declarations: [
-                    NgxJsonViewerComponent
-                ],
-                exports: [
-                    NgxJsonViewerComponent
-                ]
-            },] },
-];
-/**
- * @nocollapse
- */
-NgxJsonViewerModule.ctorParameters = function () { return []; };
-/**
- * Generated bundle index. Do not edit.
- */
 
-//# sourceMappingURL=ngx-json-viewer.es5.js.map
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var ImageViewerModule = (function () {
+    function ImageViewerModule() {
+    }
+    /**
+     * @return {?}
+     */
+    ImageViewerModule.forRoot = /**
+     * @return {?}
+     */
+    function () {
+        return {
+            ngModule: ImageViewerModule,
+        };
+    };
+    ImageViewerModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [
+                        common.CommonModule
+                    ],
+                    declarations: [
+                        ImageViewerComponent
+                    ],
+                    exports: [
+                        ImageViewerComponent,
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    ImageViewerModule.ctorParameters = function () { return []; };
+    return ImageViewerModule;
+}());
+
+exports.ImageViewerModule = ImageViewerModule;
+exports.ImageViewerComponent = ImageViewerComponent;
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 
 
 /***/ }),
@@ -22395,6 +22882,204 @@ module.exports = function() {
 
 /***/ }),
 
+/***/ "./src/app/layout/components/setup-deployment/setup-deployment.component.html":
+/*!************************************************************************************!*\
+  !*** ./src/app/layout/components/setup-deployment/setup-deployment.component.html ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"card\">\n            <div class=\"custom-card-body\">\n                <ngb-tabset>\n                    <ngb-tab title=\"Input\">\n                        <ng-template ngbTabContent>\n                            <div class=\"row\">\n                                <div class=\"col-lg-6\">\n                                </div>\n                                <div class=\"col-lg-6\">\n                                    <select class=\"form-control\" [(ngModel)] = \"sdService.inputDepFile\">\n                                        <option value=\"\" disabled selected>Select</option>\n                                        <option *ngFor=\"let i of sdService.inputFileDD['deployment']\" [value]=\"i\">{{i}}</option>\n                                    </select>\n                                    <ace-editor [text]=\"sdService.files[sdService.inputDepFile]\" mode=\"text\" style=\"height:300px;\"></ace-editor>\n                                </div>\n                            </div>\n                        </ng-template>\n                    </ngb-tab>\n                    <ngb-tab title=\"Console\">\n                        <ng-template ngbTabContent>\n                            <div class=\"row\">\n                                <div class=\"col-lg-12\">\n                                    <ace-editor [text]=\"sdService.consoleOutput['deployment']\" mode=\"text\" style=\"margin-top: 15px; height:300px;\"></ace-editor>\n                                </div>\n                            </div>\n                        </ng-template>\n                    </ngb-tab>\n                    <ngb-tab title=\"Output\">\n                        <ng-template ngbTabContent>\n                            <div class=\"row\">\n                                <div class=\"col-lg-6\">\n                                </div>\n                                <div class=\"col-lg-6\">\n                                    <select class=\"form-control\" [(ngModel)] = \"sdService.outputDepFile\">\n                                        <option value=\"\" disabled selected>Select</option>\n                                        <option *ngFor=\"let i of sdService.outputFileDD['deployment']\" [value]=\"i\">{{i}}</option>\n                                    </select>\n                                    <ace-editor [text]=\"sdService.files[sdService.outputDepFile]\" mode=\"text\" style=\"height:300px;\"></ace-editor>\n                                </div>\n                            </div>\n                        </ng-template>\n                    </ngb-tab>\n                    <ngb-tab title=\"Visualization\" >\n                        <ng-template ngbTabContent>\n                            <div class=\"row\" *ngIf=\"sdService.images['partition_coremark']\">\n                                <div class=\"col-lg-4\">\n                                    <span>Coremark</span>\n                                    <img [src]=\"sdService.images['partition_coremark']\" style=\"height:300px; max-width: 100%\"/>\n                                </div>\n                                <div class=\"col-lg-4\">\n                                    <span>Memory</span>\n                                    <img [src]=\"sdService.images['partition_memory']\" style=\"height:300px; max-width: 100%\"/>\n                                </div>\n                                <div class=\"col-lg-4\">\n                                    <span>Disk</span>\n                                    <img [src]=\"sdService.images['partition_disk']\" style=\"height:300px; max-width: 100%\"/>\n                                </div>\n                            </div>\n                        </ng-template>\n                    </ngb-tab>\n                </ngb-tabset>\n            </div>\n        </div>\n    </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/layout/components/setup-deployment/setup-deployment.component.scss":
+/*!************************************************************************************!*\
+  !*** ./src/app/layout/components/setup-deployment/setup-deployment.component.scss ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".form-control {\n  display: inline-block;\n  width: auto;\n  vertical-align: middle;\n  margin-bottom: 5px;\n  margin-top: 5px; }\n\nbr {\n  display: block;\n  margin: 5px 0;\n  content: \" \"; }\n"
+
+/***/ }),
+
+/***/ "./src/app/layout/components/setup-deployment/setup-deployment.component.ts":
+/*!**********************************************************************************!*\
+  !*** ./src/app/layout/components/setup-deployment/setup-deployment.component.ts ***!
+  \**********************************************************************************/
+/*! exports provided: SetupDeploymentComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetupDeploymentComponent", function() { return SetupDeploymentComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _setup_setup_data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../setup/setup-data.service */ "./src/app/layout/setup/setup-data.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var SetupDeploymentComponent = /** @class */ (function () {
+    function SetupDeploymentComponent(sdService) {
+        this.sdService = sdService;
+    }
+    SetupDeploymentComponent.prototype.ngOnInit = function () {
+    };
+    SetupDeploymentComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-setup-deployment',
+            template: __webpack_require__(/*! ./setup-deployment.component.html */ "./src/app/layout/components/setup-deployment/setup-deployment.component.html"),
+            styles: [__webpack_require__(/*! ./setup-deployment.component.scss */ "./src/app/layout/components/setup-deployment/setup-deployment.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_setup_setup_data_service__WEBPACK_IMPORTED_MODULE_1__["SetupDataService"]])
+    ], SetupDeploymentComponent);
+    return SetupDeploymentComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/layout/components/setup-infra/setup-infra.component.html":
+/*!**************************************************************************!*\
+  !*** ./src/app/layout/components/setup-infra/setup-infra.component.html ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"card\">\n            <div class=\"custom-card-body\">\n                <ngb-tabset>\n                    <ngb-tab title=\"Input\">\n                        <ng-template ngbTabContent>\n                            <div class=\"row\">\n                                <div class=\"col-lg-6\">\n                                    <div class=\"card mb-3\" style=\"margin-top: 5px; height: 350px;\">\n                                        <div class=\"card-header\">\n                                            Summary\n                                        </div>\n                                        <div class=\"card-body table-responsive\" style=\"font-size: 0.8em\">\n                                            <table class=\"table table-bordered table-sm\">\n                                                <tbody>\n                                                <tr>\n                                                    <th scope=\"row\" rowspan=\"2\">Networks</th>\n                                                    <td>Private</td>\n                                                    <td>{{sdService.summaryInfraInput[\"pvt_networks\"]}}</td>\n                                                </tr>\n                                                <tr>\n                                                    <td>Public</td>\n                                                    <td>{{sdService.summaryInfraInput[\"pub_networks\"]}}</td>\n                                                </tr>\n                                                <tr>\n                                                    <th scope=\"row\" rowspan=\"2\">Devices</th>\n                                                    <td>Private</td>\n                                                    <td>{{sdService.summaryInfraInput[\"pvt_dev_cnt\"]}}</td>\n                                                </tr>\n                                                <tr>\n                                                    <td>Public</td>\n                                                    <td>{{sdService.summaryInfraInput[\"pub_dev_cnt\"]}}</td>\n                                                </tr>\n                                                <tr>\n                                                    <th scope=\"row\" rowspan=\"2\">Bandwidth (mbps)</th>\n                                                    <td>Private</td>\n                                                    <td>{{sdService.summaryInfraInput[\"pvt_bandwidth\"]}}</td>\n                                                </tr>\n                                                <tr>\n                                                    <td>Public</td>\n                                                    <td>{{sdService.summaryInfraInput[\"pub_bandwidth\"]}}</td>\n                                                </tr>\n                                                <tr>\n                                                    <th scope=\"row\" rowspan=\"2\">Latency (ms)</th>\n                                                    <td>Private</td>\n                                                    <td>{{sdService.summaryInfraInput[\"pvt_latency\"]}}</td>\n                                                </tr>\n                                                <tr>\n                                                    <td>Public</td>\n                                                    <td>{{sdService.summaryInfraInput[\"pub_latency\"]}}</td>\n                                                </tr>\n                                            </table>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"col-lg-6\">\n                                    <select class=\"form-control\" [(ngModel)] = \"sdService.inputInfraFile\">\n                                        <option value=\"\" disabled selected>Select</option>\n                                        <option *ngFor=\"let i of sdService.inputFileDD['infra']\" [value]=\"i\">{{i}}</option>\n                                    </select>\n                                    <ace-editor [text]=\"sdService.files[sdService.inputInfraFile]\" mode=\"text\" style=\"height:300px;\"></ace-editor>\n                                </div>\n                            </div>\n                        </ng-template>\n                    </ngb-tab>\n                    <ngb-tab title=\"Console\">\n                        <ng-template ngbTabContent>\n                            <div class=\"row\">\n                                <div class=\"col-lg-12\">\n                                    <ace-editor [text]=\"sdService.consoleOutput['infra']\" mode=\"text\" style=\"margin-top: 15px; height:300px;\"></ace-editor>\n                                </div>\n                            </div>\n                        </ng-template>\n                    </ngb-tab>\n                    <ngb-tab title=\"Output\">\n                        <ng-template ngbTabContent>\n                            <div class=\"row\">\n                                <div class=\"col-lg-6\">\n                                   <br>\n                                   <ngb-tabset type=\"pills\">\n                                       <ngb-tab title=\"Private\" style=\"margin-top: 5px\">\n                                           <ng-template ngbTabContent>\n                                               <br>\n                                               <table class=\"table table-bordered table-sm\" style=\"font-size: 0.8em\">\n                                                   <thead> <tr>\n                                                       <th>Network</th>\n                                                       <th>B/W</th>\n                                                       <th>Latency</th>\n                                                       <th>Subnet</th>\n                                                       <th>Devices</th>\n                                                   </tr> </thead>\n                                                   <tbody>\n                                                   <tr *ngFor=\"let j of sdService.summaryInfraOutput['pvt'] | keyvalue\">\n                                                       <td>{{j.key}}</td>\n                                                       <td>{{j.value['bandwidth_mbps']}}</td>\n                                                       <td>{{j.value['latency_ms']}}</td>\n                                                       <td>{{j.value['subnet']}}</td>\n                                                       <td>{{j.value['devices'].length}}</td>\n                                                   </tr>\n                                                   </tbody>\n                                               </table>\n                                           </ng-template>\n                                       </ngb-tab>\n                                       <ngb-tab title=\"Public\" style=\"margin-top: 5px\">\n                                           <ng-template ngbTabContent>\n                                               <br>\n                                               <table class=\"table table-bordered table-sm\" style=\"font-size: 0.8em\">\n                                                   <thead> <tr>\n                                                       <th>Network</th>\n                                                       <th>B/W</th>\n                                                       <th>Latency</th>\n                                                       <th>Subnet</th>\n                                                       <th>Devices</th>\n                                                   </tr> </thead>\n                                                   <tbody>\n                                                   <tr *ngFor=\"let j of sdService.summaryInfraOutput['pub'] | keyvalue\">\n                                                       <td>{{j.key}}</td>\n                                                       <td>{{j.value['bandwidth_mbps']}}</td>\n                                                       <td>{{j.value['latency_ms']}}</td>\n                                                       <td>{{j.value['subnet']}}</td>\n                                                       <td>{{j.value['devices'].length}}</td>\n                                                   </tr>\n                                                   </tbody>\n                                               </table>\n                                           </ng-template>\n                                       </ngb-tab>\n                                   </ngb-tabset>\n                                </div>\n                                <div class=\"col-lg-6\">\n                                    <select class=\"form-control\" [(ngModel)] = \"sdService.outputInfraFile\">\n                                        <option value=\"\" disabled selected>Select</option>\n                                        <option *ngFor=\"let i of sdService.outputFileDD['infra']\" [value]=\"i\">{{i}}</option>\n                                    </select>\n                                    <ace-editor [text]=\"sdService.files[sdService.outputInfraFile]\" mode=\"text\" style=\"height:300px;\"></ace-editor>\n                                </div>\n                            </div>\n                        </ng-template>\n                    </ngb-tab>\n                    <ngb-tab title=\"Visualization\" [disabled]=\"true\">\n                        <ng-template ngbTabContent>\n                            <img src=\"../../../assets/images/latency_deviation.png\" style=\"height:300px; max-width: 100%\"/>\n                        </ng-template>\n                    </ngb-tab>\n                </ngb-tabset>\n            </div>\n        </div>\n    </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/layout/components/setup-infra/setup-infra.component.scss":
+/*!**************************************************************************!*\
+  !*** ./src/app/layout/components/setup-infra/setup-infra.component.scss ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".form-control {\n  display: inline-block;\n  width: auto;\n  vertical-align: middle;\n  margin-bottom: 5px;\n  margin-top: 5px; }\n\nbr {\n  display: block;\n  margin: 5px 0;\n  content: \" \"; }\n"
+
+/***/ }),
+
+/***/ "./src/app/layout/components/setup-infra/setup-infra.component.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/layout/components/setup-infra/setup-infra.component.ts ***!
+  \************************************************************************/
+/*! exports provided: SetupInfraComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetupInfraComponent", function() { return SetupInfraComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _setup_setup_data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../setup/setup-data.service */ "./src/app/layout/setup/setup-data.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var SetupInfraComponent = /** @class */ (function () {
+    function SetupInfraComponent(sdService) {
+        this.sdService = sdService;
+    }
+    SetupInfraComponent.prototype.ngOnInit = function () {
+    };
+    SetupInfraComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-setup-infra',
+            template: __webpack_require__(/*! ./setup-infra.component.html */ "./src/app/layout/components/setup-infra/setup-infra.component.html"),
+            styles: [__webpack_require__(/*! ./setup-infra.component.scss */ "./src/app/layout/components/setup-infra/setup-infra.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_setup_setup_data_service__WEBPACK_IMPORTED_MODULE_1__["SetupDataService"]])
+    ], SetupInfraComponent);
+    return SetupInfraComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/layout/components/setup-partition/setup-partition.component.html":
+/*!**********************************************************************************!*\
+  !*** ./src/app/layout/components/setup-partition/setup-partition.component.html ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <div class=\"card\">\n            <div class=\"custom-card-body\">\n                <ngb-tabset>\n                    <ngb-tab title=\"Input\">\n                        <ng-template ngbTabContent>\n                            <div class=\"row\">\n                                <div class=\"col-lg-6\">\n                                    <br>\n                                    <ngb-tabset type=\"pills\">\n                                        <ngb-tab title=\"VM Types\" style=\"margin-top: 5px\">\n                                            <ng-template ngbTabContent>\n                                                <br>\n                                                <table class=\"table table-bordered table-sm\" style=\"font-size: 0.8em\">\n                                                    <thead>\n                                                    <tr>\n                                                        <th>VM</th>\n                                                        <th>Coremark</th>\n                                                        <th>Memory (MB)</th>\n                                                        <th>Disk (MB)</th>\n                                                    </tr>\n                                                    </thead>\n                                                    <tbody>\n                                                    <tr *ngFor=\"let j of sdService.summaryPartitionInput['vmt'] | keyvalue\">\n                                                        <td>{{j.key}}</td>\n                                                        <td>{{j.value['coremark']}}</td>\n                                                        <td>{{j.value['memory_mb']}}</td>\n                                                        <td>{{j.value['disk_mb']}}</td>\n                                                    </tr>\n                                                    </tbody>\n                                                </table>\n                                            </ng-template>\n                                        </ngb-tab>\n                                        <ngb-tab title=\"Device Types\" style=\"margin-top: 5px\">\n                                            <ng-template ngbTabContent>\n                                                <br>\n                                                <table class=\"table table-bordered table-sm\" style=\"font-size: 0.8em\">\n                                                    <thead>\n                                                    <tr>\n                                                        <th>Device</th>\n                                                        <th>Coremark</th>\n                                                        <th>Memory (MB)</th>\n                                                        <th>Disk (MB)</th>\n                                                    </tr>\n                                                    </thead>\n                                                    <tbody>\n                                                    <tr *ngFor=\"let j of sdService.summaryPartitionInput['dvt'] | keyvalue\">\n                                                        <td>{{j.key}}</td>\n                                                        <td>{{j.value['coremark']}}</td>\n                                                        <td>{{j.value['memory_mb']}}</td>\n                                                        <td>{{j.value['disk_mb']}}</td>\n                                                    </tr>\n                                                    </tbody>\n                                                </table>\n                                            </ng-template>\n                                        </ngb-tab>\n                                    </ngb-tabset>\n                                </div>\n                                <div class=\"col-lg-6\">\n                                    <select class=\"form-control\" [(ngModel)] = \"sdService.inputPartitionFile\">\n                                        <option value=\"\" disabled selected>Select</option>\n                                        <option *ngFor=\"let i of sdService.inputFileDD['partition']\" [value]=\"i\">{{i}}</option>\n                                    </select>\n                                    <ace-editor [text]=\"sdService.files[sdService.inputPartitionFile]\" mode=\"text\" style=\"height:300px;\"></ace-editor>\n                                </div>\n                            </div>\n                        </ng-template>\n                    </ngb-tab>\n                    <ngb-tab title=\"Console\">\n                        <ng-template ngbTabContent>\n                            <div class=\"row\">\n                                <div class=\"col-lg-12\">\n                                    <ace-editor [text]=\"sdService.consoleOutput['partition']\" mode=\"text\" style=\"margin-top: 15px; height:300px;\"></ace-editor>\n                                </div>\n                            </div>\n                        </ng-template>\n                    </ngb-tab>\n                    <ngb-tab title=\"Output\">\n                        <ng-template ngbTabContent>\n                            <div class=\"row\">\n                                <div class=\"col-lg-6\">\n                                    <div class=\"card mb-3\" style=\"margin-top: 5px; height: 350px;\">\n                                        <div class=\"card-header\">\n                                            Summary\n                                        </div>\n                                        <div class=\"card-body table-responsive\" style=\"font-size: 0.8em\">\n                                            <table class=\"table table-bordered table-sm\">\n                                                <thead>\n                                                <tr>\n                                                    <th>VM Container</th>\n                                                    <th>Device Count</th>\n                                                </tr>\n                                                </thead>\n                                                <tbody>\n                                                <tr *ngFor=\"let j of sdService.summaryPartitionOutput['cnt'] | keyvalue\">\n                                                    <td>{{j.value['name']}}</td>\n                                                    <td>{{j.value['cnt']}}</td>\n                                                </tr>\n                                                </tbody>\n                                            </table>\n                                        </div>\n                                    </div>\n                                </div>\n                                <div class=\"col-lg-6\">\n                                    <select class=\"form-control\" [(ngModel)] = \"sdService.outputPartitionFile\">\n                                        <option value=\"\" disabled selected>Select</option>\n                                        <option *ngFor=\"let i of sdService.outputFileDD['partition']\" [value]=\"i\">{{i}}</option>\n                                    </select>\n                                    <ace-editor [text]=\"sdService.files[sdService.outputPartitionFile]\" mode=\"text\" style=\"height:300px;\"></ace-editor>\n                                </div>\n                            </div>\n                        </ng-template>\n                    </ngb-tab>\n                    <ngb-tab title=\"Visualization\" >\n                        <ng-template ngbTabContent>\n                            <div class=\"row\" *ngIf=\"sdService.images['partition_coremark']\" style=\"text-align: center\">\n                                <div class=\"col-lg-4\">\n                                    <span>Coremark</span>\n                                    <img [src]=\"sdService.images['partition_coremark']\" style=\"height:300px; max-width: 100%\"/>\n                                </div>\n                                <div class=\"col-lg-4\">\n                                    <span>Memory</span>\n                                    <img [src]=\"sdService.images['partition_memory']\" style=\"height:300px; max-width: 100%\"/>\n                                </div>\n                                <div class=\"col-lg-4\">\n                                    <span>Disk</span>\n                                    <img [src]=\"sdService.images['partition_disk']\" style=\"height:300px; max-width: 100%\"/>\n                                </div>\n                            </div>\n                        </ng-template>\n                    </ngb-tab>\n                </ngb-tabset>\n            </div>\n        </div>\n    </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/layout/components/setup-partition/setup-partition.component.scss":
+/*!**********************************************************************************!*\
+  !*** ./src/app/layout/components/setup-partition/setup-partition.component.scss ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".form-control {\n  display: inline-block;\n  width: auto;\n  vertical-align: middle;\n  margin-bottom: 5px;\n  margin-top: 5px; }\n\nbr {\n  display: block;\n  margin: 5px 0;\n  content: \" \"; }\n"
+
+/***/ }),
+
+/***/ "./src/app/layout/components/setup-partition/setup-partition.component.ts":
+/*!********************************************************************************!*\
+  !*** ./src/app/layout/components/setup-partition/setup-partition.component.ts ***!
+  \********************************************************************************/
+/*! exports provided: SetupPartitionComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetupPartitionComponent", function() { return SetupPartitionComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _setup_setup_data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../setup/setup-data.service */ "./src/app/layout/setup/setup-data.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var SetupPartitionComponent = /** @class */ (function () {
+    function SetupPartitionComponent(sdService) {
+        this.sdService = sdService;
+    }
+    SetupPartitionComponent.prototype.ngOnInit = function () {
+    };
+    SetupPartitionComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-setup-partition',
+            template: __webpack_require__(/*! ./setup-partition.component.html */ "./src/app/layout/components/setup-partition/setup-partition.component.html"),
+            styles: [__webpack_require__(/*! ./setup-partition.component.scss */ "./src/app/layout/components/setup-partition/setup-partition.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_setup_setup_data_service__WEBPACK_IMPORTED_MODULE_1__["SetupDataService"]])
+    ], SetupPartitionComponent);
+    return SetupPartitionComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/layout/setup/setup-routing.module.ts":
 /*!******************************************************!*\
   !*** ./src/app/layout/setup/setup-routing.module.ts ***!
@@ -22446,7 +23131,7 @@ var SetupRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <app-page-header [heading]=\"'Setup'\" [icon]=\"'fa-edit'\"></app-page-header>\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Generate Config\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"generateInfraStatus==='running'\"\r\n                                (click)=\"generateInfra()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"generateInfraStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"generateInfraStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"generateInfraStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Partition\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"partitionStatus==='success' || partitionStatus==='failure' || partitionStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"generateInfraStatus != 'success' || partitionStatus==='running'\"\r\n                                (click)=\"generateMetisInput()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"partitionStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"partitionStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"partitionStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Deployment\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"deploymentStatus==='success' || deploymentStatus==='failure' || deploymentStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"partitionStatus != 'success' || deploymentStatus==='running'\"\r\n                                (click)=\"startDocker()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"deploymentStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"deploymentStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"deploymentStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Sanity\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"sanityStatus==='success' || sanityStatus==='failure' || sanityStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <select class=\"form-inline\" style=\"display: inline\" [(ngModel)] = \"sanitySelection\">\r\n                            <option value=\"N/W\">N/W</option>\r\n                            <option value=\"CPU\">CPU</option>\r\n                            <option value=\"App\">Pub/Sub</option>\r\n                        </select>                        &nbsp; &nbsp;\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"deploymentStatus != 'success' || sanityStatus==='running'\"\r\n                                (click)=\"sanityRun()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"sanityStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"sanityStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"sanityStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-12\">\r\n            <div class=\"card\">\r\n                <div class=\"card-body\">\r\n                    <ngb-tabset>\r\n                        <ngb-tab title=\"Info\">\r\n                            <ng-template ngbTabContent>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>About</span>\r\n                                        <p>To be added</p>\r\n                                    </div>\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>Console Output</span>\r\n                                        <ace-editor [text]=\"consoleOutput\" mode=\"text\" style=\"height:300px;\"></ace-editor>\r\n                                    </div>\r\n                                </div>\r\n                            </ng-template>\r\n                        </ngb-tab>\r\n                        <ngb-tab title=\"File View\">\r\n                            <ng-template ngbTabContent>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>Input File{{input_file_name}}</span>\r\n                                        <ace-editor [text]=\"inputFile\" mode=\"object\" style=\"height:300px;\"></ace-editor>\r\n                                    </div>\r\n                                    <div class=\"col-lg-6\">\r\n                                        <span>Output File{{output_file_name}}</span>\r\n                                        <ace-editor [text]=\"outputFile\" mode=\"json\" style=\"height:300px;\"></ace-editor>\r\n                                    </div>\r\n                                </div>\r\n                            </ng-template>\r\n                        </ngb-tab>\r\n                        <ngb-tab title=\"Visualization\">\r\n                            <ng-template ngbTabContent>\r\n                                <p>Sample Text</p>\r\n                            </ng-template>\r\n                        </ngb-tab>\r\n                    </ngb-tabset>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div>\r\n    <app-page-header [heading]=\"'Setup'\" [icon]=\"'fa-edit'\"></app-page-header>\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        <span style=\"cursor:pointer; color:#007bff;\" (click)=\"currentView='infra'\">Generate Config</span>\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"generateInfraStatus==='running'\"\r\n                                (click)=\"generateInfra()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"generateInfraStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"generateInfraStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"generateInfraStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        <span style=\"cursor:pointer; color:#007bff;\"  (click)=\"currentView='partition'\">Partition</span>\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"partitionStatus==='success' || partitionStatus==='failure' || partitionStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"generateInfraStatus != 'success' || partitionStatus==='running'\"\r\n                                (click)=\"generateMetisInput()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"partitionStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"partitionStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"partitionStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        <span style=\"cursor:pointer; color:#007bff;\"  (click)=\"currentView='deployment'\">Deployment</span>\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"deploymentStatus==='success' || deploymentStatus==='failure' || deploymentStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"partitionStatus != 'success' || deploymentStatus==='running'\"\r\n                                (click)=\"startDocker()\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"deploymentStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"deploymentStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"deploymentStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-lg-3\">\r\n            <div class=\"card bg-light mb-3\">\r\n                <div class=\"card-body\">\r\n                    <div class=\"card-title\">\r\n                        Micro Benchmark\r\n                    </div>\r\n                    <div class=\"card-text\">\r\n                        <span\r\n                            *ngIf=\"sanityStatus==='success' || sanityStatus==='failure' || sanityStatus==='running'\">\r\n                            &nbsp; &nbsp; <i class=\"fa fa-2x fa-check\" style=\"opacity: 0; vertical-align: middle\"></i>\r\n                        </span>\r\n                        <select class=\"form-inline\" style=\"display: inline\" [(ngModel)] = \"sanitySelection\">\r\n                            <option value=\"CPU\">CPU</option>\r\n                            <option value=\"N/W\">N/W</option>\r\n                            <option value=\"App\">Pub/Sub</option>\r\n                        </select>                        &nbsp; &nbsp;\r\n                        <button type=\"submit\" class=\"btn btn-primary\"\r\n                                [disabled]=\"deploymentStatus != 'success' || sanityStatus==='running'\"\r\n                                (click)=\"true\">\r\n                            Run\r\n                        </button>\r\n                        <span *ngIf=\"sanityStatus==='success'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-check\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"sanityStatus==='failure'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-times\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                        <span *ngIf=\"sanityStatus==='running'\">&nbsp; &nbsp; <i class=\"fa fa-2x fa-spinner\"\r\n                                                                                       style=\"vertical-align: middle\"></i></span>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <app-setup-infra *ngIf=\"currentView==='infra'\"></app-setup-infra>\r\n    <app-setup-partition *ngIf=\"currentView==='partition'\"></app-setup-partition>\r\n    <app-setup-deployment *ngIf=\"currentView==='deployment'\"></app-setup-deployment>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -22457,7 +23142,7 @@ module.exports = "<div>\r\n    <app-page-header [heading]=\"'Setup'\" [icon]=\"'
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".span .custom {\n  cursor: pointer;\n  color: blue;\n  text-decoration: underline; }\n"
 
 /***/ }),
 
@@ -22473,6 +23158,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetupComponent", function() { return SetupComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _setup_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setup.service */ "./src/app/layout/setup/setup.service.ts");
+/* harmony import */ var _setup_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./setup-data.service */ "./src/app/layout/setup/setup-data.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -22484,9 +23170,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var SetupComponent = /** @class */ (function () {
-    function SetupComponent(setupService) {
+    function SetupComponent(setupService, setupDataService) {
         this.setupService = setupService;
+        this.setupDataService = setupDataService;
         this.generateInfraStatus = '';
         this.partitionStatus = '';
         this.generateMetisInputStatus = '';
@@ -22502,247 +23190,137 @@ var SetupComponent = /** @class */ (function () {
         this.sanityNetworkStatus = '';
         this.sanityCPUStatus = '';
         this.sanityPubSubStatus = '';
-        this.input_file = '';
-        this.output_file = '';
-        this.input_file_name = '';
-        this.output_file_name = '';
-        this.console_output = '';
-        this.data = "A quick brown fox jumps over the lazy dog";
         this.options = { maxLines: 1000, printMargin: false };
         this.vm = 3;
+        this.currentView = 'infra';
     }
     SetupComponent.prototype.ngOnInit = function () {
+        this.setupDataService.getInfraInput();
     };
-    SetupComponent.prototype.getInfraInput = function () {
-        var _this = this;
-        this.setupService.getInfraGenInput().subscribe(function (res) {
-            _this.inputFile = res['data'];
-            _this.input_file_name = ' - ' + res['name'];
-        });
-    };
-    SetupComponent.prototype.getInfraOutput = function () {
-        var _this = this;
-        this.setupService.getInfraGenOutput().subscribe(function (res) {
-            _this.outputFile = res['data'];
-            _this.output_file_name = ' - ' + res['name'];
-        });
-    };
+    // Infra Gen
     SetupComponent.prototype.generateInfra = function () {
         var _this = this;
         this.generateInfraStatus = "running";
-        this.getInfraInput();
-        this.output_file = '';
-        this.console_output = '';
+        this.setupDataService.consoleOutput['infra'] = '';
+        this.currentView = 'infra';
         this.setupService.getInfraGen().subscribe(function (res) {
             _this.generateInfraStatus = "success";
-            _this.consoleOutput = res['message'];
-            _this.getInfraOutput();
+            _this.setupDataService.consoleOutput['infra'] = res['message'];
+            _this.setupDataService.getInfraOutput();
+            _this.setupDataService.getPartitionInput();
         }, function (error) {
             _this.generateInfraStatus = "failure";
-            _this.consoleOutput = error.error['message'];
+            _this.setupDataService.consoleOutput['infra'] = error.error['message'];
         });
     };
-    SetupComponent.prototype.getPartitionOutput = function () {
-        var _this = this;
-        this.setupService.getPartitionOutput().subscribe(function (res) {
-            _this.outputFile = res['data'];
-            _this.output_file_name = ' - ' + res['name'];
-        });
-    };
+    // Partition
     SetupComponent.prototype.generateMetisInput = function () {
         var _this = this;
         this.generateMetisInputStatus = "running";
         this.partitionStatus = "running";
-        this.input_file = this.output_file;
-        this.input_file_name = this.output_file_name;
-        this.output_file = '';
-        this.output_file_name = '';
-        this.console_output = '1. Generating Metis Input... \n';
+        this.currentView = 'partition';
+        this.setupDataService.getPartitionInput();
+        this.setupDataService.consoleOutput['partition'] = '1. Generating Metis Input...\n*************************\n';
         this.setupService.getMetisInputGen().subscribe(function (res) {
             _this.generateMetisInputStatus = "success";
-            _this.consoleOutput += res['message'];
+            _this.setupDataService.consoleOutput['partition'] += res['message'];
             _this.generatePartition();
         }, function (error) {
             _this.generateMetisInputStatus = "failure";
             _this.partitionStatus = "failure";
-            _this.consoleOutput += error.error['message'];
+            _this.setupDataService.consoleOutput['partition'] += error.error['message'];
         });
     };
     SetupComponent.prototype.generatePartition = function () {
         var _this = this;
         this.generatePartitionStatus = "running";
-        this.console_output += '\n2. Generating Partition... \n';
+        this.setupDataService.consoleOutput['partition'] += '\n2. Generating Partition...\n************************\n';
         this.setupService.postPartitionGen(this.vm).subscribe(function (res) {
             _this.generatePartitionStatus = "success";
-            _this.consoleOutput += res['message'];
+            _this.setupDataService.consoleOutput['partition'] += res['message'];
             _this.checkMetis();
         }, function (error) {
             _this.generatePartitionStatus = "failure";
             _this.partitionStatus = "failure";
-            _this.consoleOutput += error.error['message'];
+            _this.setupDataService.consoleOutput['partition'] += error.error['message'];
         });
     };
     SetupComponent.prototype.checkMetis = function () {
         var _this = this;
         this.checkMetisStatus = "running";
-        this.console_output += '\n3. Running Metis Check \n';
+        this.setupDataService.consoleOutput['partition'] += '\n3. Running Metis Check\n****************************\n';
         this.setupService.postCheckMetis(this.vm).subscribe(function (res) {
             _this.checkMetisStatus = "success";
             _this.partitionStatus = "success";
-            _this.consoleOutput += res['message'];
-            _this.getPartitionOutput();
+            _this.setupDataService.consoleOutput['partition'] += res['message'];
+            _this.setupDataService.getPartitionOutput();
+            _this.setupDataService.getPartitionPlots();
+            _this.setupDataService.getDeploymentInput();
         }, function (error) {
             _this.checkMetisStatus = "failure";
             _this.partitionStatus = "failure";
-            _this.consoleOutput += error.error['message'];
+            _this.setupDataService.consoleOutput['partition'] += error.error['message'];
         });
     };
-    SetupComponent.prototype.getDeploymentInput = function () {
-        var _this = this;
-        this.setupService.getDeploymentInput().subscribe(function (res) {
-            _this.inputFile = res['data'];
-            _this.input_file_name = ' - ' + res['name'];
-        });
-    };
-    SetupComponent.prototype.getDeploymentOutput = function () {
-        var _this = this;
-        this.setupService.getDeploymentOutput().subscribe(function (res) {
-            _this.outputFile = res['data'];
-            _this.output_file_name = ' - ' + res['name'];
-        });
-    };
+    // Deployment
     SetupComponent.prototype.startDocker = function () {
         var _this = this;
         this.startDockerStatus = "running";
         this.deploymentStatus = "running";
-        this.getDeploymentInput();
-        this.output_file = '';
-        this.output_file_name = '';
-        this.console_output = '1. Starting Docker... \n';
+        this.currentView = 'deployment';
+        this.setupDataService.consoleOutput['deployment'] = '1. Starting Docker... \n******************************\n';
         this.setupService.getStartDocker().subscribe(function (res) {
             _this.startDockerStatus = "success";
-            _this.consoleOutput += res['message'];
+            _this.setupDataService.consoleOutput['deployment'] += res['message'];
             _this.deleteInfra();
         }, function (error) {
             _this.startDockerStatus = "failure";
             _this.deploymentStatus = "failure";
-            _this.consoleOutput += error.error['message'];
+            _this.setupDataService.consoleOutput['deployment'] += error.error['message'];
         });
     };
     SetupComponent.prototype.deleteInfra = function () {
         var _this = this;
         this.deleteInfraStatus = "running";
-        this.console_output += '2. Deleting Infrastructure... \n';
+        this.setupDataService.consoleOutput['deployment'] += '2. Deleting Infrastructure... \n*********************\n';
         this.setupService.getDeleteInfra().subscribe(function (res) {
             _this.deleteInfraStatus = "success";
-            _this.consoleOutput += res['message'];
+            _this.setupDataService.consoleOutput['deployment'] += res['message'];
             _this.infraSetup();
         }, function (error) {
             _this.deleteInfraStatus = "failure";
             _this.deploymentStatus = "failure";
-            _this.consoleOutput += error.error['message'];
+            _this.setupDataService.consoleOutput['deployment'] += error.error['message'];
         });
     };
     SetupComponent.prototype.infraSetup = function () {
         var _this = this;
         this.infraSetupStatus = "running";
-        this.console_output += '3. Running Infrastructure setup... \n';
+        this.setupDataService.consoleOutput['deployment'] += '3. Running Infrastructure setup... \n****************\n';
         this.setupService.getInfraSetup().subscribe(function (res) {
             _this.infraSetupStatus = "success";
-            _this.consoleOutput += res['message'];
+            _this.setupDataService.consoleOutput['deployment'] += res['message'];
             _this.sensorGen();
         }, function (error) {
             _this.infraSetupStatus = "failure";
             _this.deploymentStatus = "failure";
-            _this.consoleOutput += error.error['message'];
+            _this.setupDataService.consoleOutput['deployment'] += error.error['message'];
         });
     };
     SetupComponent.prototype.sensorGen = function () {
         var _this = this;
         this.sensorGenStatus = "running";
-        this.console_output += '4. Running Sensor Gen... \n';
+        this.setupDataService.consoleOutput['deployment'] += '4. Running Sensor Gen... \n*************************\n';
         this.setupService.getSensorGen().subscribe(function (res) {
             _this.sensorGenStatus = "success";
             _this.deploymentStatus = "success";
-            _this.consoleOutput += res['message'];
-            _this.getDeploymentOutput();
+            _this.setupDataService.consoleOutput['deployment'] += res['message'];
+            _this.setupDataService.getDeploymentOutput();
         }, function (error) {
             _this.sensorGenStatus = "failure";
             _this.deploymentStatus = "failure";
-            _this.consoleOutput += error.error['message'];
+            _this.setupDataService.consoleOutput['deployment'] += error.error['message'];
         });
-    };
-    SetupComponent.prototype.getSanityInput = function () {
-        var _this = this;
-        this.setupService.getDeploymentOutput().subscribe(function (res) {
-            _this.inputFile = res['data'];
-            _this.input_file_name = ' - ' + res['name'];
-        });
-    };
-    SetupComponent.prototype.sanityNetwork = function () {
-        var _this = this;
-        this.sanityStatus = "running";
-        this.sanityNetworkStatus = "running";
-        this.console_output = 'Running N/W sanity check... \n';
-        this.getSanityInput();
-        this.output_file = '';
-        this.output_file_name = '';
-        this.setupService.getSanityNetwork().subscribe(function (res) {
-            _this.sanityNetworkStatus = "success";
-            _this.sanityStatus = "success";
-            _this.consoleOutput += res['message'];
-        }, function (error) {
-            _this.sanityNetworkStatus = "failure";
-            _this.sanityStatus = "failure";
-            _this.consoleOutput += "\n Failed";
-        });
-    };
-    SetupComponent.prototype.sanityCPU = function () {
-        var _this = this;
-        this.sanityStatus = "running";
-        this.sanityCPUStatus = "running";
-        this.console_output = 'Running CPU sanity check... \n';
-        this.getSanityInput();
-        this.output_file = '';
-        this.output_file_name = '';
-        this.setupService.getSanityCPU().subscribe(function (res) {
-            _this.sanityCPUStatus = "success";
-            _this.sanityStatus = "success";
-            _this.consoleOutput += res['message'];
-        }, function (error) {
-            _this.sanityCPUStatus = "failure";
-            _this.sanityStatus = "failure";
-            _this.consoleOutput += "\n Failed";
-        });
-    };
-    SetupComponent.prototype.sanityPubSub = function () {
-        var _this = this;
-        this.sanityStatus = "running";
-        this.sanityPubSubStatus = "running";
-        this.console_output = 'Running Pub/Sub sanity check... \n';
-        this.getSanityInput();
-        this.output_file = '';
-        this.output_file_name = '';
-        this.setupService.getSanityPubSub().subscribe(function (res) {
-            _this.sanityPubSubStatus = "success";
-            _this.sanityStatus = "success";
-            _this.consoleOutput += res['message'];
-        }, function (error) {
-            _this.sanityPubSubStatus = "failure";
-            _this.sanityStatus = "failure";
-            _this.consoleOutput += "\n Failed";
-        });
-    };
-    SetupComponent.prototype.sanityRun = function () {
-        if (this.sanitySelection === 'N/W') {
-            this.sanityNetwork();
-        }
-        else if (this.sanitySelection === 'CPU') {
-            this.sanityCPU();
-        }
-        else if (this.sanitySelection === 'App') {
-            this.sanityPubSub();
-        }
     };
     SetupComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -22750,7 +23328,8 @@ var SetupComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./setup.component.html */ "./src/app/layout/setup/setup.component.html"),
             styles: [__webpack_require__(/*! ./setup.component.scss */ "./src/app/layout/setup/setup.component.scss")]
         }),
-        __metadata("design:paramtypes", [_setup_service__WEBPACK_IMPORTED_MODULE_1__["SetupService"]])
+        __metadata("design:paramtypes", [_setup_service__WEBPACK_IMPORTED_MODULE_1__["SetupService"],
+            _setup_data_service__WEBPACK_IMPORTED_MODULE_2__["SetupDataService"]])
     ], SetupComponent);
     return SetupComponent;
 }());
@@ -22777,7 +23356,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../shared */ "./src/app/shared/index.ts");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
 /* harmony import */ var ng2_ace_editor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ng2-ace-editor */ "./node_modules/ng2-ace-editor/index.js");
-/* harmony import */ var ngx_json_viewer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-json-viewer */ "./node_modules/ngx-json-viewer/ngx-json-viewer.es5.js");
+/* harmony import */ var ng2_image_viewer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ng2-image-viewer */ "./node_modules/ng2-image-viewer/ng2-image-viewer.umd.js");
+/* harmony import */ var ng2_image_viewer__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(ng2_image_viewer__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_setup_infra_setup_infra_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/setup-infra/setup-infra.component */ "./src/app/layout/components/setup-infra/setup-infra.component.ts");
+/* harmony import */ var _components_setup_partition_setup_partition_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/setup-partition/setup-partition.component */ "./src/app/layout/components/setup-partition/setup-partition.component.ts");
+/* harmony import */ var _components_setup_deployment_setup_deployment_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/setup-deployment/setup-deployment.component */ "./src/app/layout/components/setup-deployment/setup-deployment.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -22793,14 +23376,16 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
+
 var SetupModule = /** @class */ (function () {
     function SetupModule() {
     }
     SetupModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _shared__WEBPACK_IMPORTED_MODULE_5__["PageHeaderModule"], _setup_routing_module__WEBPACK_IMPORTED_MODULE_4__["SetupRoutingModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__["NgbModule"].forRoot(), ng2_ace_editor__WEBPACK_IMPORTED_MODULE_7__["AceEditorModule"],
-                ngx_json_viewer__WEBPACK_IMPORTED_MODULE_8__["NgxJsonViewerModule"]],
-            declarations: [_setup_component__WEBPACK_IMPORTED_MODULE_3__["SetupComponent"]]
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _shared__WEBPACK_IMPORTED_MODULE_5__["PageHeaderModule"], _setup_routing_module__WEBPACK_IMPORTED_MODULE_4__["SetupRoutingModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__["NgbModule"].forRoot(), ng2_ace_editor__WEBPACK_IMPORTED_MODULE_7__["AceEditorModule"], ng2_image_viewer__WEBPACK_IMPORTED_MODULE_8__["ImageViewerModule"]],
+            declarations: [_setup_component__WEBPACK_IMPORTED_MODULE_3__["SetupComponent"], _components_setup_infra_setup_infra_component__WEBPACK_IMPORTED_MODULE_9__["SetupInfraComponent"], _components_setup_partition_setup_partition_component__WEBPACK_IMPORTED_MODULE_10__["SetupPartitionComponent"], _components_setup_deployment_setup_deployment_component__WEBPACK_IMPORTED_MODULE_11__["SetupDeploymentComponent"]]
         })
     ], SetupModule);
     return SetupModule;
@@ -22841,12 +23426,6 @@ var SetupService = /** @class */ (function () {
     SetupService.prototype.getInfraGen = function () {
         return this.http.get(this.url + "infra_gen");
     };
-    SetupService.prototype.getInfraGenInput = function () {
-        return this.http.get(this.url + "infra_gen_input");
-    };
-    SetupService.prototype.getInfraGenOutput = function () {
-        return this.http.get(this.url + "infra_gen_output");
-    };
     SetupService.prototype.getMetisInputGen = function () {
         return this.http.get(this.url + "metis_gen");
     };
@@ -22860,9 +23439,6 @@ var SetupService = /** @class */ (function () {
         formData.append('vm', vm.toString());
         return this.http.post(this.url + "metis_check", formData);
     };
-    SetupService.prototype.getPartitionOutput = function () {
-        return this.http.get(this.url + "partition_output");
-    };
     SetupService.prototype.getStartDocker = function () {
         return this.http.get(this.url + "start_docker");
     };
@@ -22874,12 +23450,6 @@ var SetupService = /** @class */ (function () {
     };
     SetupService.prototype.getSensorGen = function () {
         return this.http.get(this.url + "sensor_gen");
-    };
-    SetupService.prototype.getDeploymentInput = function () {
-        return this.http.get(this.url + "deployment_input");
-    };
-    SetupService.prototype.getDeploymentOutput = function () {
-        return this.http.get(this.url + "deployment_output");
     };
     SetupService.prototype.getSanityNetwork = function () {
         return this.http.get(this.url + "sanity_network");

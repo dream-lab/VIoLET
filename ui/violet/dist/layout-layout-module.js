@@ -106,7 +106,7 @@ var HeaderComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"sidebar\" [ngClass]=\"{sidebarPushRight: isActive, collapsed: collapsed}\">\n    <div class=\"toggle-button\" [ngClass]=\"{collapsed: collapsed}\" (click)=\"toggleCollapsed()\">\n        <i class=\"fa fa-fw fa-bars\"></i>&nbsp;\n        <span>{{ 'Collapse' | translate }}</span>\n    </div>\n    <div class=\"list-group\">\n        <a routerLink=\"/dashboard\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n            <i class=\"fa fa-fw fa-dashboard\"></i>&nbsp;\n            <span>{{ 'Dashboard' | translate }}</span>\n        </a>\n        <a routerLink=\"/setup\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n            <i class=\"fa fa-fw fa-cogs\"></i>&nbsp;\n            <span>{{ 'Setup' | translate }}</span>\n        </a>\n        <!--<div class=\"nested-menu\">-->\n            <!--<a class=\"list-group-item\" (click)=\"addExpandClass('pages')\">-->\n                <!--<i class=\"fa fa-cogs\"></i>&nbsp;-->\n                <!--<span>{{ 'Setup' | translate }}</span>-->\n            <!--</a>-->\n            <!--<li class=\"nested\" [class.expand]=\"showMenu === 'pages'\">-->\n                <!--<ul class=\"submenu\">-->\n                    <!--<li>-->\n                        <!--<a [routerLink]=\"['/infrastructure']\" [routerLinkActive]=\"['router-link-active']\" >-->\n                            <!--<i class=\"fa fa-monument\"></i>&nbsp;-->\n                            <!--<span>{{ 'Infrastructure' | translate }}</span>-->\n                        <!--</a>-->\n                    <!--</li>-->\n                <!--</ul>-->\n            <!--</li>-->\n        <!--</div>-->\n        <a [routerLink]=\"['/charts']\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n            <i class=\"fa fa-fw fa-bar-chart-o\"></i>&nbsp;\n            <span>{{ 'Charts' | translate }}</span>\n        </a>\n        <a [routerLink]=\"['/tables']\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n            <i class=\"fa fa-fw fa-table\"></i>&nbsp;\n            <span>{{ 'Tables' | translate }}</span>\n        </a>\n        <div class=\"header-fields\">\n            <a (click)=\"rltAndLtr()\" class=\"list-group-item\">\n                <span><i class=\"fa fa-arrows-h\"></i>&nbsp; RTL/LTR</span>\n            </a>\n        </div>\n    </div>\n</nav>\n"
+module.exports = "<nav class=\"sidebar\" [ngClass]=\"{sidebarPushRight: isActive, collapsed: collapsed}\">\n    <div class=\"toggle-button\" [ngClass]=\"{collapsed: collapsed}\" (click)=\"toggleCollapsed()\">\n        <i class=\"fa fa-fw fa-bars\"></i>&nbsp;\n        <span>{{ 'Collapse' | translate }}</span>\n    </div>\n    <div class=\"list-group\">\n        <a routerLink=\"/setup\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n            <i class=\"fa fa-fw fa-cogs\"></i>&nbsp;\n            <span>{{ 'Setup' | translate }}</span>\n        </a>\n        <!--<div class=\"nested-menu\">-->\n            <!--<a class=\"list-group-item\" (click)=\"addExpandClass('pages')\">-->\n                <!--<i class=\"fa fa-cogs\"></i>&nbsp;-->\n                <!--<span>{{ 'Setup' | translate }}</span>-->\n            <!--</a>-->\n            <!--<li class=\"nested\" [class.expand]=\"showMenu === 'pages'\">-->\n                <!--<ul class=\"submenu\">-->\n                    <!--<li>-->\n                        <!--<a [routerLink]=\"['/infrastructure']\" [routerLinkActive]=\"['router-link-active']\" >-->\n                            <!--<i class=\"fa fa-monument\"></i>&nbsp;-->\n                            <!--<span>{{ 'Infrastructure' | translate }}</span>-->\n                        <!--</a>-->\n                    <!--</li>-->\n                <!--</ul>-->\n            <!--</li>-->\n        <!--</div>-->\n        <a [routerLink]=\"['/tables']\" [routerLinkActive]=\"['router-link-active']\" class=\"list-group-item\">\n            <i class=\"fa fa-fw fa-table\"></i>&nbsp;\n            <span>{{ 'Tables' | translate }}</span>\n        </a>\n        <div class=\"header-fields\">\n            <a (click)=\"rltAndLtr()\" class=\"list-group-item\">\n                <span><i class=\"fa fa-arrows-h\"></i>&nbsp; RTL/LTR</span>\n            </a>\n        </div>\n    </div>\n</nav>\n"
 
 /***/ }),
 
@@ -247,9 +247,7 @@ var routes = [
         path: '',
         component: _layout_component__WEBPACK_IMPORTED_MODULE_2__["LayoutComponent"],
         children: [
-            { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
-            { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
-            { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
+            { path: '', redirectTo: 'setup', pathMatch: 'prefix' },
             { path: 'tables', loadChildren: './tables/tables.module#TablesModule' },
             { path: 'setup', loadChildren: './setup/setup.module#SetupModule' }
         ]
@@ -355,12 +353,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layout_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./layout.component */ "./src/app/layout/layout.component.ts");
 /* harmony import */ var _components_sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/sidebar/sidebar.component */ "./src/app/layout/components/sidebar/sidebar.component.ts");
 /* harmony import */ var _components_header_header_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/header/header.component */ "./src/app/layout/components/header/header.component.ts");
+/* harmony import */ var _setup_setup_data_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./setup/setup-data.service */ "./src/app/layout/setup/setup-data.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -381,9 +381,9 @@ var LayoutModule = /** @class */ (function () {
                 _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateModule"],
                 _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbDropdownModule"].forRoot(),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
-                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbModule"].forRoot()
             ],
-            declarations: [_layout_component__WEBPACK_IMPORTED_MODULE_6__["LayoutComponent"], _components_sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_7__["SidebarComponent"], _components_header_header_component__WEBPACK_IMPORTED_MODULE_8__["HeaderComponent"]]
+            declarations: [_layout_component__WEBPACK_IMPORTED_MODULE_6__["LayoutComponent"], _components_sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_7__["SidebarComponent"], _components_header_header_component__WEBPACK_IMPORTED_MODULE_8__["HeaderComponent"]],
+            providers: [_setup_setup_data_service__WEBPACK_IMPORTED_MODULE_9__["SetupDataService"]]
         })
     ], LayoutModule);
     return LayoutModule;

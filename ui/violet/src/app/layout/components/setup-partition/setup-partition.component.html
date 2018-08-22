@@ -112,9 +112,22 @@
                             </div>
                         </ng-template>
                     </ngb-tab>
-                    <ngb-tab title="Visualization" [disabled]="true">
+                    <ngb-tab title="Visualization" >
                         <ng-template ngbTabContent>
-                            <img src="../../../assets/images/latency_deviation.png" style="height:300px; max-width: 100%"/>
+                            <div class="row" *ngIf="sdService.images['partition_coremark']" style="text-align: center">
+                                <div class="col-lg-4">
+                                    <span>Coremark</span>
+                                    <img [src]="sdService.images['partition_coremark']" style="height:300px; max-width: 100%"/>
+                                </div>
+                                <div class="col-lg-4">
+                                    <span>Memory</span>
+                                    <img [src]="sdService.images['partition_memory']" style="height:300px; max-width: 100%"/>
+                                </div>
+                                <div class="col-lg-4">
+                                    <span>Disk</span>
+                                    <img [src]="sdService.images['partition_disk']" style="height:300px; max-width: 100%"/>
+                                </div>
+                            </div>
                         </ng-template>
                     </ngb-tab>
                 </ngb-tabset>

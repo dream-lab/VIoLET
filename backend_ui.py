@@ -1,6 +1,6 @@
 from time import sleep
 
-from flask import Flask, request
+from flask import Flask, request, send_file
 from flask_cors import CORS
 import os
 import json
@@ -78,6 +78,39 @@ def partition_output():
         return ('Failure', 500)
 
 
+@app.route('/partition_plot_coremark', methods=['GET'])
+def partition_plot_coremark():
+    try:
+        r, e = Popen(["cd /home/centos/shriram/VIoLET/dump/metis; python bsplot.py coremark"], stderr=PIPE, shell=True).communicate()
+        if e != '':
+            raise
+        return send_file("dump/metis/coremark.png", attachment_filename='coremark.png')
+    except:
+        return (json.dumps({'message': e}), 500)
+
+
+@app.route('/partition_plot_memory', methods=['GET'])
+def partition_plot_memory():
+    try:
+        r, e = Popen(["cd /home/centos/shriram/VIoLET/dump/metis; python bsplot.py memory"], stderr=PIPE).communicate()
+        if e != '':
+            raise
+        return send_file("dump/metis/memory.png", attachment_filename='memory.png')
+    except:
+        return (json.dumps({'message': e}), 500)
+
+
+@app.route('/partition_plot_disk', methods=['GET'])
+def partition_plot_disk():
+    try:
+        r, e = Popen(["cd /home/centos/shriram/VIoLET/dump/metis; python bsplot.py disk"], stderr=PIPE).communicate()
+        if e != '':
+            raise
+        return send_file("dump/metis/disk.png", attachment_filename='disk.png')
+    except:
+        return (json.dumps({'message': e}), 500)
+
+
 @app.route('/metis_gen', methods=['GET'])
 def metis_gen():
     try:
@@ -102,7 +135,6 @@ def partition_gen():
     # return json.dumps({'message': 'success'})
 
 
-
 @app.route('/metis_check', methods=['POST'])
 def metis_check():
     try:
@@ -120,10 +152,15 @@ def metis_check():
 @app.route('/deployment_input', methods=['GET'])
 def deployment_input():
     try:
-        with open('config/vm_config.json', 'r') as f:
-            d = json.load(f)
-            d = json.dumps(d, indent=4)
-            return json.dumps({'data': d, 'name': 'vm_config.json'})
+        d1 = ''
+        d2 = ''
+        with open('config/deployment.json', 'r') as f:
+            d1 = json.load(f)
+            d1 = json.dumps(d1, indent=4)
+        with open('config/sensor_types.json', 'r') as f:
+            d2 = json.load(f)
+            d2 = json.dumps(d2, indent=4)
+        return json.dumps({'deployment.json': d1, 'sensor_types.json': d2})
     except:
         return ('Failure', 500)
 
@@ -134,7 +171,7 @@ def deployment_output():
         with open('dump/infra/deployment_output.json', 'r') as f:
             d = json.load(f)
             d = json.dumps(d, indent=4)
-            return json.dumps({'data': d, 'name': 'deployment_output.json'})
+            return json.dumps({'deployment_output.json': d})
     except:
         return ('Failure', 500)
 
@@ -185,8 +222,12 @@ def sanity_network():
     try:
         p = Popen(["python", "sanity_network.py"])
         sleep(240)
-        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py bandwidth_delta bw.pdf "Bandwidth" "Deviation"'], shell=True)
-        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py bandwidth_delta bw.pdf "Bandwidth" "Deviation"'], shell=True)
+        p = Popen([
+                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py bandwidth_delta bw.pdf "Bandwidth" "Deviation"'],
+                  shell=True)
+        p = Popen([
+                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py bandwidth_delta bw.pdf "Bandwidth" "Deviation"'],
+                  shell=True)
         return json.dumps({'message': "CPU sanity check complete \n\n"})
     except:
         return (json.dumps({'message': 'Failure'}), 500)
@@ -199,10 +240,18 @@ def sanity_cpu():
         sleep(240)
         p = Popen(["python sanity_cpu.py 2"], shell=True)
         sleep(60)
-        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi2b_delta f_pi2b.pdf "Coremark (Pi2B)" "Deviation"'], shell=True)
-        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi3b_delta f_pi3b.pdf "Coremark (Pi3B)" "Deviation"'], shell=True)
-        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_tx1_delta f_tx1.pdf "Coremark (TX1)" "Deviation"'], shell=True)
-        p = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_si_delta f_si.pdf "Coremark (SI)" "Deviation"'], shell=True)
+        p = Popen([
+                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi2b_delta f_pi2b.pdf "Coremark (Pi2B)" "Deviation"'],
+                  shell=True)
+        p = Popen([
+                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi3b_delta f_pi3b.pdf "Coremark (Pi3B)" "Deviation"'],
+                  shell=True)
+        p = Popen([
+                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_tx1_delta f_tx1.pdf "Coremark (TX1)" "Deviation"'],
+                  shell=True)
+        p = Popen([
+                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_si_delta f_si.pdf "Coremark (SI)" "Deviation"'],
+                  shell=True)
         return json.dumps({'message': "CPU sanity check complete \n\n"})
     except:
         return (json.dumps({'message': 'Failure'}), 500)
