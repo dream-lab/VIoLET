@@ -11,7 +11,7 @@
                                         <option value="" disabled selected>Select</option>
                                         <option *ngFor="let i of sdService.inputFileDD['deployment']" [value]="i">{{i}}</option>
                                     </select>
-                                    <ace-editor [text]="sdService.files[sdService.inputDepFile]" mode="text" style="height:300px;"></ace-editor>
+                                    <ace-editor [text]="sdService.files[sdService.inputDepFile]" mode="text" style="height:370px;"></ace-editor>
                                 </div>
                             </div>
                         </ng-template>
@@ -20,7 +20,7 @@
                         <ng-template ngbTabContent>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <ace-editor [text]="sdService.consoleOutput['deployment']" mode="text" style="margin-top: 15px; height:300px;"></ace-editor>
+                                    <ace-editor [text]="sdService.consoleOutput['deployment']" mode="text" style="margin-top: 15px; height:370px;"></ace-editor>
                                 </div>
                             </div>
                         </ng-template>
@@ -33,14 +33,14 @@
                                         <option value="" disabled selected>Select</option>
                                         <option *ngFor="let i of sdService.outputFileDD['deployment']" [value]="i">{{i}}</option>
                                     </select>
-                                    <ace-editor [text]="sdService.files[sdService.outputDepFile]" mode="text" style="height:300px;"></ace-editor>
+                                    <ace-editor [text]="sdService.files[sdService.outputDepFile]" mode="text" style="height:370px;"></ace-editor>
                                 </div>
                             </div>
                         </ng-template>
                     </ngb-tab>
                     <ngb-tab title="Visualization" [disabled]="!(sdService.deploymentStatus==='success')" >
                         <ng-template ngbTabContent>
-                                    <img [src]="sdService.images['deployment_network']" style="height:300px; display: block;
+                                    <img [src]="sdService.images['deployment_network']" style="height:330px; display: block;
                                      margin-left: auto;
                                      margin-right: auto"/>
                         </ng-template>

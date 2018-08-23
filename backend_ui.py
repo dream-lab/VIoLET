@@ -193,10 +193,10 @@ def start_docker():
 @app.route('/delete_infra', methods=['GET'])
 def delete_infra():
     try:
-        r, e = Popen(["python", "delete_infra.py"], stderr=PIPE).communicate()
+        r, e = Popen(["python", "delete_infra.py"], stdout=PIPE, stderr=PIPE).communicate()
         if e != '':
             raise
-        return json.dumps({'message': "Infrastructure deleted \n\n"})
+        return json.dumps({'message': r})
     except:
         return (json.dumps({'message': e}), 500)
 
@@ -204,10 +204,10 @@ def delete_infra():
 @app.route('/infra_setup', methods=['GET'])
 def infra_setup():
     try:
-        r, e = Popen(["python", "infra_setup.py"], stderr=PIPE).communicate()
+        r, e = Popen(["python", "infra_setup.py"], stdout=PIPE, stderr=PIPE).communicate()
         if e != '':
             raise
-        return json.dumps({'message': "Infrastructure setup complete \n\n"})
+        return json.dumps({'message': r})
     except:
         return (json.dumps({'message': e}), 500)
 
@@ -215,8 +215,8 @@ def infra_setup():
 @app.route('/sensor_gen', methods=['GET'])
 def sensor_gen():
     try:
-        r, e = Popen(["python", "sensor_gen.py"], stderr=PIPE).communicate()
-        return json.dumps({'message': "Sensor generation complete \n\n"})
+        r, e = Popen(["python", "sensor_gen.py"], stdout=PIPE, stderr=PIPE).communicate()
+        return json.dumps({'message': r})
     except:
         return (json.dumps({'message': e}), 500)
 

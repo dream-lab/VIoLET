@@ -34,12 +34,20 @@ export class SetupComponent implements OnInit {
 
     currentView = 'infra';
 
+    start: any;
+    end: any;
+
     constructor(public setupService: SetupService,
                 public setupDataService: SetupDataService) {
     }
 
     ngOnInit() {
-        this.setupDataService.getInfraInput()
+        this.setupDataService.getInfraInput();
+        // this.setupDataService.getPartitionOutput();
+        // this.setupDataService.getPartitionPlots();
+        // this.setupDataService.getDeploymentInput();
+        // this.setupDataService.getDeploymentOutput();
+        // this.setupDataService.getDeploymentPlots();
     }
 
     // Infra Gen
@@ -132,9 +140,12 @@ export class SetupComponent implements OnInit {
         this.setupDataService.deploymentStatus = "running";
         this.currentView = 'deployment';
         this.setupDataService.consoleOutput['deployment'] = '1. Starting Docker... \n******************************\n';
+        this.start = Date.now();
         this.setupService.getStartDocker().subscribe(res => {
                 this.startDockerStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
+                this.end = Date.now();
+                this.setupDataService.consoleOutput['deployment'] += 'Time elapsed: ' + ((this.end-this.start)/1000).toString() + 's \n\n'
                 this.deleteInfra();
             },
             error => {
@@ -147,7 +158,7 @@ export class SetupComponent implements OnInit {
 
     deleteInfra() {
         this.deleteInfraStatus = "running";
-        this.setupDataService.consoleOutput['deployment'] += '2. Deleting Infrastructure... \n*********************\n';
+        this.setupDataService.consoleOutput['deployment'] += '\n\n';
         this.setupService.getDeleteInfra().subscribe(res =>{
                 this.deleteInfraStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
@@ -163,7 +174,7 @@ export class SetupComponent implements OnInit {
 
     infraSetup() {
         this.infraSetupStatus = "running";
-        this.setupDataService.consoleOutput['deployment'] += '3. Running Infrastructure setup... \n****************\n';
+        this.setupDataService.consoleOutput['deployment'] += '\n\n';
         this.setupService.getInfraSetup().subscribe(res => {
                 this.infraSetupStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
@@ -179,7 +190,7 @@ export class SetupComponent implements OnInit {
 
     sensorGen() {
         this.sensorGenStatus = "running";
-        this.setupDataService.consoleOutput['deployment'] += '4. Running Sensor Gen... \n*************************\n';
+        this.setupDataService.consoleOutput['deployment'] += '\n\n';
         this.setupService.getSensorGen().subscribe(res => {
                 this.sensorGenStatus = "success";
                 this.deploymentStatus = "success";

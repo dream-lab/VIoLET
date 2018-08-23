@@ -100,8 +100,6 @@ export class SetupDataService {
                         this.summaryInfraOutput['pub_dev'][i][j['device_type']] = +j['number_devices'];
             }
         }
-        console.log(this.summaryInfraOutput['pub_dev']);
-
 
     }
 
@@ -131,6 +129,14 @@ export class SetupDataService {
         this.summaryPartitionInput['vmt'] = JSON.parse(this.files['vm_types.json']);
         this.summaryPartitionInput['dvt'] = JSON.parse(this.files['device_types.json']);
         this.summaryPartitionInput['vm_count'] = Object.keys(this.summaryPartitionInput['vmc']['container_VM']).length;
+        this.summaryPartitionInput['used'] = {}
+        for(const i in this.summaryPartitionInput['vmt']) {
+            this.summaryPartitionInput['used'][i] = 0;
+        }
+        for(const i in this.summaryPartitionInput['vmc']['container_VM']) {
+            this.summaryPartitionInput['used'][this.summaryPartitionInput['vmc']['container_VM'][i]['vm_type']] = 1;
+        }
+        console.log(this.summaryPartitionInput['used']);
     }
 
     getSummaryPartitionOutput() {
