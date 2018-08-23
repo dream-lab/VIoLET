@@ -21,7 +21,7 @@ nw_memory = {}
 nw_disk = {}
 
 vm_config = json.load(open("../../config/vm_config.json"))
-vm_names = sorted(vm_config["container_VM"].keys())
+vm_names = vm_config["container_VM"].keys()
 
 vm_coremark = vm_types[vm_config["container_VM"][vm_names[0]]["vm_type"]]["coremark"]
 
@@ -57,8 +57,8 @@ else:
 
 metis_order = []
 dataset = []
-colors = {'Pi2B':'y','Pi3B':'r','Pi3B+':'g','TX1':'b','SI':'k'}
-labels = {'y':'Pi2B','r':'Pi3B','g':'Pi3B+','b':'TX1','k':'SI'}
+colors = {'Pi2B':'#00a8ff','Pi3B':'#c64847','Pi3B+':'#f195ac','TX1':'#b28bc0','SI':'#7fd13b'}
+labels = {'#00a8ff':'Pi2B','#c64847':'Pi3B','#f195ac':'Pi3B+','#b28bc0':'TX1','#7fd13b':'SI'}
 metis_colors = []
 
 for i in range(len(metis_data)):
@@ -97,9 +97,10 @@ orders = np.array(data_orders)
 print orders
 bottoms = np.arange(len(data_orders))
 print bottoms
-fig = plt.figure(1,figsize=(9, 6))
+#fig = plt.figure(1,figsize=(9, 6))
+fig,ax = plt.subplots()
 
-check = ['r','g','b','y','k']
+check = ['r','m','y','b','g']
 
 index = 0
 for names,color in zip(dataset,metis_colors):
@@ -112,15 +113,26 @@ for names,color in zip(dataset,metis_colors):
 	#index=0
 	for n,c,v,l in zip(names,color,value,left):
 		if c in check:
-			boxes = plt.bar(left=bottoms[index],height=v,width=0.5,bottom=l,color=c,edgecolor='black',orientation='vertical',label=labels[c])
+			boxes = plt.bar(left=bottoms[index],height=v,width=0.2,bottom=l,color=c,edgecolor='black',orientation='vertical')
 			check.remove(c)
 		else:
-			boxes = plt.bar(left=bottoms[index],height=v,width=0.5,bottom=l,color=c,edgecolor='black',orientation='vertical')
+			boxes = plt.bar(left=bottoms[index],height=v,width=0.2,bottom=l,color=c,edgecolor='black',orientation='vertical')
 	index+=1
 #index%=3
 
 
-plt.xticks(bottoms, vm_names)
+plt.xticks(bottoms, vm_names,size=25)
+plt.yticks(size=25)
+ax.set_title("{}".format(sys.argv[1]),size=25)
+ax.set_xlabel("Virtual Machines",size=25)
+
+if sys.argv[1] == "coremark":
+	ax.set_ylabel("{}".format(sys.argv[1]),size=25)
+elif sys.argv[1] == "memory":
+	ax.set_ylabel("{} (MB)".format(sys.argv[1]),size=25)
+elif sys.argv[1] == "disk":
+	ax.set_ylabel("{} (MB)".format(sys.argv[1]),size=25)
+
 
 plt.legend(loc="best", bbox_to_anchor=(1.0, 1.00))
 plt.subplots_adjust(right=0.85)
@@ -128,7 +140,7 @@ plt.subplots_adjust(right=0.85)
 plt.show()
 
 fig = matplotlib.pyplot.gcf()
-fig.set_size_inches(15.5, 6.5)
+fig.set_size_inches(8, 6)
 
 ######################################################################
 ###########            Plot Computation Ends          ################
