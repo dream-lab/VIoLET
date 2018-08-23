@@ -61,7 +61,7 @@
                             </div>
                         </ng-template>
                     </ngb-tab>
-                    <ngb-tab title="Visualization" [disabled]="!(sdService.sanityStatus==='success')" ]>
+                    <ngb-tab title="Visualization" [disabled]="!(sdService.sanityStatus==='success')">
                         <ng-template ngbTabContent>
                             <div class="row" *ngIf="sdService.images['cpu_pi3b']" style="text-align: center">
                                 <div class="col-lg-4">

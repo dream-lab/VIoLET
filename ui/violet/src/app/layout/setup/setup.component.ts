@@ -248,8 +248,8 @@ export class SetupComponent implements OnInit {
                 this.setupDataService.consoleOutput['sanity'] += res['message'];
                 this.end = Date.now();
                 this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n';
-                this.setupDataService.consoleOutput['sanity'] += '\n Waiting for 4 minutes... \n\n'
-                setTimeout(() => {this.sanityCPU2();},   240000);
+                this.setupDataService.consoleOutput['sanity'] += '\n Waiting for 5 minutes... \n\n'
+                setTimeout(() => {this.sanityCPU2();},   300000);
             },
             error => {
                 this.sanityCPUStatus = "failure";
