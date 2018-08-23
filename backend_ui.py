@@ -265,6 +265,16 @@ def sanity_cpu_pi3b():
         return (json.dumps({'message': 'Failure'}), 500)
 
 
+@app.route('/sanity_cpu_pi3b_plus', methods=['GET'])
+def sanity_cpu_pi3b_plus():
+    try:
+        r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi3b+_delta f_pi3b+.png "Coremark (Pi3B+)" "Deviation"'],
+                  shell=True).communicate()
+        return send_file("dump/sanity/f_pi3b+.png", attachment_filename='pi3b+.png')
+    except:
+        return (json.dumps({'message': 'Failure'}), 500)
+
+
 @app.route('/sanity_cpu_tx1', methods=['GET'])
 def sanity_cpu_tx1():
     try:

@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SidebarComponent {
     isActive: boolean = false;
-    collapsed: boolean = false;
+    collapsed: boolean = true;
     showMenu: string = '';
     pushRightClass: string = 'push-right';
 

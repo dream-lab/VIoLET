@@ -11,7 +11,7 @@
                                         <option value="" disabled selected>Select</option>
                                         <option *ngFor="let i of sdService.inputFileDD['sanity']" [value]="i">{{i}}</option>
                                     </select>
-                                    <ace-editor [text]="sdService.files[sdService.inputSanFile]" mode="text" style="height:300px;"></ace-editor>
+                                    <ace-editor [text]="sdService.files[sdService.inputSanFile]" mode="text" style="height:370px;"></ace-editor>
                                 </div>
                             </div>
                         </ng-template>
@@ -20,7 +20,7 @@
                         <ng-template ngbTabContent>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <ace-editor [text]="sdService.consoleOutput['sanity']" mode="text" style="margin-top: 15px; height:300px;"></ace-editor>
+                                    <ace-editor [text]="sdService.consoleOutput['sanity']" mode="text" style="margin-top: 15px; height:370px;"></ace-editor>
                                 </div>
                             </div>
                         </ng-template>
@@ -65,12 +65,12 @@
                         <ng-template ngbTabContent>
                             <div class="row" *ngIf="sdService.images['cpu_pi3b']" style="text-align: center">
                                 <div class="col-lg-4">
-                                    <span>PI3B</span>
+                                    <span>Pi3B</span>
                                     <img [src]="sdService.images['cpu_pi3b']" style="height:330px; max-width: 100%"/>
                                 </div>
                                 <div class="col-lg-4">
-                                    <span>TX1</span>
-                                    <img [src]="sdService.images['cpu_tx1']" style="height:330px; max-width: 100%"/>
+                                    <span>Pi3B+</span>
+                                    <img [src]="sdService.images['cpu_pi3b_plus']" style="height:330px; max-width: 100%"/>
                                 </div>
                                 <div class="col-lg-4">
                                     <span>TX1</span>

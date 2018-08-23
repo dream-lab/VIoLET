@@ -240,6 +240,10 @@ export class SetupDataService {
             this.createImageFromBlob(res, 'cpu_pi3b');
         });
 
+        this.http.get(this.url + "sanity_cpu_pi3b_plus", {responseType: 'blob'}).subscribe(res => {
+            this.createImageFromBlob(res, 'cpu_pi3b_plus');
+        });
+
         this.http.get(this.url + "sanity_cpu_tx1", {responseType: 'blob'}).subscribe(res => {
             this.createImageFromBlob(res, 'cpu_tx1');
         });

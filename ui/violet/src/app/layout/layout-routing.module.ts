@@ -9,7 +9,7 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'setup', pathMatch: 'prefix' },
 
-            { path: 'setup', loadChildren: './setup/setup.module#SetupModule' }
+            { path: 'setup', loadChildren: './setup/setup.module#SetupModule'}
         ]
     }
 ];

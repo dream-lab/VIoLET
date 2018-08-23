@@ -8330,6 +8330,9 @@ var SetupDataService = /** @class */ (function () {
         this.http.get(this.url + "sanity_cpu_pi3b", { responseType: 'blob' }).subscribe(function (res) {
             _this.createImageFromBlob(res, 'cpu_pi3b');
         });
+        this.http.get(this.url + "sanity_cpu_pi3b_plus", { responseType: 'blob' }).subscribe(function (res) {
+            _this.createImageFromBlob(res, 'cpu_pi3b_plus');
+        });
         this.http.get(this.url + "sanity_cpu_tx1", { responseType: 'blob' }).subscribe(function (res) {
             _this.createImageFromBlob(res, 'cpu_tx1');
         });
