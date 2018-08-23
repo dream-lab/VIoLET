@@ -51,10 +51,10 @@ def main(argv):
     for opt, arg in opts:
 	if opt in ("-s","--seed"):
 	    seed = arg
-	    print seed
+	    print "Seed value = ",seed
 	if opt in ("-l","--logic"):
 	    logic = arg
-	    print logic
+	    print "Logic value = ",logic
 	
 
 if __name__ == "__main__":
@@ -62,7 +62,12 @@ if __name__ == "__main__":
 
 
 
-ports = range(32768,60999)
+min_port = 32768
+max_port = 60999
+
+print "Port ranges from {0} to {1}".format(min_port,max_port)
+
+ports = range(min_port,max_port)
 
 #try:
 #    seed = sys.argv[1]
@@ -72,9 +77,13 @@ ports = range(32768,60999)
 
 #print "seed=",seed
 
+
+
 bw_lat = [(20,5),(40,5),(60,5),(80,5),(100,5),(20,25),(40,25),(60,25),(80,25),(100,25),(20,50),(40,50),(20,75)]
 
 if logic == "1":
+	print 
+	print "BW_Lat pairs"
 	print bw_lat
 	print "The above combination of bw_lat pairs will be used for the networks"
 
@@ -85,8 +94,9 @@ sensors_list = []
 for sensor in sensor_types_list:
     sensors_list.append(sensor["type"])
 
-print sensors_list
-
+print
+print "Sensor types: ", sensors_list
+print
 
 def create_sensors(num_sensors):
     sensors = []
@@ -143,10 +153,9 @@ for p in public_networks_dict.keys():
 		print "Default value of bw is set to the minimum of the available bandwidth"
                 #print "pub_bandwidth_mbps for {0} is {1}".format(p,bw)
     
-    print "pub_bandwidth_mbps for {0} is {1}".format(p,bw)
-    print 
+    print "pub_bandwidth_mbps for {0} is {1}".format(p,bw) 
     print "pub_latency_ms for {0} is {1}".format(p,lat)
-    print 
+    print
     devices_list = public_networks_dict[p]
     for d in devices_list:
         device_type = d["device_type"]
@@ -197,7 +206,6 @@ else:
         print "Default value of bw is set to the minimum of the available bandwidth"
 
 print "pub_bandwidth_mbps for {0} is {1}".format("public_global_network",bw)
-print
 print "pub_latency_ms for {0} is {1}".format("public_global_network",lat)
 print
 
@@ -241,7 +249,6 @@ for p in private_networks_dict.keys():
 
     
     print "pvt_bandwidth_mbps for {0} is {1}".format(p,bw)
-    print
     print "pvt_latency_ms for {0} is {1}".format(p,lat)
     print
 

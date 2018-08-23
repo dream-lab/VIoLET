@@ -18,9 +18,9 @@ meta_devices = []
 container_vm = vm_config["container_VM"]
 container_vm_names = container_vm.keys()
 
-print "Considering all VMs are same and similar latency across all the VMs\n"
+print "Considering all VMs are same and have identical inter and intra VM latency across all the VMs\n"
 vm_type = container_vm[container_vm_names[0]]["vm_type"]
-print vm_type
+print "VM used is ", vm_type
 print
 
 
@@ -50,10 +50,15 @@ private_networks = infra_config["private_networks"]
 for p in private_networks:
     latency = float(private_networks[p]["latency_ms"])
     out_latency_ms = float(vm_types[vm_type]["out_latency_ms"])
+    local_latency_ms = float(vm_types[vm_type]["local_latency_ms"])
     conn_dev = private_networks[p]["devices"]
     if latency < out_latency_ms:
 	for d in conn_dev:
 	    all_devices_list.remove(d)
+    elif latency < local_latency_ms:
+	print "Intra VM latency = ",local_latency_ms 
+	print "Latency is too low. Deployment is not possible."
+	sys.exit(0)
 	
 
 for p in private_networks:
