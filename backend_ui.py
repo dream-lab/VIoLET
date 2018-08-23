@@ -174,8 +174,8 @@ def deployment_output():
 @app.route('/deployment_plot', methods=['GET'])
 def deployment_plot():
     try:
-        r, e = Popen(["python graph_nw.py network"], stderr=PIPE, shell=True).communicate()
-        return send_file("network.png", attachment_filename='network.png')
+        r, e = Popen(["cd dump/infra; python polar.py network"], stderr=PIPE, shell=True).communicate()
+        return send_file("dump/infra/network.png", attachment_filename='network.png')
     except:
         return (json.dumps({'message': e}), 500)
 
