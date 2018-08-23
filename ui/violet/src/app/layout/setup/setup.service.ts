@@ -51,8 +51,12 @@ export class SetupService {
         return this.http.get(this.url + "sanity_network");
     }
 
-    getSanityCPU() {
-        return this.http.get(this.url + "sanity_cpu");
+    getSanityCPU1() {
+        return this.http.get(this.url + "sanity_cpu_1");
+    }
+
+    getSanityCPU2() {
+        return this.http.get(this.url + "sanity_cpu_2");
     }
 
     getSanityPubSub() {

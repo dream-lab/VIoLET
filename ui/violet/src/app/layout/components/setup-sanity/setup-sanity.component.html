@@ -63,12 +63,19 @@
                     </ngb-tab>
                     <ngb-tab title="Visualization" [disabled]="!(sdService.sanityStatus==='success')" ]>
                         <ng-template ngbTabContent>
-                            <div class="row" style="text-align: center">
-                             <pdf-viewer src="../../../../../assets/images/f_pi3b.pdf"
-                                                      [render-text]="true"
-                                         [zoom]="0.7"
-                                                      style="display: block; margin-right: auto; margin-left: auto">
-                           </pdf-viewer>
+                            <div class="row" *ngIf="sdService.images['cpu_pi3b']" style="text-align: center">
+                                <div class="col-lg-4">
+                                    <span>PI3B</span>
+                                    <img [src]="sdService.images['cpu_pi3b']" style="height:330px; max-width: 100%"/>
+                                </div>
+                                <div class="col-lg-4">
+                                    <span>TX1</span>
+                                    <img [src]="sdService.images['cpu_tx1']" style="height:330px; max-width: 100%"/>
+                                </div>
+                                <div class="col-lg-4">
+                                    <span>TX1</span>
+                                    <img [src]="sdService.images['cpu_tx1']" style="height:330px; max-width: 100%"/>
+                                </div>
                             </div>
                         </ng-template>
                     </ngb-tab>

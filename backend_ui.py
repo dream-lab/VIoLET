@@ -237,26 +237,40 @@ def sanity_network():
         return (json.dumps({'message': 'Failure'}), 500)
 
 
-@app.route('/sanity_cpu', methods=['GET'])
-def sanity_cpu():
+@app.route('/sanity_cpu_1', methods=['GET'])
+def sanity_cpu_1():
     try:
-        p = Popen(["python sanity_cpu.py 1"], shell=True)
-        sleep(300)
-        p = Popen(["python sanity_cpu.py 2"], shell=True)
-        sleep(60)
-        p = Popen([
-                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi2b_delta f_pi2b.pdf "Coremark (Pi2B)" "Deviation"'],
-                  shell=True)
-        p = Popen([
-                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi3b_delta f_pi3b.pdf "Coremark (Pi3B)" "Deviation"'],
-                  shell=True)
-        p = Popen([
-                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_tx1_delta f_tx1.pdf "Coremark (TX1)" "Deviation"'],
-                  shell=True)
-        p = Popen([
-                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_si_delta f_si.pdf "Coremark (SI)" "Deviation"'],
-                  shell=True)
-        return json.dumps({'message': "CPU sanity check complete \n\n"})
+        r, e = Popen(["python sanity_cpu.py 1"], stdout=PIPE, stderr=PIPE, shell=True).communicate()
+        return json.dumps({'message': r+"\n\n"})
+    except:
+        return (json.dumps({'message': e}), 500)
+
+
+@app.route('/sanity_cpu_2', methods=['GET'])
+def sanity_cpu_2():
+    try:
+        r, e = Popen(["python sanity_cpu.py 2"], stdout=PIPE, stderr=PIPE, shell=True).communicate()
+        return json.dumps({'message': r+"\n\n"})
+    except:
+        return (json.dumps({'message': e}), 500)
+
+
+@app.route('/sanity_cpu_pi3b', methods=['GET'])
+def sanity_cpu_pi3b():
+    try:
+        r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi3b_delta f_pi3b.png "Coremark (Pi3B)" "Deviation"'],
+                  shell=True).communicate()
+        return send_file("dump/sanity/f_pi3b.pdf", attachment_filename='pi3b.png')
+    except:
+        return (json.dumps({'message': 'Failure'}), 500)
+
+
+@app.route('/sanity_cpu_tx1', methods=['GET'])
+def sanity_cpu_tx1():
+    try:
+        r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_tx1_delta f_tx1.png "Coremark (TX1)" "Deviation"'],
+                  shell=True).communicate()
+        return send_file("dump/sanity/f_tx1.pdf", attachment_filename='tx1.png')
     except:
         return (json.dumps({'message': 'Failure'}), 500)
 

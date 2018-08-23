@@ -61,7 +61,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"access-denied-access-denied-module-ngfactory":"access-denied-access-denied-module-ngfactory","layout-layout-module-ngfactory~setup-setup-module-ngfactory":"layout-layout-module-ngfactory~setup-setup-module-ngfactory","layout-layout-module-ngfactory":"layout-layout-module-ngfactory","setup-setup-module-ngfactory":"setup-setup-module-ngfactory","not-found-not-found-module-ngfactory":"not-found-not-found-module-ngfactory"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"access-denied-access-denied-module":"access-denied-access-denied-module","layout-layout-module~setup-setup-module":"layout-layout-module~setup-setup-module","layout-layout-module":"layout-layout-module","setup-setup-module":"setup-setup-module","not-found-not-found-module":"not-found-not-found-module"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function

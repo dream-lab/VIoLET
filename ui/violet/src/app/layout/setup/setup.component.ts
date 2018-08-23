@@ -145,7 +145,7 @@ export class SetupComponent implements OnInit {
                 this.startDockerStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
                 this.end = Date.now();
-                this.setupDataService.consoleOutput['deployment'] += 'Time elapsed: ' + ((this.end-this.start)/1000).toString() + 's \n\n'
+                this.setupDataService.consoleOutput['deployment'] += 'Time elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
                 this.deleteInfra();
             },
             error => {
@@ -158,26 +158,32 @@ export class SetupComponent implements OnInit {
 
     deleteInfra() {
         this.deleteInfraStatus = "running";
-        this.setupDataService.consoleOutput['deployment'] += '\n\n';
-        this.setupService.getDeleteInfra().subscribe(res =>{
+        this.setupDataService.consoleOutput['deployment'] += '\n 2. Deleting Infrastructure...\n*************************\n';
+        this.start = Date.now();
+        this.setupService.getDeleteInfra().subscribe(res => {
                 this.deleteInfraStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
+                this.end = Date.now();
+                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
                 this.infraSetup();
-        },
-            error =>  {
-            this.deleteInfraStatus = "failure";
-            this.deploymentStatus = "failure";
-            this.setupDataService.deploymentStatus = "failure";
+            },
+            error => {
+                this.deleteInfraStatus = "failure";
+                this.deploymentStatus = "failure";
+                this.setupDataService.deploymentStatus = "failure";
                 this.setupDataService.consoleOutput['deployment'] += error.error['message'];
             });
     }
 
     infraSetup() {
         this.infraSetupStatus = "running";
-        this.setupDataService.consoleOutput['deployment'] += '\n\n';
+        this.setupDataService.consoleOutput['deployment'] += '\n3. Setting up Infrastructure...\n********************************\n';
+        this.start = Date.now();
         this.setupService.getInfraSetup().subscribe(res => {
                 this.infraSetupStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
+                this.end = Date.now();
+                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
                 this.sensorGen();
             },
             error => {
@@ -190,12 +196,15 @@ export class SetupComponent implements OnInit {
 
     sensorGen() {
         this.sensorGenStatus = "running";
-        this.setupDataService.consoleOutput['deployment'] += '\n\n';
+        this.setupDataService.consoleOutput['deployment'] += '\n4. Generating Sensors...\n******************************\n';
+        this.start = Date.now();
         this.setupService.getSensorGen().subscribe(res => {
                 this.sensorGenStatus = "success";
                 this.deploymentStatus = "success";
                 this.setupDataService.deploymentStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
+                this.end = Date.now();
+                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
                 this.setupDataService.getDeploymentOutput();
                 this.setupDataService.getDeploymentPlots();
                 this.setupDataService.getSanityInput();
@@ -229,16 +238,38 @@ export class SetupComponent implements OnInit {
             });
     }
 
-    sanityCPU() {
+    sanityCPU1() {
         this.sanityStatus = "running";
         this.setupDataService.sanityStatus = "running";
         this.sanityCPUStatus = "running";
-        this.setupDataService.consoleOutput['sanity'] = 'Running CPU Micro benchmark ... \n***************************\n';
-        this.setupService.getSanityCPU().subscribe(res => {
+        this.setupDataService.consoleOutput['sanity'] = '1. Starting CPU Micro benchmark... \n***************************\n\n';
+        this.start = Date.now();
+        this.setupService.getSanityCPU1().subscribe(res => {
+                this.setupDataService.consoleOutput['sanity'] += res['message'];
+                this.end = Date.now();
+                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n';
+                this.setupDataService.consoleOutput['sanity'] += '\n Waiting for 4 minutes... \n\n'
+                setTimeout(() => {this.sanityCPU2();},   240000);
+            },
+            error => {
+                this.sanityCPUStatus = "failure";
+                this.sanityStatus = "failure";
+                this.setupDataService.sanityStatus = "failure";
+                this.setupDataService.consoleOutput['sanity'] += "\n Failed";
+            });
+    }
+
+    sanityCPU2() {
+        this.setupDataService.consoleOutput['sanity'] = '2. Collecting Coremark data... \n*****************************\n\n';
+        this.start = Date.now();
+        this.setupService.getSanityCPU1().subscribe(res => {
                 this.sanityCPUStatus = "success";
                 this.sanityStatus = "success";
                 this.setupDataService.sanityStatus = "success";
                 this.setupDataService.consoleOutput['sanity'] += res['message'];
+                this.end = Date.now();
+                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
+                this.setupDataService.getSanityCPUPlots();
             },
             error => {
                 this.sanityCPUStatus = "failure";
@@ -275,7 +306,7 @@ export class SetupComponent implements OnInit {
             this.sanityNetwork();
         }
         else if (this.sanitySelection === 'CPU') {
-            this.sanityCPU();
+            this.sanityCPU1();
         }
         else if (this.sanitySelection === 'App') {
             this.sanityPubSub();

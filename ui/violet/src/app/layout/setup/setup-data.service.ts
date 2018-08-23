@@ -234,4 +234,15 @@ export class SetupDataService {
         this.inputSanFile = this.inputFileDD['sanity'][0];
     }
 
+    getSanityCPUPlots() {
+
+        this.http.get(this.url + "sanity_cpu_pi3b", {responseType: 'blob'}).subscribe(res => {
+            this.createImageFromBlob(res, 'cpu_pi3b');
+        });
+
+        this.http.get(this.url + "sanity_cpu_tx1", {responseType: 'blob'}).subscribe(res => {
+            this.createImageFromBlob(res, 'cpu_tx1');
+        });
+    }
+
 }
