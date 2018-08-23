@@ -12,10 +12,11 @@
 All the VMs must have same centOS version as their operating system (version 7 and above). In VIoLET, one of the VM will act as an admin_VM while the other VMs act as the container_host_VMs. (For the current version of VIoLET, all the container VMs must be of same type).  The architecture diagram below, best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra_config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
 Deploying VIoLET involves 4 parts.
 
-### Part 1 : Generate infra_config.json and calculate the number of container-host-VMs
+### Part 1 : Generate infra_config.json
 1. Clone the repository and place it on the admin_VM.
-2. Enter the desired infrastructure details in **infra_config.json**. Samples for infra_config is available in VIoLET/config.
+2. Enter the desired infrastructure details in **infra_gen.json**. Samples for infra_gen.json are available in VIoLET/config.
 3. Decide on the configuration of container_host_VM / Amazon VM instance type and calculate the number of VMs needed to host the desired infra.
+4. Run **infra_gen.py** to generate **infra_config.json**
 
 ### Part 2 : Run Metis and get the container distribution across container_host_VMs.
 4. Run metis and generate partitions. This will ensure the containers are optimally distributed across the VMs keeping bandwidth and cpu resources as a constraint.
@@ -33,8 +34,9 @@ Deploying VIoLET involves 4 parts.
 ## Part - 1 [VIoLET Infrastructure & VMs]
 ### Clone the Repo
 To validate VIoLET we have used Amazon EC2 and Azure instances. But, there are no dependency on AWS or Azure instances as such. One can use any VMs/machines with ssh+key access instead of ssh+password access. <br />
+
 Clone the repository and place it on the Admin VM. <br />
-Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance will suffice)
+Note: Apart from consul (a key store database) No other devices are deployed on the Admin VM. Hence the compute capabilties of the admin VM could be bare minimum. (For ex: a t2.micro EC2 instance on AWS or Standard_A2_v2 on Azure will suffice)
 
 
 ### Generate infra_config.json
@@ -84,14 +86,13 @@ Step 1 generates **coremark.exe**, an executable file. Run the coremark executab
 ```
 Once you get the coremark numbers (Iterations/Sec). Calculate the number of VMs and cpus ratio for each device.<br />
 <br /> <br />
+
 The following example for D25 will explain it better.<br />
-D25 (21 Edge devices, 4 Fog devices)
-Amongst 21 Edge devices, let us assume there are 14 Raspberry Pi3B devices and 7 Raspberry Pi3B+ devices. Similarly let there be 1 Nvidia Jetson Tx1, Fog devices, 2 Pi3B+, Fog device and 1 Pi3B, Fog device. And let the VM be Standard_D16_v3 (16 cores)
 
 For D25 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
 ![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.1/resources/coremark.png)
 
-After determining the number of container-host VMs, go ahead and create those many Amazon EC2 instances. All the container host VMs must be of the same type according to the one mentioned in the calculations. VM details are captured in **config/vm_config.json** file. Update the public DNS, key path, user, coremark numbers. Also user must update the --cpus and coremark number for every device type in **config/device_types.json** file. 
+After determining the number of container-host VMs, go ahead and create those many Amazon EC2 or Azure instances. All the container host VMs must be of the same type according to the one mentioned in the calculations. VM details are captured in  **** and  **config/vm_config.json** file. Update the hostname_ip, key path, user, vm_type. Also user must update the --cpus and coremark number for every device type in **config/device_types.json** file. 
 
 ### Docker Installation and Image pull
 Install Docker on all the VMs (including the admin VM) using **docker_install.sh** script.
@@ -106,7 +107,7 @@ Start consul on the admin VM with the following command. Consul is a key-store d
 ```sh
 docker run -d -p 8500:8500 -h consul --name consul progrium/consul -server -bootstrap
 ```
-Start docker on container-host VMs using following command. Make sure you put the right IP addresses as mentioned in the command.
+Start docker on container VMs using following command. Make sure you put the right IP addresses as mentioned in the command.
 ```sh
 nohup /usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise <host VM ip_address>:2375 --cluster-store consul://<address of the machine running consul>:8500 &
 ```
@@ -114,6 +115,10 @@ Pull the required docker image for VIoLET on all the container-host VMs.
 ```sh
 docker pull dreamlab/violet
 ```
+For the support of storage-opt in docker. Docker doesnot allows storage-opt size changes to limit disk capacity, If you see **noquota** in the xfs mount options for the / partition on container VM. Make sure you follow these steps to change it to **pquota** on each container VMs. 
+
+Refer this link https://help.directadmin.com/item.php?id=557
+
 
 <br />NOTE: ec2 instances do not come with a disk storage by default. Usually, the ephermal storage drivers aren't sufficent to support the container deployment. User must attach and mount the EBS volume to the container-host VMs and move **/var/lib/docker** to the disk and do a softlink to **/var/lib/docker**. For example, let us assume the disk path to be /disk. Follow these commands after stopping the docker.
 ```sh

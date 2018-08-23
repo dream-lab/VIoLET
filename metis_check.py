@@ -38,9 +38,9 @@ num_edge_per_network = int(num_edge / num_fog)
 container_vm = vm_config["container_VM"]
 container_vm_names = container_vm.keys()
 
-print "Considering all VMs are same and similar latency across all the VMs"
+print "Considering all VMs are same and have identical inter and intra VM latency."
 vm_type = container_vm[container_vm_names[0]]["vm_type"]
-print vm_type
+print "VM used is",vm_type
 print
 
 container_vm_coremark = []
@@ -50,7 +50,8 @@ for c in container_vm:
     container_vm_coremark.append(int(vm_types[container_vm[c]["vm_type"]]["coremark"]))
     container_vm_memory_mb.append(int(vm_types[container_vm[c]["vm_type"]]["memory_mb"]))
     container_vm_disk_mb.append(int(vm_types[container_vm[c]["vm_type"]]["disk_mb"]))
-print container_vm_coremark, container_vm_memory_mb, container_vm_disk_mb
+
+#print "Available Coremark:",container_vm_coremark,"Available Memory (MB):", container_vm_memory_mb, "Available Disk (MB):", container_vm_disk_mb
 
 vm_coremark_metis = [0] * number_of_vms
 vm_memory_metis = [0] * number_of_vms
@@ -67,7 +68,10 @@ for d in updated_devices_list:
     vm_disk_metis[int(content[i])] += int(d_mb)
     i += 1
 
-print vm_coremark_metis, vm_memory_metis, vm_disk_metis
+print "Coremark --> Available:",container_vm_coremark, "Used:", vm_coremark_metis
+print "Memory (MB) --> Available:", container_vm_memory_mb, "Used:",vm_memory_metis
+print "Disk (MB) --> Available:", container_vm_disk_mb, "Used:",vm_disk_metis
+print
 
 i = 0
 for vm_c,vm_m,vm_d in zip(vm_coremark_metis,vm_memory_metis,vm_disk_metis):
