@@ -84,9 +84,11 @@ Step 1 generates **coremark.exe**, an executable file. Run the coremark executab
 ```
 Once you get the coremark numbers (Iterations/Sec). Calculate the number of VMs and cpus ratio for each device.<br />
 <br /> <br />
+
 The following example for D25 will explain it better.<br />
-D25 (21 Edge devices, 4 Fog devices)
-Amongst 21 Edge devices, let us assume there are 14 Raspberry Pi3B devices and 7 Raspberry Pi3B+ devices. Similarly let there be 1 Nvidia Jetson Tx1, Fog devices, 2 Pi3B+, Fog device and 1 Pi3B, Fog device. And let the VM be Standard_D16_v3 (16 cores)
+
+D25 (25 devices)
+There are three private networks (namely violet_private_1, violet_private_2 and violet_private_3) and one public network (namely violet_public_1). Each private network has 8 devices and public network has 4 devices.
 
 For D25 configuration, to determine the number of VMs and --cpus, the calculations will be as such.
 ![Alt text](https://github.com/dream-lab/VIoLET/blob/version-0.1.1/resources/coremark.png)
