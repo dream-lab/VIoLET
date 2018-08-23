@@ -260,7 +260,7 @@ def sanity_cpu_pi3b():
     try:
         r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi3b_delta f_pi3b.png "Coremark (Pi3B)" "Deviation"'],
                   shell=True).communicate()
-        return send_file("dump/sanity/f_pi3b.pdf", attachment_filename='pi3b.png')
+        return send_file("dump/sanity/f_pi3b.png", attachment_filename='pi3b.png')
     except:
         return (json.dumps({'message': 'Failure'}), 500)
 
@@ -270,7 +270,7 @@ def sanity_cpu_tx1():
     try:
         r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_tx1_delta f_tx1.png "Coremark (TX1)" "Deviation"'],
                   shell=True).communicate()
-        return send_file("dump/sanity/f_tx1.pdf", attachment_filename='tx1.png')
+        return send_file("dump/sanity/f_tx1.png", attachment_filename='tx1.png')
     except:
         return (json.dumps({'message': 'Failure'}), 500)
 

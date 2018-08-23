@@ -159,7 +159,6 @@ export class SetupComponent implements OnInit {
     deleteInfra() {
         this.deleteInfraStatus = "running";
         this.setupDataService.consoleOutput['deployment'] += '\n 2. Deleting Infrastructure...\n*************************\n';
-        this.start = Date.now();
         this.setupService.getDeleteInfra().subscribe(res => {
                 this.deleteInfraStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
@@ -178,7 +177,6 @@ export class SetupComponent implements OnInit {
     infraSetup() {
         this.infraSetupStatus = "running";
         this.setupDataService.consoleOutput['deployment'] += '\n3. Setting up Infrastructure...\n********************************\n';
-        this.start = Date.now();
         this.setupService.getInfraSetup().subscribe(res => {
                 this.infraSetupStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
@@ -197,7 +195,6 @@ export class SetupComponent implements OnInit {
     sensorGen() {
         this.sensorGenStatus = "running";
         this.setupDataService.consoleOutput['deployment'] += '\n4. Generating Sensors...\n******************************\n';
-        this.start = Date.now();
         this.setupService.getSensorGen().subscribe(res => {
                 this.sensorGenStatus = "success";
                 this.deploymentStatus = "success";
@@ -261,7 +258,6 @@ export class SetupComponent implements OnInit {
 
     sanityCPU2() {
         this.setupDataService.consoleOutput['sanity'] += '2. Collecting Coremark data... \n*****************************\n\n';
-        this.start = Date.now();
         this.setupService.getSanityCPU2().subscribe(res => {
                 this.sanityCPUStatus = "success";
                 this.sanityStatus = "success";
