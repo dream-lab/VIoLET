@@ -6,32 +6,32 @@
 
 
 **************************************** CREATING OVERLAY NETWORKS ****************************************
+Error response from daemon: network with name public_global_network already exists
 
-3943b4d7a241bf3200c53c76ac09cc1f2ada8df0af6a58cc902d9802fc9b5757
 
 Creating violet_public_1 network
 
-c30a572236d2c0c2b71148bd287ec7eedeb77982b36b8e5a93b00bf6e029cbc0
+91c02e1507adc80d50b61a413d93495ab19a055f58c181e6c97b6b8897704c63
 
 Creating violet_private_1 network 
 
-229823d5641b22976bb228df0d1cb21e99d1fc3b11b71ef8beca0bef931f10d3
+67a21c75197cac620ea3b6d0cc27da121c77d1e46045b54f5e1fcbab61b56efc
 
 Creating violet_private_2 network 
 
-a869fa6ccd9842670d27abc3c04eea4172c6d7a3d8c432c117d87a94dbf09509
+c707cab5e77e789dfab439d45a964f43526f7114bef6a3feda9d6013a2fadfd4
 
 Creating violet_private_3 network 
 
-a9a63dc8e911bb30744b72b96be22165ffd25075362921fc8043f903fa077cd6
+0e42dfffe9e802203ef7c45c176dd41c87fc459c6189a0aae8dfc5e3ea5d5a1b
 
 Creating violet_private_4 network 
 
-c75e711dabadfc9895a2549cb0dbae9f933d2c5d57646a0b13d7c908eec1ef27
+3506b22e0abc6d953699983e80dee8261d85ac5e081120f381804ca8eeadfec0
 
 Creating violet_private_5 network 
 
-087b49da67741b25eb6eaa25a72f9b6dd5d5526b4cfd271b11c7a9f12e832903
+8b7e805d0c601a2424bff48e52491b8c85fb3c3b2cc0cd02c09eccf7810aa400
 
 
 
@@ -39,632 +39,632 @@ Creating violet_private_5 network
 ****************************************     CREATING CONTAINERS     ****************************************
 
 
-Creating Edge-2.3 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.3 --name Edge-2.3 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.3 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.3 --name Edge-2.3 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Fog-2 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=2.84  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Fog-2 --name Fog-2 shrey67/centos_systemd > /dev/null &
+Creating Fog-2 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=2.84  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Fog-2 --name Fog-2 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Fog-3 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=2.84  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Fog-3 --name Fog-3 shrey67/centos_systemd > /dev/null &
+Creating Fog-3 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=2.84  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Fog-3 --name Fog-3 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.5 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.5 --name Edge-1.5 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.5 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.5 --name Edge-1.5 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Fog-1 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=8.21  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Fog-1 --name Fog-1 shrey67/centos_systemd > /dev/null &
+Creating Fog-1 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=8.21  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Fog-1 --name Fog-1 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.3 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.3 --name Edge-1.3 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.3 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.3 --name Edge-1.3 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.2 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.2 --name Edge-1.2 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.2 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.2 --name Edge-1.2 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Fog-4 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=2.84  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Fog-4 --name Fog-4 shrey67/centos_systemd > /dev/null &
+Creating Fog-4 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=2.84  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Fog-4 --name Fog-4 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Fog-5 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=2.84  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Fog-5 --name Fog-5 shrey67/centos_systemd > /dev/null &
+Creating Fog-5 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=2.84  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Fog-5 --name Fog-5 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.9 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.9 --name Edge-1.9 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.9 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.9 --name Edge-1.9 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.8 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.8 --name Edge-1.8 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.8 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.8 --name Edge-1.8 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.13 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.13 --name Edge-1.13 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.13 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.13 --name Edge-1.13 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.12 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.12 --name Edge-1.12 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.12 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.12 --name Edge-1.12 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.11 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.11 --name Edge-1.11 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.11 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.11 --name Edge-1.11 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.10 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.10 --name Edge-1.10 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.10 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.10 --name Edge-1.10 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.17 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.17 --name Edge-1.17 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.17 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.17 --name Edge-1.17 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.16 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.16 --name Edge-1.16 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.16 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.16 --name Edge-1.16 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.15 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.15 --name Edge-1.15 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.15 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.15 --name Edge-1.15 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.14 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.14 --name Edge-1.14 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.14 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.14 --name Edge-1.14 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.19 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.19 --name Edge-1.19 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.19 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.19 --name Edge-1.19 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.18 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.18 --name Edge-1.18 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.18 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.18 --name Edge-1.18 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.20 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.20 --name Edge-3.20 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.20 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.20 --name Edge-3.20 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.20 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.20 --name Edge-4.20 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.20 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.20 --name Edge-4.20 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.7 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.7 --name Edge-1.7 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.7 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.7 --name Edge-1.7 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.6 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.6 --name Edge-1.6 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.6 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.6 --name Edge-1.6 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.4 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.4 --name Edge-1.4 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.4 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.4 --name Edge-1.4 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.1 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.1 --name Edge-1.1 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.1 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.1 --name Edge-1.1 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.20 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.20 --name Edge-5.20 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.20 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.20 --name Edge-5.20 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.18 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.18 --name Edge-2.18 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.18 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.18 --name Edge-2.18 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.19 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.19 --name Edge-2.19 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.19 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.19 --name Edge-2.19 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.12 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.12 --name Edge-2.12 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.12 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.12 --name Edge-2.12 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.13 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.13 --name Edge-2.13 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.13 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.13 --name Edge-2.13 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.10 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.10 --name Edge-2.10 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.10 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.10 --name Edge-2.10 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.11 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.11 --name Edge-2.11 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.11 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.11 --name Edge-2.11 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.16 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.16 --name Edge-2.16 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.16 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.16 --name Edge-2.16 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.17 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.17 --name Edge-2.17 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.17 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.17 --name Edge-2.17 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.14 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.14 --name Edge-2.14 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.14 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.14 --name Edge-2.14 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.15 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.15 --name Edge-2.15 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.15 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.15 --name Edge-2.15 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.6 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.6 --name Edge-4.6 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.6 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.6 --name Edge-4.6 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.7 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.7 --name Edge-4.7 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.7 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.7 --name Edge-4.7 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.4 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.4 --name Edge-4.4 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.4 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.4 --name Edge-4.4 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.5 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.5 --name Edge-4.5 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.5 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.5 --name Edge-4.5 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.2 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.2 --name Edge-4.2 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.2 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.2 --name Edge-4.2 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.3 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.3 --name Edge-4.3 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.3 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.3 --name Edge-4.3 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.1 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.1 --name Edge-4.1 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.1 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.1 --name Edge-4.1 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.8 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.8 --name Edge-4.8 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.8 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.8 --name Edge-4.8 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.9 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.9 --name Edge-4.9 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.9 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.9 --name Edge-4.9 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.17 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.17 --name Edge-5.17 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.17 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.17 --name Edge-5.17 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.16 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.16 --name Edge-5.16 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.16 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.16 --name Edge-5.16 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.15 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.15 --name Edge-5.15 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.15 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.15 --name Edge-5.15 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.14 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.14 --name Edge-5.14 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.14 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.14 --name Edge-5.14 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.13 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.13 --name Edge-5.13 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.13 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.13 --name Edge-5.13 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.12 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.12 --name Edge-5.12 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.12 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.12 --name Edge-5.12 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.11 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.11 --name Edge-5.11 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.11 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.11 --name Edge-5.11 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.10 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.10 --name Edge-5.10 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.10 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.10 --name Edge-5.10 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.19 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.19 --name Edge-5.19 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.19 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.19 --name Edge-5.19 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.18 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.18 --name Edge-5.18 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.18 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.18 --name Edge-5.18 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.20 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.20 --name Edge-2.20 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.20 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.20 --name Edge-2.20 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.14 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.14 --name Edge-4.14 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.14 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.14 --name Edge-4.14 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.15 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.15 --name Edge-4.15 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.15 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.15 --name Edge-4.15 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.16 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.16 --name Edge-4.16 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.16 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.16 --name Edge-4.16 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.17 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.17 --name Edge-4.17 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.17 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.17 --name Edge-4.17 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.10 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.10 --name Edge-4.10 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.10 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.10 --name Edge-4.10 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.11 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.11 --name Edge-4.11 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.11 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.11 --name Edge-4.11 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.12 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.12 --name Edge-4.12 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.12 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.12 --name Edge-4.12 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.13 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.13 --name Edge-4.13 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.13 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.13 --name Edge-4.13 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.18 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.18 --name Edge-4.18 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.18 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.18 --name Edge-4.18 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-4.19 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.19 --name Edge-4.19 shrey67/centos_systemd > /dev/null &
+Creating Edge-4.19 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-4.19 --name Edge-4.19 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.5 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.5 --name Edge-3.5 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.5 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.5 --name Edge-3.5 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.4 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.4 --name Edge-3.4 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.4 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.4 --name Edge-3.4 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.7 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.7 --name Edge-3.7 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.7 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.7 --name Edge-3.7 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.6 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.6 --name Edge-3.6 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.6 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.6 --name Edge-3.6 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.1 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.1 --name Edge-3.1 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.1 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.1 --name Edge-3.1 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.3 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.3 --name Edge-3.3 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.3 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.3 --name Edge-3.3 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.2 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.2 --name Edge-3.2 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.2 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.2 --name Edge-3.2 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.9 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.9 --name Edge-3.9 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.9 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.9 --name Edge-3.9 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.8 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.8 --name Edge-3.8 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.8 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.8 --name Edge-3.8 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.8 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.8 --name Edge-2.8 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.8 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.8 --name Edge-2.8 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.9 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.9 --name Edge-2.9 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.9 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.9 --name Edge-2.9 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.1 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.1 --name Edge-5.1 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.1 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.1 --name Edge-5.1 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.7 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.7 --name Edge-5.7 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.7 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.7 --name Edge-5.7 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.6 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.6 --name Edge-5.6 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.6 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.6 --name Edge-5.6 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.5 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.5 --name Edge-5.5 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.5 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.5 --name Edge-5.5 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.4 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.4 --name Edge-5.4 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.4 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.4 --name Edge-5.4 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.1 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.1 --name Edge-2.1 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.1 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.1 --name Edge-2.1 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.2 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.2 --name Edge-2.2 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.2 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.2 --name Edge-2.2 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.8 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.8 --name Edge-5.8 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.8 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.8 --name Edge-5.8 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.4 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.4 --name Edge-2.4 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.4 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.4 --name Edge-2.4 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.5 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.5 --name Edge-2.5 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.5 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.5 --name Edge-2.5 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.6 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.6 --name Edge-2.6 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.6 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.6 --name Edge-2.6 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-2.7 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.7 --name Edge-2.7 shrey67/centos_systemd > /dev/null &
+Creating Edge-2.7 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-2.7 --name Edge-2.7 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.3 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.3 --name Edge-5.3 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.3 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.3 --name Edge-5.3 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.2 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.2 --name Edge-5.2 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.2 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.2 --name Edge-5.2 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.19 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.19 --name Edge-3.19 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.19 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.19 --name Edge-3.19 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.18 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.18 --name Edge-3.18 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.18 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.18 --name Edge-3.18 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.15 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.15 --name Edge-3.15 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.15 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.15 --name Edge-3.15 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.14 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.14 --name Edge-3.14 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.14 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.14 --name Edge-3.14 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.17 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.17 --name Edge-3.17 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.17 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.17 --name Edge-3.17 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.16 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.16 --name Edge-3.16 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.16 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.16 --name Edge-3.16 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.11 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.11 --name Edge-3.11 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.11 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.11 --name Edge-3.11 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.10 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.10 --name Edge-3.10 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.10 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.10 --name Edge-3.10 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.13 in M1
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.13 --name Edge-3.13 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.13 in M4
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=1.48  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.13 --name Edge-3.13 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-3.12 in M2
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.12 --name Edge-3.12 shrey67/centos_systemd > /dev/null &
+Creating Edge-3.12 in M3
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-3.12 --name Edge-3.12 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-5.9 in M4
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.9 --name Edge-5.9 shrey67/centos_systemd > /dev/null &
+Creating Edge-5.9 in M5
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-5.9 --name Edge-5.9 dreamlab/violet > /dev/null &
 
 
 
 
-Creating Edge-1.20 in M3
-sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.20 --name Edge-1.20 shrey67/centos_systemd > /dev/null &
+Creating Edge-1.20 in M1
+sudo docker run --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/log:/tmp/log/ --cpus=0.96  --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname Edge-1.20 --name Edge-1.20 dreamlab/violet > /dev/null &
 
 
 
@@ -747,6 +747,7 @@ sudo docker exec -i Edge-1.3 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-1.3 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.1.2 
@@ -810,6 +811,7 @@ sudo docker exec -i Edge-1.8 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-1.8 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.1.2 
@@ -873,6 +875,7 @@ sudo docker exec -i Edge-1.11 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-1.11 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.1.2 
@@ -936,7 +939,6 @@ sudo docker exec -i Edge-1.16 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-1.16 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.1.2 
@@ -979,6 +981,7 @@ sudo docker exec -i Edge-1.14 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-1.14 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.1.2 
@@ -1042,6 +1045,7 @@ sudo docker exec -i Edge-1.7 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-1.7 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.1.2 
@@ -1063,6 +1067,7 @@ sudo docker exec -i Edge-1.6 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-1.6 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.1.2 
@@ -1084,6 +1089,7 @@ sudo docker exec -i Edge-1.4 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-1.4 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.1.2 
@@ -1181,7 +1187,6 @@ sudo docker exec -i Edge-2.18 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-2.18 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.2.2 
@@ -1266,7 +1271,6 @@ sudo docker exec -i Edge-2.10 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-2.10 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.2.2 
@@ -1288,7 +1292,6 @@ sudo docker exec -i Edge-2.11 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-2.11 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.2.2 
@@ -1373,7 +1376,6 @@ sudo docker exec -i Edge-2.15 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-2.15 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.2.2 
@@ -1395,6 +1397,7 @@ sudo docker exec -i Edge-2.20 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-2.20 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.2.2 
@@ -1458,6 +1461,7 @@ sudo docker exec -i Edge-2.1 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-2.1 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.2.2 
@@ -1521,6 +1525,7 @@ sudo docker exec -i Edge-2.4 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-2.4 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.2.2 
@@ -1542,7 +1547,6 @@ sudo docker exec -i Edge-2.5 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-2.5 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.2.2 
@@ -1564,7 +1568,6 @@ sudo docker exec -i Edge-2.6 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-2.6 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.2.2 
@@ -1704,7 +1707,6 @@ sudo docker exec -i Edge-3.7 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-3.7 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.3.2 
@@ -1789,7 +1791,6 @@ sudo docker exec -i Edge-3.2 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-3.2 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.3.2 
@@ -1895,6 +1896,7 @@ sudo docker exec -i Edge-3.15 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-3.15 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.3.2 
@@ -1958,7 +1960,6 @@ sudo docker exec -i Edge-3.16 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-3.16 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.3.2 
@@ -1980,7 +1981,6 @@ sudo docker exec -i Edge-3.11 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-3.11 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.3.2 
@@ -2045,7 +2045,6 @@ sudo docker exec -i Edge-3.12 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-3.12 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.3.2 
@@ -2143,7 +2142,6 @@ sudo docker exec -i Edge-4.7 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-4.7 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.4.2 
@@ -2186,7 +2184,6 @@ sudo docker exec -i Edge-4.5 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-4.5 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.4.2 
@@ -2294,7 +2291,6 @@ sudo docker exec -i Edge-4.9 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-4.9 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.4.2 
@@ -2379,7 +2375,6 @@ sudo docker exec -i Edge-4.17 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-4.17 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.4.2 
@@ -2422,6 +2417,7 @@ sudo docker exec -i Edge-4.11 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-4.11 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.4.2 
@@ -2485,7 +2481,6 @@ sudo docker exec -i Edge-4.18 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-4.18 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.4.2 
@@ -2562,6 +2557,7 @@ sudo docker exec -i Edge-5.8 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-5.8 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.5.2 
@@ -2604,6 +2600,7 @@ sudo docker exec -i Edge-5.17 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-5.17 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.5.2 
@@ -2668,7 +2665,6 @@ sudo docker exec -i Edge-5.14 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-5.14 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.5.2 
@@ -2711,7 +2707,6 @@ sudo docker exec -i Edge-5.12 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-5.12 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.5.2 
@@ -2754,6 +2749,7 @@ sudo docker exec -i Edge-5.10 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-5.10 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.5.2 
@@ -2775,7 +2771,6 @@ sudo docker exec -i Edge-5.19 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-5.19 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.5.2 
@@ -2797,7 +2792,6 @@ sudo docker exec -i Edge-5.18 tc qdisc add dev eth1 parent 1:11 handle 10: netem
 
 
 sudo docker exec -i Edge-5.18 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.5.2 
@@ -2840,6 +2834,7 @@ sudo docker exec -i Edge-5.7 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-5.7 ip route | grep default | awk '{print $3}'
+172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.5.2 
@@ -2861,7 +2856,6 @@ sudo docker exec -i Edge-5.6 tc qdisc add dev eth1 parent 1:11 handle 10: netem 
 
 
 sudo docker exec -i Edge-5.6 ip route | grep default | awk '{print $3}'
-172.18.0.1
 
 
 (Default GW) Changing to -> 192.168.5.2 

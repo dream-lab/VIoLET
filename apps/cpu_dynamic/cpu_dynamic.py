@@ -2,7 +2,6 @@ import json
 import time
 import sys
 import os
-import docker
 import math
 import random
 from datetime import datetime
