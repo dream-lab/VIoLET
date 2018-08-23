@@ -247,8 +247,8 @@ export class SetupComponent implements OnInit {
         this.setupService.getSanityCPU1().subscribe(res => {
                 this.setupDataService.consoleOutput['sanity'] += res['message'];
                 this.end = Date.now();
-                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n';
-                this.setupDataService.consoleOutput['sanity'] += '\n Waiting for 5 minutes... \n\n'
+                this.setupDataService.consoleOutput['sanity'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n';
+                this.setupDataService.consoleOutput['sanity'] += '\nWaiting for 5 minutes... \n\n'
                 setTimeout(() => {this.sanityCPU2();},   300000);
             },
             error => {
@@ -260,15 +260,15 @@ export class SetupComponent implements OnInit {
     }
 
     sanityCPU2() {
-        this.setupDataService.consoleOutput['sanity'] = '2. Collecting Coremark data... \n*****************************\n\n';
+        this.setupDataService.consoleOutput['sanity'] += '2. Collecting Coremark data... \n*****************************\n\n';
         this.start = Date.now();
-        this.setupService.getSanityCPU1().subscribe(res => {
+        this.setupService.getSanityCPU2().subscribe(res => {
                 this.sanityCPUStatus = "success";
                 this.sanityStatus = "success";
                 this.setupDataService.sanityStatus = "success";
                 this.setupDataService.consoleOutput['sanity'] += res['message'];
                 this.end = Date.now();
-                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
+                this.setupDataService.consoleOutput['sanity'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
                 this.setupDataService.getSanityCPUPlots();
             },
             error => {
