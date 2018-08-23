@@ -1,11 +1,14 @@
 <div>
-    <app-page-header [heading]="'Setup'" [icon]="'fa-edit'"></app-page-header>
+    <h2 class="page-header">
+        Basic Setup - D25
+    </h2>
+    <!--<app-page-header [heading]="''" [icon]="'fa-edit'"></app-page-header>-->
     <div class="row">
         <div class="col-lg-3">
             <div class="card bg-light mb-3">
                 <div class="card-body">
                     <div class="card-title">
-                        <span style="cursor:pointer; color:#007bff;" (click)="currentView='infra'">Generate Config</span>
+                        <span style="cursor:pointer; color:#007bff;" (click)="currentView='infra'">Generate Infra Config</span>
                     </div>
                     <div class="card-text">
                         <span
@@ -31,7 +34,8 @@
             <div class="card bg-light mb-3">
                 <div class="card-body">
                     <div class="card-title">
-                        <span style="cursor:pointer; color:#007bff;"  (click)="currentView='partition'">Partition</span>
+                        <span *ngIf="generateInfraStatus==='success'" style="cursor:pointer; color:#007bff;"  (click)="currentView='partition'">Partition</span>
+                        <span *ngIf="!(generateInfraStatus==='success')">Partition</span>
                     </div>
                     <div class="card-text">
                         <span
@@ -57,7 +61,8 @@
             <div class="card bg-light mb-3">
                 <div class="card-body">
                     <div class="card-title">
-                        <span style="cursor:pointer; color:#007bff;"  (click)="currentView='deployment'">Deployment</span>
+                        <span *ngIf="(partitionStatus==='success')" style="cursor:pointer; color:#007bff;"  (click)="currentView='deployment'">Deploy</span>
+                        <span *ngIf="!(partitionStatus==='success')">Deploy</span>
                     </div>
                     <div class="card-text">
                         <span
@@ -83,7 +88,8 @@
             <div class="card bg-light mb-3">
                 <div class="card-body">
                     <div class="card-title">
-                        <span style="cursor:pointer; color:#007bff;"  (click)="currentView='sanity'">Micro Benchmark</span>
+                        <span  *ngIf="(deploymentStatus==='success')" style="cursor:pointer; color:#007bff;"  (click)="currentView='sanity'">Micro Benchmark</span>
+                        <span *ngIf="!(deploymentStatus==='success')">Micro Benchmark</span>
                     </div>
                     <div class="card-text">
                         <span

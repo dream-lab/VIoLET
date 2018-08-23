@@ -46,16 +46,19 @@ export class SetupComponent implements OnInit {
 
     generateInfra() {
         this.generateInfraStatus = "running";
+        this.setupDataService.generateInfraStatus = "running";
         this.setupDataService.consoleOutput['infra'] = '';
         this.currentView = 'infra';
         this.setupService.getInfraGen().subscribe(res => {
                 this.generateInfraStatus = "success";
+                this.setupDataService.generateInfraStatus = "success";
                 this.setupDataService.consoleOutput['infra'] = res['message'];
                 this.setupDataService.getInfraOutput();
                 this.setupDataService.getPartitionInput();
             },
             error => {
                 this.generateInfraStatus = "failure";
+                this.setupDataService.generateInfraStatus = "failure";
                 this.setupDataService.consoleOutput['infra'] = error.error['message'];
             }
         );
@@ -66,6 +69,7 @@ export class SetupComponent implements OnInit {
     generateMetisInput() {
         this.generateMetisInputStatus = "running";
         this.partitionStatus = "running";
+        this.setupDataService.partitionStatus = "running";
         this.currentView = 'partition';
         this.setupDataService.getPartitionInput();
         this.setupDataService.consoleOutput['partition'] = '1. Generating Metis Input...\n*************************\n';
@@ -77,6 +81,7 @@ export class SetupComponent implements OnInit {
             error => {
                 this.generateMetisInputStatus = "failure";
                 this.partitionStatus = "failure";
+                this.setupDataService.partitionStatus = "failure";
                 this.setupDataService.consoleOutput['partition'] += error.error['message'];
             }
         );
@@ -93,6 +98,7 @@ export class SetupComponent implements OnInit {
             error => {
                 this.generatePartitionStatus = "failure";
                 this.partitionStatus = "failure";
+                this.setupDataService.partitionStatus = "failure";
                 this.setupDataService.consoleOutput['partition'] += error.error['message'];
             }
         );
@@ -104,6 +110,7 @@ export class SetupComponent implements OnInit {
         this.setupService.postCheckMetis(this.vm).subscribe(res => {
                 this.checkMetisStatus = "success";
                 this.partitionStatus = "success";
+                this.setupDataService.partitionStatus = "success";
                 this.setupDataService.consoleOutput['partition'] += res['message'];
                 this.setupDataService.getPartitionOutput();
                 this.setupDataService.getPartitionPlots();
@@ -112,6 +119,7 @@ export class SetupComponent implements OnInit {
             error => {
                 this.checkMetisStatus = "failure";
                 this.partitionStatus = "failure";
+                this.setupDataService.partitionStatus = "failure";
                 this.setupDataService.consoleOutput['partition'] += error.error['message'];
             });
     }
@@ -121,6 +129,7 @@ export class SetupComponent implements OnInit {
     startDocker() {
         this.startDockerStatus = "running";
         this.deploymentStatus = "running";
+        this.setupDataService.deploymentStatus = "running";
         this.currentView = 'deployment';
         this.setupDataService.consoleOutput['deployment'] = '1. Starting Docker... \n******************************\n';
         this.setupService.getStartDocker().subscribe(res => {
@@ -131,6 +140,7 @@ export class SetupComponent implements OnInit {
             error => {
                 this.startDockerStatus = "failure";
                 this.deploymentStatus = "failure";
+                this.setupDataService.deploymentStatus = "failure";
                 this.setupDataService.consoleOutput['deployment'] += error.error['message'];
             });
     }
@@ -146,6 +156,7 @@ export class SetupComponent implements OnInit {
             error =>  {
             this.deleteInfraStatus = "failure";
             this.deploymentStatus = "failure";
+            this.setupDataService.deploymentStatus = "failure";
                 this.setupDataService.consoleOutput['deployment'] += error.error['message'];
             });
     }
@@ -161,6 +172,7 @@ export class SetupComponent implements OnInit {
             error => {
                 this.infraSetupStatus = "failure";
                 this.deploymentStatus = "failure";
+                this.setupDataService.deploymentStatus = "failure";
                 this.setupDataService.consoleOutput['deployment'] += error.error['message'];
             });
     }
@@ -171,6 +183,7 @@ export class SetupComponent implements OnInit {
         this.setupService.getSensorGen().subscribe(res => {
                 this.sensorGenStatus = "success";
                 this.deploymentStatus = "success";
+                this.setupDataService.deploymentStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
                 this.setupDataService.getDeploymentOutput();
                 this.setupDataService.getDeploymentPlots();
@@ -179,6 +192,7 @@ export class SetupComponent implements OnInit {
             error => {
                 this.sensorGenStatus = "failure";
                 this.deploymentStatus = "failure";
+                this.setupDataService.deploymentStatus = "failure";
                 this.setupDataService.consoleOutput['deployment'] += error.error['message'];
             });
     }
@@ -187,48 +201,57 @@ export class SetupComponent implements OnInit {
 
     sanityNetwork() {
         this.sanityStatus = "running";
+        this.setupDataService.sanityStatus = "running";
         this.sanityNetworkStatus = "running";
         this.setupDataService.consoleOutput['sanity'] = 'Running N/W Micro benchmark... \n*****************************\n';
         this.setupService.getSanityNetwork().subscribe(res => {
                 this.sanityNetworkStatus = "success";
                 this.sanityStatus = "success";
+                this.setupDataService.sanityStatus = "success";
                 this.setupDataService.consoleOutput['sanity'] += res['message'];
             },
             error => {
                 this.sanityNetworkStatus = "failure";
                 this.sanityStatus = "failure";
+                this.setupDataService.sanityStatus = "failure";
                 this.setupDataService.consoleOutput['sanity'] += "\n Failed";
             });
     }
 
     sanityCPU() {
         this.sanityStatus = "running";
+        this.setupDataService.sanityStatus = "running";
         this.sanityCPUStatus = "running";
         this.setupDataService.consoleOutput['sanity'] = 'Running CPU Micro benchmark ... \n***************************\n';
         this.setupService.getSanityCPU().subscribe(res => {
                 this.sanityCPUStatus = "success";
                 this.sanityStatus = "success";
+                this.setupDataService.sanityStatus = "success";
                 this.setupDataService.consoleOutput['sanity'] += res['message'];
             },
             error => {
                 this.sanityCPUStatus = "failure";
                 this.sanityStatus = "failure";
+                this.setupDataService.sanityStatus = "failure";
                 this.setupDataService.consoleOutput['sanity'] += "\n Failed";
             });
     }
 
     sanityPubSub() {
         this.sanityStatus = "running";
+        this.setupDataService.sanityStatus = "running";
         this.sanityPubSubStatus = "running";
         this.setupDataService.consoleOutput['sanity'] = 'Running Pub/Sub Micro benchmark... \n*************************\n';
         this.setupService.getSanityPubSub().subscribe(res => {
                 this.sanityPubSubStatus = "success";
                 this.sanityStatus = "success";
+                this.setupDataService.sanityStatus = "success";
                 this.setupDataService.consoleOutput['sanity'] += res['message'];
             },
             error => {
                 this.sanityPubSubStatus = "failure";
                 this.sanityStatus = "failure";
+                this.setupDataService.sanityStatus = "failure";
                 this.setupDataService.consoleOutput['sanity'] += "\n Failed";
             });
     }

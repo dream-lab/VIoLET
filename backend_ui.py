@@ -26,10 +26,15 @@ def infra_gen():
 @app.route('/infra_gen_input', methods=['GET'])
 def infra_gen_input():
     try:
+        d1 = ''
+        d2 = ''
         with open('config/infra_gen.json', 'r') as f:
-            d = json.load(f)
-            d = json.dumps(d, indent=4)
-            return json.dumps({'data': d, 'name': 'infra_gen.json'})
+            d1 = json.load(f)
+            d1 = json.dumps(d1, indent=4)
+        with open('config/device_types.json', 'r') as f:
+            d2 = json.load(f)
+            d2 = json.dumps(d2, indent=4)
+            return json.dumps({'infra_gen.json': d1, 'device_types.json': d2})
     except:
         return ('Failure', 500)
 
@@ -52,17 +57,13 @@ def partition_input():
     try:
         d1 = ''
         d2 = ''
-        d3 = ''
         with open('config/vm_config.json', 'r') as f:
             d1 = json.load(f)
             d1 = json.dumps(d1, indent=4)
         with open('config/vm_types.json', 'r') as f:
             d2 = json.load(f)
             d2 = json.dumps(d2, indent=4)
-        with open('config/device_types.json', 'r') as f:
-            d3 = json.load(f)
-            d3 = json.dumps(d3, indent=4)
-        return json.dumps({'vm_config.json': d1, 'vm_types.json': d2, 'device_types.json': d3})
+        return json.dumps({'vm_config.json': d1, 'vm_types.json': d2})
     except:
         return ('Failure', 500)
 
@@ -240,7 +241,7 @@ def sanity_network():
 def sanity_cpu():
     try:
         p = Popen(["python sanity_cpu.py 1"], shell=True)
-        sleep(240)
+        sleep(300)
         p = Popen(["python sanity_cpu.py 2"], shell=True)
         sleep(60)
         p = Popen([

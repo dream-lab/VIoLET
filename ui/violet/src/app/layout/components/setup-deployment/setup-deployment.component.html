@@ -16,7 +16,7 @@
                             </div>
                         </ng-template>
                     </ngb-tab>
-                    <ngb-tab title="Console">
+                    <ngb-tab title="Console" [disabled]="sdService.deploymentStatus===''">
                         <ng-template ngbTabContent>
                             <div class="row">
                                 <div class="col-lg-12">
@@ -25,7 +25,7 @@
                             </div>
                         </ng-template>
                     </ngb-tab>
-                    <ngb-tab title="Output">
+                    <ngb-tab title="Output" [disabled]="!(sdService.deploymentStatus==='success')">
                         <ng-template ngbTabContent>
                             <div class="row">
                                 <div class="col-lg-12">
@@ -38,7 +38,7 @@
                             </div>
                         </ng-template>
                     </ngb-tab>
-                    <ngb-tab title="Visualization" >
+                    <ngb-tab title="Visualization" [disabled]="!(sdService.deploymentStatus==='success')" >
                         <ng-template ngbTabContent>
                                     <img [src]="sdService.images['deployment_network']" style="height:300px; display: block;
                                      margin-left: auto;

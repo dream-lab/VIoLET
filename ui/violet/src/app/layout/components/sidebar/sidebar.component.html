@@ -4,26 +4,66 @@
         <span>{{ 'Collapse' | translate }}</span>
     </div>
     <div class="list-group">
-        <a routerLink="/setup" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-cogs"></i>&nbsp;
-            <span>{{ 'Setup' | translate }}</span>
-        </a>
-        <!--<div class="nested-menu">-->
-            <!--<a class="list-group-item" (click)="addExpandClass('pages')">-->
-                <!--<i class="fa fa-cogs"></i>&nbsp;-->
-                <!--<span>{{ 'Setup' | translate }}</span>-->
-            <!--</a>-->
-            <!--<li class="nested" [class.expand]="showMenu === 'pages'">-->
-                <!--<ul class="submenu">-->
-                    <!--<li>-->
-                        <!--<a [routerLink]="['/infrastructure']" [routerLinkActive]="['router-link-active']" >-->
-                            <!--<i class="fa fa-monument"></i>&nbsp;-->
-                            <!--<span>{{ 'Infrastructure' | translate }}</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-        <!--</div>-->
+        <!--<a routerLink="/setup" [routerLinkActive]="['router-link-active']" class="list-group-item">-->
+            <!--<i class="fa fa-fw fa-cogs"></i>&nbsp;-->
+            <!--<span>{{ 'Setup' | translate }}</span>-->
+        <!--</a>-->
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <i class="fa fa-cog"></i>&nbsp;
+                <span>{{ 'Basic Setup' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a routerLink="/setup" [routerLinkActive]="['router-link-active']" >
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'D25' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/setup" [routerLinkActive]="['router-link-active']" >
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'D100' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/setup" [routerLinkActive]="['router-link-active']" >
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'D400' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages1')">
+                <i class="fa fa-cogs"></i>&nbsp;
+                <span>{{ 'Advanced Setup' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages1'">
+                <ul class="submenu">
+                    <li>
+                        <a routerLink="/setup" [routerLinkActive]="['router-link-active']" >
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'D25' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/setup" [routerLinkActive]="['router-link-active']" >
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'D100' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/setup" [routerLinkActive]="['router-link-active']" >
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'D400' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
         <div class="header-fields">
             <a (click)="rltAndLtr()" class="list-group-item">
                 <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
