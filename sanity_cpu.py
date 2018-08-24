@@ -104,11 +104,13 @@ if flag == 2:
 
     f_pi2b_delta = open("dump/sanity/f_pi2b_delta", "w")
     f_pi3b_delta = open("dump/sanity/f_pi3b_delta", "w")
+    f_pi3b_p_delta = open("dump/sanity/f_pi3b+_delta", "w")
     f_tx1_delta = open("dump/sanity/f_tx1_delta", "w")
     f_si_delta  = open("dump/sanity/f_si_delta", "w")
 
     f_pi2b = open("dump/sanity/f_pi2b", "w")
     f_pi3b = open("dump/sanity/f_pi3b", "w")
+    f_pi3b_p = open("dump/sanity/f_pi3b+", "w")
     f_tx1 = open("dump/sanity/f_tx1", "w")
     f_si = open("dump/sanity/f_si", "w")
     f_cm_all = open("dump/sanity/f_cm_all","w")
@@ -174,7 +176,10 @@ if flag == 2:
         elif d_type == "Pi3B":
             f_pi3b_delta.write(str(delta)+"\n")
             f_pi3b.write(str(c_avg)+","+str(c_median)+"\n")
-        elif d_type == "TX1":
+        elif d_type == "Pi3B+":
+            f_pi3b_p_delta.write(str(delta)+"\n")
+            f_pi3b_p.write(str(c_avg)+","+str(c_median)+"\n")
+	elif d_type == "TX1":
             f_tx1_delta.write(str(delta)+"\n")
             f_tx1.write(str(c_avg)+","+str(c_median)+"\n")
         elif d_type == "SI":
@@ -187,7 +192,8 @@ if flag == 2:
     f_pi2b_delta.close()
     f_pi3b.close()
     f_pi3b_delta.close()
-
+    f_pi3b_p.close()
+    f_pi3b_p_delta.close()
     f_cm_all.close()
     f_tx1.close()
     f_tx1_delta.close()

@@ -12,7 +12,7 @@ metis_partitions = json.load(open('../metis/metis_partitions.json'))
 vm_config = json.load(open('../../config/vm_config.json'))
 private_networks = infra_config['private_networks']
 public_networks = infra_config['public_networks']
-vm_names = sorted(vm_config['container_VM'])
+vm_names = vm_config['container_VM'].keys()
 device_types = json.load(open('../../config/device_types.json'))
 
 devices = json.load(open('deployment_output.json'))
@@ -60,10 +60,11 @@ size_device_types = {
 
 
 color_device_types = {
-        'Pi3B+':'magenta',
-        'Pi3B':'red',
-        'TX1':'orange',
-	'Pi2B':'yellow'
+        'Pi3B+':'#f195ac',
+        'Pi3B':'#c64847',
+        'TX1':'#b28bc0',
+	'Pi2B':'#00a8ff',
+	'SI':'#7fd13b'
 }
 
 
