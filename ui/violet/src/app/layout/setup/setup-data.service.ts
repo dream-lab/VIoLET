@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class SetupDataService {
 
-    url = 'http://' + window.location.hostname + ':5000/';
+    url = 'http://' + 'window.location.hostname' + ':5000/';
 
     files = {};
     images = {};
