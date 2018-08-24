@@ -162,7 +162,7 @@ for d in all_devices_list:
     vm_cores = float(vm_types[container_vm[vm_name]["vm_type"]]["core_count"])
     cpu = (coremark/vm_coremark)*vm_cores
     cpus = "%.2f"% round(cpu,2)
-    print vm_coremark,vm_cores,cpus
+    #print vm_coremark,vm_cores,cpus
 
     vm_mount_path = vm_types[vm_config["container_VM"][vm_name]["vm_type"]]["shared_mount"]
     host = container_vm[vm_name]["hostname_ip"]
