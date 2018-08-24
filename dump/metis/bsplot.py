@@ -19,6 +19,8 @@ networks = []
 nw_coremark = {}
 nw_memory = {}
 nw_disk = {}
+nw_devices = {}
+
 
 vm_config = json.load(open("../../config/vm_config.json"))
 vm_names = vm_config["container_VM"].keys()
@@ -30,12 +32,13 @@ print vm_names
 print
 
 metis_data = []
+metis_devices = []
 
 for vm in vm_names:
 	nw_coremark[vm] = {}
         nw_memory[vm] = {}
         nw_disk[vm] = {}
-
+	nw_devices[vm] = {}
 
 for device in metis_partitions:
 	vm = vm_names[int(metis_partitions[device])]
@@ -43,7 +46,9 @@ for device in metis_partitions:
 	nw_coremark[vm][device] = int(device_types[devices[device]["device_type"]]["coremark"])
         nw_memory[vm][device] = int(device_types[devices[device]["device_type"]]["memory_mb"])
         nw_disk[vm][device] = int(device_types[devices[device]["device_type"]]["disk_mb"])
+	nw_devices[vm][device] = device
 
+metis_devices.append(nw_devices)
 
 if sys.argv[1] == "coremark":
 	metis_data.append(nw_coremark)
@@ -55,8 +60,12 @@ else:
 	print "Incorrect input"
 	sys.exit(0)
 
+print "metis devices"
+print metis_devices
+
 metis_order = []
 dataset = []
+deviceset = []
 colors = {'Pi2B':'#00a8ff','Pi3B':'#c64847','Pi3B+':'#f195ac','TX1':'#b28bc0','SI':'#7fd13b'}
 labels = {'#00a8ff':'Pi2B','#c64847':'Pi3B','#f195ac':'Pi3B+','#b28bc0':'TX1','#7fd13b':'SI'}
 metis_colors = []
@@ -64,6 +73,7 @@ metis_colors = []
 for i in range(len(metis_data)):
 	for vm in vm_names:
 		dataset.append(metis_data[i][vm])
+		deviceset.append(metis_devices[i][vm])
 		order = []
 		col = []
 		for d in metis_data[i][vm].keys():
@@ -71,6 +81,8 @@ for i in range(len(metis_data)):
 			col.append(colors[devices[d]["device_type"]])
 		metis_order.append(order)
 		metis_colors.append(col)
+
+
 
 max_length = max(len(d) for d in dataset)
 print max_length
@@ -80,17 +92,38 @@ for d in dataset:
 	while l>0:
 		d[devices.keys()[l]] = 0
 		metis_order[i].append(devices.keys()[l])
+		#metis_devices[i].append(devices.keys()[l])
+		l-=1
+	i+=1
+
+i=0
+for d in deviceset:
+	l = max_length - len(d)
+	while l>0:
+		d[devices.keys()[l]] = ' '
 		l-=1
 	i+=1
 	
-	
+print "dataset"	
 print dataset
-print metis_colors
+#print metis_colors
 data_orders = metis_order
 print data_orders
+print "deviceset"
+print deviceset
+
+#for i in range(len(data_orders)):
+#	data_orders[i] = sorted(data_orders[i])
+	
+
+#print "sorted"
+#print metis_order
+
 
 values = np.array([[data[name] for name in order] for data,order in zip(dataset, data_orders)])
 print values
+devices = np.array([[dev[name] for name in order] for dev,order in zip(deviceset, data_orders)])
+print devices
 lefts=np.insert(np.cumsum(values,axis=1),0,0,axis=1)[:,:-1]
 print lefts
 orders = np.array(data_orders)
@@ -100,23 +133,23 @@ print bottoms
 #fig = plt.figure(1,figsize=(9, 6))
 fig,ax = plt.subplots()
 
-check = ['r','m','y','b','g']
 
 index = 0
 for names,color in zip(dataset,metis_colors):
-	print names,color
+	print "names,coloe,devices"
+	print names,color,devices
 	idx = np.where(orders==names.keys())
 	value = values[idx]
 	print value
 	left = lefts[idx]
 	print left
+	device = devices[idx]
 	#index=0
+	k=0
 	for n,c,v,l in zip(names,color,value,left):
-		if c in check:
-			boxes = plt.bar(left=bottoms[index],height=v,width=0.2,bottom=l,color=c,edgecolor='black',orientation='vertical')
-			check.remove(c)
-		else:
-			boxes = plt.bar(left=bottoms[index],height=v,width=0.2,bottom=l,color=c,edgecolor='black',orientation='vertical')
+		boxes = plt.bar(left=bottoms[index],height=v,width=0.3,bottom=l,color=c,edgecolor='black',orientation='vertical')
+		text(bottoms[index],l,device[k],size=15)
+		k+=1
 	index+=1
 #index%=3
 
