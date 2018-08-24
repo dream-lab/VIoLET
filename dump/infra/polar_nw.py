@@ -3,6 +3,8 @@ import matplotlib
 matplotlib.use('SVG')
 import matplotlib.pyplot as plt 
 
+from plotly.offline.offline import _plot_html
+
 import sys
 import json
 
@@ -153,7 +155,7 @@ layout = go.Layout(
     font = dict(
       size = 30
     ),
-    showlegend = True,
+    showlegend = False,
     polar = dict(
       bgcolor = "rgb(255, 255, 255)",
       angularaxis = dict(
@@ -179,11 +181,13 @@ layout = go.Layout(
 fig = go.Figure(data=data, layout=layout)
 #py.iplot(fig, filename='polar-area-chart')
 
-plot({
+plot_html = plot({
     "data": data,
     "layout": layout
-}, image_filename=sys.argv[1], image='png', auto_open=True)
+},filename=sys.argv[1], image_filename=sys.argv[1], image='png', auto_open=True)
 
 
+#print(plot_html)
+#print(sys.argv[1]+".html")
 
 
