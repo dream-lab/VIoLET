@@ -43,9 +43,9 @@ for vm in vm_names:
 for device in metis_partitions:
 	vm = vm_names[int(metis_partitions[device])]
 
-	nw_coremark[vm][device] = int(device_types[devices[device]["device_type"]]["coremark"])
-        nw_memory[vm][device] = int(device_types[devices[device]["device_type"]]["memory_mb"])
-        nw_disk[vm][device] = int(device_types[devices[device]["device_type"]]["disk_mb"])
+	nw_coremark[vm][device] = int(device_types[devices[device]["device_type"]]["coremark"])/1000
+        nw_memory[vm][device] = int(device_types[devices[device]["device_type"]]["memory_mb"])/1000
+        nw_disk[vm][device] = int(device_types[devices[device]["device_type"]]["disk_mb"])/1000
 	nw_devices[vm][device] = device
 
 metis_devices.append(nw_devices)
@@ -160,11 +160,11 @@ ax.set_title("{}".format(sys.argv[1]),size=25)
 ax.set_xlabel("Virtual Machines",size=25)
 
 if sys.argv[1] == "coremark":
-	ax.set_ylabel("{}".format(sys.argv[1]),size=25)
+	ax.set_ylabel("{} (K)".format(sys.argv[1]),size=25)
 elif sys.argv[1] == "memory":
-	ax.set_ylabel("{} (MB)".format(sys.argv[1]),size=25)
+	ax.set_ylabel("{} (GB)".format(sys.argv[1]),size=25)
 elif sys.argv[1] == "disk":
-	ax.set_ylabel("{} (MB)".format(sys.argv[1]),size=25)
+	ax.set_ylabel("{} (GB)".format(sys.argv[1]),size=25)
 
 
 plt.legend(loc="best", bbox_to_anchor=(1.0, 1.00))

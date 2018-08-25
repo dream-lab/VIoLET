@@ -24,6 +24,8 @@ f_median = open("../median","a")
 #Array Declarations
 mean=[]
 medians=[]
+y_min=[]
+y_max=[]
 plotMap=[]
 xheaderTicks=[]
 xheaderLabels=[x.strip() for x in sys.argv[3].split(',')]
@@ -99,15 +101,23 @@ for pc in bp['bodies']:
     pltno+=1
 
 #Axis Header
-ax.set_xticklabels(xheaderLabels,size=7,rotation=xHeaderLabelAngle)
-ax.set_ylabel(sys.argv[4],size=12)
+ax.set_xticklabels(xheaderLabels,size=15,rotation=xHeaderLabelAngle)
+ax.set_ylabel(sys.argv[4],size=20)
 ax.yaxis.grid(which='major', alpha=0.5)
 ax.set_xticks(xheaderTicks)
 ax.minorticks_on()
-
+#plt.axis('scaled')
 ######################################################################
 ###########            Plot Computation Begins          ##############
 ######################################################################
+
+#Appends Min and Max of y for each Column to Array
+for i in range(0,len(inputFile.columns)):
+    y_min.append(min(inputFile[i].dropna().tolist()))
+    y_max.append(max(inputFile[i].dropna().tolist()))
+
+plt.ylim(min(min(y_min),0),max(max(y_max),0))
+#plt.axis('tight')
 
 #Appends Mean and Median for each Column to Array
 for i in range(0,len(inputFile.columns)):
@@ -116,14 +126,14 @@ for i in range(0,len(inputFile.columns)):
 
 #Writing Median values
 for i in range(1,len(medians) + 1):
-    text(i,medians[i-1],'%.1f' % medians[i-1],horizontalalignment='right',color='red')
+    text(i,medians[i-1],'%.1f' % medians[i-1],horizontalalignment='right',color='red',size=15)
     #print "medians[i-1]={0} .1f % medians[i-1]={1}".format(medians[i-1],'%.1f' % medians[i-1])
     f_median.write("{0}\n".format('%.1f' % medians[i-1]))
 
 
 #Writing Mean values
 for i in range(1,len(mean) + 1):
-    text(i,mean[i-1],'%.1f' % mean[i-1],horizontalalignment='left',color='purple')
+    text(i,mean[i-1],'%.1f' % mean[i-1],horizontalalignment='left',color='purple',size=15)
     print "mean[i-1]={0} .1f' % mean[i-1]={1}".format(mean[i-1],'%.1f' % mean[i-1])
     f_mean.write("{0}\n".format('%.1f' % mean[i-1]))
 

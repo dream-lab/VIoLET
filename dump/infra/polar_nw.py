@@ -51,10 +51,10 @@ color_nw = {
 
 
 size_device_types = {
-        'Pi3B':30,
-        'Pi3B+':34,
-        'TX1':54,
-        'Pi2B':22
+        'Pi3B':60,
+        'Pi3B+':68,
+        'TX1':108,
+        'Pi2B':44
 }
 
 
@@ -110,11 +110,14 @@ ax = fig.add_subplot(111,polar=True)
 for vm in sorted(vm_names):
 	plt.scatter(theta_devices[vm],r_devices[vm],color=color_devices[vm],s=size_devices[vm])
 	
-plt.xticks([0,1.57,3.14,4.71],rotation='vertical')
+plt.xticks([0,1.57,3.14,4.71],rotation='vertical',size=20)
+plt.yticks(size=20)
+#ax.set_xlabel(size=25)
+#ax.set_ylabel(size=25)
 ax.set_xticklabels(sorted(theta_nw.keys()))
 ax.set_theta_direction(-1)
 ax.set_theta_zero_location("N")
-ax.grid(color='k')
+ax.grid(color='k',linewidth=2)
 ax.spines['polar'].set_visible(False)
 fig.savefig(sys.argv[1]+".png", bbox_inches='tight')
 
