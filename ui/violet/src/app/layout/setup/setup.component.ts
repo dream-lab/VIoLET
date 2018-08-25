@@ -49,6 +49,7 @@ export class SetupComponent implements OnInit {
         // this.setupDataService.getDeploymentInput();
         // this.setupDataService.getDeploymentOutput();
         // this.setupDataService.getDeploymentPlots();
+        // this.setupDataService.getSanityCPUPlots();
     }
 
     // Infra Gen
@@ -76,10 +77,13 @@ export class SetupComponent implements OnInit {
     // Partition
 
     generateMetisInput() {
+        this.currentView = 'partition';
+        if(this.partitionStatus==='running'){
+            return;
+        }
         this.generateMetisInputStatus = "running";
         this.partitionStatus = "running";
         this.setupDataService.partitionStatus = "running";
-        this.currentView = 'partition';
         this.setupDataService.getPartitionInput();
         this.setupDataService.consoleOutput['partition'] = '1. Generating Metis Input...\n*************************\n';
         this.setupService.getMetisInputGen().subscribe(res => {
@@ -136,10 +140,13 @@ export class SetupComponent implements OnInit {
     // Deployment
 
     startDocker() {
+        this.currentView = 'deployment';
+        if(this.deploymentStatus==='running'){
+            return;
+        }
         this.startDockerStatus = "running";
         this.deploymentStatus = "running";
         this.setupDataService.deploymentStatus = "running";
-        this.currentView = 'deployment';
         this.setupDataService.consoleOutput['deployment'] = '1. Starting Docker... \n******************************\n';
         this.start = this.start1 = Date.now();
         this.setupService.getStartDocker().subscribe(res => {
@@ -304,6 +311,10 @@ export class SetupComponent implements OnInit {
     sanityRun() {
 
         this.currentView = 'sanity';
+
+        if(this.sanityStatus==='running') {
+            return;
+        }
 
         if (this.sanitySelection === 'N/W') {
             this.sanityNetwork();

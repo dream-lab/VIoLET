@@ -7,6 +7,7 @@ import {HttpClient} from '@angular/common/http';
 export class SetupService {
 
     url = 'http://' + window.location.hostname + ':5000/';
+    // url = 'http://' + '104.211.75.75' + ':5000/';
 
     constructor(private http: HttpClient) {
     }

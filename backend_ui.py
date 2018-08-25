@@ -255,32 +255,12 @@ def sanity_cpu_2():
         return (json.dumps({'message': e}), 500)
 
 
-@app.route('/sanity_cpu_pi3b', methods=['GET'])
-def sanity_cpu_pi3b():
+@app.route('/sanity_cpu_plots', methods=['GET'])
+def sanity_cpu_plots():
     try:
-        r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi3b_delta f_pi3b.png "Coremark (Pi3B)" "Deviation"'],
-                  shell=True).communicate()
-        return send_file("dump/sanity/f_pi3b.png", attachment_filename='pi3b.png')
-    except:
-        return (json.dumps({'message': 'Failure'}), 500)
-
-
-@app.route('/sanity_cpu_pi3b_plus', methods=['GET'])
-def sanity_cpu_pi3b_plus():
-    try:
-        r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_pi3b+_delta f_pi3b+.png "Coremark (Pi3B+)" "Deviation"'],
-                  shell=True).communicate()
-        return send_file("dump/sanity/f_pi3b+.png", attachment_filename='pi3b+.png')
-    except:
-        return (json.dumps({'message': 'Failure'}), 500)
-
-
-@app.route('/sanity_cpu_tx1', methods=['GET'])
-def sanity_cpu_tx1():
-    try:
-        r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_tx1_delta f_tx1.png "Coremark (TX1)" "Deviation"'],
-                  shell=True).communicate()
-        return send_file("dump/sanity/f_tx1.png", attachment_filename='tx1.png')
+        r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; paste -d "," f_pi3b_delta f_pi3b+_delta f_tx1_delta > f_coremark_delta;'], shell=True).communicate()
+        r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_coremark_delta cm_dev.png "Pi3B,Pi3B+,TX1" "Coremark" "Devices"'], shell=True).communicate()
+        return send_file("dump/sanity/cm_dev.png", attachment_filename='cm_dev.png')
     except:
         return (json.dumps({'message': 'Failure'}), 500)
 

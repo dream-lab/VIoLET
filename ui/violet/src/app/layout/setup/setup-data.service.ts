@@ -7,6 +7,7 @@ import {HttpClient} from '@angular/common/http';
 export class SetupDataService {
 
     url = 'http://' + window.location.hostname + ':5000/';
+    // url = 'http://' + '104.211.75.75' + ':5000/';
 
     files = {};
     images = {};
@@ -30,11 +31,11 @@ export class SetupDataService {
 
     inputDepFile = '';
     outputDepFile = '';
-    deploymentStatus = '';
+    deploymentStatus = 'success';
 
     inputSanFile = '';
     outputSanFile = '';
-    sanityStatus = '';
+    sanityStatus = 'success';
 
     constructor(private http: HttpClient) {
     }
@@ -236,16 +237,8 @@ export class SetupDataService {
 
     getSanityCPUPlots() {
 
-        this.http.get(this.url + "sanity_cpu_pi3b", {responseType: 'blob'}).subscribe(res => {
-            this.createImageFromBlob(res, 'cpu_pi3b');
-        });
-
-        this.http.get(this.url + "sanity_cpu_pi3b_plus", {responseType: 'blob'}).subscribe(res => {
-            this.createImageFromBlob(res, 'cpu_pi3b_plus');
-        });
-
-        this.http.get(this.url + "sanity_cpu_tx1", {responseType: 'blob'}).subscribe(res => {
-            this.createImageFromBlob(res, 'cpu_tx1');
+        this.http.get(this.url + "sanity_cpu_plots", {responseType: 'blob'}).subscribe(res => {
+            this.createImageFromBlob(res, 'cpu_plot');
         });
     }
 
