@@ -2,23 +2,23 @@
     <h4 class="page-header">
         Basic Setup - D25
     </h4>
-    <!--<app-page-header [heading]="''" [icon]="'fa-edit'"></app-page-header>-->
     <div class="row">
-        <div class="col-lg-3">
+        <div style="width: 29%; margin-left: 15px; margin-right: 5px">
             <div class="card bg-light mb-3">
                 <div class="card-body">
-                    <div class="card-title">
-                        <span style="cursor:pointer; color:#007bff;" (click)="currentView='infra'">Generate Infra Config</span>
-                    </div>
                     <div class="card-text">
                         <span
                             *ngIf="generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'">
                             &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
                         </span>
-                        <button type="submit" class="btn btn-primary"
+                        <button *ngIf="generateInfraStatus!=='success'" type="submit" class="btn btn-success"
                                 [disabled]="generateInfraStatus==='running'"
                                 (click)="generateInfra()">
-                            Run
+                            Generate Infra Config
+                        </button>
+                        <button *ngIf="generateInfraStatus=='success'" type="submit" class="btn btn-warning"
+                                (click)="currentView='infra'">
+                            Generate Infra Config
                         </button>
                         <span *ngIf="generateInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
                                                                                        style="vertical-align: middle"></i></span>
@@ -30,22 +30,27 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div style="width: 19.5%; margin-left: 5px; margin-right: 5px">
             <div class="card bg-light mb-3">
                 <div class="card-body">
-                    <div class="card-title">
-                        <span *ngIf="generateInfraStatus==='success'" style="cursor:pointer; color:#007bff;"  (click)="currentView='partition'">Partition</span>
-                        <span *ngIf="!(generateInfraStatus==='success')">Partition</span>
-                    </div>
                     <div class="card-text">
                         <span
                             *ngIf="partitionStatus==='success' || partitionStatus==='failure' || partitionStatus==='running'">
                             &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
                         </span>
-                        <button type="submit" class="btn btn-primary"
-                                [disabled]="generateInfraStatus != 'success' || partitionStatus==='running'"
+                        <button *ngIf="generateInfraStatus!=='success'" type="submit" class="btn btn-default"
+                                disabled="true"
+                                >
+                            Partition
+                        </button>
+                        <button *ngIf="partitionStatus!=='success' && generateInfraStatus==='success'" type="submit" class="btn btn-success"
+                                [disabled]="partitionStatus==='running'"
                                 (click)="generateMetisInput()">
-                            Run
+                            Partition
+                        </button>
+                        <button *ngIf="partitionStatus==='success'" type="submit" class="btn btn-warning"
+                                (click)="currentView='partition'">
+                            Partition
                         </button>
                         <span *ngIf="partitionStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
                                                                                        style="vertical-align: middle"></i></span>
@@ -57,22 +62,26 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div style="width: 19%; margin-left: 5px; margin-right: 5px">
             <div class="card bg-light mb-3">
                 <div class="card-body">
-                    <div class="card-title">
-                        <span *ngIf="(partitionStatus==='success')" style="cursor:pointer; color:#007bff;"  (click)="currentView='deployment'">Deploy</span>
-                        <span *ngIf="!(partitionStatus==='success')">Deploy</span>
-                    </div>
                     <div class="card-text">
                         <span
                             *ngIf="deploymentStatus==='success' || deploymentStatus==='failure' || deploymentStatus==='running'">
                             &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
                         </span>
-                        <button type="submit" class="btn btn-primary"
-                                [disabled]="partitionStatus != 'success' || deploymentStatus==='running'"
+                        <button *ngIf="partitionStatus!=='success'" type="submit" class="btn btn-default"
+                                disabled="true">
+                            Deploy
+                        </button>
+                        <button *ngIf="deploymentStatus!=='success' && partitionStatus==='success'" type="submit" class="btn btn-success"
+                                [disabled]="deploymentStatus==='running'"
                                 (click)="startDocker()">
-                            Run
+                            Deploy
+                        </button>
+                        <button *ngIf="deploymentStatus==='success'" type="submit" class="btn btn-warning"
+                                (click)="currentView='deployment'">
+                            Deploy
                         </button>
                         <span *ngIf="deploymentStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
                                                                                        style="vertical-align: middle"></i></span>
@@ -84,27 +93,27 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div style="width: 27%; margin-left: 5px; margin-right: 5px">
             <div class="card bg-light mb-3">
                 <div class="card-body">
-                    <div class="card-title">
-                        <span  *ngIf="(deploymentStatus==='success')" style="cursor:pointer; color:#007bff;"  (click)="currentView='sanity'">Micro Benchmark</span>
-                        <span *ngIf="!(deploymentStatus==='success')">Micro Benchmark</span>
-                    </div>
                     <div class="card-text">
-                        <span
-                            *ngIf="sanityStatus==='success' || sanityStatus==='failure' || sanityStatus==='running'">
-                            &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
-                        </span>
+                        <!--<span-->
+                            <!--*ngIf="sanityStatus==='success' || sanityStatus==='failure' || sanityStatus==='running'">-->
+                            <!--&nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>-->
+                        <!--</span>-->
                         <select class="form-inline" style="display: inline" [(ngModel)] = "sanitySelection">
                             <option value="CPU">CPU</option>
                             <option value="N/W">N/W</option>
-                            <option value="App">Pub/Sub</option>
+                            <option value="App">App</option>
                         </select>                        &nbsp; &nbsp;
-                        <button type="submit" class="btn btn-primary"
-                                [disabled]="deploymentStatus != 'success' || sanityStatus==='running'"
+                        <button *ngIf="deploymentStatus==='success'" type="submit" class="btn btn-success"
+                                [disabled]="sanityStatus==='running'"
                                 (click)="sanityRun()">
-                            Run
+                            Run Benchmark
+                        </button>
+                        <button *ngIf="deploymentStatus!=='success'" type="submit" class="btn btn-default"
+                                [disabled]="true">
+                            Run Benchmark
                         </button>
                         <span *ngIf="sanityStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
                                                                                        style="vertical-align: middle"></i></span>

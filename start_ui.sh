@@ -2,7 +2,7 @@
 
 backend="python backend_ui.py";
 
-frontend="python -m SimpleHTTPServer 4000";
+frontend="python -m SimpleHTTPServer 80";
 
 $backend &
 

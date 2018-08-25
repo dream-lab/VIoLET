@@ -35,6 +35,7 @@ export class SetupComponent implements OnInit {
     currentView = 'infra';
 
     start: any;
+    start1: any;
     end: any;
 
     constructor(public setupService: SetupService,
@@ -140,12 +141,12 @@ export class SetupComponent implements OnInit {
         this.setupDataService.deploymentStatus = "running";
         this.currentView = 'deployment';
         this.setupDataService.consoleOutput['deployment'] = '1. Starting Docker... \n******************************\n';
-        this.start = Date.now();
+        this.start = this.start1 = Date.now();
         this.setupService.getStartDocker().subscribe(res => {
                 this.startDockerStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
                 this.end = Date.now();
-                this.setupDataService.consoleOutput['deployment'] += 'Time elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
+                this.setupDataService.consoleOutput['deployment'] += 'Time elapsed: ' + ((this.end - this.start1) / 1000).toString() + 's \n\n';
                 this.deleteInfra();
             },
             error => {
@@ -158,12 +159,13 @@ export class SetupComponent implements OnInit {
 
     deleteInfra() {
         this.deleteInfraStatus = "running";
-        this.setupDataService.consoleOutput['deployment'] += '\n 2. Deleting Infrastructure...\n*************************\n';
+        this.start1 = Date.now();
+        this.setupDataService.consoleOutput['deployment'] += '\n 2. Deleting Old Infrastructure...\n******************************\n';
         this.setupService.getDeleteInfra().subscribe(res => {
                 this.deleteInfraStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
                 this.end = Date.now();
-                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
+                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start1) / 1000).toString() + 's \n\n';
                 this.infraSetup();
             },
             error => {
@@ -176,12 +178,13 @@ export class SetupComponent implements OnInit {
 
     infraSetup() {
         this.infraSetupStatus = "running";
+        this.start1 = Date.now();
         this.setupDataService.consoleOutput['deployment'] += '\n3. Setting up Infrastructure...\n********************************\n';
         this.setupService.getInfraSetup().subscribe(res => {
                 this.infraSetupStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
                 this.end = Date.now();
-                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
+                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start1) / 1000).toString() + 's \n\n';
                 this.sensorGen();
             },
             error => {
@@ -194,6 +197,7 @@ export class SetupComponent implements OnInit {
 
     sensorGen() {
         this.sensorGenStatus = "running";
+        this.start1 = Date.now();
         this.setupDataService.consoleOutput['deployment'] += '\n4. Generating Sensors...\n******************************\n';
         this.setupService.getSensorGen().subscribe(res => {
                 this.sensorGenStatus = "success";
@@ -201,7 +205,8 @@ export class SetupComponent implements OnInit {
                 this.setupDataService.deploymentStatus = "success";
                 this.setupDataService.consoleOutput['deployment'] += res['message'];
                 this.end = Date.now();
-                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
+                this.setupDataService.consoleOutput['deployment'] += '\n\nTime elapsed: ' + ((this.end - this.start1) / 1000).toString() + 's \n\n';
+                this.setupDataService.consoleOutput['deployment'] += '\n\nTotal Time elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n';
                 this.setupDataService.getDeploymentOutput();
                 this.setupDataService.getDeploymentPlots();
                 this.setupDataService.getSanityInput();
@@ -240,11 +245,11 @@ export class SetupComponent implements OnInit {
         this.setupDataService.sanityStatus = "running";
         this.sanityCPUStatus = "running";
         this.setupDataService.consoleOutput['sanity'] = '1. Starting CPU Micro benchmark... \n***************************\n\n';
-        this.start = Date.now();
+        this.start = this.start1 = Date.now();
         this.setupService.getSanityCPU1().subscribe(res => {
                 this.setupDataService.consoleOutput['sanity'] += res['message'];
                 this.end = Date.now();
-                this.setupDataService.consoleOutput['sanity'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n';
+                this.setupDataService.consoleOutput['sanity'] += '\n\nTime elapsed: ' + ((this.end - this.start1) / 1000).toString() + 's \n\n';
                 this.setupDataService.consoleOutput['sanity'] += '\nWaiting for 5 minutes... \n\n'
                 setTimeout(() => {this.sanityCPU2();},   300000);
             },
@@ -257,6 +262,7 @@ export class SetupComponent implements OnInit {
     }
 
     sanityCPU2() {
+        this.start1 = Date.now();
         this.setupDataService.consoleOutput['sanity'] += '2. Collecting Coremark data... \n*****************************\n\n';
         this.setupService.getSanityCPU2().subscribe(res => {
                 this.sanityCPUStatus = "success";
@@ -264,7 +270,8 @@ export class SetupComponent implements OnInit {
                 this.setupDataService.sanityStatus = "success";
                 this.setupDataService.consoleOutput['sanity'] += res['message'];
                 this.end = Date.now();
-                this.setupDataService.consoleOutput['sanity'] += '\n\nTime elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n'
+                this.setupDataService.consoleOutput['sanity'] += '\n\nTime elapsed: ' + ((this.end - this.start1) / 1000).toString() + 's \n\n';
+                this.setupDataService.consoleOutput['sanity'] += '\n\nTotal Time elapsed: ' + ((this.end - this.start) / 1000).toString() + 's \n\n';
                 this.setupDataService.getSanityCPUPlots();
             },
             error => {

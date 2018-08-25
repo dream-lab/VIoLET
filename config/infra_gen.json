@@ -1,7 +1,7 @@
 {
     "public_networks": 
     {
-        "violet_public_1": 
+        "public_1":
         [
             {
                 "device_type":"Pi3B+",
@@ -22,21 +22,21 @@
     },
     "private_networks": 
     {
-        "violet_private_1":
+        "private_1":
         {
             "device_type":"Pi3B+",
             "number_devices":"7",
             "gateway_device_type":"Pi3B+",
             "number_sensors":"5"
         },
-        "violet_private_2":
+        "private_2":
         {
             "device_type":"Pi3B+",
             "number_devices":"7",
             "gateway_device_type":"Pi3B+",
             "number_sensors":"5"
         },
-        "violet_private_3":
+        "private_3":
         {
             "device_type":"Pi3B",
             "number_devices":"7",

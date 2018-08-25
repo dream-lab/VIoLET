@@ -6,7 +6,7 @@
                     <ngb-tab title="Input">
                         <ng-template ngbTabContent>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-7">
                                     <br>
                                     <ngb-tabset type="pills">
                                         <ngb-tab title="Device Types" style="margin-top: 5px">
@@ -49,7 +49,7 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr *ngFor="let j of sdService.summaryPartitionInput['vmt'] | keyvalue"
-                                                    [attr.bgcolor]="sdService.summaryPartitionInput['used'][j.key]===1?'#fdff2b': None">
+                                                    [attr.bgcolor]="sdService.summaryPartitionInput['used'][j.key]===1?'#b28bc0': None">
                                                         <td>{{j.key}}</td>
                                                         <td  style="text-align: right">{{j.value['core_count']}}</td>
                                                         <td  style="text-align: right">{{j.value['coremark']}}</td>
@@ -62,7 +62,7 @@
                                         </ngb-tab>
                                     </ngb-tabset>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <select class="form-control" [(ngModel)] = "sdService.inputPartitionFile">
                                         <option value="" disabled selected>Select</option>
                                         <option *ngFor="let i of sdService.inputFileDD['partition']" [value]="i">{{i}}</option>
@@ -84,7 +84,7 @@
                     <ngb-tab title="Output" [disabled]="!(sdService.partitionStatus==='success')">
                         <ng-template ngbTabContent>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-7">
                                     <div class="card mb-3" style="margin-top: 5px; height: 370px;">
                                         <div class="card-header">
                                             Summary
@@ -93,7 +93,7 @@
                                             <table class="table table-bordered table-sm">
                                                 <thead style="text-align: center">
                                                 <tr>
-                                                    <th>VM Container</th>
+                                                    <th>VM</th>
                                                     <th>Device Count</th>
                                                 </tr>
                                                 </thead>
@@ -107,7 +107,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <select class="form-control" [(ngModel)] = "sdService.outputPartitionFile">
                                         <option value="" disabled selected>Select</option>
                                         <option *ngFor="let i of sdService.outputFileDD['partition']" [value]="i">{{i}}</option>
@@ -120,22 +120,25 @@
                     <ngb-tab title="Visualization" [disabled]="!(sdService.partitionStatus==='success')">
                         <ng-template ngbTabContent>
                             <div class="row" *ngIf="sdService.images['partition_coremark']" style="text-align: center">
-                                <div class="col-lg-4">
-                                    <img [src]="sdService.images['partition_coremark']" style="height:330px; max-width: 100%"/>
+                                <div class="col-lg-4" style="margin-top: 20px">
+                                    <img [src]="sdService.images['partition_coremark']" style="max-width: 100%"/>
                                 </div>
-                                <div class="col-lg-4">
-                                    <img [src]="sdService.images['partition_memory']" style="height:330px; max-width: 100%"/>
+                                <div class="col-lg-4" style="margin-top: 20px">
+                                    <img [src]="sdService.images['partition_memory']" style="max-width: 100%"/>
                                 </div>
-                                <div class="col-lg-4">
-                                    <img [src]="sdService.images['partition_disk']" style="height:330px; max-width: 100%"/>
+                                <div class="col-lg-4" style="margin-top: 20px">
+                                    <img [src]="sdService.images['partition_disk']" style="max-width: 100%"/>
                                 </div>
                                 <br><br>
-                                <span style="background-color: #c64847">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <span>&nbsp;&nbsp; Pi3B &nbsp;&nbsp;</span>
-                                <span style="background-color: #f195ac">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <span>&nbsp;&nbsp; Pi3B+ &nbsp;&nbsp;</span>
-                                <span style="background-color: #b28bc0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <span>&nbsp;&nbsp; TX1 &nbsp;&nbsp;</span>
+                                <div style="margin-left: auto; margin-right: auto; margin-top: 20px;display: block">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span style="background-color: #c64847">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span>&nbsp;&nbsp; Pi3B &nbsp;&nbsp;</span>
+                                    <span style="background-color: #f195ac">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span>&nbsp;&nbsp; Pi3B+ &nbsp;&nbsp;</span>
+                                    <span style="background-color: #b28bc0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span>&nbsp;&nbsp; TX1 &nbsp;&nbsp;</span>
+                                </div>
                             </div>
                         </ng-template>
                     </ngb-tab>

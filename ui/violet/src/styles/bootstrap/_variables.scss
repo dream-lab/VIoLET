@@ -116,7 +116,7 @@ $enable-print-styles:       true !default;
 // variables. Mostly focused on spacing.
 // You can add more entries to the $spacers map, should you need more variation.
 
-$spacer: 1rem !default;
+$spacer: 0.9rem !default;
 $spacers: (
   0: 0,
   1: ($spacer * .25),
