@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-backend="python backend_ui.py";
+backend="gunicorn --bind 0.0.0.0:5000 backend_wsgi";
 
 frontend="python -m SimpleHTTPServer 80";
 

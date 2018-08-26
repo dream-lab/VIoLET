@@ -82,7 +82,7 @@ def partition_output():
 @app.route('/partition_plot_coremark', methods=['GET'])
 def partition_plot_coremark():
     try:
-        r, e = Popen(["cd /home/centos/shriram/VIoLET/dump/metis; python bsplot.py coremark"], stderr=PIPE, shell=True).communicate()
+        r, e = Popen(["cd dump/metis; python bsplot.py coremark"], stderr=PIPE, shell=True).communicate()
         return send_file("dump/metis/coremark.png", attachment_filename='coremark.png')
     except:
         return (json.dumps({'message': e}), 500)
@@ -91,7 +91,7 @@ def partition_plot_coremark():
 @app.route('/partition_plot_memory', methods=['GET'])
 def partition_plot_memory():
     try:
-        r, e = Popen(["cd /home/centos/shriram/VIoLET/dump/metis; python bsplot.py memory"], stderr=PIPE, shell=True).communicate()
+        r, e = Popen(["cd dump/metis; python bsplot.py memory"], stderr=PIPE, shell=True).communicate()
         return send_file("dump/metis/memory.png", attachment_filename='memory.png')
     except:
         return (json.dumps({'message': e}), 500)
@@ -100,7 +100,7 @@ def partition_plot_memory():
 @app.route('/partition_plot_disk', methods=['GET'])
 def partition_plot_disk():
     try:
-        r, e = Popen(["cd /home/centos/shriram/VIoLET/dump/metis; python bsplot.py disk"], stderr=PIPE, shell=True).communicate()
+        r, e = Popen(["cd dump/metis; python bsplot.py disk"], stderr=PIPE, shell=True).communicate()
         return send_file("dump/metis/disk.png", attachment_filename='disk.png')
     except:
         return (json.dumps({'message': e}), 500)
@@ -143,6 +143,8 @@ def metis_check():
         return (json.dumps({'message': e}), 500)
     # return json.dumps({'message': 'success'})
 
+
+# Deployment
 
 @app.route('/deployment_input', methods=['GET'])
 def deployment_input():
@@ -220,6 +222,7 @@ def sensor_gen():
     except:
         return (json.dumps({'message': e}), 500)
 
+#Benchamrk
 
 @app.route('/sanity_network', methods=['GET'])
 def sanity_network():
@@ -227,10 +230,10 @@ def sanity_network():
         p = Popen(["python", "sanity_network.py"])
         sleep(240)
         p = Popen([
-                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py bandwidth_delta bw.pdf "Bandwidth" "Deviation"'],
+                      'cd dump/sanity; python vPlot.py bandwidth_delta bw.pdf "Bandwidth" "Deviation"'],
                   shell=True)
         p = Popen([
-                      'cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py bandwidth_delta bw.pdf "Bandwidth" "Deviation"'],
+                      'cd dump/sanity; python vPlot.py bandwidth_delta bw.pdf "Bandwidth" "Deviation"'],
                   shell=True)
         return json.dumps({'message': "CPU sanity check complete \n\n"})
     except:
@@ -258,8 +261,8 @@ def sanity_cpu_2():
 @app.route('/sanity_cpu_plots', methods=['GET'])
 def sanity_cpu_plots():
     try:
-        r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; paste -d "," f_pi3b_delta f_pi3b+_delta f_tx1_delta > f_coremark_delta;'], shell=True).communicate()
-        r, e = Popen(['cd /home/centos/shriram/VIoLET/dump/sanity; python vPlot.py f_coremark_delta cm_dev.png "Pi3B,Pi3B+,TX1" "Coremark" "Devices"'], shell=True).communicate()
+        r, e = Popen(['cd dump/sanity; paste -d "," f_pi3b_delta f_pi3b+_delta f_tx1_delta > f_coremark_delta;'], shell=True).communicate()
+        r, e = Popen(['cd dump/sanity; python vPlot.py f_coremark_delta cm_dev.png "Pi3B,Pi3B+,TX1" "Coremark" "Devices"'], shell=True).communicate()
         return send_file("dump/sanity/cm_dev.png", attachment_filename='cm_dev.png')
     except:
         return (json.dumps({'message': 'Failure'}), 500)
@@ -268,9 +271,9 @@ def sanity_cpu_plots():
 @app.route('/pub_sub', methods=['GET'])
 def pub_sub():
     try:
-        p = Popen(["cd /home/centos/shriram/VIoLET/apps/pubsub; python pub_sub.py"], shell=True)
+        p = Popen(["cd apps/pubsub; python pub_sub.py"], shell=True)
         sleep(240)
-        p = Popen(["cd /home/centos/shriram/VIoLET/apps/pubsub; python sanity.py"], shell=True)
+        p = Popen(["cd apps/pubsub; python sanity.py"], shell=True)
         sleep(90)
         return json.dumps({'message': "Pub/Sub sanity check complete \n\n"})
     except:

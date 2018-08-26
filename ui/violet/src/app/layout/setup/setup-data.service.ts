@@ -137,7 +137,6 @@ export class SetupDataService {
         for(const i in this.summaryPartitionInput['vmc']['container_VM']) {
             this.summaryPartitionInput['used'][this.summaryPartitionInput['vmc']['container_VM'][i]['vm_type']] = 1;
         }
-        console.log(this.summaryPartitionInput['used']);
     }
 
     getSummaryPartitionOutput() {
