@@ -1,0 +1,126 @@
+<div>
+    <h4 class="page-header">
+        Basic Setup - D25
+    </h4>
+    <div class="row">
+        <div style="width: 29%; margin-left: 15px; margin-right: 5px">
+            <div class="card bg-light mb-3">
+                <div (click)="currentView='infra'" class="card-body">
+                    <div class="card-text">
+                        <span
+                            *ngIf="generateInfraStatus==='success' || generateInfraStatus==='failure' ||generateInfraStatus==='running'">
+                            &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
+                        </span>
+                        <button *ngIf="generateInfraStatus!=='success'" type="submit" class="btn btn-success"
+                                [disabled]="generateInfraStatus==='running'"
+                                (click)="generateInfra()">
+                            Generate Infra Config
+                        </button>
+                        <button *ngIf="generateInfraStatus=='success'" type="submit" class="btn btn-warning"
+                                (click)="currentView='infra'">
+                            Generate Infra Config
+                        </button>
+                        <span *ngIf="generateInfraStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="generateInfraStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="generateInfraStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
+                                                                                       style="vertical-align: middle"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 19.5%; margin-left: 5px; margin-right: 5px">
+            <div class="card bg-light mb-3">
+                <div (click)="generateInfraStatus==='success'?currentView='partition':null" class="card-body">
+                    <div class="card-text">
+                        <span
+                            *ngIf="partitionStatus==='success' || partitionStatus==='failure' || partitionStatus==='running'">
+                            &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
+                        </span>
+                        <button *ngIf="generateInfraStatus!=='success'" type="submit" class="btn btn-default"
+                                disabled="true"
+                                >
+                            Partition
+                        </button>
+                        <button *ngIf="partitionStatus!=='success' && generateInfraStatus==='success'" type="submit" class="btn btn-success"
+                                (click)="generateMetisInput()">
+                            Partition
+                        </button>
+                        <button *ngIf="partitionStatus==='success'" type="submit" class="btn btn-warning"
+                                (click)="currentView='partition'">
+                            Partition
+                        </button>
+                        <span *ngIf="partitionStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="partitionStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="partitionStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
+                                                                                       style="vertical-align: middle"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 19%; margin-left: 5px; margin-right: 5px">
+            <div class="card bg-light mb-3">
+                <div (click)="partitionStatus==='success'?currentView='deployment':null" class="card-body">
+                    <div class="card-text">
+                        <span
+                            *ngIf="deploymentStatus==='success' || deploymentStatus==='failure' || deploymentStatus==='running'">
+                            &nbsp; &nbsp; <i class="fa fa-2x fa-check" style="opacity: 0; vertical-align: middle"></i>
+                        </span>
+                        <button *ngIf="partitionStatus!=='success'" type="submit" class="btn btn-default"
+                                disabled="true">
+                            Deploy
+                        </button>
+                        <button *ngIf="deploymentStatus!=='success' && partitionStatus==='success'" type="submit" class="btn btn-success"
+                                (click)="startDocker()">
+                            Deploy
+                        </button>
+                        <button *ngIf="deploymentStatus==='success'" type="submit" class="btn btn-warning"
+                                (click)="currentView='deployment'">
+                            Deploy
+                        </button>
+                        <span *ngIf="deploymentStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="deploymentStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="deploymentStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
+                                                                                       style="vertical-align: middle"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 27%; margin-left: 5px; margin-right: 5px">
+            <div class="card bg-light mb-3">
+                <div (click)="deploymentStatus==='success'?currentView='sanity':null" class="card-body">
+                    <div class="card-text">
+                        <select class="form-inline" style="display: inline" [(ngModel)] = "sanitySelection">
+                            <option value="CPU">CPU</option>
+                            <option value="N/W">N/W</option>
+                            <option value="App">App</option>
+                        </select>                        &nbsp; &nbsp;
+                        <button *ngIf="deploymentStatus==='success'" type="submit" class="btn btn-success"
+                                (click)="sanityRun()">
+                            Run Benchmark
+                        </button>
+                        <button *ngIf="deploymentStatus!=='success'" type="submit" class="btn btn-default"
+                                [disabled]="true">
+                            Run Benchmark
+                        </button>
+                        <span *ngIf="sanityStatus==='success'">&nbsp; &nbsp; <i class="fa fa-2x fa-check"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="sanityStatus==='failure'">&nbsp; &nbsp; <i class="fa fa-2x fa-times"
+                                                                                       style="vertical-align: middle"></i></span>
+                        <span *ngIf="sanityStatus==='running'">&nbsp; &nbsp; <i class="fa fa-2x fa-spinner"
+                                                                                       style="vertical-align: middle"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-setup-infra *ngIf="currentView==='infra'"></app-setup-infra>
+    <app-setup-partition *ngIf="currentView==='partition'"></app-setup-partition>
+    <app-setup-deployment *ngIf="currentView==='deployment'"></app-setup-deployment>
+    <app-setup-sanity *ngIf="currentView==='sanity'"></app-setup-sanity>
+</div>

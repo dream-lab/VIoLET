@@ -1,0 +1,21 @@
+// Allow folks to *not* use `.infrastructure-group`
+.form-control {
+    display: inline-block;
+    width: auto; // Prevent labels from stacking above inputs in `.infrastructure-group`
+    vertical-align: middle;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+br {
+    display: block;
+    margin: 5px 0;
+    content: " ";
+}
+
+
+#colorstrip{
+    width: 100%; height: 2px;
+    border-style: solid;
+    border-color: red;
+}

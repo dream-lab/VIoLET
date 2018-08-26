@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="custom-card-body">
+                <ngb-tabset>
+                    <ngb-tab title="Input" >
+                        <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <select class="form-control" [(ngModel)] = "sdService.inputSanFile">
+                                        <option value="" disabled selected>Select</option>
+                                        <option *ngFor="let i of sdService.inputFileDD['sanity']" [value]="i">{{i}}</option>
+                                    </select>
+                                    <ace-editor [text]="sdService.files[sdService.inputSanFile]" mode="text" style="height:370px;"></ace-editor>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Console" [disabled]="sdService.sanityStatus===''">
+                        <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <ace-editor [text]="sdService.consoleOutput['sanity']" mode="text" style="margin-top: 15px; height:370px;"></ace-editor>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Output" [disabled]="true">
+                        <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="card mb-3" style="margin-top: 5px; height: 350px;">
+                                        <div class="card-header">
+                                            Summary
+                                        </div>
+                                        <div class="card-body table-responsive" style="font-size: 0.8em">
+                                            <table class="table table-bordered table-sm">
+                                                <thead>
+                                                <tr>
+                                                    <th>VM Container</th>
+                                                    <th>Device Count</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let j of sdService.summaryPartitionOutput['cnt'] | keyvalue">
+                                                    <td>{{j.value['name']}}</td>
+                                                    <td>{{j.value['cnt']}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select class="form-control" [(ngModel)] = "sdService.outputPartitionFile">
+                                        <option value="" disabled selected>Select</option>
+                                        <option *ngFor="let i of sdService.outputFileDD['partition']" [value]="i">{{i}}</option>
+                                    </select>
+                                    <ace-editor [text]="sdService.files[sdService.outputPartitionFile]" mode="text" style="height:300px;"></ace-editor>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Visualization" [disabled]="!(sdService.sanityStatus==='success')">
+                        <ng-template ngbTabContent>
+                            <div class="row" *ngIf="sdService.images['cpu_plot']" style="text-align: center">
+                                    <img [src]="sdService.images['cpu_plot']" style="height:370px;max-width: 100%;
+                                    margin-right: auto;margin-left: auto;display: block;"/>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+            </div>
+        </div>
+    </div>
+</div>
