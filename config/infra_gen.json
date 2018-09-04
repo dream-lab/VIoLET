@@ -1,42 +1,65 @@
 {
     "public_networks": 
     {
-        "public_1":
-        [
-            {
-                "device_type":"Pi3B+",
-                "number_devices":"2",
-                "number_sensors":"5"
-            },
-	    {
-                "device_type":"Pi3B",
-                "number_devices":"1",
-                "number_sensors":"5"
-            },
-	        {
-                "device_type":"TX1",
-                "number_devices":"1",
-                "number_sensors":"5"
-            }
-        ]
+        "violet_public_1": 
+        {
+	    "devices":
+	    [
+            	{
+                	"device_type":"Pi3B+",
+                	"number_devices":"1",
+                	"number_sensors":"5"
+            	},
+	    	{
+                	"device_type":"Pi3B",
+                	"number_devices":"1",
+                	"number_sensors":"5"
+            	}
+	    ],
+	    "private_networks_list":
+	    [
+		"violet_private_1",
+		"violet_private_3"
+	    ]
+        },
+	"violet_public_2":
+        {
+            "devices":
+            [
+                {
+                        "device_type":"Pi3B+",
+                        "number_devices":"1",
+                        "number_sensors":"5"
+                },
+                {
+                        "device_type":"TX1",
+                        "number_devices":"1",
+                        "number_sensors":"5"
+                }
+            ],
+            "private_networks_list":
+            [
+                "violet_private_2"
+            ]
+        }
     },
     "private_networks": 
     {
-        "private_1":
+        "violet_private_1":
         {
             "device_type":"Pi3B+",
             "number_devices":"7",
             "gateway_device_type":"Pi3B+",
             "number_sensors":"5"
         },
-        "private_2":
+        "violet_private_2":
         {
             "device_type":"Pi3B+",
             "number_devices":"7",
             "gateway_device_type":"Pi3B+",
             "number_sensors":"5"
         },
-        "private_3":
+        "violet_private_3":
         {
             "device_type":"Pi3B",
             "number_devices":"7",

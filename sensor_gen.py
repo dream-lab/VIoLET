@@ -143,7 +143,7 @@ def sensor_gen(vm_name,devices):
     #print "{} started".format(self.getName())
     print "Connecting to VM - {}".format(vm_name)
     host = container_vm[vm_name]["hostname_ip"]
-    public_ip = container_vm[vm_name]["public_ip"]
+    #public_ip = container_vm[vm_name]["public_ip"]
     user = container_vm[vm_name]["user"]
     key = container_vm[vm_name]["key_path"]
     k = paramiko.RSAKey.from_private_key_file(key)
@@ -205,7 +205,7 @@ for vm_name in vm_device_dict:
     devices = vm_device_dict[vm_name]
     #vm_name = deployment_output[d]["host_vm_name"]
     host = container_vm[vm_name]["hostname_ip"]
-    public_ip = container_vm[vm_name]["public_ip"]
+    #public_ip = container_vm[vm_name]["public_ip"]
     user = container_vm[vm_name]["user"]
     key = container_vm[vm_name]["key_path"]
     k = paramiko.RSAKey.from_private_key_file(key)
