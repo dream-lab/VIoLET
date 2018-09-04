@@ -36,7 +36,7 @@ pub_network_dict = {}
 pvt_network_dict = {}
 all_devices_list = []
 device_type_fog_dict = {}
-
+nw_device_type_fog_dict = {}
 
 seed = 10
 logic = 0
@@ -156,14 +156,18 @@ for p in public_networks_dict.keys():
     print "pub_bandwidth_mbps for {0} is {1}".format(p,bw) 
     print "pub_latency_ms for {0} is {1}".format(p,lat)
     print
-    devices_list = public_networks_dict[p]
+    devices_list = public_networks_dict[p]["devices"]
+    print devices_list
+    device_type_fog_dict = {}
+    conn_dev = []
     for d in devices_list:
         device_type = d["device_type"]
         device_type_fog_list = []
         number_devices = d["number_devices"]
         num_sensors = int(d["number_sensors"])
+	device_type_fog_list = []
         for n in range(int(number_devices)):
-            device_name = "Fog-{0}".format(index)
+            device_name = "Fog-{0}.{1}".format(pub_network_index,index)
             port = r.choice(ports)
             devices[device_name] = create_device(port,device_type,num_sensors)
             all_devices_list.append(device_name)
@@ -171,17 +175,21 @@ for p in public_networks_dict.keys():
             device_type_fog_list.append(device_name)
             index+=1
         device_type_fog_dict[device_type] = device_type_fog_list
+    nw_device_type_fog_dict[p] = device_type_fog_dict
     pub_network_dict[pub_network_name] = {
         "subnet": public_ip_range+str(pub_network_index)+".0/24",
         "ip_range": public_ip_range+str(pub_network_index)+".0/24",
-        "gateway":random.choice(conn_dev),
+        #"gateway":random.choice(conn_dev),
         "latency_ms":lat,
         "bandwidth_mbps":bw,
         "devices":conn_dev
     }
+    print "conn ",conn_dev
     pub_network_index += 1
 
 infra_config["public_networks"] = pub_network_dict
+
+print nw_device_type_fog_dict
 
 #bw = random.choice(pub_bandwidth_mbps)
 
@@ -251,10 +259,16 @@ for p in private_networks_dict.keys():
     print "pvt_bandwidth_mbps for {0} is {1}".format(p,bw)
     print "pvt_latency_ms for {0} is {1}".format(p,lat)
     print
+    
+    for pb in public_networks_dict.keys():
+	if p in public_networks_dict[pb]["private_networks_list"]:
+		break;
 
+    #nw = nw_device_type_fog_dict[pb]
     gw_device_type = private_networks_dict[p]["gateway_device_type"]
-    gw = device_type_fog_dict[gw_device_type][0]
-    device_type_fog_dict[gw_device_type].remove(gw)
+    print nw_device_type_fog_dict[pb]
+    gw = nw_device_type_fog_dict[pb][gw_device_type][0]
+    nw_device_type_fog_dict[pb][gw_device_type].remove(gw)
     device_type = private_networks_dict[p]["device_type"]
     number_devices = private_networks_dict[p]["number_devices"]
     num_sensors = int(private_networks_dict[p]["number_sensors"])
