@@ -124,6 +124,8 @@ def create_device(port,device_type,num_sensors):
     }
     return device
 
+
+pub_dev = []
 public_ip_range = "10.0."
 pub_network_index = 1
 conn_dev=[]
@@ -172,6 +174,7 @@ for p in public_networks_dict.keys():
             devices[device_name] = create_device(port,device_type,num_sensors)
             all_devices_list.append(device_name)
             conn_dev.append(device_name)
+	    pub_dev.append(device_name)
             device_type_fog_list.append(device_name)
             index+=1
         device_type_fog_dict[device_type] = device_type_fog_list
@@ -221,7 +224,7 @@ print
 infra_config["public_global_network"] = {
     "latency_ms": lat,
     "bandwidth_mbps": bw,
-    "devices": conn_dev,
+    "devices": pub_dev,
     "subnet": public_ip_range+str(pub_network_index)+".0/24",
     "ip_range": public_ip_range+str(pub_network_index)+".0/24"
 }
