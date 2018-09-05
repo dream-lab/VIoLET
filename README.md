@@ -10,6 +10,9 @@
 
 ## VIoLET setup
 All the VMs must have same centOS version as their operating system (version 7 and above). In VIoLET, one of the VM will act as an admin_VM while the other VMs act as the container_host_VMs. (For the current version of VIoLET, all the container VMs must be of same type).  The architecture diagram below, best explains this setup. VIoLET deploys docker containers as devices. Each of the container's system and network parameters are modified according to the user requirement. Device types, connectivity of the devices and types of sensors for each device are to be entered in **infra_config.json** file. User can add more types of devices or sensors in **device_types.json** and **sensor_types.json** files.<br />
+
+There is also a UI available for deployment. Please see the guide inside the ui directory for more info.
+
 Deploying VIoLET involves 4 parts.
 
 ### Part 1 : Generate infra_config.json

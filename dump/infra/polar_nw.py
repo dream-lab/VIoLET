@@ -32,21 +32,21 @@ for vm in vm_names:
 	color_devices[vm] = []
 
 r_devices['M'] = ['VM']
-theta_devices['M'] = [0]	#['violet_private_1','violet_private_2','violet_private_3','violet_public_1']
+theta_devices['M'] = [0]	#['private_1','private_2','private_3','public_1']
 
 theta_nw = {
-	'violet_private_1':0,	#0,
-	'violet_private_2':1.57,	#90,
-	'violet_private_3':3.14,	#180,
-	'violet_public_1':4.71	#270
+	'private_1':0,	#0,
+	'private_2':1.57,	#90,
+	'private_3':3.14,	#180,
+	'public_1':4.71	#270
 }
 
 
 color_nw = {
-        'violet_private_1':"rgb(27,158,119)",
-        'violet_private_2':"rgb(217,95,2)",
-        'violet_private_3':"rgb(117,112,179)",
-        'violet_public_1':"rgb(231,41,138)"
+        'private_1':"rgb(27,158,119)",
+        'private_2':"rgb(217,95,2)",
+        'private_3':"rgb(117,112,179)",
+        'public_1':"rgb(231,41,138)"
 }
 
 

@@ -106,6 +106,8 @@ ax.set_ylabel(sys.argv[4],size=20)
 ax.yaxis.grid(which='major', alpha=0.5)
 ax.set_xticks(xheaderTicks)
 ax.minorticks_on()
+ax.xaxis.set_tick_params(labelsize=40)
+ax.yaxis.set_tick_params(labelsize=40)
 #plt.axis('scaled')
 ######################################################################
 ###########            Plot Computation Begins          ##############
