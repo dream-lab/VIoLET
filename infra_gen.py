@@ -159,7 +159,7 @@ for p in public_networks_dict.keys():
     print "pub_latency_ms for {0} is {1}".format(p,lat)
     print
     devices_list = public_networks_dict[p]["devices"]
-    print devices_list
+    #print devices_list
     device_type_fog_dict = {}
     conn_dev = []
     for d in devices_list:
@@ -187,12 +187,12 @@ for p in public_networks_dict.keys():
         "bandwidth_mbps":bw,
         "devices":conn_dev
     }
-    print "conn ",conn_dev
+    #print "conn ",conn_dev
     pub_network_index += 1
 
 infra_config["public_networks"] = pub_network_dict
 
-print nw_device_type_fog_dict
+#print nw_device_type_fog_dict
 
 #bw = random.choice(pub_bandwidth_mbps)
 
@@ -269,7 +269,7 @@ for p in private_networks_dict.keys():
 
     #nw = nw_device_type_fog_dict[pb]
     gw_device_type = private_networks_dict[p]["gateway_device_type"]
-    print nw_device_type_fog_dict[pb]
+    #print nw_device_type_fog_dict[pb]
     gw = nw_device_type_fog_dict[pb][gw_device_type][0]
     nw_device_type_fog_dict[pb][gw_device_type].remove(gw)
     device_type = private_networks_dict[p]["device_type"]
