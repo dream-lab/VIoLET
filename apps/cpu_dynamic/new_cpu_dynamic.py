@@ -98,6 +98,12 @@ control_interval = float(deployment_json["control_interval_secs"])
 dynamism_duration = float(deployment_json["dynamism_duration_secs"])
 
 
+print "Starting coremark on all devices:"
+os.chdir("../../")
+#p = subprocess.Popen([command, argument1,...], cwd=working_directory)
+os.system("python sanity_cpu.py 1")
+os.chdir("apps/cpu_dynamic")
+
 devices_data = {}
 
 for d in devices:
@@ -151,3 +157,11 @@ print "Completed."
 print "Run Sanity."
 
 cpu_dynamism.close()
+
+
+print "check if coremarks are still running. If not run python ../../sanity_cpu.py 2"
+
+
+os.chdir("../../")
+os.system("python sanity_cpu.py 2")
+

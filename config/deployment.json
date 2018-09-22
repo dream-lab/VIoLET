@@ -30,5 +30,5 @@
 	"retain_disk_on_kill": "false",
 	"vm_top_period_secs": "30",
     	"sensor_duration_secs": "7200",
-	"dynamism_duration_secs": "300"
+	"dynamism_duration_secs": "3600"
 }
