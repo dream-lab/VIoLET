@@ -11,7 +11,7 @@ i = 0
 start_time = time.time()
 end_time = start_time + 360 # For 8000 seconds running coremark
 
-while start_time < end_time:
+while True:
     start_time = time.time()
     i += 1
     proc = subprocess.Popen(['./coremark.exe'],stdout=subprocess.PIPE)
