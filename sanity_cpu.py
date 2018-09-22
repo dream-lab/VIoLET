@@ -44,7 +44,7 @@ print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print
 #log_file.write("\n\n\n***********************Copying coremark executables to other VMs*********************************\n\n\n")
 
-coremark_exe = "/home/centos/coremark_exe"
+coremark_exe = "coremark_exe"
 
 
 for i in range(len(container_vm_names)):
@@ -71,9 +71,9 @@ if flag == 1:
         device_type = infra_config["devices"][device]["device_type"]
 
         if (device_type == "SI"):
-            path = "/home/centos/coremark_exe/si/coremark.exe"
+            path = "{0}/si/coremark.exe".format(coremark_exe)
         else:
-            path = "/home/centos/coremark_exe/pi/coremark.exe"
+            path = "{0}/pi/coremark.exe".format(coremark_exe)
 	#elif (device_type == "Pi3B+"):
 	#    path = "coremark_executables/coremark_2/coremark.exe"
 	#elif (device_type == "TX1"):
@@ -132,13 +132,29 @@ if flag == 2:
         command = "sudo docker exec -i {0} cat results-coremark | grep \"CoreMark 1.0\" | awk '{{print $4}}'".format(device)
         stdin , stdout, stderr = c.exec_command(command)
         print stderr.read()
+	
+	observed_coremark = stdout.read()	
 
-        observed_coremark = stdout.read()
+	command = "sudo docker exec -i {0} cat results-coremark | grep start_time | awk -F '=' '{{print $2}}'".format(device)
+        stdin , stdout2, stderr = c.exec_command(command)
+        print stderr.read()
+
+	start_time = stdout2.read()
+	start_time = start_time.split("\n")
+
+	command = "sudo docker exec -i {0} cat results-coremark | grep end_time | awk -F '=' '{{print $2}}'".format(device)
+        stdin , stdout3, stderr = c.exec_command(command)
+        print stderr.read()
+	
+	end_time = stdout3.read()
+	end_time = end_time.split("\n")
+
+        #observed_coremark = stdout.read()
         observed_coremark = observed_coremark.split("\n")
         observed_coremark.pop()
         for i in observed_coremark:
             coremark.append(float(i))
-        coremark.sort()
+        #coremark.sort()
 
         c_median = median(coremark)
         if len(coremark) != 0:
@@ -151,18 +167,26 @@ if flag == 2:
         expected_coremark = device_types[d_type]["coremark"]
         cm_d["device_type"] = d_type
         coremark_str = []
+	start_str = []
+	end_str = []
         for c_str in coremark:
             coremark_str.append(str(c_str))
+	for s_str in start_time:
+            start_str.append(str(s_str))
+	for e_str in end_time:
+            end_str.append(str(e_str))
 
         cm_d["coremark"] = coremark_str
         cm_d["n"] = len(coremark_str)
         cm_d["vm"] = vm_name
         cm_d["mean"] = str(c_avg)
         cm_d["median"] = str(c_median)
+	cm_d["start_time"] = start_str
+	cm_d["end_time"] = end_str
 
         coremark_devices_all[device] = cm_d
-        for cm in coremark:
-            f_cm_all.write(device+"\t"+d_type+"\t"+vm_name+"\t"+str(cm)+"\n")
+        for i in range(len(coremark)):
+            f_cm_all.write(device+"\t"+d_type+"\t"+vm_name+"\t"+str(coremark[i])+"\t"+str(start_time[i])+"\t"+str(end_time[i])+"\n")
 
 
         print "\ndevice - {0} \n  device_type = {1} \n  expected coremark = {2} observed coremark = {3}\n\n".format(device, d_type, expected_coremark, c_avg)
