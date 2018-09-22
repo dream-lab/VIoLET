@@ -12,7 +12,10 @@ def action_ci(devices,devices_data):
         r = random.uniform(0.0, 1.0)
         #print "Device - {0} r - {1} p - {2}".format(d,r,probability)
 	d_type = devices_data[d]["d_type"]
-	prev_coremark = device_types[d_type]["coremark"]
+	if d in device_cpus_updated:
+                prev_coremark = device_cpus_updated[d]["coremark"]
+	else:
+		prev_coremark = device_types[d_type]["coremark"]
 	coremark = prev_coremark
 	probability = devices_data[d]["probability"]
 	cpu_var = devices_data[d]["cpu_var"]        #float(device_types[d_type]["reliability"]["cpu_var_max"])
