@@ -10,7 +10,7 @@ import paramiko
 def action_ci(devices):
     for d in devices:
         r = random.uniform(0.0, 1.0)
-        #print "Device - {0} r - {1} p - {2}".format(d,r,probability)
+        print "Device - {0} r - {1} p - {2}".format(d,r,probability)
         if r <= probability:
             cpu_cm = {}
             #print "Inside *IF*"
@@ -65,7 +65,7 @@ coremark_max = float(device_types[d_type]["coremark"])
 coremark_min = coremark_max * (1 - cpu_var)
 control_interval = float(deployment_json["control_interval_secs"])
 probability = float(control_interval)/float(cpu_var_period)
-
+dynamism_duration = float(deployment_json["dynamism_duration_secs"])
 
 for d in all_devices_list:
     if infra_config["devices"][d]["device_type"] == d_type:
@@ -77,9 +77,12 @@ print "\nDevice type - {0} \n  start time =  [{1}] \n  cpu_var = {2} \n  cpu_var
 print "List of {0} devices".format(d_type)
 print devices
 print
-
+end_time = start_time_epoch + dynamism_duration
+print "End time - {0}".format(end_time)
 while(True):
     current_time_epoch = time.time()
+    if (current_time_epoch > end_time):
+	break
     diff = int (current_time_epoch - start_time_epoch)
     if(diff >= control_interval):
         print "\n\n**********Action time! [{0}]**********\n".format(time.strftime("%a, %d %b %Y %H:%M:%S %Z",time.localtime(current_time_epoch)))

@@ -36,7 +36,7 @@ pub_network_dict = {}
 pvt_network_dict = {}
 all_devices_list = []
 device_type_fog_dict = {}
-
+nw_device_type_fog_dict = {}
 
 seed = 10
 logic = 0
@@ -51,10 +51,10 @@ def main(argv):
     for opt, arg in opts:
 	if opt in ("-s","--seed"):
 	    seed = arg
-	    print seed
+	    print "Seed value = ",seed
 	if opt in ("-l","--logic"):
 	    logic = arg
-	    print logic
+	    print "Logic value = ",logic
 	
 
 if __name__ == "__main__":
@@ -62,7 +62,12 @@ if __name__ == "__main__":
 
 
 
-ports = range(32768,60999)
+min_port = 32768
+max_port = 60999
+
+print "Port ranges from {0} to {1}".format(min_port,max_port)
+
+ports = range(min_port,max_port)
 
 #try:
 #    seed = sys.argv[1]
@@ -72,9 +77,13 @@ ports = range(32768,60999)
 
 #print "seed=",seed
 
+
+
 bw_lat = [(20,5),(40,5),(60,5),(80,5),(100,5),(20,25),(40,25),(60,25),(80,25),(100,25),(20,50),(40,50),(20,75)]
 
 if logic == "1":
+	print 
+	print "BW_Lat pairs"
 	print bw_lat
 	print "The above combination of bw_lat pairs will be used for the networks"
 
@@ -85,8 +94,9 @@ sensors_list = []
 for sensor in sensor_types_list:
     sensors_list.append(sensor["type"])
 
-print sensors_list
-
+print
+print "Sensor types: ", sensors_list
+print
 
 def create_sensors(num_sensors):
     sensors = []
@@ -114,6 +124,8 @@ def create_device(port,device_type,num_sensors):
     }
     return device
 
+
+pub_dev = []
 public_ip_range = "10.0."
 pub_network_index = 1
 conn_dev=[]
@@ -143,36 +155,44 @@ for p in public_networks_dict.keys():
 		print "Default value of bw is set to the minimum of the available bandwidth"
                 #print "pub_bandwidth_mbps for {0} is {1}".format(p,bw)
     
-    print "pub_bandwidth_mbps for {0} is {1}".format(p,bw)
-    print 
+    print "pub_bandwidth_mbps for {0} is {1}".format(p,bw) 
     print "pub_latency_ms for {0} is {1}".format(p,lat)
-    print 
-    devices_list = public_networks_dict[p]
+    print
+    devices_list = public_networks_dict[p]["devices"]
+    #print devices_list
+    device_type_fog_dict = {}
+    conn_dev = []
     for d in devices_list:
         device_type = d["device_type"]
         device_type_fog_list = []
         number_devices = d["number_devices"]
         num_sensors = int(d["number_sensors"])
+	device_type_fog_list = []
         for n in range(int(number_devices)):
-            device_name = "Fog-{0}".format(index)
+            device_name = "Fog-{0}.{1}".format(pub_network_index,index)
             port = r.choice(ports)
             devices[device_name] = create_device(port,device_type,num_sensors)
             all_devices_list.append(device_name)
             conn_dev.append(device_name)
+	    pub_dev.append(device_name)
             device_type_fog_list.append(device_name)
             index+=1
         device_type_fog_dict[device_type] = device_type_fog_list
+    nw_device_type_fog_dict[p] = device_type_fog_dict
     pub_network_dict[pub_network_name] = {
         "subnet": public_ip_range+str(pub_network_index)+".0/24",
         "ip_range": public_ip_range+str(pub_network_index)+".0/24",
-        "gateway":random.choice(conn_dev),
+        #"gateway":random.choice(conn_dev),
         "latency_ms":lat,
         "bandwidth_mbps":bw,
         "devices":conn_dev
     }
+    #print "conn ",conn_dev
     pub_network_index += 1
 
 infra_config["public_networks"] = pub_network_dict
+
+#print nw_device_type_fog_dict
 
 #bw = random.choice(pub_bandwidth_mbps)
 
@@ -197,7 +217,6 @@ else:
         print "Default value of bw is set to the minimum of the available bandwidth"
 
 print "pub_bandwidth_mbps for {0} is {1}".format("public_global_network",bw)
-print
 print "pub_latency_ms for {0} is {1}".format("public_global_network",lat)
 print
 
@@ -205,7 +224,7 @@ print
 infra_config["public_global_network"] = {
     "latency_ms": lat,
     "bandwidth_mbps": bw,
-    "devices": conn_dev,
+    "devices": pub_dev,
     "subnet": public_ip_range+str(pub_network_index)+".0/24",
     "ip_range": public_ip_range+str(pub_network_index)+".0/24"
 }
@@ -241,13 +260,18 @@ for p in private_networks_dict.keys():
 
     
     print "pvt_bandwidth_mbps for {0} is {1}".format(p,bw)
-    print
     print "pvt_latency_ms for {0} is {1}".format(p,lat)
     print
+    
+    for pb in public_networks_dict.keys():
+	if p in public_networks_dict[pb]["private_networks_list"]:
+		break;
 
+    #nw = nw_device_type_fog_dict[pb]
     gw_device_type = private_networks_dict[p]["gateway_device_type"]
-    gw = device_type_fog_dict[gw_device_type][0]
-    device_type_fog_dict[gw_device_type].remove(gw)
+    #print nw_device_type_fog_dict[pb]
+    gw = nw_device_type_fog_dict[pb][gw_device_type][0]
+    nw_device_type_fog_dict[pb][gw_device_type].remove(gw)
     device_type = private_networks_dict[p]["device_type"]
     number_devices = private_networks_dict[p]["number_devices"]
     num_sensors = int(private_networks_dict[p]["number_sensors"])

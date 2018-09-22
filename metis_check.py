@@ -70,13 +70,17 @@ for d in updated_devices_list:
 print vm_coremark_metis, vm_memory_metis, vm_disk_metis
 
 i = 0
+flag = 0
 for vm_c,vm_m,vm_d in zip(vm_coremark_metis,vm_memory_metis,vm_disk_metis):
     if vm_c > container_vm_coremark[i] or vm_m > container_vm_memory_mb[i] or vm_d > container_vm_disk_mb[i]:
-        print "Metis partitions improper. Rerun the gpmetis command"
-        sys.exit(0)
+	flag = 1
+	break
     i += 1
 
-print "Metis partitions for container distribution is properly generated"
+if flag == 1:
+    print "Metis partitions improper. Rerun the gpmetis command"
+else:
+    print "Metis partitions for container distribution is properly generated"
 
 partitions = {}
 i = 0
