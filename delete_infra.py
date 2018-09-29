@@ -110,6 +110,12 @@ for p in public_networks:
     #print stdout.read()
     #print stderr.read()
 
+p = "public_global_network"
+command = "sudo docker network rm {0}".format(p)
+print "Deleting network {0}".format(p)
+stdin , stdout, stderr = c.exec_command(command, timeout=30)
+
+
 #command = "sudo docker network rm violet_control_interface"
 #stdin , stdout, stderr = c.exec_command(command, timeout=5)
 #print stdout.read()

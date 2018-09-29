@@ -173,7 +173,7 @@ for d in all_devices_list:
     c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     c.connect( hostname = host, username = user, pkey = k)
 
-    commands = ["sudo docker run -p {7}:{7} --ulimit nofile=500:500  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v {0}:{1} --cpus={2} --memory={5}m --storage-opt size={6}M --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {3} --name {3} {4} > /dev/null &".format(container_host_mount_path,vm_mount_path,cpus,d,container_OS,memory_mb,disk_mb,device_port)]
+    commands = ["sudo docker run --ulimit nofile=5000:5000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v {0}:{1} --cpus={2} --memory={5}m --storage-opt size={6}M --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {3} --name {3} {4} > /dev/null &".format(container_host_mount_path,vm_mount_path,cpus,d,container_OS,memory_mb,disk_mb)]
 
     print "Creating {0} in {1} {2}".format(d,vm_name,host)
     log_file.write("\n\nCreating {0} in {1}\n".format(d,vm_name))
@@ -240,6 +240,7 @@ for i in range(len(private_networks_dict)):
     command = "sudo docker exec -i {0} ip a | grep {1} | awk '{{print $2}} {{print $7}}'".format(gw,ip_range)
     stdin, stdout, stderr = c.exec_command(command)
     output = stdout.read()
+    #log_file.write("\n {0} \n {1}\n".format(output, stderr.read()))
     output = output.split("\n")
     device_ip["IP"] = output[0].split("/")[0]
     device_ip["eth"] = output[1]
@@ -253,6 +254,7 @@ for i in range(len(private_networks_dict)):
     command = "sudo docker exec -i {0} ip a | grep {1} | awk '{{print $2}} {{print $7}}'".format(gw,ip_range_pvt)
     stdin, stdout, stderr = c.exec_command(command)
     output = stdout.read()
+    #log_file.write("\n {0} \n {1}\n".format(output, stderr.read()))
     output = output.split("\n")
     device_ip["IP"] = output[0].split("/")[0]
     device_ip["eth"] = output[1]
