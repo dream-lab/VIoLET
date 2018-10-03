@@ -82,7 +82,7 @@ for i in public_networks:
         print "Creating {0} network".format(str(i))
         log_file.write("Creating {0} network\n".format(str(i)))
         stdin , stdout, stderr = c.exec_command(command)
-        log_file.write(stderr.read()+"\n")
+	log_file.write(stderr.read()+"\n")
         log_file.write(stdout.read()+"\n")
 
 private_networks = private_networks_dict.keys()
@@ -93,7 +93,7 @@ for i in private_networks:
         print "Creating {0} network".format(str(i))
         log_file.write("Creating {0} network \n".format(str(i)))
         stdin , stdout, stderr = c.exec_command(command)
-        log_file.write(stderr.read()+"\n")
+	log_file.write(stderr.read()+"\n")
         log_file.write(stdout.read()+"\n")
 c.close()
 
@@ -114,6 +114,7 @@ for vm in container_vm_names:
     output = output.replace("\"","")
     ip_range = output[:-3]
     docker0_bridge_dict[vm] = ip_range
+    c.close()
 
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
@@ -123,7 +124,6 @@ print
 
 log_file.write("\n\n\n****************************************     CREATING CONTAINERS     ****************************************\n")
 
-vm_port = 5000
 
 #CREATE DEVICES
 for d in all_devices_list:
@@ -152,7 +152,6 @@ for d in all_devices_list:
     disk_mb = device_types[device_type]["disk_mb"]
     nic_out_bw_mbps = device_types[device_type]["nic_out_bw_mbps"]
     device_relibality_params =  device_types[device_type]["reliability"]
-    vm_port += 1
     #cpus = (coremark/vm_coremark)*vm_core_count
 
     vm_index = int(partitions[d])
@@ -173,21 +172,25 @@ for d in all_devices_list:
     c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     c.connect( hostname = host, username = user, pkey = k)
 
-    commands = ["sudo docker run --ulimit nofile=5000:5000  -i -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v {0}:{1} --cpus={2} --memory={5}m --storage-opt size={6}M --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {3} --name {3} {4} > /dev/null &".format(container_host_mount_path,vm_mount_path,cpus,d,container_OS,memory_mb,disk_mb)]
+    commands = ["sudo docker run --ulimit nofile=500:500  -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v {0}:{1} --cpus={2} --memory={5}m --storage-opt size={6}M --privileged --cap-add=NET_ADMIN --cap-add=NET_RAW --hostname {3} --name {3} {4}".format(container_host_mount_path,vm_mount_path,cpus,d,container_OS,memory_mb,disk_mb)]
 
-    print "Creating {0} in {1} {2}".format(d,vm_name,host)
+    print "Creating {0} in {1} {2}".format(d,vm_name,host) 
     log_file.write("\n\nCreating {0} in {1}\n".format(d,vm_name))
     for command in commands:
         log_file.write(command+"\n")
-        stdin, stdout, stderr = c.exec_command(command,timeout=5)
+        stdin, stdout, stderr = c.exec_command(command)
+	#time.sleep(0.2)
         log_file.write(stdout.read()+"\n")
         log_file.write(stderr.read()+"\n")
+
+    c.close()
 
     device_output["host_vm_name"] = vm_name
     device_output["host_vm_ip"] = host
     deployment_output[d] = device_output
     print deployment_output[d]
-    c.close()
+    
+    
 
 
 print
@@ -233,14 +236,14 @@ for i in range(len(private_networks_dict)):
     log_file.write("Connecting {0} to {1} \n".format(gw,private_network[i]))
     stdin, stdout, stderr = c.exec_command(command)
     log_file.write("\n {0} \n {1}\n".format(stdout.read(), stderr.read()))
-
+    #time.sleep(0.5)
     #Determine the eth number for gateway device connected to docker_d0
     ip_range = docker0_bridge_dict[vm_name]
     device_ip = {}
     command = "sudo docker exec -i {0} ip a | grep {1} | awk '{{print $2}} {{print $7}}'".format(gw,ip_range)
     stdin, stdout, stderr = c.exec_command(command)
+    #time.sleep(5)
     output = stdout.read()
-    #log_file.write("\n {0} \n {1}\n".format(output, stderr.read()))
     output = output.split("\n")
     device_ip["IP"] = output[0].split("/")[0]
     device_ip["eth"] = output[1]
@@ -254,7 +257,6 @@ for i in range(len(private_networks_dict)):
     command = "sudo docker exec -i {0} ip a | grep {1} | awk '{{print $2}} {{print $7}}'".format(gw,ip_range_pvt)
     stdin, stdout, stderr = c.exec_command(command)
     output = stdout.read()
-    #log_file.write("\n {0} \n {1}\n".format(output, stderr.read()))
     output = output.split("\n")
     device_ip["IP"] = output[0].split("/")[0]
     device_ip["eth"] = output[1]
@@ -282,7 +284,7 @@ for i in range(len(private_networks_dict)):
     ]
     log_file.write("Setting TC rules\n")
     for command in commands:
-        stdin, stdout, stderr = c.exec_command(command,timeout=5)
+        stdin, stdout, stderr = c.exec_command(command)
         log_file.write(command+"\n")
         log_file.write(stdout.read()+"\n")
         log_file.write(stderr.read()+"\n")
@@ -292,7 +294,7 @@ for i in range(len(private_networks_dict)):
     log_file.write("Connecting {0} to {1} \n".format(gw,"public_global_network"))
     stdin, stdout, stderr = c.exec_command(command)
     log_file.write("\n {0} \n {1}\n".format(stdout.read(), stderr.read()))
-
+    #time.sleep(5)
     #Determine the eth number for gateway device connected to public_global_network.
     ip_range = public_global_network_dict["ip_range"]
     ip_range = ip_range.split("/")[0][:-1]
@@ -328,7 +330,7 @@ for i in range(len(private_networks_dict)):
     ]
     log_file.write("Setting TC rules\n")
     for command in commands:
-        stdin, stdout, stderr = c.exec_command(command,timeout=5)
+        stdin, stdout, stderr = c.exec_command(command)
         log_file.write(command+"\n")
         log_file.write(stdout.read()+"\n")
         log_file.write(stderr.read()+"\n")
@@ -350,24 +352,23 @@ for i in range(len(private_networks_dict)):
         print "Connecting {0} to {1}".format(device, private_network[i])
         log_file.write("Connecting {0} to {1}\n".format(device, private_network[i]))
         command = "sudo docker network connect {0} {1}".format(private_network[i],device)
-        stdin, stdout, stderr = c.exec_command(command,timeout=5)
-        #time.sleep(0.5)
+        stdin, stdout, stderr = c.exec_command(command)
         log_file.write("\n {0} \n {1}\n".format(stdout.read(), stderr.read()))
 
         #By default containers are attached to the bridge network, disconnect it.
         command = "sudo docker network disconnect bridge {0}".format(device)
-        c.exec_command(command,timeout=5)
+        c.exec_command(command,timeout=90)
         command = "sudo docker network disconnect docker_gwbridge {0}".format(device)
-        c.exec_command(command,timeout=5)
+        c.exec_command(command,timeout=90)
 
         #Determine the eth number for private network connected to the private device
         device_ip = {}
         command = "sudo docker exec -i {0} ip a | grep {1} | awk '{{print $2}} {{print $7}}'".format(device,ip_range_pvt)
         stdin, stdout, stderr = c.exec_command(command)
-        output = stdout.read()
+	output = stdout.read()
         output = output.split("\n")
         device_ip["IP"] = output[0].split("/")[0]
-        device_ip["eth"] = output[1]
+	device_ip["eth"] = output[1]
         eth_ip_dict[device][private_network[i]] = device_ip
         deployment_output[device]["private_networks"][private_network[i]] = device_ip["IP"]
 
@@ -381,15 +382,15 @@ for i in range(len(private_networks_dict)):
         ]
         log_file.write("Setting TC rules\n")
         for command in commands:
-            stdin, stdout, stderr = c.exec_command(command,timeout=5)
-            log_file.write(command+"\n")
+            stdin, stdout, stderr = c.exec_command(command)
+            #print stderr.read()
+	    log_file.write(command+"\n")
             log_file.write(stdout.read()+"\n")
             log_file.write(stderr.read()+"\n")
-            #time.sleep(0.2)
 
         #Remove the default gateway and add the above gateway device in "ip route"
         command = "sudo docker exec -i {0} ip route | grep default | awk '{{print $3}}'".format(device)
-        stdin , stdout, stderr = c.exec_command(command,timeout=5)
+        stdin , stdout, stderr = c.exec_command(command)
         log_file.write(command+"\n")
         log_file.write(stdout.read()+"\n")
         log_file.write(stderr.read()+"\n")
@@ -397,12 +398,11 @@ for i in range(len(private_networks_dict)):
         def_gw = def_gw.replace(' ','')[:-1].upper()
         log_file.write("(Default GW) Changing to -> {1} \n".format(def_gw,eth_ip_dict[gw][private_network[i]]["IP"]))
         command = "sudo docker exec -i {0} route del default gw {1}".format(device,def_gw)
-        stdin, stdout, stderr = c.exec_command(command,timeout=5)
+        stdin, stdout, stderr = c.exec_command(command)
         command = "sudo docker exec -i {0} route add default gw {1}".format(device,eth_ip_dict[gw][private_network[i]]["IP"])
-        stdin, stdout, stderr = c.exec_command(command,timeout=5)
+        stdin, stdout, stderr = c.exec_command(command)
         command = "sudo docker exec -i {0} ip a | grep {1} | awk 'FNR == 2 {{print $2}}'".format(device,eth_ip_dict[device][private_network[i]]["eth"])
-        stdin, stdout, stderr = c.exec_command(command,timeout=5)
-        #time.sleep(.5)
+        stdin, stdout, stderr = c.exec_command(command)
         ip = stdout.read()
         ip = ip.replace(' ','')[:-4]
         print "Device({0}) IP - {1}".format(device,ip)
@@ -432,12 +432,11 @@ for i in range(len(public_networks_dict)):
         command = "sudo docker network connect {0} {1}".format(public_network[i],device)
         print "Connecting {0} to {1}".format(device, public_network[i])
         log_file.write("Connecting {0} to {1} \n".format(device, public_network[i]))
-        stdin , stdout, stderr = c.exec_command(command,timeout=5)
-        #time.sleep(0.5)
+        stdin , stdout, stderr = c.exec_command(command)
         log_file.write("\n {0} \n {1}\n".format(stdout.read(), stderr.read()))
 
         command = "sudo docker network disconnect docker_gwbridge {0}".format(device)
-        c.exec_command(command,timeout=5)
+        c.exec_command(command)
 
         ip_range = public_networks_dict[public_network[i]]["ip_range"]
         ip_range = ip_range.split("/")[0][:-1]
@@ -460,7 +459,7 @@ for i in range(len(public_networks_dict)):
 
         log_file.write("Setting TC rules\n")
         for command in commands:
-            stdin, stdout, stderr = c.exec_command(command,timeout=5)
+            stdin, stdout, stderr = c.exec_command(command)
             log_file.write(command+"\n")
             log_file.write(stdout.read()+"\n")
             log_file.write(stderr.read()+"\n")

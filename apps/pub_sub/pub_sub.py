@@ -307,10 +307,13 @@ def main(argv):
 		
 	
 		for n in public_networks_dict:
-		    broker = public_networks_dict[n]["gateway"]
+		    #broker = public_networks_dict[n]["gateway"]
+		    device_list = public_networks_dict[n]["devices"]
+		    broker = random.choice(device_list)
 		    nw_name_list = deployment_output[broker]["public_networks"].keys()
 		    broker_ip = deployment_output[broker]["public_networks"][nw_name_list[0]]
-		    device_list = public_networks_dict[n]["devices"]
+		    #device_list = public_networks_dict[n]["devices"]
+		    #broker = random.choice(device_list)
 		    device_list.remove(broker)
 		    sensor_link_list = []
 		
