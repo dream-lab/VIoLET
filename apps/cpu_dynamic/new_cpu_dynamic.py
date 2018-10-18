@@ -7,6 +7,70 @@ import random
 from datetime import datetime
 import paramiko
 
+coremark_exe = "violet/coremark_exe"
+
+def read_cm(device):
+        vm_name = deployment_output[device]["host_vm_name"]
+        host = container_vm[vm_name]["hostname_ip"]
+        user = container_vm[vm_name]["user"]
+        key = container_vm[vm_name]["key_path"]
+        k = paramiko.RSAKey.from_private_key_file(key)
+        c = paramiko.SSHClient()
+        c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        c.connect(hostname = host, username = user, pkey = k)
+
+        print "\n\nCollecting numbers in {0}".format(device)
+        command = "sudo docker exec -i {0} cat results-coremark | grep \"CoreMark 1.0\" | awk '{{print $4}}'".format(device)
+        stdin , stdout, stderr = c.exec_command(command)
+        #print stderr.read()
+
+        observed_coremark = stdout.read()
+
+        command = "sudo docker exec -i {0} cat results-coremark | grep start_time | awk -F '=' '{{print $2}}'".format(device)
+        stdin , stdout2, stderr = c.exec_command(command)
+        #print stderr.read()
+
+        start_time = stdout2.read()
+        start_time = start_time.split("\n")
+
+        command = "sudo docker exec -i {0} cat results-coremark | grep end_time | awk -F '=' '{{print $2}}'".format(device)
+        stdin , stdout3, stderr = c.exec_command(command)
+        #print stderr.read()
+
+        end_time = stdout3.read()
+        end_time = end_time.split("\n")
+
+        observed_coremark = observed_coremark.split("\n")
+        observed_coremark.pop()
+        coremark = []
+        for i in observed_coremark:
+            coremark.append(float(i))
+
+	d_type = infra_config["devices"][device]["device_type"]
+
+        coremark_str = []
+        start_str = []
+        end_str = []
+
+        for c_str in coremark:
+            coremark_str.append(str(c_str))
+        for s_str in start_time:
+            start_str.append(str(s_str))
+        for e_str in end_time:
+            end_str.append(str(e_str))
+
+        f = open("../../dump/resource_dynamism/cpu_dynamism/device_cm/{}".format(device),"a+")
+
+        print(d_type,coremark)
+        for i in range(len(coremark)):
+            f.write(device+"\t"+d_type+"\t"+vm_name+"\t"+str(coremark[i])+"\t"+str(start_time[i])+"\t"+str(end_time[i])+"\n")
+
+        f.close()
+        c.close()
+
+
+
+
 def action_ci(devices,devices_data):
     for d in devices:
         r = random.uniform(0.0, 1.0)
@@ -95,16 +159,23 @@ devices = infra_config["devices"]
 
 control_interval = float(deployment_json["control_interval_secs"])
 #probability = float(control_interval)/float(cpu_var_period)
-dynamism_duration = float(deployment_json["dynamism_duration_secs"])
+dynamism_duration = int(sys.argv[1]) #float(deployment_json["dynamism_duration_secs"])
 
+
+#remove previous cpu dynamism device coremark data
+os.system("rm -rf ../../dump/resource_dynamism/cpu_dynamism/device_cm")
+
+#create directory if not created
+os.system("mkdir -p ../../dump/resource_dynamism/cpu_dynamism/device_cm")
 
 print "Starting coremark on all devices:"
-os.chdir("../../")
-#p = subprocess.Popen([command, argument1,...], cwd=working_directory)
-print dynamism_duration
-os.system("python sanity_cpu.py 1 {0}".format(int(dynamism_duration)))
-#print "python sanity_cpu.py 1 {0}".format(dynamism_duration)
-os.chdir("apps/cpu_dynamic")
+print
+#os.chdir("../../")
+##p = subprocess.Popen([command, argument1,...], cwd=working_directory)
+#print dynamism_duration
+#os.system("python sanity_cpu.py 1 {0}".format(int(dynamism_duration)))
+##print "python sanity_cpu.py 1 {0}".format(dynamism_duration)
+#os.chdir("apps/cpu_dynamic")
 
 devices_data = {}
 
@@ -142,6 +213,45 @@ print
 end_time = start_time_epoch + dynamism_duration
 print "End time - {0}".format(end_time)
 
+
+
+
+
+
+for d in devices:
+    vm_name = deployment_output[d]["host_vm_name"]
+    host = container_vm[vm_name]["hostname_ip"]
+    user = container_vm[vm_name]["user"]
+    key = container_vm[vm_name]["key_path"]
+    k = paramiko.RSAKey.from_private_key_file(key)
+    c = paramiko.SSHClient()
+    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    c.connect(hostname = host, username = user, pkey = k)
+    device_type = infra_config["devices"][d]["device_type"]
+    if (device_type == "SI"):
+        path = "{0}/si/coremark.exe".format(coremark_exe)
+    else:
+        path = "{0}/pi/coremark.exe".format(coremark_exe)
+
+    # starting coremark again for remaining time
+    print "Starting coremark in {0}".format(d)
+    command = "sudo docker exec -d {0} python {1}/c_coremark.py {2} {3}".format(d,coremark_exe,path,dynamism_duration)
+    stdin, stdout, stderr = c.exec_command(command,timeout=60)
+    print command,stderr.read()
+    c.close()
+
+
+
+print
+print "waiting for coremark to execute for atleast once"
+print
+time.sleep(60)
+
+end_time = time.time() + int(dynamism_duration)
+#print "End time - {0}".format(end_time)
+
+
+
 cpu_dynamism.write("{0},{1},{2},{3},{4},{5},{6}\n".format("device_id", "device_type","start_time","end_time","max_coremark","min_coremark","previous_coremark","updated_coremark","status","random value","probability"))
 
 while(True):
@@ -166,4 +276,16 @@ print "check if coremarks are still running. If not run python ../../sanity_cpu.
 
 #os.chdir("../../")
 #os.system("python sanity_cpu.py 2")
+
+print
+print "waiting for coremark to finish"
+print
+time.sleep(60)
+
+
+devices = infra_config["devices"].keys()
+
+for device in devices:
+        read_cm(device)
+
 

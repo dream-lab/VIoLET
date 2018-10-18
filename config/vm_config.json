@@ -2,130 +2,28 @@
     "admin_VM": {
         "VIoLET_admin": {
             "hostname_ip": "10.0.0.4",
-            "key_path": "/home/centos/id_rsa",
+            "key_path": "/home/centos/M_rsa",
             "user": "centos"
         }
     },
     "container_VM": {
-        "AEP-1": {
-            "hostname_ip": "10.0.0.9",
-            "key_path": "/home/centos/aep_rsa",
+        "M1": {
+            "hostname_ip": "10.0.0.5",
+            "key_path": "/home/centos/M_rsa",
             "user": "centos",
-            "vm_type": "Standard_D32_v3"
+            "vm_type": "Standard_D16_v3"
         },
-        "AEP-2": {
-            "hostname_ip": "10.0.0.10",
-            "key_path": "/home/centos/aep_rsa",
+        "M2": {
+            "hostname_ip": "10.0.0.6",
+            "key_path": "/home/centos/M_rsa",
             "user": "centos",
-            "vm_type": "Standard_D32_v3"
+            "vm_type": "Standard_D16_v3"
         },
-        "AEP-3": {
-            "hostname_ip": "10.0.0.11",
-            "key_path": "/home/centos/aep_rsa",
+        "M3": {
+            "hostname_ip": "10.0.0.7",
+            "key_path": "/home/centos/M_rsa",
             "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-4": {
-            "hostname_ip": "10.0.0.12",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-	"AEP-5": {
-            "hostname_ip": "10.0.0.13",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-	"AEP-6": {
-            "hostname_ip": "10.0.0.14",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-7": {
-            "hostname_ip": "10.0.0.15",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-8": {
-            "hostname_ip": "10.0.0.16",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-9": {
-            "hostname_ip": "10.0.0.17",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-10": {
-            "hostname_ip": "10.0.0.18",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-	"AEP-11": {
-            "hostname_ip": "10.0.0.19",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-12": {
-            "hostname_ip": "10.0.0.20",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-13": {
-            "hostname_ip": "10.0.0.21",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-14": {
-            "hostname_ip": "10.0.0.22",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-15": {
-            "hostname_ip": "10.0.0.23",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-	"AEP-16": {
-            "hostname_ip": "10.0.0.24",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-	"AEP-17": {
-            "hostname_ip": "10.0.0.25",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-18": {
-            "hostname_ip": "10.0.0.26",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-19": {
-            "hostname_ip": "10.0.0.27",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
-        },
-        "AEP-20": {
-            "hostname_ip": "10.0.0.28",
-            "key_path": "/home/centos/aep_rsa",
-            "user": "centos",
-            "vm_type": "Standard_D32_v3"
+            "vm_type": "Standard_D16_v3"
         }
     }
 }

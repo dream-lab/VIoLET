@@ -25,6 +25,7 @@ deployment_output = {}
 eth_ip_dict = {}
 container_vm = vm_config["container_VM"]
 container_vm_names = container_vm.keys()
+container_vm_names.sort()
 
 log_file = open("violet_log","w")
 
