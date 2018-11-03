@@ -141,8 +141,8 @@ def action_ci(devices,devices_data):
 	    end = time.time()
 	    cpu_dynamism.write("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}\n".format(d,d_type,start,end,coremark_max,coremark_min,prev_coremark,coremark,"no",r,probability))
 
-    with open('../../dump/resource_dynamism/cpu_dynamism/device_cpus_updated_{0}.json'.format(d_type),'w') as file:
-        file.write(json.dumps(device_cpus_updated))
+    #with open('../../dump/resource_dynamism/cpu_dynamism/device_cpus_updated_{0}.json'.format(d_type),'w') as file:
+    #    file.write(json.dumps(device_cpus_updated))
 
 infra_config = json.load(open("../../config/infra_config.json"))
 vm_config = json.load(open("../../config/vm_config.json"))

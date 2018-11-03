@@ -10,7 +10,7 @@ import paramiko
 coremark_exe = "violet/coremark_exe"
 device_down_set = set()
 
-
+'''
 def read_cm(device):
 	vm_name = deployment_output[device]["host_vm_name"]
         host = container_vm[vm_name]["hostname_ip"]
@@ -71,6 +71,9 @@ def read_cm(device):
 	f.close()
 	c.close()
 
+'''
+
+
 def device_down(devices,devices_data,devices_down):
     print 
     print "Active Devices - {}".format(len(devices))
@@ -95,13 +98,13 @@ def device_down(devices,devices_data,devices_down):
             c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             c.connect(hostname = host, username = user, pkey = k)
 
-	    read_cm(d)
-	    print
+	    #read_cm(d)
+	    #print
             command="sudo docker stop {}".format(d)
 	    
 	    start = time.time()
             stdin, stdout, stderr = c.exec_command(command,timeout=60)
-	    print stderr.read()
+	    #print stderr.read()
 	    end = time.time()
 	    mttf_dynamism.write("{0},{1},{2},{3},{4},{5},{6}\n".format(d,d_type,start,end,"inactive",r,mttf_prob))
 	    c.close()
@@ -131,7 +134,7 @@ def device_down(devices,devices_data,devices_down):
             c = paramiko.SSHClient()
             c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             c.connect(hostname = host, username = user, pkey = k)
-
+	    '''
 	    device_type = infra_config["devices"][d]["device_type"]
 
             if (device_type == "SI"):
@@ -139,17 +142,18 @@ def device_down(devices,devices_data,devices_down):
             else:
             	path = "{0}/pi/coremark.exe".format(coremark_exe)	    
 
-            command = "sudo docker start {}".format(d)
+            '''
+	    command = "sudo docker start {}".format(d)
             start = time.time()
             stdin, stdout, stderr = c.exec_command(command,timeout=60)
-	    print stderr.read()
+	    #print stderr.read()
             end = time.time()
 	    # starting coremark again for remaining time
-	    cm_run_time = abs(int(end_time - end))
-	    command = "sudo docker exec -d {0} python {1}/c_coremark.py {2} {3}".format(d,coremark_exe,path,cm_run_time)
-	    print("starting coremark\n{}".format(command))
-	    stdin, stdout, stderr = c.exec_command(command,timeout=60)
-	    print stderr.read()
+	    #cm_run_time = abs(int(end_time - end))
+	    #command = "sudo docker exec -d {0} python {1}/c_coremark.py {2} {3}".format(d,coremark_exe,path,cm_run_time)
+	    #print("starting coremark\n{}".format(command))
+	    #stdin, stdout, stderr = c.exec_command(command,timeout=60)
+	    #print stderr.read()
             c.close()
             mttf_dynamism.write("{0},{1},{2},{3},{4},{5},{6}\n".format(d,d_type,start,end,"active",r,mttr_prob))
             devices.append(d)
@@ -215,7 +219,7 @@ for d in devices:
     #f = open("../../dump/resource_dynamism/mttf/device_cm/{}".format(d),"w")
     #f.write("Coremark\n")
     #f.close()
-
+'''
 for d in devices:
     vm_name = deployment_output[d]["host_vm_name"]
     host = container_vm[vm_name]["hostname_ip"]
@@ -238,17 +242,17 @@ for d in devices:
     stdin, stdout, stderr = c.exec_command(command,timeout=60)
     print command,stderr.read()
     c.close()
-
+'''
 
 #os.system("mkdir -p ../../dump/resource_dynamism/mttf_mttr/device_cm")
 
 mttf_dynamism = open("../../dump/resource_dynamism/mttf/mttf_dynamism_raw.txt","w")
 #mttr_dynamism = open("../../dump/resource_dynamism/mttf_mttr/mttr_dynamism_raw.txt","w")
 
-print
-print "waiting for coremark to execute for atleast once (60 seconds)"
-print
-time.sleep(60)
+#print
+#print "waiting for coremark to execute for atleast once (60 seconds)"
+#print
+#time.sleep(60)
 
 end_time = time.time() + int(dynamism_duration)
 #print "End time - {0}".format(end_time)
@@ -287,6 +291,7 @@ for d in devices_down:
     c.connect(hostname = host, username = user, pkey = k)
 
     command = "sudo docker start {}".format(d)
+    '''
     print command
     #start = time.time()
     stdin, stdout, stderr = c.exec_command(command,timeout=60)
@@ -303,15 +308,16 @@ for d in devices_down:
     command = "sudo docker exec -d {0} python {1}/c_coremark.py {2} {3}".format(d,coremark_exe,path,cm_run_time)
     stdin, stdout, stderr = c.exec_command(command,timeout=60)
     print command,stderr.read()
+    '''
     c.close()
 
 print
-print "waiting for coremark to finish (60 seconds)"
+#print "waiting for coremark to finish (60 seconds)"
 print
-time.sleep(60)
+#time.sleep(60)
 
 devices = infra_config["devices"].keys()
-
+'''
 for device in devices:
 	read_cm(device)
-
+'''
