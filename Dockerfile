@@ -55,6 +55,8 @@ rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 
 
+RUN yum install -y gcc
+
 VOLUME [ "/sys/fs/cgroup", "/tmp", "/run", "/run/lock" ]
 CMD ["/usr/sbin/init"]
 

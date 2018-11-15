@@ -5,7 +5,7 @@ import requests
 import sys
 import os
 
-INTERVAL = 2
+INTERVAL = 1
 QOS = 0
 
 topic1="pub_"

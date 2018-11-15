@@ -37,7 +37,7 @@
 	},
 	"Standard_D64_v3": {
                 "core_count": "64",
-                "coremark": "552000",
+                "coremark": "598261",
                 "whetstone": "-1",
                 "memory_mb": "128000",
                 "disk_mb": "819200",
