@@ -15,7 +15,7 @@
         },
         "AEP-2": {
             "hostname_ip": "10.0.0.10",
-            "key_path": "/home/centos/aep_rsa",
+            "key_path": "/home/centos/id_rsa",
             "user": "centos",
             "vm_type": "Standard_D32_v3"
         },

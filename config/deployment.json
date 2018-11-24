@@ -1,5 +1,5 @@
 {
-    "control_interval_secs" : "4",
+    "control_interval_secs" : "30",
     "device_ssh_user": "violet",
 	"device_ssh_password": "123456",
 	"sanity_check": {
@@ -29,5 +29,5 @@
 	"log_path": "/tmp/violet/logs",
 	"retain_disk_on_kill": "false",
 	"vm_top_period_secs": "30",
-    "sensor_duration_secs": "7200"
+    	"sensor_duration_secs": "7200"
 }

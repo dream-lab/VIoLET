@@ -129,6 +129,8 @@ mv /var/lib/docker /disk/docker
 ln -s /disk/docker /var/lib/docker
 #start the docker daemon as mentioned in the above command.
 ```
+<br />NOTE: When using a different disk volume for docker storage and if the user wants to limit the disk space that is available to the container using the --storage-opt configuration, mount the volume with pquota options or if automounting , give the pquota option in /etc/fstab file. For more information, refer to issue [#68](https://github.com/dream-lab/VIoLET/issues/68)
+
 ## Part - 2 [Metis Partitions]
 ### Generate partitions
 

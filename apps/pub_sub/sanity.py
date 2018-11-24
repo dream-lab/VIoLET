@@ -56,11 +56,13 @@ lat_file_list = []
 
 tmp_dir = "../../dump/sanity/pub_sub"
 
+brokers = set()
 
 for pl in pub_list:
     if len(pl.split()) != 6 :
 	continue
     pub, sub, broker, topic, network, sensor_link = pl.split()
+    brokers.add(broker)
     print "\nGetting pub sub and latency data from {0}".format(pub)
     if network == "private":
         network_name = deployment_output[pub]["private_networks"].keys()
@@ -115,6 +117,59 @@ for pl in pub_list:
 
     for command in commands:
         os.system(command)
+
+
+print brokers
+
+for b in list(brokers):
+    vm_name = deployment_output[b]["host_vm_name"]
+    tmp_fog_dir = tmp_dir + "/" + network_name[0]
+    tmp_fog_device_dir = tmp_fog_dir + "/" + b
+    pvt_log_file = "mosquitto-private.log"
+    pub_log_file = "mosquitto-public.log"
+    host = container_vm[vm_name]["hostname_ip"]
+    user = container_vm[vm_name]["user"]
+    key = container_vm[vm_name]["key_path"]
+    k = paramiko.RSAKey.from_private_key_file(key)
+    c = paramiko.SSHClient()
+    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    c.connect(hostname = host, username = user, pkey = k)
+    
+    commands = [
+            "mkdir -p {0}".format(tmp_fog_device_dir)
+    ]
+
+    for command in commands:
+	os.system(command)
+
+    commands = [
+            #"scp -i {0} {1}@{2}:{3}/{4} {5}".format(key, user, host, path, pub_file, tmp_fog_device_dir),
+            #"scp -i {0} {1}@{2}:{3}/{4} {5}".format(key, user, host, path, sub_file, tmp_fog_device_dir),
+            #"scp -i {0} {1}@{2}:{3}/{4} {5}".format(key, user, host, path, lat_file, tmp_fog_device_dir),
+            #"wc -l {0}".format(tmp_fog_device_dir + "/" + lat_file),
+	    "mkdir -p {0}/{1}".format(path,b),
+	    "sudo docker cp {0}:{1}/{2} {3}/{0}".format(b,path,pub_log_file,path),
+	    "sudo docker cp {0}:{1}/{2} {3}/{0}".format(b,path,pvt_log_file,path)
+            #"sudo docker exec -it {0} bash -c 'cat {3}/{2} > {1}/{2}'".format(b, tmp_fog_device_dir, pub_log_file, "/violet/sanity/pub_sub"),
+	    #"sudo docker exec -it {0} bash -c 'cat {3}/{2} > {1}/{2}'".format(b, tmp_fog_device_dir, pvt_log_file, "/violet/sanity/pub_sub")
+            ]
+
+    for command in commands:
+	print command
+        stdin, stdout, stderr = c.exec_command(command)
+	print stderr.read()
+    c.close()
+
+    commands = [
+	"mkdir -p {0}".format(tmp_fog_device_dir),
+        "scp -i {0} {1}@{2}:{3}/{4}/{5} {6}".format(key, user, host, path, b, pub_log_file, tmp_fog_device_dir),
+        "scp -i {0} {1}@{2}:{3}/{4}/{5} {6}".format(key, user, host, path, b, pvt_log_file, tmp_fog_device_dir)
+    ]
+
+    for command in commands:
+        os.system(command)
+
 
 
 networks.sort()

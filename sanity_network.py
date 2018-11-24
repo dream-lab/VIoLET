@@ -58,9 +58,9 @@ print "-------------------------------------------------------------\n"
 iperf["expected_bandwidth_mbps"] = network_dict[network]["bandwidth_mbps"]
 iperf["expected_latency_ms"] = network_dict[network]["latency_ms"]
 
-
-for p in private_networks_dict.keys():
-	network_dict[p]["devices"].append(network_dict[p]["gateway"])
+if network_type == "pvt":
+	for p in private_networks_dict.keys():
+		network_dict[p]["devices"].append(network_dict[p]["gateway"])
 
 
 

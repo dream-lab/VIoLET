@@ -53,15 +53,15 @@ plt.ticklabel_format(useOffset=False)
 plt.ticklabel_format(style='plain')
 plt.grid(which='minor', alpha=0.5)
 plt.grid(which='major', alpha=0.5)
-fig = plt.figure(1, figsize=(9, 6))
+fig = plt.figure(1, figsize=(8, 6))
 
 #Create an Axes Instance
 ax = fig.add_subplot(111)
 
 # Create the boxplot
-bp = ax.violinplot(plotMap,showmedians=True,showmeans=True,showextrema=True)
-bp['cmeans'].set_color('b')
-bp['cmedians'].set_color('g')
+bp = ax.violinplot(plotMap,showmedians=False,showmeans=False,showextrema=True)
+#bp['cmeans'].set_color('b')
+#bp['cmedians'].set_color('g')
 
 pltno=1
 
@@ -101,13 +101,14 @@ for pc in bp['bodies']:
     pltno+=1
 
 #Axis Header
-ax.set_xticklabels(xheaderLabels,size=15,rotation=xHeaderLabelAngle)
-ax.set_ylabel(sys.argv[4],size=20)
+ax.set_xticklabels(xheaderLabels,size=12,rotation=xHeaderLabelAngle)
+ax.set_ylabel(sys.argv[4],size=12)
+ax.set_xlabel(sys.argv[5],size=12)
 ax.yaxis.grid(which='major', alpha=0.5)
 ax.set_xticks(xheaderTicks)
 ax.minorticks_on()
-ax.xaxis.set_tick_params(labelsize=40)
-ax.yaxis.set_tick_params(labelsize=40)
+ax.xaxis.set_tick_params(labelsize=12)
+ax.yaxis.set_tick_params(labelsize=12)
 #plt.axis('scaled')
 ######################################################################
 ###########            Plot Computation Begins          ##############
@@ -118,7 +119,7 @@ for i in range(0,len(inputFile.columns)):
     y_min.append(min(inputFile[i].dropna().tolist()))
     y_max.append(max(inputFile[i].dropna().tolist()))
 
-plt.ylim(min(min(y_min),0),max(max(y_max),0))
+#plt.ylim(min(min(y_min),0),max(max(y_max),0))
 #plt.axis('tight')
 
 #Appends Mean and Median for each Column to Array
@@ -128,23 +129,36 @@ for i in range(0,len(inputFile.columns)):
 
 #Writing Median values
 for i in range(1,len(medians) + 1):
-    text(i,medians[i-1],'%.1f' % medians[i-1],horizontalalignment='right',color='red',size=15)
+    text(i,medians[i-1],'%.2f' % medians[i-1],horizontalalignment='right',color='red',size=12)
     #print "medians[i-1]={0} .1f % medians[i-1]={1}".format(medians[i-1],'%.1f' % medians[i-1])
     f_median.write("{0}\n".format('%.1f' % medians[i-1]))
 
 
 #Writing Mean values
 for i in range(1,len(mean) + 1):
-    text(i,mean[i-1],'%.1f' % mean[i-1],horizontalalignment='left',color='purple',size=15)
-    print "mean[i-1]={0} .1f' % mean[i-1]={1}".format(mean[i-1],'%.1f' % mean[i-1])
-    f_mean.write("{0}\n".format('%.1f' % mean[i-1]))
+    text(i,mean[i-1],'%.2f' % mean[i-1],horizontalalignment='right',color='purple',size=12)
+#    print "mean[i-1]={0} .1f' % mean[i-1]={1}".format(mean[i-1],'%.1f' % mean[i-1])
+#    f_mean.write("{0}\n".format('%.1f' % mean[i-1]))
+
+
 
 f_mean.close()
 f_median.close()
 
+#expected = float(sys.argv[6])
+
+#Writing Expected values
+#for i in range(1,len(medians) + 1):
+#    text(i,expected,'%.2f' % expected,horizontalalignment='left',color='magenta',size=15)
+    #print "medians[i-1]={0} .1f % medians[i-1]={1}".format(medians[i-1],'%.1f' % medians[i-1])
+    #f_median.write("{0}\n".format('%.1f' % medians[i-1]))
+
+
+
 #Marking edian with custom symbol
 inds = np.arange(1, len(medians) + 1)
-ax.scatter(inds, medians, marker='o', color='white', s=15, zorder=3)
+ax.scatter(inds, medians, marker='o', color='red', s=20, zorder=3)
+ax.scatter(inds,mean,marker='x',color='purple',s=20, zorder=3)
 
 
 #Graph Annotation
@@ -160,15 +174,16 @@ for i in range(0,len(inputFile.columns)):
 
 inds = np.arange(1, len(medians) + 1)
 ax.vlines(inds, quantile25, quantile75, color='k', linestyle='-', lw=5)
-
+#ymax = 1.5#round(2)
+#yticks([0,0.30,0.60,0.90,1.20,1.50])
 fig = matplotlib.pyplot.gcf()
-fig.set_size_inches(15.5, 6.5)
+fig.set_size_inches(8, 6)
 
 ######################################################################
 ###########            Plot Computation Ends          ################
 ######################################################################
 
 # Save the figure
-fig.savefig(sys.argv[2], bbox_inches='tight')
+fig.savefig(sys.argv[2],bbox_inches='tight')
 print("\n[SUCCESS] : Plot generated Successfully!")
 print("[PATH] : " + sys.argv[2])

@@ -32,6 +32,8 @@ log_file = open("sensor_gen_log","w")
 
 log_file.write("\n\n\n*****************************************Creating Sensors*******************************\n\n\n")
 
+
+'''
 print
 print "+++++++++++++++++++++++++++++++++++++++++++++++"
 print "             Copy data to other VMs            "
@@ -48,6 +50,8 @@ for i in range(len(container_vm_names)):
     host = container_vm[container_vm_names[i]]["hostname_ip"]
     os.system("scp -rp -i {0} {1} {2}@{3}:/home/{2}".format(key_path, sensors_data_gen, user, host))
 
+
+'''
 
 
 print
@@ -138,7 +142,7 @@ for d in all_devices_list:
     vm_device_dict[vm_name].append(d)
 
 print vm_device_dict
-
+'''
 def sensor_gen(vm_name,devices):
     #print "{} started".format(self.getName())
     print "Connecting to VM - {}".format(vm_name)
@@ -152,6 +156,7 @@ def sensor_gen(vm_name,devices):
     c.connect(hostname = host, username = user, pkey = k)
 
 
+    
     for d in devices:
 	print "Copying required binary and data files for device - {0}".format(d)
     	if "Fog" in d:
@@ -168,6 +173,7 @@ def sensor_gen(vm_name,devices):
             port = 5000
 
 
+	
 	commands = [
         	"sudo docker exec -i {0} bash -c 'mkdir -p {1}'".format(d,sensor_bin_path),
         	"sudo docker exec -i {0} bash -c 'mkdir -p {1}'".format(d,sensor_data_path),
@@ -199,7 +205,7 @@ for vm in vm_device_dict:
 
 for t in tasks:
     t.join()
-
+'''
 
 for vm_name in vm_device_dict:
     devices = vm_device_dict[vm_name]
